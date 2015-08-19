@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+  login
+{% endblock titulo %}
+
+{% block content %}
+
+<div class="">
+  <div class="col-md-offset-4 col-md-4">
+  <h2 class="page-header">Ingresa</h2>  
+    <form method="post" role="form">{% csrf_token %}
+      {{ form.as_p }}
+      {{ form.errors.username }}
+      {{ form.errors.non }}
+      <input type="submit" value="Login"/>
+    </form>
+  </div>
+</div> 
+
+{% endblock content %}

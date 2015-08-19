@@ -9,9 +9,13 @@ from django.http import HttpResponseRedirect
 class Index(TemplateView):
 	template_name= "inicio/index.html"
 
+class Inicio(TemplateView):
+	template_name= "inicio/inicio.html"
+
 class LoginView(FormView):
     form_class = AuthenticationForm
-    template_name = "inicio/login.html"   
+    template_name = "inicio/login.html"
+    success_url = reverse_lazy("inicio")
 
     def form_valid(self, form):
         login(self.request, form.get_user())

@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
+from .forms import LoginForm 
 
 # Create your views here.
 class Index(TemplateView):
@@ -13,7 +14,7 @@ class Inicio(TemplateView):
 	template_name= "inicio/inicio.html"
 
 class LoginView(FormView):
-    form_class = AuthenticationForm
+    form_class = LoginForm
     template_name = "inicio/login.html"
     success_url = reverse_lazy("inicio")
 

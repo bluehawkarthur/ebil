@@ -1,17 +1,23 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{% block titulo %}{% endblock titulo %}</title>
-	<link rel="stylesheet" href="{{STATIC_URL}}css/materialize.css">
-	<link rel="stylesheet" href="{{STATIC_URL}}css/page-center.css">
-	<link rel="stylesheet" href="{{STATIC_URL}}css/prism.css">
-	<link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
-	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="{% static "css/materialize.css"%}">
+
+	<link rel="stylesheet" href="{% static "css/page-center.css"%}">
+	<link rel="stylesheet" href="{% static "css/prism.css"%}">
+	<link rel="stylesheet" href="{% static "css/style.css"%}">
 </head>
 <body>
 	{% block content %}
 	{% endblock content %}
+	<script src="{% static "js/jquery-1.11.2.min.js"%}"></script>
+	<script src="{% static "js/materialize.js"%}"></script>
+	<script src="{% static "js/prism.js"%}"></script>
+	<script src="{% static "js/raphael-min.js"%}"></script>
+	<script src="{% static "js/plugins.js"%}"></script>
 </body>
 </html>

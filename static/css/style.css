@@ -1451,3 +1451,7 @@ footer.page-footer {
       font-size: 0.8rem;
   }
 }
+
+.cyan {
+  background-color: #00608B !important;
+}

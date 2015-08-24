@@ -2044,9 +2044,41 @@ cursor:pointer;
 
 .cuadro{
 
-  height: 440px;
+  height: 400px;
 }
 
 .cyan-text {
   color: #00608B !important;
+}
+
+/*estilo de  footer*/
+footer.page-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  background-color: #00608B;
+}
+
+/*style for dashboard*/
+.green {
+  background-color: #00608B !important;
+}
+.teal.darken-2 {
+  background-color: #E18C1D !important;
+}
+
+.teal {
+  background-color: rgba(76, 144, 174, 0.99) !important;
+}
+
+.img-dashboard{
+  color: #FFFFFF;
+}
+
+.cyan.darken-1 {
+  background-color: #607D8B !important;
+}
+
+.cuadro-lateral{
+
+  height: 180px;
 }

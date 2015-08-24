@@ -15,3 +15,7 @@ class CreateForm(forms.Form):
 	fecha2 = forms.DateField()
 	texto1 = forms.CharField(max_length=50)
 	texto2 = forms.CharField(max_length=50)
+
+
+ 	def clean(self):
+		return self.cleaned_data

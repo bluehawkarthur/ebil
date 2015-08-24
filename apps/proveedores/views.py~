@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import CreateView,FormView
 from .forms import CreateForm
+from .models import Proveedor
 
 # Create your views here.
 class CrearProveedor(FormView):
@@ -8,7 +9,8 @@ class CrearProveedor(FormView):
 	form_class = CreateForm
 
 	def form_valid(self, form):
-        	form.save()
-        	return super(CrearProveedor, self).form_valid(form)
+		registrar = Proveedor()
+		registrar.save()
+		return super(CrearProveedor, self).form_valid(form)
 	
 		

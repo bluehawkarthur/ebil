@@ -2098,9 +2098,14 @@ $(document).ready(function(){
               });
               $('body').append(overlay);
               overlay.velocity({opacity: 1}, {duration: 300, queue: false, easing: 'easeOutQuad',
-                complete: function () {
-                  menuOut = true;
-                  panning = false;
+                complete: function () {                                  
+                  if (options.defaultOpen) {                  	
+                  	options.defaultOpen = false;
+                  	$('#sidenav-overlay').trigger('click');
+                  }else{
+                  	menuOut = true;
+                  	panning = false;  
+                  }
                 }
               });
             }

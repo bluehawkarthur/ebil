@@ -1,6 +1,6 @@
 /*================================================================================
   Item Name: Materialize - Material Design Admin Template
-  Version: 1.0
+  Version: 2.2
   Author: GeeksLabs
   Author URL: http://www.themeforest.net/user/geekslabs
 ================================================================================*/
@@ -17,10 +17,16 @@ $(function() {
       $('body').addClass('loaded');      
     }, 200);
   });  
+
   
-  $('.show-search').click(function() {
-    $('.search-out').fadeToggle( "50", "linear" );
-  });
+  // Search class for focus
+  $('.header-search-input').focus(
+  function(){
+      $(this).parent('div').addClass('header-search-wrapper-focus');
+  }).blur(
+  function(){
+      $(this).parent('div').removeClass('header-search-wrapper-focus');
+  });  
 
   // Check first if any of the task is checked
   $('#task-card input:checkbox').each(function() {
@@ -81,12 +87,30 @@ $(function() {
 
   //Main Left Sidebar Menu
   $('.sidebar-collapse').sideNav({
-    edge: 'left', // Choose the horizontal origin      
+    edge: 'left', // Choose the horizontal origin    
   });
+
+  // FULL SCREEN MENU (Layout 02)
+  $('.menu-sidebar-collapse').sideNav({
+        menuWidth: 240,
+        edge: 'left', // Choose the horizontal origin     
+        //defaultOpen:true // Set if default menu open is true
+      });
+
+  // HORIZONTAL MENU (Layout 03)
+  $('.dropdown-menu').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true // Displays dropdown below the button
+    });
+
   
   //Main Left Sidebar Chat
   $('.chat-collapse').sideNav({
-    menuWidth: 240,
+    menuWidth: 300,
     edge: 'right',
   });
   $('.chat-close-collapse').click(function() {
@@ -112,8 +136,9 @@ $(function() {
     var righttnav = $("#chat-out").height();
   $('.rightside-navigation').height(righttnav).perfectScrollbar({
     suppressScrollX: true
-  });
-
+  });  
+  
+  
   // Fullscreen
   function toggleFullScreen() {
     if ((document.fullScreenElement && document.fullScreenElement !== null) ||

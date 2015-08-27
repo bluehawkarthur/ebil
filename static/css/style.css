@@ -2082,3 +2082,18 @@ footer.page-footer {
 
   height: 180px;
 }
+.cuadro-top{
+
+  height: 137px;
+}
+.centrar{
+
+  top: 50%;
+  left: 50%;
+  margin-top: 20%;
+}
+.centrar2{
+  top: 50%;
+  left: 50%;
+  margin-top:7%;
+}

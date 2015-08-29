@@ -20,5 +20,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('apps.inicio.urls')),
     url(r'^', include('apps.proveedores.urls')),
+    url(r'^', include('apps.almacenes.urls')),
+    # url(r'^', include('apps.almacen.urls')),
     
 ]

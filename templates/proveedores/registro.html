@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block content %}
+
+
+<body>
+<form action="" method="post">
+	{% csrf_token %}
+	<div class='container'>
+		<duv class='row'>
+			<div class='col s 12'>
+				<table class='hoverable'>
+					<tr dara-field="">codigo</tr>
+					<tr dara-field="">razon_social</tr>
+					<tr dara-field="">nit</tr>
+					<tr dara-field="">direccion</tr>
+					<tr dara-field="">telefono1</tr>
+					<tr dara-field="">telefono2</tr>
+					<tr dara-field="">telefono3</tr>
+					<tr dara-field="">contactos</tr>
+					<tr dara-field="">rubro</tr>
+					<tr dara-field="">ubicacion_geo</tr>
+					<tr dara-field="">fecha1</tr>
+					<tr dara-field="">fecha2</tr>
+					<tr dara-field="">texto1</tr>
+					<tr dara-field="">texto2</tr>
+
+					<tbody>
+						{% for proveedor in object_list %}
+						<td>
+							<td>{{proveedor.codigo}}</td>
+							<td>{{proveedor.razon_social}}</td>
+							<td>{{proveedor.nit}}</td>
+							<td>{{proveedor.direccion}}</td>
+							<td>{{proveedor.telefono1}}</td>
+							<td>{{proveedor.telefono2}}</td>
+							<td>{{proveedor.contactos}}</td>
+							<td>{{proveedor.rubro}}</td>
+							<td>{{proveedor.ubicacion_geo}}</td>
+							<td>{{proveedor.fecha1}}</td>
+							<td>{{proveedor.fecha2}}</td>
+							<td>{{proveedor.texto1}}</td>
+							<td>{{proveedor.texto2}}</td>
+						</td>
+					</tbody>
+				</table>
+			</div>			
+		</duv>
+	</div>
+	<input type="submit" value="guardar">
+</form>
+</body>
+ {% endblock %}

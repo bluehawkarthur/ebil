@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="chart-dashboard">  
+
+<div class="row">
+<p>
+    
+        <a href="/crear_proveedor" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+</p>
+<table class="responsive-table">
+  <thead>
+    <tr>
+        <th data-field="id">Codigo</th>
+        <th data-field="name">Nombre</th>
+        <th data-field="price">Nit</th>
+        <th data-field="total">Direccion</th>
+        <th data-field="status">Telefono</th>
+        <th data-field="status">Acciones</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for provee in object_list %}
+    <tr>
+      <td>{{ provee.codigo }}</td>
+      <td>{{ provee.razon_social }}</td>
+      <td>{{ provee.nit }}</td>
+      <td>{{ provee.direccion }}</td>
+      <td>{{ provee.telefono1 }}</td>
+      <td>
+        <a href="/detail_proveedor/{{ provee.id }}" class="btn waves-effect teal waves-light">
+        <i class="mdi-action-search left"></i>
+        Ver
+        </a>
+          
+          <a href="/edit_proveedor/{{ provee.id }}" class="btn waves-effect light-green waves-light ">
+              <i class="mdi-editor-mode-edit left"></i>
+              Editar
+          </a>
+      
+        <a href="/delete_proveedor/{{ provee.id }}" class="btn waves-effect red waves-light ">
+            <i class="mdi-action-delete left"></i>
+            Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+</div>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView,FormView
+from django.views.generic import CreateView,FormView, ListView, UpdateView, DeleteView, DetailView
 from .forms import CreateForm
 from .models import Proveedor
 from django.core.urlresolvers import reverse_lazy
@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 class CrearProveedor(FormView):
 	template_name = "proveedores/create.html"
 	form_class = CreateForm
-	succes_url = reverse_lazy('crear')
+	success_url = reverse_lazy('crear')
 
 	def form_valid(self, form):
 		registrar = Proveedor()
@@ -29,4 +29,24 @@ class CrearProveedor(FormView):
 		registrar.save()
 		return super(CrearProveedor, self).form_valid(form)
 	
-		
+
+class ListProveedor(ListView):
+	template_name = "proveedores/lista.html"
+	model = Proveedor
+	queryset = Proveedor.objects.all().order_by('pk')
+
+class EditView(UpdateView):
+    template_name = 'proveedores/update.html'
+    model = Proveedor
+    fields = ['codigo','razon_social','nit','direccion']
+    success_url = reverse_lazy('lista')
+
+class ProveedorDelete(DeleteView):
+    model = Proveedor
+    success_url = reverse_lazy('lista')
+
+class ProveedorDetail(DetailView):
+	template_name = 'proveedores/detail.html'
+	model = Proveedor
+	success_url = reverse_lazy('lista')
+

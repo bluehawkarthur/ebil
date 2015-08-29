@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     # aplicaciones
     'apps.inicio',
     'apps.proveedores',
+    'apps.almacenes',
     #librerias
     'captcha',
 )

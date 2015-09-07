@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'apps.almacenes',
     #librerias
     'captcha',
+    
 )
 
 MIDDLEWARE_CLASSES = (

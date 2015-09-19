@@ -58,17 +58,14 @@
                       <li class="no-hover"><a href="#" data-activates="slide-out" class="menu-sidebar-collapse btn-floating btn-flat btn-medium waves-effect waves-light cyan hide-on-large-only"><i class="mdi-navigation-menu"></i></a></li>
                       <li><h1 class="logo-wrapper"><a href="/" class="brand-logo darken-1"><img src="{% static "images/logo_ebil.png"%}" alt="materialize logo" style="width: 100px;"></a> <span class="logo-text">Materialize</span></h1></li>
                     </ul>
-                
-                    <ul class="right hide-on-med-and-down">                        
-                        <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-settings-overscan"></i></a>
+                    {% if user.is_authenticated %}
+                    <ul class="right ">                        
+                        <li> <a href="/logout">Salir</a>
                         </li>
-                        <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i class="mdi-navigation-apps"></i></a>
-                        </li>                        
-                        <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i class="mdi-social-notifications"></i></a>
-                        </li>                        
-                        <li><a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse"><i class="mdi-communication-chat"></i></a>
-                        </li>
+                       
                     </ul>
+                    {% endif %}
+
                 </div>
             </nav>
 
@@ -501,7 +498,7 @@
 
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
-
+    {% if user.is_authenticated %}
     <!-- START FOOTER -->
     <footer class="page-footer">
 
@@ -513,12 +510,12 @@
         </div>
     </footer>
     <!-- END FOOTER -->
-
+    {%endif%}
 
     <!-- ================================================
     Scripts
     ================================================ -->
-    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
    <script src="{% static "js/jquery-1.11.2.min.js"%}"></script>
     <script src="{% static "js/materialize.js"%}"></script>
     <script src="{% static "js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"%}"></script>

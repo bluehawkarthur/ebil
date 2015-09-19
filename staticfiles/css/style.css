@@ -1308,7 +1308,14 @@ tr.group:hover {
 ------------------------------------------*/
 
 .login-form {
-  width: 330px;  
+  width: 360px; 
+
+    padding: 25px 35px;
+    
+    display: inline-block;
+    margin-top: 15px;
+    vertical-align: middle;
+    position: relative; 
 }
 .login-form-text{
   text-transform: uppercase;
@@ -1617,10 +1624,14 @@ tr.group:hover {
 @media screen and (max-width: 980px) {
   .blog-sizer { width: 50%; }
   .blog { width: 50%; }
+  
 }
 @media screen and (max-width: 720px) {
   .blog-sizer { width: 50%; }
   .blog { width: 50%; }
+  .login-form {
+    width: 330px;
+}
 }
 
 @media screen and (max-width: 480px) {
@@ -2169,4 +2180,8 @@ span.help-block {
     font-size: 1.1rem;
     padding: 0 1rem;
     color: #00415F;
+}
+
+#login-page{
+  margin-top: 50px;
 }

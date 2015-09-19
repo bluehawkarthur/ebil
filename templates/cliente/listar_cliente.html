@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+<section id="content">
+<div id="chart-dashboard">  
+
+<div class="row">
+    <div class='input-field col s2'>
+        <a href="/CrearCliente" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+    </div>    
+<table class="responsive-table">
+  <thead>
+    <tr>
+        <th data-field="id">codigo</th>
+        <th data-field="name">razonSocial</th>
+        <th data-field="price">nit</th>
+        <th data-field="name">Direccion</th>
+        <th data-field="status">telefonos1</th>
+        <th data-field="status">telefonos2</th>
+        <th data-field="status">telefonos3</th>
+        <th data-field="status">contacto</th>
+        <th data-field="name">rubro</th>
+        <th data-field="name">categoria</th>
+        <th data-field="name">UbucacionGeo</th>
+        <th data-field="date">fecha</th>
+        <th data-field="date">fecha2</th>
+        <th data-field="name">textos</th>
+        <th data-field="name">textos2</th>
+
+    </tr>
+  </thead>
+    <tbody>
+    {% for clien in cliente %}
+    <tr>
+      <td>{{ clien.codigo }}</td>
+      <td>{{ clien.razonSocial }}</td>
+      <td>{{ clien.nit }}</td>
+      <td>{{ clien.Direccion }}</td>
+      <td>{{ clien.telefono1 }}</td>
+      <td>{{ clien.telefono2 }}</td>
+      <td>{{ clien.telefono3 }}</td>
+      <td>{{ clien.contacto }}</td>
+      <td>{{ clien.rubro }}</td>
+      <td>{{ clien.categoria }}</td>
+      <td>{{ clien.UbucacionGeo }}</td>
+      <td>{{ clien.fecha1 }}</td>
+      <td>{{ clien.fecha2 }}</td>
+      <td>{{ clien.textos }}</td>
+      <td>{{ clien.textos2 }}</td>
+      <td>
+        <a href="/detalle_cliente/{{ clien.id }}" class="btn waves-effect teal waves-light">
+        <i class="mdi-action-search left"></i>
+        Ver
+        </a>
+          
+          <a href="/editar_cliente/{{ clien.id }}" class="btn waves-effect light-green waves-light ">
+              <i class="mdi-editor-mode-edit left"></i>
+              Editar
+          </a>
+      
+        <a href="/delete_cliente/{{ clien.id }}" class="btn waves-effect red waves-light ">
+            <i class="mdi-action-delete left"></i>
+            Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+</div>
+</section>
+{% endblock content %}
+

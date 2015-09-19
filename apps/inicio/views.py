@@ -5,13 +5,28 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from .forms import LoginForm 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
-class Index(TemplateView):
-	template_name= "inicio/index.html"
+
 
 class Inicio(TemplateView):
-	template_name= "inicio/inicio.html"
+    template_name= "inicio/index.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(Inicio, self).dispatch(*args, **kwargs)
+
+
+    
+class Index(View):
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse_lazy('login'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('inicio'))  
 
 class LoginView(FormView):
     form_class = LoginForm

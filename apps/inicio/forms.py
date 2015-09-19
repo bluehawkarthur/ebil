@@ -1,6 +1,7 @@
 from django import forms, http
 # from captcha.fields import CaptchaField
-from captcha.fields import ReCaptchaField
+# from captcha.fields import ReCaptchaField
+from nocaptcha_recaptcha.fields import NoReCaptchaField
 from django.contrib.auth.forms import AuthenticationForm
 import socket
 
@@ -24,6 +25,6 @@ def is_connected():
 class LoginForm(AuthenticationForm):
     # captcha = CaptchaField()
     if is_connected():
-    	captcha = ReCaptchaField(attrs={'theme' : 'clean'})
+    	captcha = NoReCaptchaField()
     else:
     	pass

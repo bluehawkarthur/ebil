@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Cliente</h3>
+        <div class="row">
+        {% csrf_token %}  
+              <div class="row">
+                <div class="col s6">
+                {{ form.codigo.label }}
+                {{ form.codigo }}
+                {{ form.errors.codigo }}
+                </div>
+                <div class="col s6">
+                {{ form.razonSocial.label }}
+                {{ form.razonSocial }}
+                {{ form.errors.razonSocial }}
+                </div>
+              </div>  
+              <div class="row">
+                <div class="col s6">
+                {{ form.nit.label }}
+                {{ form.nit }}
+                {{ form.errors.nit }}
+                </div>
+                <div class="col s6">
+                {{ form.Direccion.label }}
+                {{ form.Direccion }}
+                {{ form.errors.Direccion }}
+                </div>
+              </div> 
+              <div class="row">
+                <div class="col s6">
+                {{ form.telefonos1.label }}
+                {{ form.telefonos1 }}
+                {{ form.errors.telefonos1 }}
+                </div>
+                <div class="col s6">
+                {{ form.telefonos2.label }}
+                {{ form.telefonos2 }}
+                {{ form.errors.telefonos2 }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s6">
+                {{ form.telefonos3.label }}
+                {{ form.telefonos3 }}
+                {{ form.errors.telefonos3 }}
+                </div>
+                <div class="col s6">
+                {{ form.contacto.label }}
+                {{ form.contacto }}
+                {{ form.errors.contacto }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s6">
+                {{ form.rubro.label }}
+                {{ form.rubro }}
+                {{ form.errors.rubro }}
+                </div>
+                <div class="col s6">
+                {{ form.categoria.label }}
+                {{ form.categoria }}
+                {{ form.errors.categoria }}
+                </div>
+              </div>
+             <div class="row">
+                <div class="col s6">
+                {{ form.UbucacionGeo.label }}
+                {{ form.UbucacionGeo }}
+                {{ form.errors.UbucacionGeo }}
+                </div>
+                <div class="col s6">
+                {{ form.fecha.label }}
+                {{ form.fecha }}
+                {{ form.errors.fecha }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s6">
+                {{ form.fecha2.label }}
+                {{ form.fecha2 }}
+                {{ form.errors.fecha2 }}
+                </div>
+                <div class="col s6">
+                {{ form.textos.label }}
+                {{ form.textos }}
+                {{ form.errors.textos }}
+                </div>
+              </div>
+                 <div class="row">
+                <div class="col s6">
+                {{ form.textos2.label }}
+                {{ form.textos2 }}
+                {{ form.errors.textos2 }}
+                </div>
+              </div>
+            </div>  
+        </div>
+        <div class="row">                   
+          <div class="input-field col s12">
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+              <i class="mdi-content-send right"></i>
+            </button>
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+

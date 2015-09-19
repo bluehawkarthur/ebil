@@ -9,8 +9,13 @@
 
 {% load widget_tweaks %}
 <div id="login-page" class="row">
-    <div class="col s12 m12 l3 z-depth-4 offset-l4 card-panel">
+    <div class="col l4 z-depth-4  offset-l4 card-panel">
       <form class="login-form" method="post"> {% csrf_token %}
+      {% if form.non_field_errors%}
+                <div class="alert alert-danger" role="alert">
+                  {{form.non_field_errors|removetags:"ul li"}}
+                </div>
+                {% endif %}
         <div class="row">
           <div class="input-field col s12 center">
             <img src="{% static "images/facturar.png"%}" alt="" class="circle responsive-img valign profile-image-login">
@@ -18,33 +23,39 @@
           </div>
         </div>
         <div class="row margin">
-          <div class="input-field col s12">
+          <div class="input-field has-error col s12">
             <i class="mdi-social-person-outline prefix"></i>
-             {{ form.username|add_error_class:"validate invalid" }}
-            <label for="username" data-error="{{form.errors.username|removetags:"ul li"}}" data-success="right">Nombre de usuario</label>
+            <span class="help-block">{{ form.errors.username|removetags:'ul li' }}</span>
+             {{ form.username|add_error_class:"invalid" }}
+            <label for="username" >Nombre de usuario</label>
             
            
           </div>
         </div>
       
         <div class="row margin">
-          <div class="input-field col s12">
+          <div class="input-field has-error col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            {{ form.password }}
+            <span class="help-block">{{ form.errors.password|removetags:'ul li' }}</span>
+            {{ form.password|add_error_class:"invalid" }}
             <label for="password">Contraseña</label>
-            {% if form.errors.password %}
-                 <div class="errors">
-                  <small class="error">{{form.errors.password}}</small>
-                </div>
+           
+          </div>
+        </div>
+
+         <div class="row ">
+          <div class="input-field col s2">
             
-            {% endif %}
+            {{ form.captcha }}
+           
+            
           </div>
         </div>
      
         <div class="row">
           <div class="input-field col s12">
       
-            <button class="btn waves-effect cyan waves-light col s12">Login</button>
+            <button type="submit" class="btn waves-effect cyan waves-light col s12">Login</button>
           </div>
         </div>
       

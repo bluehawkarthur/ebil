@@ -1,9 +1,5 @@
 {% extends "base.html" %}
-{% block menu %}
-    {% include "menu.html" %}
-{% endblock menu %}
 {% block content %}
-<section id="content">
 <div id="chart-dashboard">  
    <div class="row">
    	
@@ -16,8 +12,8 @@
 	                    </p>
 		            </div>
 		            <div class='col s12 m8 l3'>
-		            	<span class="title">razon_social</span>
-	                    <p>{{object.razon_social}}
+		            	<span class="title">razonSocial</span>
+	                    <p>{{object.razonSocial}}
 	                      <br>
 	                    </p>
 		            </div>
@@ -28,8 +24,8 @@
 	                    </p>
 		            </div>
 		            <div class='col s12 m8 l3'>
-		            	<span class="title">direccion</span>
-	                    <p>{{object.direccion}}
+		            	<span class="title">Direccion</span>
+	                    <p>{{object.Direccion}}
 	                      <br> 
 	                    </p>
 		            </div>
@@ -58,14 +54,26 @@
 	                    </p>
 		            </div>
 		            <div class='col s12 m8 l3'>
-		            	<span class="title">ubicacion_geo</span>
-	                    <p>{{object.ubicacion_geo}}
+		            	<span class="title">rubro</span>
+	                    <p>{{object.rubro}}
 	                      <br> 
 	                    </p>
 		            </div>
 					<div class='col s12 m8 l3'>
-		            	<span class="title">fecha1</span>
-	                    <p>{{object.fecha1}}
+		            	<span class="title">categoria</span>
+	                    <p>{{object.categoria}}
+	                    <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">UbucacionGeo</span>
+	                    <p>{{object.UbucacionGeo}}
+	                    <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">fecha</span>
+	                    <p>{{object.fecha}}
 	                    <br> 
 	                    </p>
 		            </div>
@@ -76,27 +84,35 @@
 	                    </p>
 		            </div>
 		            <div class='col s12 m8 l3'>
-		            	<span class="title">texto1</span>
-	                    <p>{{object.texto1}}
+		            	<span class="title">textos</span>
+	                    <p>{{object.textos}}
 	                    <br> 
 	                    </p>
-		            </div>
+		            </div>	
 		            <div class='col s12 m8 l3'>
 		            	<span class="title">texto2</span>
 	                    <p>{{object.texto2}}
 	                    <br> 
 	                    </p>
-		            </div>	
+		            </div>
         		</div>
         </div>
     </div>
-    
-	
 	  {{ object.codigo }}
-	  {{ object.razon_social }}
+	  {{ object.razonSocial }}
 	  {{ object.nit }}
-	  {{ object.direccion }}
-	  {{ object.telefono1 }}  	
+	  {{ object.Direccion }}
+	  {{ object.telefono1 }}  
+	  {{ object.telefonos2 }}
+	  {{ object.telefonos3 }}
+	  {{ object.contacto }}
+	  {{ object.rubro }}
+	  {{ object.categoria }} 
+	  {{ object.UbucacionGeo }}
+	  {{ object.fecha }}
+	  {{ object.fecha2 }}
+	  {{ object.textos }}
+	  {{ object.textos2 }}	
 </div> 
-</section>
+
 {% endblock content %}

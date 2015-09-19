@@ -1,7 +1,7 @@
 from django import forms, http
 
 class CreateForm(forms.Form):
-	codigo = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder': 'off'}))
+	codigo = forms.CharField(max_length=20)
 	razon_social = forms.CharField(max_length=150)
 	nit = forms.CharField(max_length=20)
 	direccion = forms.CharField(max_length=50)

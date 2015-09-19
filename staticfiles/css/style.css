@@ -2097,3 +2097,29 @@ footer.page-footer {
   left: 50%;
   margin-top:7%;
 }
+
+.linka{
+  text-decoration: none;
+  color: white;
+}
+
+/*style for validations inputs*/
+
+.help-block {
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    margin: 0;
+    color: inherit;
+    opacity: .7;
+    font-size: 12px;
+}
+
+span.help-block {
+    right: auto;
+}
+
+.has-error .help-block {
+    color: #f44336;
+    opacity: 1;
+}

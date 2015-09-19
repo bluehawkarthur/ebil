@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Producto</h3>
+        <div class="row">{% csrf_token %}  
+          <div class="input-field col s6">        
+            <div class="">
+              {{ form.codigo_item.label }}
+              {{ form.codigo_item}}
+              {{ form.errors.codigo_item}}
+            </div>
+            <div class="">
+              {{ form.almacen.label }}
+              {{ form.almacen }}
+              {{ form.errors.almacen }}
+            </div>
+            <div class="">
+              {{ form.subgrupo.label }}
+              {{ form.subgrupo }}
+              {{ form.errors.subgrupo }}
+            </div>
+            <div class="">
+              {{ form.carac_especial_1.label }}
+              {{ form.carac_especial_1 }}
+              {{ form.errors.carac_especial_1 }}
+            </div>
+            <div class="">
+              {{ form.cantidad.label }}
+              {{ form.cantidad }}
+              {{ form.errors.cantidad }}
+            </div>
+            <div class="">
+              {{ form.proveedor.label }}
+              {{ form.proveedor }}
+              {{ form.errors.proveedor }}
+            </div>
+              <div class="">
+              {{ form.unidad_medida.label }}
+              {{ form.unidad_medida }}
+              {{ form.errors.unidad_medida }}
+            </div>
+               <div class="">
+              {{ form.precio_unitario.label }}
+              {{ form.precio_unitario }}
+              {{ form.errors.precio_unitario }}
+            </div>
+          </div>
+
+          <div class="input-field col s6">
+            <div class="">
+              {{ form.codigo_fabrica.label }}
+              {{ form.codigo_fabrica }}
+              {{ form.errors.codigo_fabrica }}
+            </div>
+            <div class="">
+              {{ form.grupo.label }}
+              {{ form.grupo }}
+              {{ form.errors.grupo }}
+            </div>
+            <div class="">
+              {{ form.descripcion.label }}
+              {{ form.descripcion }}
+              {{ form.errors.descripcion }}
+            </div>
+            <div class="">
+              {{ form.carac_especial_2.label }}
+              {{ form.carac_especial_2 }}
+              {{ form.errors.carac_especial_2 }}
+            </div>
+            <div class="">
+              {{ form.saldo_min.label }}
+              {{ form.saldo_min }}
+              {{ form.errors.saldo_min }}
+            </div>
+            <div class="">
+              {{ form.imagen.label }}
+              {{ form.imagen }}
+              {{ form.errors.imagen }}
+            </div>
+                <div class="">
+              {{ form.costo_unitario.label }}
+              {{ form.costo_unitario }}
+              {{ form.errors.costo_unitario }}
+            </div>
+          </div>  
+        </div>
+
+        <div class="row">                   
+          <div class="input-field col s12">
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+              <i class="mdi-content-send right"></i>
+            </button>
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+ {% endblock %}
+
+
+ 

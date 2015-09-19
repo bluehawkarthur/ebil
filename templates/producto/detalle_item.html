@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="chart-dashboard">  
+   <div class="row">
+   	
+   		<div class="card-panel">
+			<div class="card-content"> 
+	            	<div class='col s12 m8 l3'>
+		            	<span class="title">Código Item</span>
+	                    <p>{{item.codigo_item}}
+	                      <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Código de Fábrica</span>
+	                    <p>{{item.codigo_fabrica}}
+	                      <br>
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Almacén</span>
+	                    <p>{{item.almacen}}
+	                      <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Grupo</span>
+	                    <p>{{item.grupo}}
+	                      <br> 
+	                    </p>
+		            </div>
+					<div class='col s12 m8 l3'>
+		            	<span class="title">Descripción</span>
+	                    <p>{{item.descripcion}}
+	                      <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Carac. Especial 1</span>
+	                    <p>{{item.carac_especial_1}}
+	                      <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Carac. Especial 2</span>
+	                    <p>{{item.carac_especial_2}}
+	                      <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Cantidad</span>
+	                    <p>{{item.cantidad}}
+	                      <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Saldo Min.</span>
+	                    <p>{{item.saldo_min}}
+	                      <br> 
+	                    </p>
+		            </div>
+					<div class='col s12 m8 l3'>
+		            	<span class="title">Proveedor</span>
+	                    <p>{{item.proveedor}}
+	                    <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Imagen Item</span>
+	                    <p>{{item.imagen}}
+	                    <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Unidad Medida</span>
+	                    <p>{{item.unidad_medida}}
+	                    <br> 
+	                    </p>
+		            </div>
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Costo unitario</span>
+	                    <p>{{item.costo_unitario}}
+	                    <br> 
+	                    </p>
+		            </div>	
+		            <div class='col s12 m8 l3'>
+		            	<span class="title">Precio unitario</span>
+	                    <p>{{item.precio_unitario}}
+	                    <br> 
+	                    </p>
+		            </div>	
+        		</div>
+        </div>
+    </div>
+    
+	
+
+</div> 
+
+{% endblock content %}

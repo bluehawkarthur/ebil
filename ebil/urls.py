@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^', include('apps.inicio.urls')),
     url(r'^', include('apps.proveedores.urls')),
     url(r'^', include('apps.almacenes.urls')),
+    url(r'^', include('apps.producto.urls')),
     # url(r'^', include('apps.almacen.urls')),
     
 ]

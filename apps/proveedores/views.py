@@ -3,12 +3,15 @@ from django.views.generic import CreateView,FormView, ListView, UpdateView, Dele
 from .forms import CreateForm
 from .models import Proveedor
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
-class CrearProveedor(FormView):
+class CrearProveedor(SuccessMessageMixin, FormView):
 	template_name = "proveedores/create.html"
 	form_class = CreateForm
-	success_url = reverse_lazy('crear')
+	success_url = reverse_lazy('lista')
+	success_message = "%(razon_social)s was created successfully"
+
 
 	def form_valid(self, form):
 		registrar = Proveedor()

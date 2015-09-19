@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div id="chart-dashboard">  
+
+<div class="row">
+<p>
+    
+        <a href="/crear_item/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+</p>
+<table class="responsive-table">
+  <thead>
+    <tr>
+        <th data-field="">Código de Item</th>
+        <th data-field="">Código de Fábrica</th>
+        <th data-field="">Almacen</th>
+        <th data-field="">Descripcion</th>
+        <th data-field="">Cantidad</th>
+        <th data-field="">Acciones</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for it in item %}
+    <tr>
+      <td>{{ it.codigo_item }}</td>
+      <td>{{ it.codigo_fabrica }}</td>
+      <td>{{ it.almacen }}</td>
+      <td>{{ it.descripcion }}</td>
+      <td>{{ it.cantidad }}</td>
+      <td>
+        <a href="/detalle_item/{{ it.id }}" class="btn waves-effect teal waves-light">
+        <i class="mdi-action-search left"></i>
+        Ver
+        </a>
+          
+          <a href="/editar_item/{{ it.id }}" class="btn waves-effect light-green waves-light ">
+              <i class="mdi-editor-mode-edit left"></i>
+              Editar
+          </a>
+      
+        <a href="/delete_item/{{ it.id }}" class="btn waves-effect red waves-light ">
+            <i class="mdi-action-delete left"></i>
+            Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+</div>
+{% endblock content %}

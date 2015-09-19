@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
 {% block content %}
+<section id="content">
 <div id="chart-dashboard">  
 
-<div class="row">
+<div class="container">
 <p>
     
         <a href="/crear_proveedor" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
@@ -49,4 +53,5 @@
 
 </div>
 </div>
+</section>
 {% endblock content %}

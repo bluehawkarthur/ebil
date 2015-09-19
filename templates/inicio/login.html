@@ -6,21 +6,55 @@
 
 {% block content %}
 
-<div class="card content-xs float-label">
-  <div class="card-content">
-  <h2 class="page-header">Ingresa</h2>  
-    <form method="post" role="form">{% csrf_token %}
-      {{ form.as_p }}
-      {{ form.errors.username }}
-      {{ form.errors.non }}
-      <input type="submit" value="Login"/>
-    </form>
-  </div>
-</div> 
 
+{% load widget_tweaks %}
 <div id="login-page" class="row">
     <div class="col s12 z-depth-4 card-panel">
       <form class="login-form" method="post"> {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12 center">
+            <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login">
+            <p class="center login-form-text">Ingresa</p>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-social-person-outline prefix"></i>
+             {{ form.username|add_error_class:"validate invalid" }}
+            <label for="username" data-error="{{form.errors.username|removetags:"ul li"}}" data-success="right">Nombre de usuario</label>
+            
+           
+          </div>
+        </div>
+      
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            {{ form.password }}
+            <label for="password">Contraseña</label>
+            {% if form.errors.password %}
+                 <div class="errors">
+                  <small class="error">{{form.errors.password}}</small>
+                </div>
+            
+            {% endif %}
+          </div>
+        </div>
+     
+        <div class="row">
+          <div class="input-field col s12">
+      
+            <button class="btn waves-effect waves-light col s12">Login</button>
+          </div>
+        </div>
+      
+      </form>
+    </div>
+  </div>
+
+  <div id="login-page" class="row">
+    <div class="col s12 z-depth-4 card-panel">
+      <form class="login-form">
         <div class="row">
           <div class="input-field col s12 center">
             <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login">
@@ -30,18 +64,10 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text" class="validate">
-            <label for="username" data-error="wrong" data-success="right">Username</label>
-            {% if form.errors.username %}
-                 <div class="errors">
-                  <small class="error">Este campo es obligatorio.</small>
-                </div>
-            
-            {% endif %}
-           
+            <input id="username" type="text">
+            <label for="username" class="center-align">Username</label>
           </div>
         </div>
-      
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
@@ -51,14 +77,13 @@
         </div>
         <div class="row">          
           <div class="input-field col s12 m12 l12  login-text">
-              <input type="checkbox" id="remember-me" />
+              <input type="checkbox" id="remember-me">
               <label for="remember-me">Remember me</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-      
-            <button class="btn waves-effect waves-light col s12">Login</button>
+            <a href="index.html" class="btn waves-effect waves-light col s12">Login</a>
           </div>
         </div>
         <div class="row">

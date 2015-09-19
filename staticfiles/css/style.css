@@ -1308,7 +1308,7 @@ tr.group:hover {
 ------------------------------------------*/
 
 .login-form {
-  width: 280px;  
+  width: 330px;  
 }
 .login-form-text{
   text-transform: uppercase;
@@ -2108,7 +2108,7 @@ footer.page-footer {
 .help-block {
     position: absolute;
     right: 0;
-    bottom: -10px;
+    bottom: -15px;
     margin: 0;
     color: inherit;
     opacity: .7;
@@ -2122,4 +2122,51 @@ span.help-block {
 .has-error .help-block {
     color: #f44336;
     opacity: 1;
+}
+
+/*style for button file*/
+
+.btn-file {
+   
+    padding: 0 1rem;
+
+}
+
+/*style picker*/
+.picker__date-display {
+    text-align: center;
+    background-color: rgba(76, 144, 174, 0.99) !important;
+    color: #fff;
+    padding-bottom: 15px;
+    font-weight: 300;
+}
+
+.picker__weekday-display {
+    background-color: #00415F;
+    padding: 10px;
+    font-weight: 200;
+    letter-spacing: .5;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    border-radius: 50%;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+    background-color: #00415F;
+    color: #ffffff;
+}
+
+.picker__day.picker__day--today {
+    color: #00415F;
+}
+
+.picker__close, .picker__today {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+    color: #00415F;
 }

@@ -4,6 +4,9 @@ from django.views.generic import FormView, ListView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import Item
+from pure_pagination.mixins import PaginationMixin
+from django.http import HttpResponseRedirect 
+
 
 class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
@@ -31,9 +34,10 @@ class CrearItem(FormView):
 			return super(CrearItem, self).form_valid(form)
 
 
-class ListarItem(ListView):
+class ListarItem(PaginationMixin, ListView):
 	template_name = 'producto/listar_item.html'
 	model = Item
+	paginate_by = 3
 	context_object_name = 'item'
 
 
@@ -44,11 +48,20 @@ class DetalleItem(DetailView):
 
 
 class EditItem(UpdateView):
-    template_name = 'proveedores/update_proveedor.html'
+    template_name = 'producto/update.html'
     model = Item
+    fields = ['codigo_item','codigo_fabrica','almacen','grupo','subgrupo',
+    'descripcion','carac_especial_1','carac_especial_2','cantidad',
+    'saldo_min','proveedor','imagen','unidad_medida','costo_unitario','precio_unitario']
     success_url = reverse_lazy('listar_item')
 
 
 class DeleteItem(DeleteView):
 	model = Item
 	success_url = reverse_lazy('listar_item')
+
+
+def eliminar(request, id):
+	p = Item.objects.get(id=id)
+	p.delete()
+	return HttpResponseRedirect(reverse_lazy('listar_item'))

@@ -41,16 +41,26 @@
               Editar
           </a>
       
-        <a href="/delete_proveedor/{{ provee.id }}" class="btn waves-effect red waves-light ">
+        <a href="#modal1"  class="btn waves-effect red  modal-trigger waves-light ">
             <i class="mdi-action-delete left"></i>
             Eliminar
         </a>
+        <div id="modal1" class="modal teal">
+          <div class="modal-content">
+            <p class="img-dashboard">Esta seguro que quiere eliminar "{{provee.razon_social}}"</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+            <a href="/delete_proveedor/{{provee.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+          </div>
+        </div>
+
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
-
+{% include "_pagination.html" %}
 </div>
 </div>
 </section>

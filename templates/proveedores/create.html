@@ -87,12 +87,12 @@
                     <div class="row">
                     	<div class="input-field col s6 has-error">
                         <span class="help-block">{{ form.errors.fecha1|removetags:'ul li' }}</span>
-                        {{ form.fecha1|add_error_class:"invalid"}}
+                        {{ form.fecha1|add_class:"datepicker"|add_error_class:"invalid"}}
                         <label for="">{{ form.fecha1.label }}</label>
                     	</div>
                     	<div class="input-field col s6 has-error">
                         <span class="help-block">{{ form.errors.fecha2|removetags:'ul li' }}</span>
-                        {{ form.fecha2|add_error_class:"invalid" }}
+                        {{ form.fecha2|add_class:"datepicker"|add_error_class:"invalid" }}
                         <label for="">{{ form.fecha2.label }}</label>
                     	</div>
                     </div>

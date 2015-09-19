@@ -6,6 +6,7 @@ urlpatterns = patterns('',
 	url(r'^listar_item/', ListarItem.as_view(), name='listar_item'),
 	url(r'^detalle_item/(?P<pk>\d+)$', DetalleItem.as_view(), name='detalle_item'),
 	url(r'^editar_item/(?P<pk>\d+)$', EditItem.as_view(), name='editar_item'),
-	url(r'^delete_item/(?P<pk>\d+)$', DeleteItem.as_view(), name='delete_item'),
+	# url(r'^delete_item/(?P<pk>\d+)$', DeleteItem.as_view(), name='delete_item'),
+	url(r'^delete_item/(?P<id>\d+)$', 'apps.producto.views.eliminar', name='delete'),
 )
 

@@ -1,20 +1,141 @@
 {% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
 {% block content %}
-    
-<div id="chart-dashboard">  
+{% load widget_tweaks %}
 
-<div class="row">
-<div class="card-panel">
-<h4 class="header2">Basic Form</h4>
-<div class="row">
-  <form class="col s12" method="post"> {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update" />
-  </form>
-</div>
-</div>
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Producto</h3>
+          {% csrf_token %} 
 
-</div>
-</div>
-{% endblock content %}
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.codigo_item|removetags:'ul li' }}</span>
+                {{ form.codigo_item|add_error_class:"invalid" }}
+                <label for="emails">{{ form.codigo_item.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.almacen|removetags:'ul li' }}</span>
+              {{ form.almacen|add_error_class:"invalid" }}
+                <label for="email">{{ form.almacen.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.subgrupo|removetags:'ul li' }}</span>
+                {{ form.subgrupo|add_error_class:"invalid" }}
+                <label for="emails">{{ form.subgrupo.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.carac_especial_1|removetags:'ul li' }}</span>
+              {{ form.carac_especial_1|add_error_class:"invalid" }}
+                <label for="email">{{ form.carac_especial_1.label }}</label>
+              </div>
+            </div> 
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.cantidad|removetags:'ul li' }}</span>
+                {{ form.cantidad|add_error_class:"invalid" }}
+                <label for="emails">{{ form.cantidad.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.proveedor|removetags:'ul li' }}</span>
+              {{ form.proveedor|add_error_class:"invalid" }}
+                <label for="email">{{ form.proveedor.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.unidad_medida|removetags:'ul li' }}</span>
+                {{ form.unidad_medida|add_error_class:"invalid" }}
+                <label for="emails">{{ form.unidad_medida.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.precio_unitario |removetags:'ul li' }}</span>
+              {{ form.precio_unitario|add_error_class:"invalid" }}
+                <label for="email">{{ form.precio_unitario.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.codigo_fabrica|removetags:'ul li' }}</span>
+                {{ form.codigo_fabrica|add_error_class:"invalid" }}
+                <label for="emails">{{ form.codigo_fabrica.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.grupo|removetags:'ul li' }}</span>
+              {{ form.grupo|add_error_class:"invalid" }}
+                <label for="email">{{ form.grupo.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.descripcion|removetags:'ul li' }}</span>
+                {{ form.descripcion|add_error_class:"invalid" }}
+                <label for="emails">{{ form.descripcion.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.carac_especial_2|removetags:'ul li' }}</span>
+              {{ form.carac_especial_2|add_error_class:"invalid" }}
+                <label for="email">{{ form.carac_especial_2.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.saldo_min|removetags:'ul li' }}</span>
+                {{ form.saldo_min|add_error_class:"invalid" }}
+                <label for="emails">{{ form.saldo_min.label }}</label>
+              </div>
+
+              <div class="file-field input-field col s6 has-error"> 
+                <div class="btn btn-file">
+                  <span>{{ form.imagen.label }}</span>
+                  {{ form.imagen|add_error_class:"invalid" }}  
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                  <span class="help-block">{{ form.errors.imagen|removetags:'ul li' }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.costo_unitario|removetags:'ul li' }}</span>
+                {{ form.costo_unitario|add_error_class:"invalid" }}
+                <label for="emails">{{ form.costo_unitario.label }}</label>
+              </div>
+            </div>                  
+        <div class="row">                   
+          <div class="input-field col s12">
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+              <i class="mdi-content-send right"></i>
+            </button>
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+
+
+ 
+
 

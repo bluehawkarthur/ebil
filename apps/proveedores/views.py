@@ -4,6 +4,8 @@ from .forms import CreateForm
 from .models import Proveedor
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
+from pure_pagination.mixins import PaginationMixin
+from django.http import HttpResponseRedirect 
 
 # Create your views here.
 class CrearProveedor(SuccessMessageMixin, FormView):
@@ -33,15 +35,17 @@ class CrearProveedor(SuccessMessageMixin, FormView):
 		return super(CrearProveedor, self).form_valid(form)
 	
 
-class ListProveedor(ListView):
+class ListProveedor(PaginationMixin, ListView):
 	template_name = "proveedores/lista.html"
 	model = Proveedor
+	paginate_by = 3
 	queryset = Proveedor.objects.all().order_by('pk')
 
 class EditView(UpdateView):
     template_name = 'proveedores/update.html'
     model = Proveedor
-    fields = ['codigo','razon_social','nit','direccion']
+    fields = ['codigo','razon_social','nit','direccion','telefono1','telefono2','telefono3','contactos'
+    ,'rubro','ubicacion_geo','fecha1','fecha2','texto1','texto2']
     success_url = reverse_lazy('lista')
 
 class ProveedorDelete(DeleteView):
@@ -53,3 +57,8 @@ class ProveedorDetail(DetailView):
 	model = Proveedor
 	success_url = reverse_lazy('lista')
 
+def eliminar(request, id):
+	p = Proveedor.objects.get(id=id)
+	p.delete()
+	print p 
+	return HttpResponseRedirect(reverse_lazy('lista'))

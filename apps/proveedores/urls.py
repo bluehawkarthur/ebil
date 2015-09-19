@@ -7,8 +7,9 @@ urlpatterns = [
     url(r'^crear_proveedor/', CrearProveedor.as_view(), name="crear"),
     url(r'^list_proveedor/', ListProveedor.as_view(), name="lista"),
     url(r'^edit_proveedor/(?P<pk>\d+)$', EditView.as_view(), name='proveedor_edit'),
-    url(r'^delete_proveedor/(?P<pk>\d+)$', ProveedorDelete.as_view(), name='proveedor_delete'),
+    # url(r'^delete_proveedor/(?P<pk>\d+)$', ProveedorDelete.as_view(), name='proveedor_delete'),
     url(r'^detail_proveedor/(?P<pk>\d+)$', ProveedorDetail.as_view(), name='proveedor_detail'),
+    url(r'^delete_proveedor/(?P<id>\d+)$', 'apps.proveedores.views.eliminar', name='delete'),
     # url(r'^registro_proveedor/', RegistroProveedor.as_view(), name="registro"),
 
     

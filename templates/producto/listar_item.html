@@ -1,54 +1,70 @@
 {% extends "base.html" %}
 
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
 
 {% block content %}
-<div id="chart-dashboard">  
-
-<div class="row">
-<p>
-    
-        <a href="/crear_item/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
-</p>
-<table class="responsive-table">
-  <thead>
-    <tr>
-        <th data-field="">Código de Item</th>
-        <th data-field="">Código de Fábrica</th>
-        <th data-field="">Almacen</th>
-        <th data-field="">Descripcion</th>
-        <th data-field="">Cantidad</th>
-        <th data-field="">Acciones</th>
-    </tr>
-  </thead>
-    <tbody>
-    {% for it in item %}
-    <tr>
-      <td>{{ it.codigo_item }}</td>
-      <td>{{ it.codigo_fabrica }}</td>
-      <td>{{ it.almacen }}</td>
-      <td>{{ it.descripcion }}</td>
-      <td>{{ it.cantidad }}</td>
-      <td>
-        <a href="/detalle_item/{{ it.id }}" class="btn waves-effect teal waves-light">
-        <i class="mdi-action-search left"></i>
-        Ver
-        </a>
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+      <div class="row">
+        <p>
           
-          <a href="/editar_item/{{ it.id }}" class="btn waves-effect light-green waves-light ">
-              <i class="mdi-editor-mode-edit left"></i>
-              Editar
-          </a>
-      
-        <a href="/delete_item/{{ it.id }}" class="btn waves-effect red waves-light ">
-            <i class="mdi-action-delete left"></i>
-            Eliminar
-        </a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+          <a href="/crear_item/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+        </p>
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th data-field="">Código de Item</th>
+              <th data-field="">Código de Fábrica</th>
+              <th data-field="">Almacen</th>
+              <th data-field="">Descripcion</th>
+              <th data-field="">Cantidad</th>
+              <th data-field="">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for it in item %}
+            <tr>
+              <td>{{ it.codigo_item }}</td>
+              <td>{{ it.codigo_fabrica }}</td>
+              <td>{{ it.almacen }}</td>
+              <td>{{ it.descripcion }}</td>
+              <td>{{ it.cantidad }}</td>
+              <td>
+                <a href="/detalle_item/{{ it.id }}" class="btn waves-effect teal waves-light">
+                  <i class="mdi-action-search left"></i>
+                  Ver
+                </a>
+                
+                <a href="/editar_item/{{ it.id }}" class="btn waves-effect light-green waves-light ">
+                  <i class="mdi-editor-mode-edit left"></i>
+                  Editar
+                </a>
+                
+                <a href="#modal2" class="btn waves-effect modal-trigger red waves-light ">
+                  <i class="mdi-action-delete left"></i>
+                  Eliminar
+                </a>
 
-</div>
-</div>
+                <div id="modal2" class="modal teal">
+                  <div class="modal-content">
+                    <p class="img-dashboard">Esta seguro que quiere eliminar "{{it.codigo_item}}"</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+                    <a href="/delete_item/{{it.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% include "_pagination.html" %}
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock content %}

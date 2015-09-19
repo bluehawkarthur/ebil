@@ -1,0 +1,30 @@
+{% load i18n %}
+    
+<ul class="pagination">
+    
+    {% if page_obj.has_previous %}
+        <li class="prev"><a href="?{{ page_obj.previous_page_number.querystring }}"><i class="mdi-navigation-chevron-left"></i></a></li>
+    {% else %}
+        <li class="disabled"><a href="#"><i class="mdi-navigation-chevron-left"></i></a></li>
+    {% endif %}
+    
+     {% for page in page_obj.pages %}
+        {% if page %}
+            {% ifequal page page_obj.number %}
+                <li class="active"><a href="#">{{ page }}</a></li>
+            {% else %}
+                <li><a href="?{{ page.querystring }}" class="waves-effect">{{ page }}</a></li>
+            {% endifequal %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <li class=""><a href="?{{ page_obj.next_page_number.querystring }}"><i class="mdi-navigation-chevron-right"></i></a></li>
+
+    {% else %}
+        <li class="disabled next"><a href="#"><i class="mdi-navigation-chevron-right"></i></a></li>
+    {% endif %}
+    
+</ul>

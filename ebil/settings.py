@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9fzbh^dl_t)t3f_hu=hbi@5t%92$=$zh1rsov_e=xxr2r01%4i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -85,29 +85,29 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 # ------------------base de datos local --------------------------
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ebil',
-#         'USER':'root',
-#         'PASSWORD': '1',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-        
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd454p3j70lfpf5',
-        'USER':'elmcagfyktvtcz',
-        'PASSWORD': 'OXM5_7Bi1XeYC0Hmp5ydSGF1W4',
-        'HOST': 'ec2-54-83-58-191.compute-1.amazonaws.com',
+        'NAME': 'ebil',
+        'USER':'root',
+        'PASSWORD': '1',
+        'HOST': 'localhost',
         'PORT': '5432',
         
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd454p3j70lfpf5',
+#         'USER':'elmcagfyktvtcz',
+#         'PASSWORD': 'OXM5_7Bi1XeYC0Hmp5ydSGF1W4',
+#         'HOST': 'ec2-54-83-58-191.compute-1.amazonaws.com',
+#         'PORT': '5432',
+        
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

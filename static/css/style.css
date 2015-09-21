@@ -2185,3 +2185,17 @@ span.help-block {
 #login-page{
   margin-top: 50px;
 }
+.messages1{
+
+  background-color: rgba(139, 195, 74, 0.92);
+  position: fixed;
+  right: 403px;
+  bottom: 740px;
+  margin-bottom: 0;
+  z-index: 998;
+  color: white;
+  height: 50px;
+  text-align: center;
+  width: 400px;
+ 
+  }

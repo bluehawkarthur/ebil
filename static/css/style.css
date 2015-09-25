@@ -2185,6 +2185,8 @@ span.help-block {
 #login-page{
   margin-top: 50px;
 }
+
+
 .messages1{
 
   background-color: rgba(139, 195, 74, 0.92);
@@ -2197,5 +2199,7 @@ span.help-block {
   height: 50px;
   text-align: center;
   width: 400px;
+  padding-top: 15px;
  
   }
+

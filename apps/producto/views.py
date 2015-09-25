@@ -5,13 +5,21 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import Item
 from pure_pagination.mixins import PaginationMixin
-from django.http import HttpResponseRedirect 
+from django.http import HttpResponseRedirect
+from django import forms
+from .models import Proveedor
 
 
 class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
 	form_class = ItemForm
 	success_url = reverse_lazy('listar_item')
+
+	# personalize choices for user authenticate
+	def get_form(self, form_class):
+		form = form_class(**self.get_form_kwargs())
+		form.fields['proveedor'].queryset = Proveedor.objects.filter(user=self.request.user.id).all()
+		return form
 
 	def form_valid(self, form):
 			item = Item()
@@ -30,8 +38,11 @@ class CrearItem(FormView):
 			item.unidad_medida = form.cleaned_data['unidad_medida']
 			item.costo_unitario = form.cleaned_data['costo_unitario']
 			item.precio_unitario = form.cleaned_data['precio_unitario']
+			item.user= self.request.user
 			item.save()
 			return super(CrearItem, self).form_valid(form)
+
+
 
 
 class ListarItem(PaginationMixin, ListView):

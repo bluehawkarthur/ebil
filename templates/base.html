@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{% static "js/plugins/perfect-scrollbar/perfect-scrollbar.css"%}">
     <link rel="stylesheet" href="{% static "js/plugins/jvectormap/jquery-jvectormap.css"%}">
     <link rel="stylesheet" href="{% static "js/plugins/chartist-js/chartist.min.css"%}">
+    
 
 
 
@@ -319,6 +320,7 @@
                         {% endfor %}
                 </div>
             {% endif %}
+            
             {% block content %}
             {% endblock content %}
             
@@ -529,14 +531,7 @@
     <script src="{% static "js/plugins.js"%}"></script>
     <!-- Toast Notification -->
     <script type="text/javascript">
-        $(document).ready(function(){
-    
-        var efecto = function(){
-          $('#messages1').fadeOut(1000);
-        };
-        
-        setTimeout(efecto, 7000);
-        });
+       
     
     </script>
 

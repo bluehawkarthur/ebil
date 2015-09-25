@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Cliente(models.Model):
@@ -17,6 +18,7 @@ class Cliente(models.Model):
 	fecha2 = models.DateField()
 	textos = models.CharField(max_length=50)
 	textos2 = models.CharField(max_length=50)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
 	def __unicode__(self):
 		return self.contacto

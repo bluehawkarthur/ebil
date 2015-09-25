@@ -11,6 +11,14 @@
     
         <a href="/crear_proveedor" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
 </p>
+
+<p>
+    
+        <a href="/proveedor_import" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Importar</a>
+</p>
+
+<div class="row">
+<div class="col s12 m8 l12">
 <table class="responsive-table">
   <thead>
     <tr>
@@ -19,7 +27,7 @@
         <th data-field="price">Nit</th>
         <th data-field="total">Direccion</th>
         <th data-field="status">Telefono</th>
-        <th data-field="status">Acciones</th>
+      
     </tr>
   </thead>
     <tbody>
@@ -60,6 +68,8 @@
     {% endfor %}
   </tbody>
 </table>
+</div>
+</div>
 {% include "_pagination.html" %}
 </div>
 </div>

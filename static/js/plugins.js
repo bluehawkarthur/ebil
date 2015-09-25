@@ -245,3 +245,17 @@ $(function() {
 
 
 }); // end of document ready
+
+
+//=============================================
+// script de efectos  alertas de de mensaje 
+//=============================================
+
+$(document).ready(function(){
+    
+  var efecto = function(){
+    $('#messages1').fadeOut(500);
+  };
+
+  setTimeout(efecto, 4000);
+});

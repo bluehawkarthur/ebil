@@ -1,5 +1,6 @@
 from django.db import models
 from apps.proveedores.models import Proveedor
+from django.conf import settings
 
 
 class Item(models.Model):
@@ -18,6 +19,11 @@ class Item(models.Model):
 	unidad_medida = models.CharField(max_length=20)
 	costo_unitario = models.DecimalField(max_digits=5, decimal_places=3)
 	precio_unitario = models.DecimalField(max_digits=5, decimal_places=3)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	
 
 	def __unicode__(self):
 		return self.descripcion
+
+
+

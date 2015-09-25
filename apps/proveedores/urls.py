@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^detail_proveedor/(?P<pk>\d+)$', ProveedorDetail.as_view(), name='proveedor_detail'),
     url(r'^delete_proveedor/(?P<id>\d+)$', 'apps.proveedores.views.eliminar', name='delete'),
     # url(r'^registro_proveedor/', RegistroProveedor.as_view(), name="registro"),
+    url(r'^proveedor_import/', 'apps.proveedores.views.import_data', name="import_proveedor"),
 
     
 ]

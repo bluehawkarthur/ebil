@@ -107,10 +107,15 @@
                 <div class="btn btn-file">
                   <span>{{ form.imagen.label }}</span>
                   {{ form.imagen|add_error_class:"invalid" }}  
+
                 </div>
+
+                <!-- <div id="im"></div> -->
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text">
                   <span class="help-block">{{ form.errors.imagen|removetags:'ul li' }}</span>
+
+                  <img id="image_upload_preview" style="width:150px" src="http://placehold.it/100x100" alt="your image" />
                 </div>
               </div>
             </div>
@@ -121,9 +126,14 @@
                 <label for="emails">{{ form.costo_unitario.label }}</label>
               </div>
             </div>                  
-        <div class="row">                   
-          <div class="input-field col s12">
-            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+        <div class="row">  
+        <div class="input-field col s6">
+          <a href="/listar_item" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+          <div class="input-field col s6">
+            
+
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
               <i class="mdi-content-send right"></i>
             </button>
           </div> 

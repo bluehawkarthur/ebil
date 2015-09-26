@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-import debug_toolbar
+from django.conf import settings
+# import debug_toolbar
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -24,8 +25,10 @@ urlpatterns = [
     url(r'^', include('apps.almacenes.urls')),
     url(r'^', include('apps.producto.urls')),
     url(r'^', include('apps.cliente.urls')),
+    url(r'^progressbarupload/', include('progressbarupload.urls')),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     # url for debug toolbar for local and not produccion
-    url(r'^__debug__/', include(debug_toolbar.urls)),
+    # url(r'^__debug__/', include(debug_toolbar.urls)),
     # url(r'^', include('apps.almacen.urls')),
     
 ]

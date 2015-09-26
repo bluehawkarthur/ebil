@@ -51,7 +51,7 @@ class CrearProveedor(SuccessMessageMixin, FormView):
 class ListProveedor(PaginationMixin, ListView):
 	template_name = "proveedores/lista.html"
 	model = Proveedor
-	paginate_by = 3
+	paginate_by = 5
 	
 
 	def get_queryset(self):

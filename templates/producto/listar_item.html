@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block menu %}
     {% include "menu.html" %}
 {% endblock menu %}
 
 {% block content %}
+
 <section id="content">
   <div id="chart-dashboard">  
     <div class="container">
@@ -12,6 +13,7 @@
         <p>
           
           <a href="/crear_item/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+          <a href="/producto_import/" class="btn waves-effect light-green waves-light"><i class="mdi-file-file-upload left"></i>importar excel</a>
         </p>
         <table class="responsive-table">
           <thead>
@@ -20,6 +22,7 @@
               <th data-field="">Código de Fábrica</th>
               <th data-field="">Almacen</th>
               <th data-field="">Descripcion</th>
+              <th data-field="">Imagen</th>
               <th data-field="">Cantidad</th>
               <th data-field="">Acciones</th>
             </tr>
@@ -31,6 +34,14 @@
               <td>{{ it.codigo_fabrica }}</td>
               <td>{{ it.almacen }}</td>
               <td>{{ it.descripcion }}</td>
+              <td>
+              {% if it.imagen %}
+                <img src="{{it.imagen.url}}" alt="" style="width:70px">
+              {% else %}
+                <span>imagen no encontrada</span>
+              {% endif %} 
+
+              <td>
               <td>{{ it.cantidad }}</td>
               <td>
                 <a href="/detalle_item/{{ it.id }}" class="btn waves-effect teal waves-light">

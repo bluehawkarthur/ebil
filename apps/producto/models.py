@@ -15,7 +15,7 @@ class Item(models.Model):
 	cantidad = models.IntegerField()
 	saldo_min = models.IntegerField()
 	proveedor = models.ForeignKey(Proveedor, related_name='proveedor') #Relacion a la tabla de proveedores
-	imagen = models.ImageField(upload_to='items')
+	imagen = models.ImageField(upload_to='items', null=True)
 	unidad_medida = models.CharField(max_length=20)
 	costo_unitario = models.DecimalField(max_digits=5, decimal_places=3)
 	precio_unitario = models.DecimalField(max_digits=5, decimal_places=3)

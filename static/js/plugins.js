@@ -258,4 +258,29 @@ $(document).ready(function(){
   };
 
   setTimeout(efecto, 4000);
+  // $('#id_imagen').focus(function() {
+  //   // body...
+  //   var de = $('#id_imagen').get();
+  //   var imagen = de[0].files[0].name;
+  //   $('#im').html("<img src='"+imagen+"' >");
+  //   console.log(de[0].files[0]);
+  // });
+
+
 });
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#id_imagen").change(function () {
+        readURL(this);
+    });

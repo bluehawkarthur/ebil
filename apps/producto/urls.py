@@ -8,5 +8,8 @@ urlpatterns = patterns('',
 	url(r'^editar_item/(?P<pk>\d+)$', EditItem.as_view(), name='editar_item'),
 	# url(r'^delete_item/(?P<pk>\d+)$', DeleteItem.as_view(), name='delete_item'),
 	url(r'^delete_item/(?P<id>\d+)$', 'apps.producto.views.eliminar', name='delete'),
+
+    url(r'^producto_import/', 'apps.producto.views.import_data', name="import_producto"),
+
 )
 

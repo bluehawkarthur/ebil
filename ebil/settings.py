@@ -38,12 +38,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # use for local ad not produccion 
-    'debug_toolbar',
+    # 'debug_toolbar',
     # aplicaciones
     'apps.inicio',
     'apps.proveedores',
     'apps.producto',
-    'apps.almacenes',
+    # 'apps.almacenes',
     'apps.cliente',
     #librerias
     # 'captcha',
@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -116,7 +117,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-bo'
 
 TIME_ZONE = 'UTC'
 
@@ -140,6 +141,10 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = 'staticfiles'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 # ======= configure for django recaptcha =========
 
 NORECAPTCHA_SITE_KEY  = '6LfeIg0TAAAAAKNqc6kXnxJoNkmtZByMJC-X2wfV'
@@ -147,8 +152,8 @@ NORECAPTCHA_SECRET_KEY  = '6LfeIg0TAAAAAD1rb1X8vu8BbPJ2DZ4JIJP9tlGF'
 
 # ======= configure for debug toolbar =====
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
-INTERNAL_IPS = ('127.0.0.1',)
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# INTERNAL_IPS = ('127.0.0.1',)
 
 # ====== configure for django-excel =======
 FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",

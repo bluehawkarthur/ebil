@@ -90,29 +90,29 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 # ------------------base de datos local --------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ebil',
-        'USER':'root',
-        'PASSWORD': '1',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd454p3j70lfpf5',
-#         'USER':'elmcagfyktvtcz',
-#         'PASSWORD': 'OXM5_7Bi1XeYC0Hmp5ydSGF1W4',
-#         'HOST': 'ec2-54-83-58-191.compute-1.amazonaws.com',
+#         'NAME': 'ebil',
+#         'USER':'root',
+#         'PASSWORD': '1',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
         
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd454p3j70lfpf5',
+        'USER':'elmcagfyktvtcz',
+        'PASSWORD': 'OXM5_7Bi1XeYC0Hmp5ydSGF1W4',
+        'HOST': 'ec2-54-83-58-191.compute-1.amazonaws.com',
+        'PORT': '5432',
+        
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

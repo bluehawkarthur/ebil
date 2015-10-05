@@ -56,12 +56,21 @@ class CrearItem(FormView):
 
 
 
-
 class ListarItem(PaginationMixin, ListView):
 	template_name = 'producto/listar_item.html'
 	model = Item
 	paginate_by = 5
 	context_object_name = 'item'
+
+	def get_queryset(self):
+		
+		descripcion = self.request.GET.get('q', None)
+			
+		if (descripcion):
+			object_list = self.model.objects.filter(descripcion__icontains = descripcion).order_by('pk')
+		else:
+			object_list = self.model.objects.all().order_by('pk')
+		return object_list
 
 
 class DetalleItem(DetailView):

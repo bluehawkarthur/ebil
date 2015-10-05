@@ -10,3 +10,11 @@ Pillow==2.3.0
 django-widget-tweaks==1.4.1
 django-pure-pagination==0.2.1
 django-nocaptcha-recaptcha==0.0.18
+django-excel==0.0.2
+pyexcel==0.1.7
+pyexcel-io==0.0.6
+pyexcel-ods==0.0.10
+pyexcel-webio==0.0.3
+pyexcel-xls==0.0.7
+pyexcel-xlsx==0.0.6
+

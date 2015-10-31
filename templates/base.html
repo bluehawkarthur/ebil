@@ -25,6 +25,7 @@
 
     <!-- CORE CSS-->    
     <link rel="stylesheet" href="{% static "css/materialize.css"%}">
+    <link rel="stylesheet" href="{% static "jquery-ui/jquery-ui-theme.css"%}">
     <link rel="stylesheet" href="{% static "css/style.css"%}">
     <link rel="stylesheet" href="{% static "css/custom-style.css"%}">
     <link rel="stylesheet" href="{% static "css/style-horizontal.css"%}">
@@ -520,6 +521,7 @@
     ================================================ -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
    <script src="{% static "js/jquery-1.11.2.min.js"%}"></script>
+   <script src="{% static "js/jquery-ui.min.js"%}"></script>
     <script src="{% static "js/materialize.js"%}"></script>
     <script src="{% static "js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"%}"></script>
 
@@ -534,6 +536,9 @@
        
     
     </script>
+    {% block js %}
+        
+    {% endblock js %}
 
 
 <div class="hiddendiv common"></div><div class="drag-target" style="left: 0px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); right: 0px;"></div><div class="drag-target" style="left: 0px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); right: 0px;"></div><div class="drag-target" style="right: 0px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div id="toast-container"></div></body></html>

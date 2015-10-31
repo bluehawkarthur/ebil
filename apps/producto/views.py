@@ -13,6 +13,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 import django_excel as excel
 import pyexcel.ext.xls
+import pyexcel as pe
 import pyexcel.ext.xlsx
 import sys
 PY2 = sys.version_info[0] == 2
@@ -21,6 +22,7 @@ if PY2:
 else:
     import pyexcel.ext.ods3
 
+from ebil.settings import MEDIA_ROOT
 
 class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
@@ -68,6 +70,8 @@ class ListarItem(PaginationMixin, ListView):
 			
 		if (descripcion):
 			object_list = self.model.objects.filter(descripcion__icontains = descripcion).order_by('pk')
+		elif (descripcion == '*'):
+			object_list = self.model.objects.all().order_by('pk')
 		else:
 			object_list = self.model.objects.all().order_by('pk')
 		return object_list
@@ -108,19 +112,73 @@ def import_data(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST,
                               request.FILES)
+        
+        print 'ssssssssssssssssssssssssssssssss'
+        # if request.FILES:
+        # 	datos=request.FILES['file']
+        # 	filename = datos._name
+        # 	print filename
+        # 	fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+        # 	rute= '%s/%s' % (MEDIA_ROOT, datos)
+        # 	for chunk in datos.chunks() :
+        # 		fd.write(chunk)
+        # 	fd.close()
+
+        # 	dt=pe.get_sheet(file_name='%s' % (rute), name_columns_by_row=0)
+        # 	yy=list(dt.colnames)
+        # 	print yy
+
+
         def choice_func(row):
 		cod = Proveedor.objects.filter(codigo=row[10])[0]
 		row[10]= cod
+
 		row.append(request.user)
+		# print row
 		return row
+
+
         if form.is_valid():
+
+            # arryadates=['codigo_item', 'codigo_fabrica', 'almacen','grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario']
+            datos=request.FILES['file']
+           
+   
+            # datos2= pe.get_sheet(file_name='%s' % (datos),name_columns_by_row=0)
+            # print(list(datos2.colnames))
+            
+           
+            # for i in arryadates:
+            # 	if i in dt:
+            # 		print i
+            # 	else:
+            # 		print 'falseeeeeeee'
+
+         #    for d in datos2:
+        	# print d['codigo_item']
+            # print request.FILES['file'].get_sheet()
+            # rute= '%s/%s' % (MEDIA_ROOT, datos)
+            
+           
+
             request.FILES['file'].save_book_to_database(
                 models=[Item],
                 initializers=[choice_func],
                 mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen','grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
             )
+
+            filename = datos._name
+            print filename
+
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+      
+            for chunk in datos.chunks() :
+                fd.write(chunk)
+            fd.close()
+            
+
             return HttpResponseRedirect(reverse_lazy('listar_item'))
-        
+
     else:
         form = UploadFileForm()
     return render_to_response(

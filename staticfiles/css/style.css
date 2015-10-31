@@ -2203,3 +2203,50 @@ span.help-block {
  
   }
 
+
+/*style for search in table*/
+
+.input-field-group {
+    position: relative;
+}
+.input-field-group label {
+    color: #9e9e9e;
+    position: absolute;
+    top: 0.8rem;
+    left: 0.75rem;
+    font-size: 1rem;
+    cursor: text;
+    -webkit-transition: 0.2s ease-out;
+    -moz-transition: 0.2s ease-out;
+    -o-transition: 0.2s ease-out;
+    -ms-transition: 0.2s ease-out;
+    transition: 0.2s ease-out;
+}
+
+.input-field-group label.active {
+    font-size: 0.8rem;
+    -webkit-transform: translateY(-140%);
+    -moz-transform: translateY(-140%);
+    -ms-transform: translateY(-140%);
+    -o-transform: translateY(-140%);
+    transform: translateY(-110%); 
+  }
+
+#table-product th{
+  color: white;
+}
+#table-product td{
+  color: white;
+}
+
+
+.switch label input[type=checkbox]:checked + .lever:after {
+    background-color: #00608B;
+}
+
+.switch label input[type=checkbox]:checked + .lever {
+    background-color: #A1C2D1;
+}
+.texto-center{
+  text-align: center;
+}

@@ -27,6 +27,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+# ====== configure for django-excel =======
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
 
 # Application definition
 
@@ -45,6 +48,7 @@ INSTALLED_APPS = (
     'apps.producto',
     # 'apps.almacenes',
     'apps.cliente',
+    'apps.compras',
     #librerias
     # 'captcha',
     'nocaptcha_recaptcha',
@@ -102,6 +106,7 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 #     }
 # }
 
+# ========== Database for produccion ==============================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -155,6 +160,3 @@ NORECAPTCHA_SECRET_KEY  = '6LfeIg0TAAAAAD1rb1X8vu8BbPJ2DZ4JIJP9tlGF'
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
 # INTERNAL_IPS = ('127.0.0.1',)
 
-# ====== configure for django-excel =======
-FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
-                        "django_excel.TemporaryExcelFileUploadHandler")

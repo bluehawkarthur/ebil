@@ -215,8 +215,8 @@
                 
             //   }
             // }
-            
-            // $("#input-credito").hide();
+
+            $("#input-credito").hide();
 
             $("#check").change(function(){
               var dato = $(this).val();
@@ -228,7 +228,10 @@
               }
             }); 
 
-            $(".add_codigo_item").attr('disabled', 'disabled');
+            // code for disable input is codigo item)===========
+            // $(".add_codigo_item").attr('disabled', 'disabled');
+
+
             // objeto para guardar productos y factura de la compra
             var proceso = new Object();
             proceso.producto = new Array();

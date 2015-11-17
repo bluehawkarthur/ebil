@@ -13,15 +13,20 @@
 		<h4 class="header2">Importar datos en excel</h4>
         <div class="file-field input-field col s12 has-error"> 
 	        <div class="btn btn-file">
+
 	          <span>{{ form.file.label }}</span>
 	          {{ form.file|add_error_class:"invalid" }}  
-
+				
 	        </div>
 
 	        <!-- <div id="im"></div> -->
 	        <div class="file-path-wrapper">
 	          <input class="file-path validate" type="text" placeholder="Por favor, sube un archivo .xls">
-	          <span class="help-block">{{ form.errors.file|removetags:'ul li' }}</span>
+	          <span class="help-block-file">
+	          {{ form.errors.file|removetags:'ul li' }}
+	          {{ form.non_field_errors|removetags:'ul li'}}
+
+	          </span>
 
 	        </div>
 	      </div>

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+    <h3>Listado de Ventas:  </h3>
+	<form action="/rep_ventas/" method='POST'>{% csrf_token %}
+        <label for="">Producto</label>
+        <input type="text"  id='add_buscar_item'>
+        <input type="hidden" name='buscalo' id='buscar_item'>
+
+        <input type="submit" value="Buscar producto">
+
+    </form>
+    {% if  ex %}
+    	<table class='table'>
+    		<thead>
+    			<th>N° Nota</th>
+                <th>Fecha</th>
+                <th>Producto</th>
+    			<th>Cantidad</th>
+    		</thead>
+    		<tbody>
+    		{%  for dict in factura %}
+                {% for fact, detalle in dict.items %}
+                    <tr>
+                        <td>{{fact.nro_factura}}</td>
+                        <td>{{fact.fecha}}</td>
+                        <td  id='descrip'>{{vv}}</td>
+                        <td>{{detalle.cantidad}}</td>
+                    </tr>
+                {% endfor %}
+    		{% endfor %}
+                <tr>
+                    <td colspan=2></td>
+                    <td>Total Existencias:</td>
+                    <td>{{v}}</td>
+                </tr>
+    		</tbody>
+        </table>    
+    {% else %}
+      <h3>No se encontraron resultados!</h3>
+    {% endif %}
+
+{% endblock content %}
+
+{% block js %}
+   <script>
+     $( "#add_buscar_item" ).autocomplete({
+
+      source: function( request, response ) {
+        console.log('estamos en JQUERY');
+        //console.log(request);
+
+        $.ajax({
+          url: "/buscar_item/",
+          dataType: "json",
+          data: {'id':request.term},
+          success: function( data ) {
+           console.log(data);
+           response($.map(data, function (pn) {
+            //console.log(pn);
+            return {
+              pk_id_item: pn.fields.pk,
+              codigo_item: pn.fields.codigo_item,
+              descripcion: pn.fields.descripcion,
+              label: pn.fields.codigo_item+" - "+pn.fields.descripcion
+            };
+
+          }));
+       }
+   });
+    },
+    minLength: 2,       
+    select: function( event, ui ) {
+      $( "#buscar_item" ).val(ui.item.codigo_item);
+      $( "#descrip" ).val(ui.item.descripcion);
+    }
+});
+   </script> 
+{% endblock js %}

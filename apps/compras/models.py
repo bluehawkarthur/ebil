@@ -7,22 +7,14 @@ from apps.producto.models import Item
 
 class Compra(models.Model):
     nit = models.IntegerField()
-    razon_social = models.CharField(max_length=6)
+    razon_social = models.CharField(max_length=100)
     nro_factura = models.IntegerField()
     nro_autorizacion = models.IntegerField()
-    fecha = models.DateTimeField()
-    monto = models.IntegerField()
-    descuento = models.IntegerField()
-    recargo = models.IntegerField()
-    ice = models.IntegerField()
-    excentos = models.IntegerField()
+    fecha = models.DateField()
     cod_control = models.CharField(max_length=100)
+    tipo_compra = models.CharField(max_length=100)
+    cantidad_dias = models.IntegerField()
     total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    
-    class Meta:
-
-        # no duplicate serie y numero juntos
-        unique_together = (('nit', 'nro_factura'),)
 
     def __unicode__(self):
         return U" %s- %s" % (self.nit, self.nro_factura)
@@ -30,19 +22,21 @@ class Compra(models.Model):
 
 class DetalleCompra(models.Model):
     compra = models.ForeignKey(Compra, db_column='compra_id')
-    producto = models.ForeignKey(Item, db_column='producto_id')
+    producto = models.ForeignKey(Item, db_column='producto_id', null=True, blank=True)
     codigo = models.CharField(max_length=100)
     cantidad = models.IntegerField()
     unidad = models.CharField(max_length=10)
-    detalle = models.CharField(max_length=40)
-    precio = models.DecimalField(max_digits=6, decimal_places=2)
+    detalle = models.CharField(max_length=100)
+    precio_unitario = models.DecimalField(max_digits=6, decimal_places=2)
     subtotal = models.DecimalField(max_digits=6, decimal_places=2)
-    descuento = models.IntegerField()
-    recargo = models.IntegerField()
-    ice = models.IntegerField()
-    excentos = models.IntegerField()
-    cf = models.IntegerField()
+    descuento = models.DecimalField(max_digits=6, decimal_places=2)
+    recargo = models.DecimalField(max_digits=6, decimal_places=2)
+    ice = models.DecimalField(max_digits=6, decimal_places=2)
+    excentos = models.DecimalField(max_digits=6, decimal_places=2)
+    scf = models.DecimalField(max_digits=6, decimal_places=2)
     centro_costos = models.CharField(max_length=100)
+    tipo_descuento = models.CharField(max_length=100)
+    tipo_recargo = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'%s' % self.detalle

@@ -25,6 +25,7 @@
 
     <!-- CORE CSS-->    
     <link rel="stylesheet" href="{% static "css/materialize.css"%}">
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize-print.css"%}" media="print"/>
     <link rel="stylesheet" href="{% static "jquery-ui/jquery-ui-theme.css"%}">
     <link rel="stylesheet" href="{% static "css/style.css"%}">
     <link rel="stylesheet" href="{% static "css/custom-style.css"%}">
@@ -32,6 +33,7 @@
     <link rel="stylesheet" href="{% static "js/plugins/perfect-scrollbar/perfect-scrollbar.css"%}">
     <link rel="stylesheet" href="{% static "js/plugins/jvectormap/jquery-jvectormap.css"%}">
     <link rel="stylesheet" href="{% static "js/plugins/chartist-js/chartist.min.css"%}">
+    <link rel="stylesheet" href="{% static "css/alerts.css"%}">
     
 
 
@@ -313,14 +315,6 @@
 
             <!-- //////////////////////////////////////////////////////////////////////////// -->
           
-            {% if messages %}
-        
-                <div id="messages1" class="messages1">
-                     {% for message in messages %}
-                        <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
-                        {% endfor %}
-                </div>
-            {% endif %}
             
             {% block content %}
             {% endblock content %}
@@ -530,12 +524,41 @@
     <script src="{% static "js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"%}"></script>
     <script src="{% static "js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"%}"></script>
     <script src="{% static "js/plugins/jvectormap/vectormap-script.js"%}"></script>
+    <script src="{% static "js/jquery.bootstrap-growl.js"%}"></script>
     <script src="{% static "js/plugins.js"%}"></script>
+
     <!-- Toast Notification -->
     <script type="text/javascript">
        
     
     </script>
+     {% if messages %}
+        
+        <script type="text/javascript">
+            $(function() {
+                {% for message in messages %}
+                
+           
+                    $.bootstrapGrowl("{{ message }}", {
+                        {% if message.tags == 'error' %}
+                            type: 'danger',
+                        {% else %}
+                            type: 'success',
+                        {% endif %}
+                        offset: {from: 'top', amount: 150},
+                        align: 'center',
+                        width: 350,
+                        allow_dismiss: false
+                    });
+              
+
+                {% endfor %}
+                
+                
+            });
+        </script>
+    {% endif %}
+
     {% block js %}
         
     {% endblock js %}

@@ -16,98 +16,104 @@
         <h3 class="header2">Cliente</h3>
         <div class="row">
         {% csrf_token %}  
-              <div class="row">
-                <div class="col s6">
-                {{ form.codigo.label }}
-                {{ form.codigo }}
-                {{ form.errors.codigo }}
-                </div>
-                <div class="col s6">
-                {{ form.razonSocial.label }}
-                {{ form.razonSocial }}
-                {{ form.errors.razonSocial }}
-                </div>
-              </div>  
-              <div class="row">
-                <div class="col s6">
-                {{ form.nit.label }}
-                {{ form.nit }}
-                {{ form.errors.nit }}
-                </div>
-                <div class="col s6">
-                {{ form.Direccion.label }}
-                {{ form.Direccion }}
-                {{ form.errors.Direccion }}
-                </div>
-              </div> 
-              <div class="row">
-                <div class="col s6">
-                {{ form.telefonos1.label }}
-                {{ form.telefonos1 }}
-                {{ form.errors.telefonos1 }}
-                </div>
-                <div class="col s6">
-                {{ form.telefonos2.label }}
-                {{ form.telefonos2 }}
-                {{ form.errors.telefonos2 }}
-                </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.codigo|removetags:'ul li' }}</span>
+                {{ form.codigo|add_error_class:"invalid" }}
+                <label for="emails">{{ form.codigo.label }}</label>
               </div>
-              <div class="row">
-                <div class="col s6">
-                {{ form.telefonos3.label }}
-                {{ form.telefonos3 }}
-                {{ form.errors.telefonos3 }}
-                </div>
-                <div class="col s6">
-                {{ form.contacto.label }}
-                {{ form.contacto }}
-                {{ form.errors.contacto }}
-                </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.razonsocial|removetags:'ul li' }}</span>
+              {{ form.razonsocial|add_error_class:"invalid" }}
+                <label for="email">{{ form.razonsocial.label }}</label>
               </div>
-              <div class="row">
-                <div class="col s6">
-                {{ form.rubro.label }}
-                {{ form.rubro }}
-                {{ form.errors.rubro }}
-                </div>
-                <div class="col s6">
-                {{ form.categoria.label }}
-                {{ form.categoria }}
-                {{ form.errors.categoria }}
-                </div>
-              </div>
+            </div>
+              
              <div class="row">
-                <div class="col s6">
-                {{ form.UbucacionGeo.label }}
-                {{ form.UbucacionGeo }}
-                {{ form.errors.UbucacionGeo }}
-                </div>
-                <div class="col s6">
-                {{ form.fecha.label }}
-                {{ form.fecha }}
-                {{ form.errors.fecha }}
-                </div>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
+                {{ form.nit|add_error_class:"invalid" }}
+                <label for="emails">{{ form.nit.label }}</label>
               </div>
-              <div class="row">
-                <div class="col s6">
-                {{ form.fecha2.label }}
-                {{ form.fecha2 }}
-                {{ form.errors.fecha2 }}
-                </div>
-                <div class="col s6">
-                {{ form.textos.label }}
-                {{ form.textos }}
-                {{ form.errors.textos }}
-                </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.direccion|removetags:'ul li' }}</span>
+              {{ form.direccion|add_error_class:"invalid" }}
+                <label for="email">{{ form.direccion.label }}</label>
               </div>
-                 <div class="row">
-                <div class="col s6">
-                {{ form.textos2.label }}
-                {{ form.textos2 }}
-                {{ form.errors.textos2 }}
-                </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.telefonos1|removetags:'ul li' }}</span>
+                {{ form.telefonos1|add_error_class:"invalid" }}
+                <label for="emails">{{ form.telefonos1.label }}</label>
               </div>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.telefonos2|removetags:'ul li' }}</span>
+              {{ form.telefonos2|add_error_class:"invalid" }}
+                <label for="email">{{ form.telefonos2.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.telefonos3|removetags:'ul li' }}</span>
+                {{ form.telefonos3|add_error_class:"invalid" }}
+                <label for="emails">{{ form.telefonos3.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.contacto|removetags:'ul li' }}</span>
+              {{ form.contacto|add_error_class:"invalid" }}
+                <label for="email">{{ form.contacto.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.rubro|removetags:'ul li' }}</span>
+                {{ form.rubro|add_error_class:"invalid" }}
+                <label for="emails">{{ form.rubro.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.categoria|removetags:'ul li' }}</span>
+              {{ form.categoria|add_error_class:"invalid" }}
+                <label for="email">{{ form.categoria.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.ubucaciongeo|removetags:'ul li' }}</span>
+                {{ form.ubucaciongeo|add_error_class:"invalid" }}
+                <label for="emails">{{ form.ubucaciongeo.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error">
+                  <span class="help-block">{{ form.errors.fecha|removetags:'ul li' }}</span>
+                  {{ form.fecha|add_class:"datepicker"|add_error_class:"invalid"}}
+                  <label for="">{{ form.fecha.label }}</label>
+              </div>
+            </div>         
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                  <span class="help-block">{{ form.errors.fecha2|removetags:'ul li' }}</span>
+                  {{ form.fecha2|add_class:"datepicker"|add_error_class:"invalid"}}
+                  <label for="">{{ form.fecha2.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.textos|removetags:'ul li' }}</span>
+                {{ form.textos|add_error_class:"invalid" }}
+                <label for="emails">{{ form.textos.label }}</label>
+              </div>
+              
             </div>  
+            <div class="row">
+        
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.textos2|removetags:'ul li' }}</span>
+                {{ form.textos2|add_error_class:"invalid" }}
+                <label for="emails">{{ form.textos2.label }}</label>
+              </div>
+              
+             </div>
         </div>
         <div class="row">                   
           <div class="input-field col s12">

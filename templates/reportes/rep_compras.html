@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="content">	
+ <div class="container">
+    <h3>Listado de compras:  </h3>
+	<form action="/rep_compras/" method='POST'>{% csrf_token %}
+    <div class="row">
+      <div class="col s12 m4 l4">
+        <input type="text"  id='add_buscar_item'>
+        <input type="hidden" name='buscalo' id='buscar_item'>
+        <button type="submit" class="btn waves-effect teal waves-light"><i class="mdi-action-search left"></i>Buscar producto</button>
+      </div>
+    </div>
+        <label for="">Producto</label>
+        
+
+    </form>
+
+    {% if  ex %}
+    	<table class='table'>
+    		<thead>
+    			<th>N Factura</th>
+                <th>Fecha</th>
+                <th>Producto</th>
+    			<th>Cantidad</th>
+    		</thead>
+    		<tbody>
+    		{%  for dict in factura %}
+                {% for fact, detalle in dict.items %}
+                    <tr>
+                        <td>{{fact.nro_factura}}</td>
+                        <td>{{fact.fecha}}</td>
+                        <td>{{detalle.producto}}</td>
+                        <td>{{detalle.cantidad}}</td>
+                    </tr>
+                {% endfor %}
+    		{% endfor %}
+                <tr>
+                    <td colspan=2></td>
+                    <td>Total Existencias:</td>
+                    <td>{{v}}</td>
+                </tr>
+    		</tbody>
+        </table>    
+    {% else %}
+      <h3>No se encontraron resultados!</h3>
+    {% endif %}
+  </div>
+</section>
+{% endblock content %}
+
+{% block js %}
+   <script>
+     $( "#add_buscar_item" ).autocomplete({
+
+      source: function( request, response ) {
+        console.log('estamos en JQUERY');
+        //console.log(request);
+
+        $.ajax({
+          url: "/buscar_item/",
+          dataType: "json",
+          data: {'id':request.term},
+          success: function( data ) {
+           console.log(data);
+           response($.map(data, function (pn) {
+            //console.log(pn);
+            return {
+              pk_id_item: pn.fields.pk,
+              codigo_item: pn.fields.codigo_item,
+              descripcion: pn.fields.descripcion,
+              label: pn.fields.codigo_item+" - "+pn.fields.descripcion
+            };
+
+          }));
+       }
+   });
+    },
+    minLength: 2,       
+    select: function( event, ui ) {
+      $( "#buscar_item" ).val(ui.item.codigo_item);
+    }
+});
+   </script> 
+{% endblock js %}

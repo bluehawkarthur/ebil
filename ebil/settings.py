@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9fzbh^dl_t)t3f_hu=hbi@5t%92$=$zh1rsov_e=xxr2r01%4i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,10 +49,13 @@ INSTALLED_APPS = (
     # 'apps.almacenes',
     'apps.cliente',
     'apps.compras',
+    'apps.reportes',
+    'apps.ventas',
     #librerias
     # 'captcha',
     'nocaptcha_recaptcha',
     'widget_tweaks',
+    'django_extensions',
     
     
 )
@@ -94,30 +97,30 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 # ------------------base de datos local --------------------------
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ebil',
-#         'USER':'root',
-#         'PASSWORD': '1',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-        
-#     }
-# }
-
-# ========== Database for produccion ==============================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd47512b9tqcqjl',
-        'USER':'uwybtnhtgnbyqu',
-        'PASSWORD': 'edge96Ow3pKLeOng926Rch7XCO',
-        'HOST': 'ec2-54-197-241-24.compute-1.amazonaws.com',
+        'NAME': 'ebil',
+        'USER':'root',
+        'PASSWORD': '1',
+        'HOST': 'localhost',
         'PORT': '5432',
         
     }
 }
+
+# ========== Database for produccion ==============================
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd47512b9tqcqjl',
+#         'USER':'uwybtnhtgnbyqu',
+#         'PASSWORD': 'edge96Ow3pKLeOng926Rch7XCO',
+#         'HOST': 'ec2-54-197-241-24.compute-1.amazonaws.com',
+#         'PORT': '5432',
+        
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -154,6 +157,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 NORECAPTCHA_SITE_KEY  = '6LfeIg0TAAAAAKNqc6kXnxJoNkmtZByMJC-X2wfV'
 NORECAPTCHA_SECRET_KEY  = '6LfeIg0TAAAAAD1rb1X8vu8BbPJ2DZ4JIJP9tlGF'
+
+if DEBUG:
+
+    from fnmatch import fnmatch
+    class glob_list(list):
+        def __contains__(self, key):
+            for elt in self:
+                if fnmatch(key, elt): return True
+            return False
+
+    INTERNAL_IPS = glob_list(['127.0.0.1', '192.168.*.*'])
 
 # ======= configure for debug toolbar =====
 

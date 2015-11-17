@@ -16,7 +16,7 @@ class ItemForm(forms.Form):
 	cantidad = forms.IntegerField()
 	saldo_min = forms.IntegerField()
 	proveedor = forms.ModelChoiceField(queryset='', empty_label='seleccione')
-	imagen = forms.ImageField()
+	imagen = forms.ImageField(required=False)
 	unidad_medida = forms.CharField(max_length=20)
 	costo_unitario = forms.DecimalField(max_digits=5, decimal_places=3)
 	precio_unitario = forms.DecimalField(max_digits=5, decimal_places=3)

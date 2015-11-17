@@ -2250,3 +2250,38 @@ span.help-block {
 .texto-center{
   text-align: center;
 }
+
+input[type=text]:disabled{
+  color: #9E9E9E;
+  border-bottom: 1px dotted rgb(158, 158, 158);
+}
+
+.text-label{
+  color: black;
+}
+/*style for validations file span*/
+
+.help-block-file {
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    margin: 0;
+    color: inherit;
+    opacity: .7;
+    font-size: 13px;
+}
+
+.has-error .help-block-file {
+    color: #f44336;
+    opacity: 1;
+}
+
+span.help-block-file {
+    right: auto;
+}
+
+
+/*  para las notass de venta  */
+.alinear_cabecera {
+  text-align: center;
+}

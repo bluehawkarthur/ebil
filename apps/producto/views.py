@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from .forms import ItemForm
 from django.views.generic import FormView, ListView, UpdateView, DeleteView
@@ -13,8 +14,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 import django_excel as excel
 import pyexcel.ext.xls
-import pyexcel as pe
 import pyexcel.ext.xlsx
+import pyexcel as pe
 import sys
 PY2 = sys.version_info[0] == 2
 if PY2:
@@ -23,6 +24,12 @@ else:
     import pyexcel.ext.ods3
 
 from ebil.settings import MEDIA_ROOT
+
+import os
+import xlrd
+
+IMPORT_FILE_TYPES = ['.xls', ]
+from django.contrib import messages
 
 class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
@@ -65,9 +72,14 @@ class ListarItem(PaginationMixin, ListView):
 	context_object_name = 'item'
 
 	def get_queryset(self):
-		
+
 		descripcion = self.request.GET.get('q', None)
-			
+
+		dt= "%s" % descripcion
+	
+		d_list = dt.split("*")
+		print len(d_list)
+
 		if (descripcion):
 			object_list = self.model.objects.filter(descripcion__icontains = descripcion).order_by('pk')
 		elif (descripcion == '*'):
@@ -107,13 +119,25 @@ def eliminar(request, id):
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
+    def clean(self):
+    	data = super(UploadFileForm, self).clean()
+
+    	if 'file' not in data:
+        	raise forms.ValidationError('')
+
+        docfile = data['file']
+    	extension = os.path.splitext(docfile.name)[1]
+
+    	if not (extension in IMPORT_FILE_TYPES):
+        	raise forms.ValidationError(u'%s no es un archivo válido. Por favor, asegúrese de que su archivo de entrada tenga la extension .xls' % docfile.name)
+
 
 def import_data(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST,
                               request.FILES)
         
-        print 'ssssssssssssssssssssssssssssssss'
+        
         # if request.FILES:
         # 	datos=request.FILES['file']
         # 	filename = datos._name
@@ -130,20 +154,20 @@ def import_data(request):
 
 
         def choice_func(row):
-		cod = Proveedor.objects.filter(codigo=row[10])[0]
-		row[10]= cod
+    		cod = Proveedor.objects.filter(codigo=row[10])[0]
+    		row[10] = cod
 
-		row.append(request.user)
+    		row.append(request.user)
 		# print row
 		return row
 
 
         if form.is_valid():
 
+            print 'ssssssssssssssssssssssssssssssss'
             # arryadates=['codigo_item', 'codigo_fabrica', 'almacen','grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario']
-            datos=request.FILES['file']
-           
-   
+            datos = request.FILES['file']
+
             # datos2= pe.get_sheet(file_name='%s' % (datos),name_columns_by_row=0)
             # print(list(datos2.colnames))
             
@@ -159,25 +183,32 @@ def import_data(request):
             # print request.FILES['file'].get_sheet()
             # rute= '%s/%s' % (MEDIA_ROOT, datos)
             
-           
+            try:
 
-            request.FILES['file'].save_book_to_database(
-                models=[Item],
-                initializers=[choice_func],
-                mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen','grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
-            )
+	            request.FILES['file'].save_book_to_database(
+	                models=[Item],
+	                initializers=[choice_func],
+	                mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen','grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
+	            )
 
-            filename = datos._name
-            print filename
+	            messages.success(request, "Los datos se importaron correctamente")
 
-            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
-      
-            for chunk in datos.chunks() :
-                fd.write(chunk)
-            fd.close()
-            
+	            filename = datos._name
+	            print filename
 
-            return HttpResponseRedirect(reverse_lazy('listar_item'))
+	            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+
+	            for chunk in datos.chunks() :
+	                fd.write(chunk)
+	            fd.close()
+
+
+	            return HttpResponseRedirect(reverse_lazy('listar_item'))
+
+            except Exception, e:
+	        	messages.error(request, "error en el archivo por favor verifique q los datos sean correctos")
+
+
 
     else:
         form = UploadFileForm()

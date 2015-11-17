@@ -1,0 +1,527 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+<section id="content">
+        <!--start container-->
+        <div class="container">
+          <div id="invoice">
+            <div class="invoice-header">
+              <div class="row section">
+                <div class="col s12 m6 l6">
+                <div class="input-field col s7 has-error">
+                  <input id="add_nit" name="add_nit" type="text">
+                  <label>Nit</label>
+                </div>
+                <div class="input-field col s7 has-error">
+                  <input id="add_razon"  name="add_razon" type="text">
+                  <label>Razon social</label>
+                </div>
+      
+                <div class="input-field col s7 has-error">
+                  <input id="add_fecha"  name="codigo_item" type="text" class="datepicker">
+                  <label>Fecha</label>
+                </div>
+              
+                  
+                </div>
+
+                <div class="col s12 m6 l3">
+                    <div class="texto-center">
+                      <span>TIPO DE VENTA</span>
+                    </div>
+                    
+                   <div class="switch texto-center">
+                    
+                    <label>
+                      Contado
+                      <input type="checkbox" id="add_tipo">
+                      <span class="lever"></span> Credito
+                    </label>
+
+                  </div>
+                  <div class="input-field texto-center" id="input-credito">
+                    <input id="dias" maxlength="10" name="codigo_item" type="text">
+                    <label>Dias</label>
+                  </div>
+                  
+                </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="invoice-lable">
+              <div class="row cyan">
+                <table id="table-product" class="table" border="1">
+            <thead>
+              <tr>
+                <th>Buscar Item</th>
+                <th>Detalle</th>
+                <th>Codigo item</th>
+                <th>Unidad</th>
+                <th>Precio unitario</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Descuentos</th>
+                <th>Recargos</th>
+                <th>ICE</th>
+                <th>Exentos</th>
+                <th>Sujeto a CF</th>
+                <th>Agregar</th>
+              </tr>
+            </thead>
+            <tbody class="product-instances">
+          
+              <tr height="59%">
+                <td width="12%">
+                
+                <div class="input-field-group">
+                  <input id="add_buscar_item" name="add_buscar_item" type="text">
+                  <label for="search" class=""><i class="mdi-action-search"></i>
+                  </label>
+                </div>
+                </td>
+                <td width="10%"><input type="text" id="add_detalle" class="form-control add_disable"></td>
+
+                <td width="10%">
+                <input type="text" id="add_codigo_item" class="form-control add_disable">
+                <input type="hidden" id="pk">
+                </td>
+                <td width="7%"><input type="text" id="add_unidad" class="form-control add_disable"></td>
+                <td width="10%"><input type="text" value="0" id="add_precio_unitario" class="form-control add_disable"></td>
+                <td width="7%"><input type="text" value="0" id="add_cantidad" class="form-control add_calculo_totales_down"></td>
+                <td width="7%"><input type="text" value="0" id="add_total" class="form-control add_total"></td>
+                <td width="7%" rowspan="2">
+                  <input type="text" id="add_descuento" value="0" class="form-control add_calculo_totales_down">
+                  <select name="add_costos" id="add_fk_id_formato_dato_descuento" class="add_calculo_totales">
+                    <option value="">Bs</option>
+                    <option value="475">%</option>
+                  </select>
+                </td>
+                <td width="7%" rowspan="2">
+                <input type="text" id="add_recargo" value="0" class="form-control add_calculo_totales_down">
+                <select name="add_costos" id="add_fk_id_formato_dato_recargo" class="add_calculo_totales">
+                    <option value="">Bs</option>
+                    <option value="475">%</option>
+                </select>
+                </td>
+                <td width="7%"><input type="text" id="add_ice" value="0" class="form-control add_calculo_totales_down"></td>
+                <td width="7%"><input type="text" id="add_exentos" value="0" class="form-control add_calculo_totales_down"></td>
+                <td width="7%"><input type="text" id="add_sujeto_credito_fiscal" class="form-control add_scf"></td>
+                
+                <td>
+                  <a  class="btn waves-effect orange waves-light" onclick="agregarDetalle();"><i class="mdi-content-add left"></i>Agregar</a>
+                 
+                </td>
+              </tr >
+              <tr >
+                <td colspan="5">  </td>
+                <td>  </td>
+              </tr>
+          
+            </tbody>
+
+          </table>
+              </div>
+            </div>
+
+            <div class="invoice-table">
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <table class="striped" id="tb-detalle">
+                    <thead>
+                      <tr>
+                        <th data-field="no">No</th>
+                        <th data-field="item">Cod Item</th>
+                        <th data-field="item">Cantidad</th>
+                        <th data-field="item">Unidad</th>
+                        <th data-field="item">Detalle</th>
+                        <th data-field="uprice">P. U.</th>
+                        
+                        <th data-field="price">Total</th>
+                        <th>Descuentos</th>
+                        <th>Recargos</th>
+                        <th>ICE</th>
+                        <th>Excentos</th>
+                        <th>Sujeto a DF</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                      <tr>
+                        <td colspan="10" class="white"></td>
+                        <td class="cyan white-text">Total:</td>
+                        <td class="cyan white-text" id="sum-subtotal">0.00</td>
+                      </tr>
+                     <!--  <tr>
+                        <td colspan="10" class="white"></td>
+                        <td>Service Tax</td>
+                        <td>11.00</td>
+                      </tr>
+                      <tr>
+                        <td colspan="10" class="white"></td>
+                        <td class="cyan white-text">Grand Total</td>
+                        <td class="cyan strong white-text">5,871.90</td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                 
+                </div>
+                
+              </div>
+            </div>
+            
+             <div class="invoice-footer">
+              <div class="row">
+                <div class="input-field col s12 m6 l6">
+                <form action="/ventas/" method="post" onsubmit="onEnviar()">
+                        {% csrf_token %}
+                        <input id="proceso" name="proceso" type="hidden" />
+                         <button class="btn cyan waves-effect waves-light right"  name="action">Guardar
+                          <i class="mdi-content-save right"></i>
+                          </button>
+                    </form>
+                <p>
+                 
+                  </p>
+                </div>
+                <div class="col s12 m6 l6 center-align">
+                <p>
+                 <a href="/listar_item" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+                 </p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!--end container-->
+</section>
+{% endblock content %}
+
+{% block js %}
+  <script>
+           
+
+            //====== codigo para desabilitar inputs de almacen =========
+            // code for disable input is codigo item)===========
+            function disable() {
+              $(".add_disable").attr('disabled', 'disabled');
+              $(".add_total").attr('disabled', 'disabled');
+              $(".add_scf").attr('disabled', 'disabled');
+            }
+            
+            disable();
+
+            // ===== codigo para tipo de compra credito ================
+
+            $("#input-credito").hide();
+
+            $("#add_tipo").change(function(){
+              var dato = $(this).val();
+              console.log(dato);
+              if ($(this).is(':checked')){
+                $("#input-credito").show();
+              }else{
+                $("#input-credito").hide();
+                $("#dias").val('');
+              }
+            }); 
+
+
+            // objeto para guardar productos y factura de la compra
+            var proceso = new Object();
+            proceso.producto = new Array();
+
+            var table = new Array();
+            function agregarDetalle(){
+              console.log('----datosss array ------------');
+                  // console.log($( "#add_cantidad" ).val());
+                  // var cant = $( "#add_cantidad" ).val();
+                  // table.push({'cantidad':cant});
+                  // console.log(table);
+                  var d = table;
+
+                  var item =  $( "#add_codigo_item" ).val();
+                  var centroC =  $( "#add_costos" ).val();
+                  console.log('costosssssssss');
+                  console.log(centroC);
+                  var cantidad =  $( "#add_cantidad" ).val();
+
+                   // condicon de typo descuento 
+                  var typo_descuento= $("#add_fk_id_formato_dato_descuento").val();
+                  if (typo_descuento==475){
+                    typo_descuento = '%'; 
+                  }else{
+                    typo_descuento = 'Bs'; 
+                  }
+
+                  var typo_recargo= $("#add_fk_id_formato_dato_recargo").val();
+                  if (typo_recargo==475){
+                    typo_recargo = '%'; 
+                  }else{
+                    typo_recargo = 'Bs'; 
+                  }
+
+                  console.log(typo_recargo);
+
+                
+
+                  proceso.producto.push({
+                    'codigo_item': item,
+                    'pk': $('#pk').val(),
+                    'cantidad': cantidad,
+                    'unidad': $('#add_unidad').val(),
+                    'detalle': $('#add_detalle').val(),
+                    'precio_unitario': $('#add_precio_unitario').val(),
+                    'subtotal': $('#add_total').val(),
+                    'descuentos': $('#add_descuento').val(),
+                    'recargos': $('#add_recargo').val(),
+                    'ice': $('#add_ice').val(),
+                    'excentos': $('#add_exentos').val(),
+                    'sdf': $('#add_sujeto_credito_fiscal').val(),
+                    'centro_costos': $('#add_costos').val(),
+                    'tipo_descuento': typo_descuento,
+                    'tipo_recargo' : typo_recargo,
+                   
+                  });
+
+                  console.log(proceso);
+
+                  // obteniendo la tabla para insertar los campos
+                  var t = document.getElementById('tb-detalle').getElementsByTagName('tbody')[0];
+                  // obteniendo el tr de la tabla
+                  var rowCount = t.rows.length-1;
+                      // insertando los  td
+                      var row = t.insertRow(rowCount);
+                      var cell1 = row.insertCell(0);
+                      var cell2 = row.insertCell(1);
+                      var cell3 = row.insertCell(2);
+                      var cell4 = row.insertCell(3);
+                      var cell5 = row.insertCell(4);
+                      var cell6 = row.insertCell(5);
+                      var cell7 = row.insertCell(6);
+                      var cell8 = row.insertCell(7);
+                      var cell9 = row.insertCell(8);
+                      var cell10 = row.insertCell(9);
+                      var cell11 = row.insertCell(10);
+                      var cell12 = row.insertCell(11);
+                      var cell13 = row.insertCell(12);
+
+                      // insertando los datos en los td
+                      cell1.innerHTML = rowCount+1;
+                      cell2.innerHTML = $( "#add_codigo_item" ).val();
+                      cell3.innerHTML = $( "#add_cantidad" ).val();
+            
+                      cell4.innerHTML = $( "#add_unidad" ).val();
+                 
+                      cell5.innerHTML =  $('#add_detalle').val();
+                   
+                      cell6.innerHTML = $('#add_precio_unitario').val();
+
+                      cell7.innerHTML = ($('#add_precio_unitario').val())*cantidad;
+
+                      var descuento = 0;
+                      if($('#add_descuento').val()!=''){
+                          descuento = $('#add_descuento').val();
+                      }
+                      cell8.innerHTML = descuento;
+
+                      var recargo = 0;
+                      if($('#add_recargo').val()!=''){
+                          recargo = $('#add_recargo').val();
+                      }
+                      cell9.innerHTML = recargo;
+
+                      cell10.innerHTML = $( "#add_ice" ).val();
+                      cell11.innerHTML = $( "#add_exentos" ).val();
+
+
+                      cell12.innerHTML = $( "#add_sujeto_credito_fiscal" ).val();
+
+                      var ct= rowCount+1;
+                     
+                      cell13.innerHTML ="<a class='btn-floating waves-effect waves-light red' id='eliminar-"+ct+"'><i class='mdi-action-delete'></i></a>";
+
+                      $('#eliminar-'+ct).click(function (){
+                        console.log('deleteeeeeeeeeeeeeeee');
+                        row.remove();
+                        calTotal();
+                        proceso.producto.splice(ct-1,1);
+                        console.log(proceso.producto);
+                      });
+                      console.log(row);
+                      calTotal();
+                      $('#add_detalle').val('');
+                      $( "#add_codigo_item" ).val('');
+                      $( "#add_unidad" ).val('');
+                      $('#add_precio_unitario').val('');
+                      $( "#add_cantidad" ).val('');
+                      $('#add_total').val('');
+                      $('#add_sujeto_credito_fiscal').val('');
+                      $('#add_buscar_item').val('');
+                      $('#add_descuento').val(0);
+                      $('#add_recargo').val(0);
+
+                    }
+
+                    var total = 0;
+                    function calTotal(){
+                        var total=0;
+                        var t=0;
+                        $('#tb-detalle tbody tr').each(function () {
+                            total = total*1 + $(this).find("td").eq(11).html()*1;  
+                            
+                            if (!isNaN(total)) {
+                              t = t*1 + $(this).find("td").eq(11).html()*1; 
+                              
+                            };
+                        });
+
+                        console.log(t);
+                        $('#sum-subtotal').text(t.toFixed(2));
+                        $('#sum-tax').text(t.toFixed(2));
+
+                        $('#sum-total').text(total.toFixed(2));
+
+
+                    }
+
+                    function onEnviar(){
+                        proceso.nit = $('#add_nit').val();
+                        proceso.razon = $('#add_razon').val();
+                        proceso.fecha = $('#add_fecha').val();
+
+                        var tipo_c= 'contado';
+                        var dias= 0;
+                        if ($('#add_tipo').is(':checked')){
+                          tipo_c = 'credito';
+                          dias= $('#dias').val();
+                        }
+
+                        proceso.tipo_compra = tipo_c;
+
+                        proceso.dias = dias;
+
+                        console.log(JSON.stringify(proceso));
+                       document.getElementById("proceso").value=JSON.stringify(proceso);
+                    }
+
+                    
+                    $(function() {
+
+
+                      $(".add_calculo_totales").change(function(){
+                        add_calculo_totales();
+                      }); 
+
+                      $(".add_calculo_totales_down").keyup(function(){
+                        add_calculo_totales();
+                      }); 
+
+                      function add_calculo_totales(){
+                       var sujetoADF = 0;
+                       var total = 0 +$("#add_cantidad").val()*$("#add_precio_unitario").val();
+                       console.log("descuento ------------------");
+                       console.log($( "#add_fk_id_formato_dato_descuento" ).val());
+
+                       sujetoADF= ($( "#add_fk_id_formato_dato_descuento" ).val()==475)?(Number(total)- Number(total*Number($("#add_descuento").val())/100)):(Number(total)- Number($("#add_descuento").val()));
+
+                       sujetoADF= ($( "#add_fk_id_formato_dato_recargo" ).val()==475)?(Number(sujetoADF)+ Number(total*$("#add_recargo").val()/100)):(Number(sujetoADF)+ Number($("#add_recargo").val()));
+
+                       sujetoADF= Number(sujetoADF)- Number($("#add_ice").val());
+                       sujetoADF= Number(sujetoADF)- Number($("#add_exentos").val());
+                       
+                       // sujetoADF= ($( "#add_fk_id_formato_dato_ice" ).val()==475)?(Number(sujetoADF)- Number(total*$("#add_ice").val()/100)):(Number(sujetoADF)- Number($("#add_ice").val()));
+                       // sujetoADF= ($( "#add_fk_id_formato_dato_excentos" ).val()==475)?(Number(sujetoADF)- Number(total*$("#add_excentos").val()/100)):(Number(sujetoADF)- Number($("#add_excentos").val()));
+
+
+                       $("#add_total").val(total);
+                       $("#add_sujeto_credito_fiscal").val(sujetoADF);
+                      }
+
+                     $( "#add_buscar_item" ).autocomplete({
+
+                      source: function( request, response ) {
+                        console.log(request);
+                        $.ajax({
+                          url: "/buscar_item/",
+                          dataType: "json",
+                          data: {'id':request.term},
+                          success: function( data ) {
+                           console.log(data);
+                           response($.map(data, function (pn) {
+                            console.log(pn);
+                            return {
+                              pk: pn.pk,
+                              codigo_item: pn.fields.codigo_item,
+                              unidad_medida: pn.fields.unidad_medida,
+                              descripcion: pn.fields.descripcion,
+                              costo_unitario: pn.costo_unitario,
+                              precio_unitario: pn.fields.precio_unitario,
+                              label: pn.fields.codigo_item+"-"+pn.fields.descripcion
+                            };
+                          }));
+
+                         }
+                       });
+                      }, 
+                      minLength: 2,       
+                      select: function( event, ui ) {
+                        var fila = new Object();
+                        fila.pk = ui.item.pk_id_item;
+                        fila.codigo_item = ui.item.codigo_item;
+                        fila.precio = ui.item.precio_unitario;
+                        fila.descripcion= ui.item.descripcion;
+                        fila.cantidad = 1;
+
+                        console.log('taaaaaablaaaaaaaaaaaaaaaaaaa');
+                        table.push(fila);
+                        console.log(table);
+                        console.log('taaaaaablaaaaaaaaaaaaaaaaaaa');
+                        console.log('primaryyyyyyy');
+                        console.log(ui.item.pk);
+                        $( "#add_item_detail" ).val( ui.item.label );
+                        $( "#add_codigo_item" ).val( ui.item.codigo_item );
+                         $( "#pk" ).val( ui.item.pk );
+                        $( "#add_detalle" ).val( ui.item.descripcion );
+
+                        $( "#add_unidad" ).val( ui.item.unidad_medida );
+               
+                        $( "#add_unidad_medida" ).val( ui.item.unidad_medida );
+                        $( "#add_precio_unitario" ).val( ui.item.precio_unitario );
+                        $( "#add_cantidad" ).val( 1 );
+
+                        // $( "#add_descuento" ).val();
+                        $( "#add_fk_id_formato_dato_descuento" ).val( $( "#fk_id_formato_dato_descuento" ).val());
+
+                        // $( "#add_recargo" ).val( $( "#recargo" ).val());
+                        $( "#add_fk_id_formato_dato_recargo" ).val( $( "#fk_id_formato_dato_recargo" ).val());
+
+                        // $( "#add_ice" ).val( $( "#ice" ).val());
+                        $( "#add_fk_id_formato_dato_ice" ).val( $( "#fk_id_formato_dato_ice" ).val());
+
+                        $( "#add_excentos" ).val( $( "#excentos" ).val());
+                        $( "#add_fk_id_formato_dato_excentos" ).val( $( "#fk_id_formato_dato_excentos" ).val());
+                        add_calculo_totales();
+                        return false;
+                      },      
+                      open: function() {
+                        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+                      },
+                      close: function() {
+                        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                      }
+                      });
+
+  });
+
+  </script>
+  
+{% endblock js %}

@@ -54,6 +54,7 @@
               <th data-field="">Descripcion</th>
               <th data-field="">Imagen</th>
               <th data-field="">Cantidad</th>
+              <th data-field="">Precio Unitario</th>
               <th data-field="">Acciones</th>
             </tr>
           </thead>
@@ -63,7 +64,7 @@
               <td>{{ it.codigo_item }}</td>
               <td>{{ it.codigo_fabrica }}</td>
               <td>{{ it.almacen }}</td>
-              <td>{{ it.descripcion }}</td>
+              <td>{{ it.descripcion|truncatechars:25 }}</td>
               <td>
               {% if it.imagen %}
                 <img src="{{it.imagen.url}}" alt="" style="width:70px">
@@ -71,25 +72,19 @@
                 <span>imagen no encontrada</span>
               {% endif %} 
 
-              <td>
+              </td>
               <td>{{ it.cantidad }}</td>
+              <td>{{ it.precio_unitario }}</td>
               <td>
-                <a href="/detalle_item/{{ it.id }}" class="btn waves-effect teal waves-light">
-                  <i class="mdi-action-search left"></i>
-                  Ver
-                </a>
-                
-                <a href="/editar_item/{{ it.id }}" class="btn waves-effect light-green waves-light ">
-                  <i class="mdi-editor-mode-edit left"></i>
-                  Editar
-                </a>
-                
-                <a href="#modal2" class="btn waves-effect modal-trigger red waves-light ">
-                  <i class="mdi-action-delete left"></i>
-                  Eliminar
-                </a>
 
-                <div id="modal2" class="modal teal">
+                <a href="/detalle_item/{{ it.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
+
+                <a href="/editar_item/{{ it.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+                
+
+                <a href="#modal{{it.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+
+                <div id="modal{{it.id}}" class="modal teal">
                   <div class="modal-content">
                     <p class="img-dashboard">Esta seguro que quiere eliminar "{{it.codigo_item}}"</p>
                   </div>

@@ -2,8 +2,8 @@ from django.conf.urls import url
 from .views import Success
 
 urlpatterns = [
-    url(r'^recetas/registrar/$', 'apps.compras.views.registro_edicion', name='registrar'),
-    url(r'^recetas/(?P<receta_id>\d+)/$', 'apps.compras.views.registro_edicion', name='editar'),
+    url(r'^compras/$', 'apps.compras.views.compraCrear', name='registrar'),
     url(r'^success/$', Success.as_view(), name='success'),
     url(r'^buscar_item/$', 'apps.compras.views.buscarProducto'),
+    url(r'^detalle_compra/(?P<pk>\d+)$', 'apps.compras.views.detalleCompra', name='detallecompra'),
 ]

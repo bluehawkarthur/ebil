@@ -1,0 +1,135 @@
+
+
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+<section id="content">
+        <!--start container-->
+        <div class="container">
+          <div id="invoice">
+            <div class="invoice-header">
+              <div class="row">
+                <br>
+                <div class="col s4 push-s8 alinear_cabecera">
+                  <ul>
+                    <li>EVEREST</li>
+                    <li>CALLE ESTEBAN ARCE</li>
+                    <li>Telf.: 4556605</li>
+                  </ul>
+                </div>
+                <div class="col s4 pull-s4 alinear_cabecera">
+                  <ul>
+                    <li>NOTA DE COMPRA</li>
+                    <li>{{tipo_compra|upper}}</li>
+                   
+                  </ul>
+                </div>
+                <div class="col s4 alinear_cabecera">
+                    <ul>
+                      <li>Fecha: {{fecha}}</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col s12 m6 l6">
+                <ul>
+                  <li>Nit: {{nit}}</li>
+                  <li>Razon social: {{razon_social}}</li>
+                  <li>Nro factura: {{nro_factura}}</li>
+                </ul>
+                
+              </div>
+
+              <div class="col s12 m6 l3">
+                  
+                <div class="input-field texto-center" id="input-credito">
+                  <label></label>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        
+
+
+        <div class="invoice-table">
+          <div class="row">
+            <div class="col s12 m12 l12">
+    					<table class="striped" id="tb-detalle">
+      					<thead>
+      					  <tr>
+      					    <th data-field="item">Cod Item</th>
+      					    <th data-field="item">Cantidad</th>
+      					    <th data-field="item">Unidad</th>
+      					    <th data-field="item">Detalle</th>
+      					    <th data-field="uprice">P. U.</th>
+      					    
+      					    <th data-field="price">Total</th>
+      					    <th>Descuentos</th>
+      					    <th>Recargos</th>
+      					    <th>ICE</th>
+      					    <th>Excentos</th>
+      					    <th>Sujeto a DF</th>
+      					  </tr>
+      					</thead>
+      					<tbody>
+      						{%  for d in detalle %}
+      						<tr>
+      							<td>{{d.codigo}}</td>
+      							<td>{{d.cantidad}}</td>
+      							<td>{{d.unidad}}</td>
+      							<td>{{d.detalle}}</td>
+      							<td>{{d.precio_unitario}}</td>
+      							<td>{{d.subtotal}}</td>
+      							<td>{{d.descuento}} {{d.tipo_descuento}}</td>
+      							<td>{{d.recargo}} {{d.tipo_recargo}}</td>
+      							<td>{{d.ice}}</td>
+      							<td>{{d.excentos}}</td>
+      							<td>{{d.scf}}</td>
+      						</tr>
+      						{% endfor %}
+      					  <tr>
+      					    <td colspan="9" class="white"></td>
+      					    <td class="text-black">Total:</td>
+      					    <td class="text-black" id="sum-subtotal">{{total}}</td>
+      					  </tr>
+      					</tbody>
+    					</table>
+
+            </div>   
+          </div>
+        </div>
+            
+             <div class="invoice-footer">
+              <div class="row">
+                
+                <div class="col s12 m6 l6 center-align">
+                <p>
+                 <a href="/compras" class="btn light-green waves-effect waves-light right print" ><i class="mdi-content-undo left"></i> Volver  Atras</a>
+                 </p>
+                </div>
+                <div class="input-field col s12 m6 l6">
+
+                   <a class="btn btn-floating-action btn-primary cyan print" href="javascript:void(0);" onclick="javascript:window.print();" id="print"><i class="mdi-action-print left"></i>  imprimir</a>
+                <p>
+                 
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!--end container-->
+        </div>
+</section>
+{% endblock content %}

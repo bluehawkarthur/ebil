@@ -10,6 +10,7 @@
 
 <div class="row">
   <div class="col s12 m2">
+
     <p>
       <a href="/crear_proveedor/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
 
@@ -76,11 +77,11 @@
               Editar
           </a>
       
-        <a href="#modal1"  class="btn waves-effect red  modal-trigger waves-light ">
+        <a href="#modal{{provee.id}}"  class="btn waves-effect red  modal-trigger waves-light ">
             <i class="mdi-action-delete left"></i>
             Eliminar
         </a>
-        <div id="modal1" class="modal teal">
+        <div id="modal{{provee.id}}" class="modal teal">
           <div class="modal-content">
             <p class="img-dashboard">Esta seguro que quiere eliminar "{{provee.razon_social}}"</p>
           </div>

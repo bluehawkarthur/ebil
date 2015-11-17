@@ -55,7 +55,7 @@ INSTALLED_APPS = (
     # 'captcha',
     'nocaptcha_recaptcha',
     'widget_tweaks',
-    'django_extensions',
+    # 'django_extensions',
     
     
 )

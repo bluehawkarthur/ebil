@@ -21,11 +21,11 @@ def buscarProducto(request):
     descripcion = Item.objects.filter(descripcion__contains=idProducto)
     if descripcion:
         data = serializers.serialize(
-        'json', descripcion, fields=('pk','codigo_item','codigo_fabrica', 'descripcion', 'precio_unitario', 'unidad_medida'))
+        'json', descripcion, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
     else:
         producto = Item.objects.filter(codigo_item__contains=idProducto)
         data = serializers.serialize(
-            'json', producto, fields=('pk','codigo_item','codigo_fabrica', 'descripcion', 'precio_unitario', 'unidad_medida'))
+            'json', producto, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
     return HttpResponse(data, content_type='application/json')
 
 

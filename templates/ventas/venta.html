@@ -61,6 +61,7 @@
             <thead>
               <tr>
                 <th>Buscar Item</th>
+                <th>Stock</th>
                 <th>Detalle</th>
                 <th>Codigo item</th>
                 <th>Unidad</th>
@@ -85,6 +86,10 @@
                   <label for="search" class=""><i class="mdi-action-search"></i>
                   </label>
                 </div>
+                </td>
+                <td>
+                  <span id="stock"></span>
+                 
                 </td>
                 <td width="10%"><input type="text" id="add_detalle" class="form-control add_disable"></td>
 
@@ -451,16 +456,19 @@
                       source: function( request, response ) {
                         console.log(request);
                         $.ajax({
-                          url: "/buscar_item/",
+                          url: "/buscar_item2/",
                           dataType: "json",
                           data: {'id':request.term},
                           success: function( data ) {
                            console.log(data);
                            response($.map(data, function (pn) {
+                            console.log('estoo es stockkkkkkkkkk')
                             console.log(pn);
+                            console.log('uuuuuuuuuuuuuuuuuuuuu')
                             return {
                               pk: pn.pk,
                               codigo_item: pn.fields.codigo_item,
+                              stock: pn.fields.cantidad,
                               unidad_medida: pn.fields.unidad_medida,
                               descripcion: pn.fields.descripcion,
                               costo_unitario: pn.costo_unitario,
@@ -487,13 +495,23 @@
                         console.log('taaaaaablaaaaaaaaaaaaaaaaaaa');
                         console.log('primaryyyyyyy');
                         console.log(ui.item.pk);
+
                         $( "#add_item_detail" ).val( ui.item.label );
                         $( "#add_codigo_item" ).val( ui.item.codigo_item );
                          $( "#pk" ).val( ui.item.pk );
                         $( "#add_detalle" ).val( ui.item.descripcion );
 
                         $( "#add_unidad" ).val( ui.item.unidad_medida );
-               
+                        var stock = ui.item.stock;
+                        var minimo = 10/100*ui.item.stock;
+                        $( "#stock" ).html( ui.item.stock);
+                        // if(ui.item.stock <= 5){
+                        //   $( "#stock" ).html( ui.item.stock + 'minimo');
+                        // }else{
+                        //   $( "#stock" ).html( ui.item.stock + 'maximo');
+                        // }
+                        
+
                         $( "#add_unidad_medida" ).val( ui.item.unidad_medida );
                         $( "#add_precio_unitario" ).val( ui.item.precio_unitario );
                         $( "#add_cantidad" ).val( 1 );

@@ -75,5 +75,18 @@ class RepVentas(TemplateView):
 		else: #Si buscar esta vacio
 			return render(request, 'reportes/rep_ventas.html', {'ex':False})
 
+class Reporteventa(TemplateView):
+	template_name = 'reportes/reporte_venta.html'
 
-
+	def post(self, request, *args, **kwargs):
+		date1 = request.POST['date1']
+		date2 = request.POST['date2']
+		if date1 != '':
+			ventas = Venta.objects.filter(fecha__range=(date1, date2))
+			total = 0
+			for venta in ventas:
+				total += venta.total
+			print total
+			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
+		else:
+			return render(request, 'reportes/reporte_venta.html', {'ex':False})

@@ -2285,3 +2285,8 @@ span.help-block-file {
 .alinear_cabecera {
   text-align: center;
 }
+
+/* stilo para input field*/
+.input-field .prefix.active {
+    color: #00608B !important;
+}

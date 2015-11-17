@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+<section id="content">	
+ <div class="container">
+    <h3>Reporte de ventas  </h3>
+  <div class="row" id="formulario-buscar">
+    <form class="col s12" action="/reporte_venta/" method='POST'>{% csrf_token %}
+      <h4 class="header2">Periodo</h4>
+      <div class="row">
+        <div class="input-field col s4">
+          <i class="mdi-editor-insert-invitation prefix active"></i>
+          <input class="datepicker" name='date1' placeholder="0000-00-00" id="icon_prefix2" type="text" class="validate">
+          <label for="icon_prefix" class="active">Desde</label>
+        </div>
+        <div class="input-field col s4">
+          <i class="mdi-editor-insert-invitation prefix active"></i>
+          <input class="datepicker" name='date2' placeholder="0000-00-00" id="icon_email" type="email" class="validate">
+          <label for="icon_email" class="active">Hasta</label>
+        </div>
+        <div class="input-field col s4">
+          <div class="input-field col s12">
+            <button class="btn cyan waves-effect waves-light" type="submit" name="action"><i class="mdi-action-search left"></i> Buscar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+                  
+	
+
+    {% if  ex %}
+    	<table class='table'>
+    		<thead>
+          <th>Razon social</th>
+    			<th>Nit</th>
+          <th>Fecha</th>
+          <th>Monto</th>
+    			<th>Tipo venta</th>
+    		</thead>
+    		<tbody>
+    		{%  for venta in ventas %}
+          <tr>
+              <td>{{venta.razon_social}}</td>
+              <td>{{venta.nit}}</td>
+              <td>{{venta.fecha}}</td>
+              <td>{{venta.total}}</td>
+              <td>{{venta.tipo_compra}}</td>
+          </tr>
+                
+    		{% endfor %}
+                <tr>
+                    <td colspan=2></td>
+                    <td>Total General:</td>
+                    <td>{{total}}</td>
+                </tr>
+    		</tbody>
+        </table>    
+    {% else %}
+      <h3>No se encontraron resultados!</h3>
+    {% endif %}
+  </div>
+   <div class="invoice-footer">
+              <div class="row">
+                
+                <div class="col s12 m6 l6 center-align">
+                
+                </div>
+                <div class="input-field col s12 m6 l6">
+
+                   <a class="btn btn-floating-action btn-primary cyan print" href="javascript:void(0);" onclick="javascript:window.print();" id="print"><i class="mdi-action-print left"></i>  imprimir</a>
+                <p>
+                 
+                  </p>
+                </div>
+              </div>
+            </div>
+</section>
+{% endblock content %}
+
+{% block js %}
+  
+{% endblock js %}

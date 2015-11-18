@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from apps.compras.models import Compra, DetalleCompra
 from apps.ventas.models import Venta, DetalleVenta
 from apps.producto.models import Item
@@ -90,3 +90,16 @@ class Reporteventa(TemplateView):
 			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
 		else:
 			return render(request, 'reportes/reporte_venta.html', {'ex':False})
+
+
+# class ReportVendetalle(DetailView):
+# 	template_name = 'reportes/detalle_ventas.html'
+# 	model = DetalleVenta
+# 	context_object_name = 'detalle'
+
+def ReportVendetalle(request):
+	id= request.GET['id']
+	detalle = DetalleVenta.objects.filter(venta=id)
+	data = serializers.serialize(
+		'json', detalle, fields=('cantidad','subtotal','item','descuento','recargo','ice','excentos','scf'), use_natural_keys=True)
+	return HttpResponse(data, content_type='application/json')

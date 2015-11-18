@@ -33,7 +33,7 @@
              <div class="row">
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
-                {{ form.nit|add_error_class:"invalid" }}
+                {{ form.nit|add_error_class:"invalid"|attr:"id:nit"|attr:"maxlength:9" }}
                 <label for="emails">{{ form.nit.label }}</label>
               </div>
 
@@ -46,20 +46,21 @@
 
             <div class="row">
               <div class="input-field col s6 has-error">
-                <span class="help-block">{{ form.errors.telefonos1|removetags:'ul li' }}</span>
-                {{ form.telefonos1|add_error_class:"invalid" }}
-                <label for="emails">{{ form.telefonos1.label }}</label>
+              <span id="lp1"></span>
+                <span class="help-block" >{{ form.errors.telefonos1|removetags:'ul li' }}</span>
+                {{ form.telefonos1|add_error_class:"invalid"|attr:"id:p1"|attr:"maxlength:8" }}
+                <label>{{ form.telefonos1.label }}</label>
               </div>
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.telefonos2|removetags:'ul li' }}</span>
-              {{ form.telefonos2|add_error_class:"invalid" }}
+              {{ form.telefonos2|add_error_class:"invalid"|attr:"maxlength:8" }}
                 <label for="email">{{ form.telefonos2.label }}</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.telefonos3|removetags:'ul li' }}</span>
-                {{ form.telefonos3|add_error_class:"invalid" }}
+                {{ form.telefonos3|add_error_class:"invalid"|attr:"maxlength:8" }}
                 <label for="emails">{{ form.telefonos3.label }}</label>
               </div>
               <div class="input-field col s6 has-error">
@@ -117,7 +118,7 @@
         </div>
         <div class="row">                   
           <div class="input-field col s12">
-            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+            <button class="btn cyan waves-effect waves-light right" onclick="valida()" type="submit" name="action">Submit
               <i class="mdi-content-send right"></i>
             </button>
           </div> 
@@ -128,4 +129,8 @@
   </div>
 </section>
  {% endblock %}
+
+{% block js %}
+
+{% endblock js %}
 

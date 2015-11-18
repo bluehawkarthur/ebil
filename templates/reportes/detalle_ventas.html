@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+<section id="content">	
+ <div class="container">
+    <h3>Reporte de ventas  </h3>
+  
+                  
+	
+
+  
+    	<table class='table'>
+    		<thead>
+          <th>Codigo Item</th>
+    			<th>Cantidad</th>
+          <th>Unidad</th>
+          <th>Precio unitario</th>
+    			<th>Cantidad</th>
+          <th>Total</th>
+    		</thead>
+    		<tbody>
+    		{%  for d in detalle %}
+          <tr>
+              <td>{{d.item.codigo_item}}</td>
+              <td>{{d.cantidad}}</td>
+              <td>{{d.item.unidad_medida}}</td>
+              <td>{{d.item.precio_unitario}}</td>
+              <td>{{d.cantidad}}</td>
+              <td>{{d.subtotal}}</td>
+          </tr>
+                
+    		{% endfor %}
+                <tr>
+                    <td colspan=2></td>
+                    <td>Total General:</td>
+                    <td>{{total}}</td>
+                </tr>
+    		</tbody>
+        </table>    
+    
+  </div>
+   <div class="invoice-footer">
+              <div class="row">
+                
+                <div class="col s12 m6 l6 center-align">
+                
+                </div>
+                <div class="input-field col s12 m6 l6">
+
+                   <a class="btn btn-floating-action btn-primary cyan print" href="javascript:void(0);" onclick="javascript:window.print();" id="print"><i class="mdi-action-print left"></i>  imprimir</a>
+                <p>
+                 
+                  </p>
+                </div>
+              </div>
+            </div>
+</section>
+{% endblock content %}
+
+{% block js %}
+  
+{% endblock js %}

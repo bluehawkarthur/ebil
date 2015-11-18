@@ -39,6 +39,7 @@
           <th>Fecha</th>
           <th>Monto</th>
     			<th>Tipo venta</th>
+          <th>Detalle</th>
     		</thead>
     		<tbody>
     		{%  for venta in ventas %}
@@ -48,6 +49,80 @@
               <td>{{venta.fecha}}</td>
               <td>{{venta.total}}</td>
               <td>{{venta.tipo_compra}}</td>
+              <td>
+                <a  href="#modal{{venta.id}}" class="btn-floating waves-effect tooltipped  modal-trigger teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left" id="{{ venta.id }}"></i></a>
+              </td>
+              {% block js %}
+  
+
+                <script>
+                  $('#{{ venta.id }}').on('click', function () {
+                    console.log('esto es modalllllllllll {{ venta.id }}');
+                      $.ajax({
+                        url: '/rep_ventadet/',
+                        dataType: "json",
+                        data: {'id':'{{ venta.id }}'},
+                        success: function (data, textStatus, jqXHR) {
+                            console.log('detallessss');
+                            console.log(data);
+
+                            var div = $('#content{{ venta.id }}');
+                            var table = div.children();
+                          
+                            if (table.length == 0){
+
+                            div.append('<table class="table">');
+                            div.append('<thead>');
+                            div.append('<th>Cod Item</th>');
+                            div.append('<th>Cantidad</th>');
+                            div.append('<th>Unidad</th>');
+                            div.append('<th>Detalle</th>');
+                            div.append('<th>P.U.</th>');
+                            div.append('<th>Total</th>');
+                            div.append('<th>Desc</th>');
+                            div.append('<th>Recargos</th>');
+                            div.append('<th>ICE</th>');
+                            div.append('<th>Excentos</th>');
+                            div.append('<th>SDF</th>');
+                            div.append('</thead>');
+                            div.append('<tbody>');
+                            for(i=0;i<data.length;i++){
+                                div.append('<tr>');
+                             
+                                  div.append('<td>' + data[i].fields.item[0] + '</td>');
+                                  div.append('<td>' + data[i].fields.cantidad + '</td>');
+                                  div.append('<td>' + data[i].fields.item[3] + '</td>');
+                                  div.append('<td>' + data[i].fields.item[1] + '</td>');
+                                  div.append('<td>' + data[i].fields.item[2] + '</td>');
+                                  div.append('<td>' + data[i].fields.subtotal + '</td>');
+                                  div.append('<td>' + data[i].fields.descuento + '</td>');
+                                  div.append('<td>' + data[i].fields.recargo + '</td>');
+                                  div.append('<td>' + data[i].fields.ice + '</td>');
+                                  div.append('<td>' + data[i].fields.excentos + '</td>');
+                                  div.append('<td>' + data[i].fields.scf + '</td>');
+
+                                div.append('</tr>');
+
+                            }
+                            div.append('</tbody>');
+
+                            div.append('</table>');
+                          }
+                            
+                        },
+                    });
+                  });
+                </script>
+                {% endblock js %}
+                <div id="modal{{venta.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
+                  <div class="modal-content" id="content{{ venta.id }}">
+                      
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cerrar</a>
+                  </div>
+                </div>
+           
           </tr>
                 
     		{% endfor %}
@@ -80,6 +155,4 @@
 </section>
 {% endblock content %}
 
-{% block js %}
-  
-{% endblock js %}
+

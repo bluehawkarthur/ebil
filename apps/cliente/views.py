@@ -3,6 +3,8 @@ from .forms import ClienteForm
 from django.views.generic import FormView, ListView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+
 from .models import Cliente
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -12,6 +14,8 @@ class CrearCliente(FormView):
 	template_name = 'cliente/crear_Cliente.html'
 	form_class = ClienteForm
 	success_url = reverse_lazy('listar_cliente')
+	success_message = "%(razon_social)s fue creado con exito"
+
 
 	def form_valid(self, form):
 		cliente = Cliente()

@@ -1,15 +1,17 @@
 from django.db import models
 from django.conf import settings
 
+from django.core.validators import RegexValidator
+
 # Create your models here.
 class Cliente(models.Model):
 	codigo = models.CharField(max_length=50)
 	razonsocial = models.CharField(max_length=50)
 	nit = models.IntegerField()
 	direccion = models.CharField(max_length=50)
-	telefonos1 = models.IntegerField()
-	telefonos2 = models.IntegerField()
-	telefonos3 = models.IntegerField()
+	telefonos1 = models.CharField(max_length=8)
+	telefonos2 = models.CharField(max_length=8)
+	telefonos3 = models.CharField(max_length=8)
 	contacto = models.CharField(max_length=50)
 	rubro = models.CharField(max_length=50)
 	categoria = models.CharField(max_length=50)
@@ -22,3 +24,4 @@ class Cliente(models.Model):
 
 	def __unicode__(self):
 		return self.contacto
+

@@ -24,7 +24,8 @@ def is_connected():
 
 class LoginForm(AuthenticationForm):
     # captcha = CaptchaField()
-    if is_connected():
-    	captcha = NoReCaptchaField()
-    else:
-    	pass
+    pass
+    # if is_connected():
+    # 	captcha = NoReCaptchaField()
+    # else:
+    # 	pass

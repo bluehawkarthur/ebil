@@ -40,6 +40,7 @@
           <th>Monto</th>
     			<th>Tipo venta</th>
           <th>Detalle</th>
+          <th>Imprimir</th>
     		</thead>
     		<tbody>
     		{%  for venta in ventas %}
@@ -122,7 +123,8 @@
                     <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cerrar</a>
                   </div>
                 </div>
-           
+
+            <td><a  href="/rep_detalle_venta/{{ venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
           </tr>
                 
     		{% endfor %}

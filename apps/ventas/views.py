@@ -13,6 +13,7 @@ from django.db import transaction
 from django.contrib import messages
 from apps.producto.models import Item
 import decimal
+from apps.reportes.htmltopdf import render_to_pdf
 
 
 
@@ -91,12 +92,36 @@ def ventaCrear(request):
 
     return render('ventas/venta.html', {'form': form}, context_instance=ctx(request))
 
+# def detalleVenta(request, pk):
+#     print pk
+#     venta = Venta.objects.filter(id=pk)
+#     detalle = DetalleVenta.objects.filter(venta=venta)
+    
+
+#     vd = []
+#     for d in detalle:
+#         vd.append(d)
+
+#     print vd
+
+#     data = {
+#         'nit': venta[0].nit,
+#         'razon_social': venta[0].razon_social,
+#         'fecha': venta[0].fecha,
+#         'tipo_compra': venta[0].tipo_compra,
+#         'total': venta[0].total,
+#         'detalle': vd
+        
+#     }
+
+#     print venta
+#     return render('ventas/detalle.html', data, context_instance=ctx(request))
+
 def detalleVenta(request, pk):
     print pk
     venta = Venta.objects.filter(id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
     
-
     vd = []
     for d in detalle:
         vd.append(d)
@@ -113,5 +138,4 @@ def detalleVenta(request, pk):
         
     }
 
-    print venta
-    return render('ventas/detalle.html', data, context_instance=ctx(request))
+    return render_to_pdf('reportes/rep_detalleventa.html', data)

@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block titulo %}
@@ -7,6 +8,7 @@
     {% include "menu.html" %}
 {% endblock menu %}
 {% block content %}
+
 <section id="content">
         <!--start container-->
         <div class="container">
@@ -88,7 +90,13 @@
                 </div>
                 </td>
                 <td>
-                  <span id="stock"></span>
+                  
+                  <div id="circle">
+                    <span id="stock"></span>
+                  </div>
+
+
+                  <input type="hidden" id="stock_add">
                  
                 </td>
                 <td width="10%"><input type="text" id="add_detalle" class="form-control add_disable"></td>
@@ -185,7 +193,7 @@
              <div class="invoice-footer">
               <div class="row">
                 <div class="input-field col s12 m6 l6">
-                <form action="/ventas/" method="post" onsubmit="onEnviar()">
+                <form action="/ventas/" method="post" onsubmit="onEnviar()" target="_blank">
                         {% csrf_token %}
                         <input id="proceso" name="proceso" type="hidden" />
                          <button class="btn cyan waves-effect waves-light right"  name="action">Guardar
@@ -211,6 +219,7 @@
 {% endblock content %}
 
 {% block js %}
+ 
   <script>
            
 
@@ -247,11 +256,19 @@
             var table = new Array();
             function agregarDetalle(){
               console.log('----datosss array ------------');
-                  // console.log($( "#add_cantidad" ).val());
+                if ($( "#stock_add" ).val() > 0){
+                  console.log($( "#stock_add" ).val());
                   // var cant = $( "#add_cantidad" ).val();
                   // table.push({'cantidad':cant});
                   // console.log(table);
                   var d = table;
+                  //para limpiar progreso d circulo
+                  $('#circle').circleProgress({
+                            value: 0,
+                            size: 0,        
+                  });
+                  //limpiar texto d stock
+                  $('#stock').html('');
 
                   var item =  $( "#add_codigo_item" ).val();
                   var centroC =  $( "#add_costos" ).val();
@@ -305,6 +322,9 @@
                   var rowCount = t.rows.length-1;
                       // insertando los  td
                       var row = t.insertRow(rowCount);
+                      // insertando ids a los tr de la tabla
+                      row.id='tr_'+rowCount;
+                      //agregando celdas
                       var cell1 = row.insertCell(0);
                       var cell2 = row.insertCell(1);
                       var cell3 = row.insertCell(2);
@@ -374,6 +394,17 @@
                       $('#add_descuento').val(0);
                       $('#add_recargo').val(0);
 
+                      }else{
+                       
+                        $.bootstrapGrowl("No existe items desponibles", {
+                            type: 'danger',
+                            offset: {from: 'top', amount: 150},
+                            align: 'center',
+                            width: 350,
+                            allow_dismiss: false
+                        });
+                      }
+
                     }
 
                     var total = 0;
@@ -416,6 +447,46 @@
 
                         console.log(JSON.stringify(proceso));
                        document.getElementById("proceso").value=JSON.stringify(proceso);
+                    
+                       // $('#tb-detalle tbody tr').remove();
+                       var t = document.getElementById('tb-detalle').getElementsByTagName('tbody')[0];
+                        
+                        //funcion para eliminar tr por el id 
+                       function  deleteRow(id) {
+                          document.getElementById('tb-detalle').getElementsByTagName('tbody')[0].removeChild(
+                          document.getElementById(id)
+                          );
+                       }
+
+                      // for para contar los tr y eliminarlos
+                      for (i = 0; i < t.rows.length; i++) {
+                        console.log(t.rows[i]);
+                        
+                        deleteRow('tr_'+i);
+                        
+                      }
+                      // vaciar texto del subtotal de la tabla
+                      $('#sum-subtotal').text('');
+
+                      
+                      delete proceso['nit'];
+                      delete proceso['razon'];
+                      delete proceso['fecha'];
+                      delete proceso['tipo_compra'];
+                      delete proceso['dias'];
+
+                      $('#add_nit').val('');
+                      $('#add_razon').val('');
+                      $('#add_fecha').val('');
+                      $('#dias').val('');
+                      $('#add_tipo').prop('checked', false);
+                      $("#input-credito").hide();
+                      proceso.producto = new Array();
+
+                         
+                       
+
+                       console.log(proceso);
                     }
 
                     
@@ -505,6 +576,34 @@
                         var stock = ui.item.stock;
                         var minimo = 10/100*ui.item.stock;
                         $( "#stock" ).html( ui.item.stock);
+                        $("#stock_add").val(ui.item.stock);
+
+                        var pro = ui.item.stock/100;
+                        var color= "";
+                        if(pro==0){
+                          color= "red";
+                          pro=900;
+                        }
+
+                        if(pro>0 && pro<0.3){
+                          color= "red";
+
+                        }
+                        if(pro>0.3 && pro<0.7 ){
+                          color="orange";
+                        }
+                        if(pro>0.7 && pro<900){
+                          color="lime";
+                        }
+
+                        $('#circle').circleProgress({
+                            value: pro,
+                            size: 40,
+                            fill: {
+
+                                gradient: [color]
+                            }
+                        });
                         // if(ui.item.stock <= 5){
                         //   $( "#stock" ).html( ui.item.stock + 'minimo');
                         // }else{

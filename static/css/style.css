@@ -2290,3 +2290,16 @@ span.help-block-file {
 .input-field .prefix.active {
     color: #00608B !important;
 }
+
+#stock{
+  
+    display: block;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 15px;
+    font-family: serif;
+    bottom: 30px;
+    
+   
+}

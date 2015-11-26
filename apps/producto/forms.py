@@ -18,8 +18,8 @@ class ItemForm(forms.Form):
 	proveedor = forms.ModelChoiceField(queryset='', empty_label='seleccione')
 	imagen = forms.ImageField(required=False)
 	unidad_medida = forms.CharField(max_length=20)
-	costo_unitario = forms.DecimalField(max_digits=5, decimal_places=3)
-	precio_unitario = forms.DecimalField(max_digits=5, decimal_places=3)
+	costo_unitario = forms.DecimalField()
+	precio_unitario = forms.DecimalField()
 
 	class Meta:
 		model = Item

@@ -7,5 +7,8 @@ urlpatterns = [
     url(r'^buscar_item/$', 'apps.reportes.views.buscarProducto'),
     url(r'^reporte_venta/',  Reporteventa.as_view(), name='reporteventa'),
     url(r'^rep_ventadet/$',  'apps.reportes.views.ReportVendetalle', name='reporteventadet'),
+    url(r'^rep_detalle_venta/(?P<pk>\d+)$', 'apps.reportes.views.detalleVenta', name='repdetalleventa'),
+    # url(r'^pdf/$', 'apps.reportes.views.pdf'),
+    # url(r'^pdf2/$', 'apps.reportes.views.generar_pdf'),
 
 ]

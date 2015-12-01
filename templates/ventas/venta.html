@@ -15,6 +15,7 @@
           <div id="invoice">
             <div class="invoice-header">
               <div class="row section">
+              <form id="encabezado">
                 <div class="col s12 m6 l6">
                 <div class="input-field col s7 has-error">
                   <input id="add_nit" name="add_nit" type="text">
@@ -26,7 +27,7 @@
                 </div>
       
                 <div class="input-field col s7 has-error">
-                  <input id="add_fecha"  name="codigo_item" type="text" class="datepicker">
+                  <input id="add_fecha"  name="add_fecha" type="text" class="datepicker">
                   <label>Fecha</label>
                 </div>
               
@@ -53,6 +54,7 @@
                   </div>
                   
                 </div>
+                </form>
                 </div>
               </div>
             </div>
@@ -193,10 +195,10 @@
              <div class="invoice-footer">
               <div class="row">
                 <div class="input-field col s12 m6 l6">
-                <form action="/ventas/" method="post" onsubmit="onEnviar()" target="_blank">
+                <form action="/ventas/" method="post" id="post_form" onsubmit="onEnviar()" target="_self">
                         {% csrf_token %}
                         <input id="proceso" name="proceso" type="hidden" />
-                         <button class="btn cyan waves-effect waves-light right"  name="action">Guardar
+                         <button class="btn cyan waves-effect waves-light right"  name="action" id="save">Guardar
                           <i class="mdi-content-save right"></i>
                           </button>
                     </form>
@@ -222,6 +224,33 @@
  
   <script>
            
+            //para validar 
+            $('#save').prop('disabled', true); 
+            $('input').on('blur keyup', function() {
+                if ($("#encabezado").valid()) {
+                    $('#save').prop('disabled', false);  
+                } else {
+                    $('#save').prop('disabled', 'disabled');
+                }
+            });
+            
+            $("#encabezado").validate({
+                rules: {
+                    add_nit: {
+                        required: true,
+                        minlength: 4
+                    },
+                    add_razon: {
+                        required: true,
+                       
+                    },
+                    add_fecha: {
+                        required: true,
+                     
+                    }
+                }
+            });
+
 
             //====== codigo para desabilitar inputs de almacen =========
             // code for disable input is codigo item)===========
@@ -257,6 +286,9 @@
             function agregarDetalle(){
               console.log('----datosss array ------------');
                 if ($( "#stock_add" ).val() > 0){
+                  // para abrir en una nueva ventana 
+                  $("#post_form").prop("target", '_blank');
+
                   console.log($( "#stock_add" ).val());
                   // var cant = $( "#add_cantidad" ).val();
                   // table.push({'cantidad':cant});
@@ -458,6 +490,7 @@
                           );
                        }
 
+                      
                       // for para contar los tr y eliminarlos
                       for (i = 0; i < t.rows.length; i++) {
                         console.log(t.rows[i]);
@@ -484,7 +517,7 @@
                       proceso.producto = new Array();
 
                          
-                       
+                      $('#save').prop('disabled', true); 
 
                        console.log(proceso);
                     }
@@ -583,6 +616,7 @@
                         if(pro==0){
                           color= "red";
                           pro=900;
+                        
                         }
 
                         if(pro>0 && pro<0.3){

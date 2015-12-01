@@ -2297,9 +2297,33 @@ span.help-block-file {
     position: relative;
     z-index: 2;
     text-align: center;
-    font-size: 15px;
+    font-size: 17px;
     font-family: serif;
     bottom: 30px;
     
    
+}
+
+.error{
+    color: #f44336;
+    opacity: 1;
+}
+
+.cuadros{
+  height: 250px;
+}
+.cuadro2{
+  height: 250px;
+}
+.tomag{
+  font-size: 150px !important;
+}
+.centraricon2 {
+    top: 50%;
+    left: 50%;
+    margin-top: 10%;
+}
+
+.imagenpdf{
+  height: 50px !important;
 }

@@ -13,6 +13,7 @@
           <div id="invoice">
             <div class="invoice-header">
               <div class="row section">
+              <form id="encabezado">
                 <div class="col s12 m6 l6">
                 <div class="input-field col s7 has-error">
                   <input id="add_nit" name="add_nit" type="text">
@@ -23,11 +24,11 @@
                   <label>Razon social</label>
                 </div>
                 <div class="input-field col s7 has-error">
-                  <input id="add_factura"  name="id_codigo_item" type="text">
+                  <input id="add_factura"  name="nro_factura" type="text">
                   <label>Nro factura</label>
                 </div>
                 <div class="input-field col s7 has-error">
-                  <input id="add_autorizacion"  name="codigo_item" type="text">
+                  <input id="add_autorizacion"  name="add_autorizacion" type="text">
                   <label>Nro Autorizacion</label>
                 </div>
                 <div class="input-field col s7 has-error">
@@ -61,6 +62,7 @@
                   </div>
                   
                 </div>
+                </form>
                 </div>
               </div>
             </div>
@@ -198,11 +200,11 @@
              <div class="invoice-footer">
               <div class="row">
                 <div class="input-field col s12 m6 l6">
-                <form action="/compras/" method="post" onsubmit="onEnviar()">
+                <form action="/compras/" method="post" target="_self" id="post_form"  onsubmit="onEnviar()">
                         {% csrf_token %}
                         <input id="proceso" name="proceso" type="hidden" />
                         <input id="nose" name="nose" type="hidden" value="holaaaaa" />
-                         <button class="btn cyan waves-effect waves-light right"  name="action">Guardar
+                         <button class="btn cyan waves-effect waves-light right" id="save"  name="action">Guardar
                           <i class="mdi-content-save right"></i>
                           </button>
                     </form>
@@ -227,6 +229,40 @@
 {% block js %}
   <script>
            
+            //para validar 
+            $('#save').prop('disabled', true); 
+            $('input').on('blur keyup', function() {
+                if ($("#encabezado").valid()) {
+                    $('#save').prop('disabled', false);  
+                } else {
+                    $('#save').prop('disabled', 'disabled');
+                }
+            });
+            
+            $("#encabezado").validate({
+                rules: {
+                    add_nit: {
+                        required: true,
+                        minlength: 4
+                    },
+                    add_razon: {
+                        required: true,
+                       
+                    },
+                    add_fecha: {
+                        required: true,
+                     
+                    },
+                    nro_factura: {
+                      required:true,
+                    },
+                    add_autorizacion: {
+                      required:true,
+                      minlength: 10,
+                      number: true
+                    }
+                }
+            });
 
             //====== codigo para desabilitar inputs de almacen =========
             // code for disable input is codigo item)===========
@@ -278,6 +314,7 @@
             var table = new Array();
             function agregarDetalle(){
               console.log('----datosss array ------------');
+                  $("#post_form").prop("target", '_blank');
                   // console.log($( "#add_cantidad" ).val());
                   // var cant = $( "#add_cantidad" ).val();
                   // table.push({'cantidad':cant});
@@ -335,6 +372,9 @@
                   var rowCount = t.rows.length-1;
                       // insertando los  td
                       var row = t.insertRow(rowCount);
+                      // insertando ids a los tr de la tabla
+                      row.id='tr_'+rowCount;
+                      //agregando celdas
                       var cell1 = row.insertCell(0);
                       var cell2 = row.insertCell(1);
                       var cell3 = row.insertCell(2);
@@ -452,6 +492,50 @@
 
                         console.log(JSON.stringify(proceso));
                        document.getElementById("proceso").value=JSON.stringify(proceso);
+
+                       var t = document.getElementById('tb-detalle').getElementsByTagName('tbody')[0];
+                        
+                        //funcion para eliminar tr por el id 
+                       function  deleteRow(id) {
+                          document.getElementById('tb-detalle').getElementsByTagName('tbody')[0].removeChild(
+                          document.getElementById(id)
+                          );
+                       }
+
+                       // for para contar los tr y eliminarlos
+                      for (i = 0; i < t.rows.length; i++) {
+                        console.log(t.rows[i]);
+                        
+                        deleteRow('tr_'+i);
+                        
+                      }
+
+                      // vaciar texto del subtotal de la tabla
+                      $('#sum-subtotal').text('');
+
+                      delete proceso['nit'];
+                      delete proceso['razon'];
+                      delete proceso['nro_factura'];
+                      delete proceso['nro_autorizacion']
+                      delete proceso['codigo_control']
+                      delete proceso['fecha'];
+                      delete proceso['tipo_compra'];
+                      delete proceso['dias'];
+
+                      $('#add_nit').val('');
+                      $('#add_razon').val('');
+                      $('#add_factura').val('');
+                      $('#add_autorizacion').val('');
+                      $('#add_codcontrol').val('');
+                      $('#add_fecha').val('');
+                      $('#dias').val('');
+                      $('#add_tipo').prop('checked', false);
+                      $("#input-credito").hide();
+                      proceso.producto = new Array();
+
+                      $('#save').prop('disabled', true); 
+                      console.log('procesooooo newwwwww');
+                      console.log(proceso);
                     }
 
                     

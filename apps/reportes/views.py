@@ -13,7 +13,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import Table
 from django.template import RequestContext as ctx
-
+import xlsxwriter
 import json
 from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
@@ -56,6 +56,20 @@ def buscarProducto(request):
 		data = serializers.serialize(
 		'json', descripcion, fields=('codigo_item','descripcion',))
 	return HttpResponse(data, content_type='application/json')
+
+def buscarEmpresa(request):
+
+	idEmpresa = request.GET['id']
+	producto = Venta.objects.filter(razon_social__contains=idEmpresa)
+	if producto:
+		data = serializers.serialize(
+		'json', producto, fields=('razon_social','nit',))
+	else:
+		nit = Venta.objects.filter(nit__contains=idEmpresa)
+		data = serializers.serialize(
+		'json', nit, fields=('razon_social','nit',))
+
+	return HttpResponse(data, content_type='application/json')
 	
 
 class RepVentas(TemplateView):
@@ -90,12 +104,23 @@ class Reporteventa(TemplateView):
 	def post(self, request, *args, **kwargs):
 		date1 = request.POST['date1']
 		date2 = request.POST['date2']
+		tipo = request.POST['tipo_venta']
+		nit = request.POST['nit2']
+		monto = request.POST['monto2']
+
+
 		if date1 != '':
-			ventas = Venta.objects.filter(fecha__range=(date1, date2))
+			if nit != '':
+				ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+			elif monto != '':
+				ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+			else:
+				ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+			
 			total = 0
 			for venta in ventas:
 				total += venta.total
-			print total
+			
 			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
 		else:
 			return render(request, 'reportes/reporte_venta.html', {'ex':False})
@@ -160,6 +185,37 @@ def detalleVenta(request, pk):
     }
 
     return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+def excel(request):
+	# Create a workbook and add a worksheet.
+	workbook = xlsxwriter.Workbook('Expenses01.xlsx')
+	worksheet = workbook.add_worksheet('sheet1')
+
+	# Some data we want to write to the worksheet.
+	expenses = (
+		['Rent', 1000],
+		['Gas',   100],
+		['Food',  300],
+		['Gym',    50],
+	)
+
+	# Start from the first cell. Rows and columns are zero indexed.
+	row = 0
+	col = 0
+
+	# Iterate over the data and write it out row by row.
+	for item, cost in (expenses):
+		worksheet.write(row, col,     item)
+		worksheet.write(row, col + 1, cost)
+		row += 1
+
+	# Write a total using a formula.
+	worksheet.write(row, 0, 'Total')
+	worksheet.write(row, 1, '=SUM(B1:B4)')
+
+	workbook.close()
+
+	return HttpResponse(open('Expenses01.xlsx','r').read(), content_type='application/ms-excel')
 
 
 # def generar_pdf(request):

@@ -14,6 +14,7 @@ from django.db import transaction
 from django.contrib import messages
 from apps.producto.models import Item
 import decimal
+from apps.reportes.htmltopdf import render_to_pdf
 
 
 class Success(TemplateView):
@@ -40,7 +41,9 @@ def compraCrear(request):
         sid = transaction.savepoint()
         try:
             proceso = json.loads(request.POST.get('proceso'))
-
+            if len(proceso['producto']) <= 0:
+                msg = 'No se ha seleccionado ningun producto'
+                raise Exception(msg)
             # if proceso['nit'] == '':
             #     msg = 'Ingrese nit'
             #     raise Exception(msg)
@@ -114,7 +117,7 @@ def compraCrear(request):
                     )
 
                     crearDetalle.save()
-            messages.success(request, 'La compra se ha realizado satisfactoriamente')
+            
             return HttpResponseRedirect(reverse('detallecompra', args=(crearCompra.pk,)))
 
            
@@ -127,6 +130,36 @@ def compraCrear(request):
             messages.error(request, e)
 
     return render('compras/compra.html', {'form': form}, context_instance=ctx(request))
+
+
+# def detalleCompra(request, pk):
+#     print pk
+#     compra = Compra.objects.filter(id=pk)
+#     detalle = DetalleCompra.objects.filter(compra=compra)
+    
+
+#     vd = []
+#     for d in detalle:
+#         vd.append(d)
+
+#     print vd
+
+#     data = {
+#         'nit': compra[0].nit,
+#         'razon_social': compra[0].razon_social,
+#         'nro_factura': compra[0].nro_factura,
+#         'nro_autorizacion': compra[0].nro_autorizacion,
+#         'fecha': compra[0].fecha,
+#         'cod_control': compra[0].cod_control,
+#         'tipo_compra': compra[0].tipo_compra,
+#         'cantidad_dias': compra[0].cantidad_dias,
+#         'total': compra[0].total,
+#         'detalle': vd
+        
+#     }
+
+#     print compra
+#     return render('compras/detalle.html', data, context_instance=ctx(request))
 
 
 def detalleCompra(request, pk):
@@ -154,6 +187,6 @@ def detalleCompra(request, pk):
         'detalle': vd
         
     }
-
+    messages.success(request, 'La compra se ha realizado satisfactoriamente')
     print compra
-    return render('compras/detalle.html', data, context_instance=ctx(request))
+    return render_to_pdf('reportes/rep_detallecompra.html', data)

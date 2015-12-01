@@ -37,6 +37,9 @@ def ventaCrear(request):
         sid = transaction.savepoint()
         try:
             proceso = json.loads(request.POST.get('proceso'))
+            if len(proceso['producto']) <= 0:
+                msg = 'No se ha seleccionado ningun producto'
+                raise Exception(msg)
             print proceso
 
             total = 0

@@ -20,7 +20,38 @@
           <input class="datepicker" name='date2' placeholder="0000-00-00" id="icon_email" type="email" class="validate">
           <label for="icon_email" class="active">Hasta</label>
         </div>
-        <div class="input-field col s4">
+       
+      </div>
+       <h4 class="header2">Filtrar</h4>
+      <div class="row">
+        <div class="input-field col s3">
+          <i class="mdi-social-location-city prefix active"></i>
+          <input  name='empresa'  id="empresa" type="text" class="validate">
+          <label for="icon_prefix" class="active empresa_label">Empresa</label>
+        </div>
+        <div class="input-field col s3">
+          <i class="mdi-notification-event-note prefix active"></i>
+          <input name='nit'  id="nit" type="text" class="validate">
+          <input name='nit2'  id="nit2" type="hidden" class="validate">
+
+          <label for="icon_email" class="active nit_label">NIT</label>
+        </div>
+        <div class="input-field col s2">
+          <i class="mdi-editor-attach-money prefix active"></i>
+          <input  name='monto'  id="monto" type="text" >
+          <input  name='monto2'  id="monto2" type="hidden" >
+
+          <label for="icon_email" class="active">MONTO</label>
+        </div>
+        <div class="input-field col s2">
+          
+          <select name="tipo_venta" id="" class="validate">
+            <option value="contado">Contado</option>
+            <option value="credito">Credito</option>
+          </select>
+          <label for="icon_email">TIPO DE VENTA</label>
+        </div>
+        <div class="input-field col s3">
           <div class="input-field col s12">
             <button class="btn cyan waves-effect waves-light" type="submit" name="action"><i class="mdi-action-search left"></i> Buscar</button>
           </div>
@@ -39,8 +70,8 @@
           <th>Fecha</th>
           <th>Monto</th>
     			<th>Tipo venta</th>
-          <th>Detalle</th>
-          <th>Imprimir</th>
+          <th class="reporte">Detalle</th>
+          <th class="reporte">Imprimir</th>
     		</thead>
     		<tbody>
     		{%  for venta in ventas %}
@@ -50,11 +81,10 @@
               <td>{{venta.fecha}}</td>
               <td>{{venta.total}}</td>
               <td>{{venta.tipo_compra}}</td>
-              <td>
+              <td class="reporte">
                 <a  href="#modal{{venta.id}}" class="btn-floating waves-effect tooltipped  modal-trigger teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left" id="{{ venta.id }}"></i></a>
               </td>
-              {% block js %}
-  
+             
 
                 <script>
                   $('#{{ venta.id }}').on('click', function () {
@@ -114,7 +144,7 @@
                     });
                   });
                 </script>
-                {% endblock js %}
+               
                 <div id="modal{{venta.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
                   <div class="modal-content" id="content{{ venta.id }}">
                       
@@ -124,7 +154,7 @@
                   </div>
                 </div>
 
-            <td><a  href="/rep_detalle_venta/{{ venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+            <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
           </tr>
                 
     		{% endfor %}
@@ -156,5 +186,115 @@
             </div>
 </section>
 {% endblock content %}
+{% block js %}
+   <script>
+
+   var $monto = $('#monto, #monto2').keyup(function() {
+    $monto.not(this).val(this.value);
+    });
+
+   $('#empresa').on('blur keyup', function() {
+                if ($("#empresa").val()=='') {
+                    $('#nit').prop('disabled', false); 
+                    $('#monto').prop('disabled', false); 
+                    $( "#nit" ).val('');
+                    $(".nit_label").removeClass('active');
+                } else {
+                    $('#nit').prop('disabled', 'disabled');
+                    $('#monto').prop('disabled', 'disabled');
+                }
+    });
+
+    $('#nit').on('blur keyup', function() {
+                if ($("#nit").val()=='') {
+                    $('#empresa').prop('disabled', false);  
+                    $('#monto').prop('disabled', false); 
+                } else {
+                    $('#empresa').prop('disabled', 'disabled');
+                    $('#monto').prop('disabled', 'disabled');
+                }
+    });
+    $('#monto').on('blur keyup', function() {
+                if ($("#monto").val()=='') {
+                    $('#empresa').prop('disabled', false);
+                    $('#nit').prop('disabled', false);    
+                } else {
+                    $('#empresa').prop('disabled', 'disabled');
+                    $('#nit').prop('disabled', 'disabled');
+                }
+    });
+
+     $( "#empresa" ).autocomplete({
+
+      source: function( request, response ) {
+        console.log('estamos en JQUERY');
+        console.log(request);
+
+        $.ajax({
+          url: "/buscar_empresa/",
+          dataType: "json",
+          data: {'id':request.term},
+          success: function( data ) {
+           console.log(data);
+           response($.map(data, function (pn) {
+            
+            return {
+              pk_id_item: pn.fields.pk,
+              razon_social: pn.fields.razon_social,
+              nit: pn.fields.nit,
+              label: pn.fields.razon_social
+            };
+
+          }));
+       }
+   });
+    },
+    minLength: 2,       
+    select: function( event, ui ) {
+      console.log(ui);
+      $( "#empresa" ).val(ui.item.codigo_item);
+ 
+      $( "#nit" ).val(ui.item.nit);
+      $( "#nit2" ).val(ui.item.nit);
+      $(".nit_label").addClass('active');
+    }
+});
+
+  $( "#nit" ).autocomplete({
+
+      source: function( request, response ) {
+        console.log('estamos en JQUERY');
+        console.log(request);
+
+        $.ajax({
+          url: "/buscar_empresa/",
+          dataType: "json",
+          data: {'id':request.term},
+          success: function( data ) {
+           console.log(data);
+           response($.map(data, function (pn) {
+            
+            return {
+              pk_id_item: pn.fields.pk,
+              razon_social: pn.fields.razon_social,
+              nit: pn.fields.nit,
+              label: pn.fields.nit
+            };
+
+          }));
+       }
+   });
+    },
+    minLength: 2,       
+    select: function( event, ui ) {
+      console.log(ui);
+     
+      $( "#empresa" ).val(ui.item.razon_social);
+      $( "#nit2" ).val(ui.item.nit);
+      $(".empresa_label").addClass('active');
+    }
+});
+   </script> 
+{% endblock js %}
 
 

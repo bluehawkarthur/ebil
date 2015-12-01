@@ -9,7 +9,7 @@ class Compra(models.Model):
     nit = models.IntegerField()
     razon_social = models.CharField(max_length=100)
     nro_factura = models.IntegerField()
-    nro_autorizacion = models.IntegerField()
+    nro_autorizacion = models.CharField(max_length=20)
     fecha = models.DateField()
     cod_control = models.CharField(max_length=100)
     tipo_compra = models.CharField(max_length=100)

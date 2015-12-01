@@ -44,3 +44,6 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+class Reportes(TemplateView):
+   template_name = 'inicio/reportes.html'

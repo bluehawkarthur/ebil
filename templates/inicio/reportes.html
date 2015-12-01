@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+
+{% block content %}
+
+{% load staticfiles %}
+ 
+<div class="col s12 m3 l6">
+  <div class="card">
+      <div >
+      <a href="/r" class="linka">
+      </a>  
+      </div>
+      <div class="card-action  teal darken-2">
+      <p class="margin white-text">LIBRO DE COMPRAS Y VENTAS</p>
+      </div>
+		<div id="card-stats">
+      <div class="row">
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-content cuadros teal white-text cuadro-top waves-effect waves-block waves-light">
+                 
+                      <div class="centraricon2">
+          						<i class="mdi-action-assignment Large tomag"></i>
+                      </div>
+                     </a>
+                    </div>
+                    <div class="card-action teal darken-2">
+                        <p class="margin white-text">Libro de Compras y ventas</p>
+                    </div>
+                </div>
+            </div>                            
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-content cuadros blue-grey white-text cuadro-top waves-effect waves-block waves-light">
+										<a href="/rep_ventaMes" class="linka">
+                      <div class="centraricon2">
+            					<i class="mdi-action-assignment Large tomag"></i>
+                      </div>
+                    </a>
+                    </div>
+                    <div class="card-action teal darken-2">
+                        <p class="margin white-text">Ventas mensuales</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-content cuadros green white-text cuadro-top waves-effect waves-block waves-light">
+
+                        <div class="centraricon2">
+            						<i class="mdi-action-assignment Large tomag"></i>
+                        </div>
+                    </div>
+                    <div class="card-action  teal darken-2">
+                        <p class="margin white-text">Reporte de almacenes</p>
+                    </div>
+                </div>
+            </div>    
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col s12 m4 l3">
+  <div class="card">
+    <div class="card-action  teal darken-2">
+    <p class="margin white-text">REPORTE RÁPIDOS</p>
+    </div>
+	<div class="card">
+	<div id="card-stats">
+    <div class="row">                           
+      <div class="col s12 m6 l6">
+        <div class="card">
+          <div class="card-content cuadro2 blue-grey white-text cuadro-top waves-effect waves-block waves-light">
+            <a href="/reporte_venta/" class="linka">
+            <div class="centraricon2">
+            <i class="mdi-action-assignment Large tomag"></i>
+            </div>
+            </a>
+          </div>
+          <div class="card-action teal darken-2">
+            <p class="margin white-text">Ventas</p>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l6">
+        <div class="card">
+          <div class="card-content cuadro2 green white-text cuadro-top waves-effect waves-block waves-light">
+           
+            <div class="centraricon2">
+            <i class="mdi-action-assignment Large tomag"></i>            
+            </div>
+          </div>
+          <div class="card-action  teal darken-2">
+              <p class="margin white-text">Almacenes</p>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+
+    
+{% endblock content %}

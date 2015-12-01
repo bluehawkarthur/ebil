@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+  <style>
+   .center-text{
+    text-align:center;
+   }
+   .text-size{
+    font-size: 12px;
+   }
+   
+  </style>
+</head>
+<body>
+  
+
+
+
+
+
+
+
+<section id="content">
+        <!--start container-->
+        <div class="container">
+          <div id="invoice">
+           <table style="border:1px solid black;">
+              
+                <tr style="border:none;">
+                  <td class="center-text text-size" >
+                  <br>
+                    <b>EVEREST</b> <br>
+                    <b>CALLE ESTEBAN ARCE</b> <br>
+                    <b>Telf.: 4556605</b>
+                  </td>
+                  <td class="center-text">
+                    <b style="font-size: 20px;">NOTA DE COMPRA</b> <br>
+                    <b>{{tipo_compra|upper}}</b>
+                  </td>
+                  <td class="center-text text-size">
+                    <b>{{fecha}}</b>
+                  </td>
+                  
+                </tr>
+              
+              </table>
+              <table style="border:1px solid black; padding: 5px; ">
+                <tr>
+                  <td class="text-size">
+                  <br>
+                  Nit: {{nit}} <br>
+                  Razon social: {{razon_social}} <br>
+                  Nro factura: {{nro_factura}}
+                  </td>
+                  
+
+                </tr>
+              </table>
+           
+              
+            </div>
+
+
+            <div class="invoice-table">
+              <div class="row">
+                <div class="col s12 m12 l12">
+
+          
+          <table style="border:1px solid black;" class="text-size">
+          <thead>
+            <tr style="border-botton:1px; border-right:none; border-left:none;">
+              <th data-field="item">Cod Item</th>
+              <th data-field="item">Cantidad</th>
+              <th data-field="item">Unidad</th>
+              <th data-field="item">Detalle</th>
+              <th data-field="uprice">P. U.</th>
+              
+              <th data-field="price">Total</th>
+              <th>Descuentos</th>
+              <th>Recargos</th>
+              <th>ICE</th>
+              <th>Excentos</th>
+              <th>Sujeto a DF</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%  for d in detalle %}
+            <tr style="border:none; padding: 5px; ">
+              <td >{{d.codigo}}</td>
+              <td>{{d.cantidad}}</td>
+              <td>{{d.unidad}}</td>
+              <td>{{d.detalle}}</td>
+              <td>{{d.precio_unitario}}</td>
+              <td>{{d.subtotal}}</td>
+              <td>{{d.descuento}} 
+                {% if not d.descuento == 0 %}
+                  {{d.tipo_descuento}}
+                {% endif %}
+              </td>
+              <td>{{d.recargo}} 
+                {% if not d.recargo == 0 %}
+                  {{d.tipo_recargo}}
+                {% endif %}
+                
+              </td>
+              <td>{{d.ice}}</td>
+              <td>{{d.excentos}}</td>
+              <td>{{d.scf}}</td>
+            </tr>
+            {% endfor %}
+            <tr style="border-botton:1px; border-right:none; border-left:none;">
+              <td colspan="9" class="white"></td>
+              <td ><br><b>Total:</b></td>
+              <td class="" id="sum-subtotal"><br>{{total}}</td>
+            </tr>
+          </tbody>
+          </table>
+                </div>
+                
+              </div>
+            </div>
+            
+             <div class="invoice-footer">
+             
+            </div>
+            
+          </div>
+        </div>
+        <!--end container-->
+</section>
+
+
+
+</body>
+</html>

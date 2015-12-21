@@ -5,8 +5,8 @@ from .models import Item
 from django.forms import ModelForm
 
 class ItemForm(forms.Form):
-	codigo_item = forms.CharField(max_length=10)
-	codigo_fabrica = forms.CharField(max_length=10)
+	codigo_item = forms.CharField(max_length=50)
+	codigo_fabrica = forms.CharField(max_length=50)
 	almacen = forms.IntegerField()
 	grupo = forms.CharField(max_length=50)
 	subgrupo = forms.CharField(max_length=50)

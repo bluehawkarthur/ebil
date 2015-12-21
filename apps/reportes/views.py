@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, DetailView
@@ -13,10 +14,17 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import Table
 from django.template import RequestContext as ctx
-import xlsxwriter
+# import xlsxwriter
+from .excel_utils import WriteToExcel
+from .excel_almacen import WriteToAlmacen
+from .pdf_utils import PdfPrint
+from .pdf_almacen import PdfAlmacen
 import json
 from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
+from datetime import date
+from django.template import loader, Context
+from django.contrib import messages
 
 
 class RepCompras(TemplateView):
@@ -50,11 +58,11 @@ def buscarProducto(request):
 	producto = Item.objects.filter(codigo_item__contains=idProducto)
 	if producto:
 		data = serializers.serialize(
-		'json', producto, fields=('codigo_item','descripcion',))
+		'json', producto, fields=('codigo_item', 'descripcion',))
 	else:
 		descripcion = Item.objects.filter(descripcion__contains=idProducto)
 		data = serializers.serialize(
-		'json', descripcion, fields=('codigo_item','descripcion',))
+		'json', descripcion, fields=('codigo_item', 'descripcion',))
 	return HttpResponse(data, content_type='application/json')
 
 def buscarEmpresa(request):
@@ -63,11 +71,11 @@ def buscarEmpresa(request):
 	producto = Venta.objects.filter(razon_social__contains=idEmpresa)
 	if producto:
 		data = serializers.serialize(
-		'json', producto, fields=('razon_social','nit',))
+		'json', producto, fields=('razon_social', 'nit',))
 	else:
 		nit = Venta.objects.filter(nit__contains=idEmpresa)
 		data = serializers.serialize(
-		'json', nit, fields=('razon_social','nit',))
+		'json', nit, fields=('razon_social', 'nit',))
 
 	return HttpResponse(data, content_type='application/json')
 	
@@ -98,32 +106,52 @@ class RepVentas(TemplateView):
 		else: #Si buscar esta vacio
 			return render(request, 'reportes/rep_ventas.html', {'ex':False})
 
-class Reporteventa(TemplateView):
-	template_name = 'reportes/reporte_venta.html'
 
-	def post(self, request, *args, **kwargs):
+def Reporteventa(request):
+	if request.method == 'POST':
 		date1 = request.POST['date1']
 		date2 = request.POST['date2']
 		tipo = request.POST['tipo_venta']
 		nit = request.POST['nit2']
 		monto = request.POST['monto2']
-
+		empresa = request.POST['empresa2']
+		
 
 		if date1 != '':
-			if nit != '':
-				ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
-			elif monto != '':
-				ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+			if tipo == 'todo':
+				if nit != '':
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), nit=nit)
+				elif empresa != '':
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+				elif monto != '':
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+				else:
+					ventas = Venta.objects.filter(fecha__range=(date1, date2))
 			else:
-				ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+				if nit != '':
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+				elif empresa != '':
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+				elif monto != '':
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+				else:
+					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
 			
 			total = 0
 			for venta in ventas:
 				total += venta.total
 			
 			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
-		else:
-			return render(request, 'reportes/reporte_venta.html', {'ex':False})
+		
+	else:
+		datecompu = date.today()
+		total = 0
+		ventas = Venta.objects.filter(fecha=datecompu)
+		for venta in ventas:
+			total += venta.total
+
+		return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
+
 
 
 # class ReportVendetalle(DetailView):
@@ -142,7 +170,6 @@ def ReportVendetalle(request):
 #     print pk
 #     venta = Venta.objects.filter(id=pk)
 #     detalle = DetalleVenta.objects.filter(venta=venta)
-    
 
 #     vd = []
 #     for d in detalle:
@@ -186,73 +213,142 @@ def detalleVenta(request, pk):
 
     return render_to_pdf('reportes/rep_detalleventa.html', data)
 
-def excel(request):
-	# Create a workbook and add a worksheet.
-	workbook = xlsxwriter.Workbook('Expenses01.xlsx')
-	worksheet = workbook.add_worksheet('sheet1')
-
-	# Some data we want to write to the worksheet.
-	expenses = (
-		['Rent', 1000],
-		['Gas',   100],
-		['Food',  300],
-		['Gym',    50],
-	)
-
-	# Start from the first cell. Rows and columns are zero indexed.
-	row = 0
-	col = 0
-
-	# Iterate over the data and write it out row by row.
-	for item, cost in (expenses):
-		worksheet.write(row, col,     item)
-		worksheet.write(row, col + 1, cost)
-		row += 1
-
-	# Write a total using a formula.
-	worksheet.write(row, 0, 'Total')
-	worksheet.write(row, 1, '=SUM(B1:B4)')
-
-	workbook.close()
-
-	return HttpResponse(open('Expenses01.xlsx','r').read(), content_type='application/ms-excel')
 
 
-# def generar_pdf(request):
-# 	print "Genero el PDF"
-# 	response = HttpResponse(content_type='application/pdf')
-# 	pdf_name = "clientes.pdf"
-# 	# llamado clientes
-# 	# la linea 26 es por si deseas descargar el pdf a tu computadora
-# 	# response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-# 	buff = BytesIO()
-# 	doc = SimpleDocTemplate(buff,
-# 							pagesize=letter,
-# 							rightMargin=40,
-# 							leftMargin=40,
-# 							topMargin=60,
-# 							bottomMargin=18,
-# 							)
-# 	clientes = []
-# 	styles = getSampleStyleSheet()
-# 	header = Paragraph("Listado de Clientes", styles['Heading1'])
-# 	clientes.append(header)
-# 	headings = ('Nombre', 'Email', 'Edad', 'Dirección', 'total')
-# 	allclientes = [(p.nit, p.razon_social, p.tipo_compra, p.total) for p in Venta.objects.all()]
-# 	# print allclientes
+def report_mesVenta(request):
+    
+    template_name = "reportes/rep_ventaMes.html"
+    town = None
 
-# 	t = Table([headings] + allclientes)
-# 	print t
-# 	t.setStyle(TableStyle(
-# 		[
-# 			('GRID', (0, 0), (3, -1), 1, colors.dodgerblue),
-# 			('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkblue),
-# 			('BACKGROUND', (0, 0), (-1, 0), colors.dodgerblue),
-			
-# 		]
-# 	))
-# 	clientes.append(t)
-# 	doc.build(clientes)
-# 	response.write(buff.getvalue())
-# 	buff.close()
-# 	return response
+    if request.method == 'POST':
+        date1 = request.POST['mes']
+        # obtencion del mes en texto
+        d = date(2015,int(date1),1).strftime('%B')
+        mes = _(d)
+        # obtencion del año actual
+        today = date.today().year
+
+        try:
+        	# obteniendo datos del modelo venta 
+	    	ventas = Venta.objects.filter(fecha__year=today, fecha__month=date1)
+	    	total = 0
+	        for venta in ventas:
+				total += venta.total
+
+	        if 'excel' in request.POST:
+	            response = HttpResponse(content_type='application/vnd.ms-excel')
+	            response['Content-Disposition'] = 'attachment; filename=Report.xlsx'
+	            xlsx_data = WriteToExcel(ventas, mes, total, town)
+	            response.write(xlsx_data)
+	            return response
+
+	        if 'pdf' in request.POST:
+	            response = HttpResponse(content_type='application/pdf')
+	            today = date.today()
+	            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+	            response['Content-Disposition'] =\
+	                'attachement; filename={0}.pdf'.format(filename)
+	            buffer = BytesIO()
+	            report = PdfPrint(buffer, 'A4')
+	            pdf = report.report(ventas, 'REPORTE DE VENTAS', total, mes)
+	            response.write(pdf)
+	            return response
+
+	        if 'txt' in request.POST:
+	            response = HttpResponse(content_type='text/plain; charset=utf-8')
+	            response['Content-Disposition'] = 'attachment; filename="output_three.txt"'
+	            t = loader.get_template('reportes/output.txt')
+	            c = Context({'ventas' : ventas, })
+
+	            response.write(t.render(c))
+	            return response
+
+	    	context = {
+		        'town': town,
+		        'ventas': ventas,
+		    }
+
+	        return render(request, template_name, context)
+        except Exception, e:
+            messages.error(request, 'No existen ventas')
+
+    return render(request, template_name)
+
+
+def report_almacenes(request):
+    
+    template_name = "reportes/report_almacenes.html"
+    town = None
+
+    if request.method == 'POST':   
+
+        # try:
+        	# obteniendo datos del modelo venta 
+	    	items = Item.objects.all()
+	    	# datos = []
+	     #    for it in items:
+	        
+	     #    	datos.append({
+	     #    		'codigo_item': it.codigo_item,
+	     #    		'codigo_fabrica': it.codigo_fabrica,
+	     #    		'almacen': it.almacen,
+	     #    		'grupo': it.grupo,
+	     #    		'subgrupo': it.subgrupo,
+	     #    		'descripcion': it.descripcion,
+	     #    		'carac_especial_1': it.carac_especial_1,
+	     #    		'carac_especial_2': it.carac_especial_2,
+	     #    		'cantidad': it.cantidad,
+	     #    		'saldo_min': it.saldo_min,
+	     #    		'proveedor': it.proveedor.razon_social,
+	     #    		'unidad_medida': it.unidad_medida,
+	     #    		'costo_unitario': it.costo_unitario,
+	     #    		'precio_unitario': it.precio_unitario,
+	     #    		'total_costo': it.cantidad * it.costo_unitario,
+	     #    		'total_precio': it.cantidad * it.precio_unitario
+	     #    		})
+
+
+	    	total = 0
+	    	mes = 0
+	   #      for venta in items:
+				# total += venta.total
+
+	        if 'excel' in request.POST:
+	            response = HttpResponse(content_type='application/vnd.ms-excel')
+	            response['Content-Disposition'] = 'attachment; filename=Report.xlsx'
+	            xlsx_data = WriteToAlmacen(items, mes, total, town)
+	            response.write(xlsx_data)
+	            return response
+
+	        if 'pdf' in request.POST:
+	            response = HttpResponse(content_type='application/pdf')
+	            today = date.today()
+	            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+	            response['Content-Disposition'] =\
+	                'attachement; filename={0}.pdf'.format(filename)
+	            buffer = BytesIO()
+	            report = PdfAlmacen(buffer, 'A4')
+	            pdf = report.report(items, 'REPORTE DE ALMACENES', total, mes)
+	            response.write(pdf)
+	            return response
+
+	        if 'txt' in request.POST:
+	            response = HttpResponse(content_type='text/plain; charset=utf-8')
+	            response['Content-Disposition'] = 'attachment; filename="output_almacenes.txt"'
+	            t = loader.get_template('reportes/almacenes.txt')
+
+	            c = Context({'items' : items, })
+
+	            response.write(t.render(c))
+	            return response
+
+	    	context = {
+		        'town': town,
+		        'ventas': ventas,
+		    }
+
+	        return render(request, template_name, context)
+        # except Exception, e:
+        #     messages.error(request, 'No existen ventas')
+
+    return render(request, template_name)

@@ -27,6 +27,7 @@
         <div class="input-field col s3">
           <i class="mdi-social-location-city prefix active"></i>
           <input  name='empresa'  id="empresa" type="text" class="validate">
+          <input  name='empresa2'  id="empresa2" type="hidden" >
           <label for="icon_prefix" class="active empresa_label">Empresa</label>
         </div>
         <div class="input-field col s3">
@@ -46,6 +47,7 @@
         <div class="input-field col s2">
           
           <select name="tipo_venta" id="" class="validate">
+            <option value="todo">Seleccionar</option>
             <option value="contado">Contado</option>
             <option value="credito">Credito</option>
           </select>
@@ -193,6 +195,8 @@
     $monto.not(this).val(this.value);
     });
 
+   
+
    $('#empresa').on('blur keyup', function() {
                 if ($("#empresa").val()=='') {
                     $('#nit').prop('disabled', false); 
@@ -252,10 +256,10 @@
     minLength: 2,       
     select: function( event, ui ) {
       console.log(ui);
-      $( "#empresa" ).val(ui.item.codigo_item);
+      $( "#empresa2" ).val(ui.item.razon_social);
  
       $( "#nit" ).val(ui.item.nit);
-      $( "#nit2" ).val(ui.item.nit);
+      // $( "#nit2" ).val(ui.item.nit);
       $(".nit_label").addClass('active');
     }
 });

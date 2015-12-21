@@ -1,0 +1,47 @@
+#header {
+	display: none;
+}
+.print {
+	display: none;
+}
+#left-sidebar-nav{
+	display: none;
+}
+#right-sidebar-nav{
+	display: none;
+}
+.fixed-action-btn{
+	display: none;
+}
+.page-footer{
+	display: none;
+}
+#content,
+#content .section-body {
+	padding: 0;
+}
+
+.card-printable {
+	display: block;
+}
+.card-printable .card-head {
+	display: none;
+}
+
+body,
+#content > section {
+	background-color: #ffffff;
+	border: 0;
+}
+.text-black{
+	color: #000000;
+	border-top: solid 1px;
+}
+/*stylo para reporte de ventas*/
+
+#formulario-buscar{
+	display: none;
+}
+.reporte{
+	display: none;
+}

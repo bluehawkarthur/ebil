@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+      <div class="row"> 
+        <form class="col s12 m12 l8 offset-l2"  method="POST">{% csrf_token %}
+        <div class="card-panel">
+        <h4 class="header2">reporte de almacenes</h4>
+        <div class="row">
+        
+        <div class="col s6">
+          
+          <button type="submit" class="img-button" name="excel">
+            <img class="imagenpdf2 responsive-img " src="{{ STATIC_URL }}/media/imagen xlss.png">
+          </button>
+          <button type="submit" class="img-button" name="pdf">
+            <img class="imagenpdf2 responsive-img " src="{{ STATIC_URL }}/media/imagen pdf.png">
+          </button>
+          <button type="submit" class="img-button" name="txt">
+            <img class="imagenpdf2 responsive-img " src="{{ STATIC_URL }}/media/imagen txts.png">
+          </button>
+
+        </div>
+        </div>
+
+
+        </form>
+      </div>
+
+    
+    </div>
+  </div>
+</section>
+{% endblock content %}

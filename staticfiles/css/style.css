@@ -2173,7 +2173,7 @@ span.help-block {
 }
 
 .picker__day.picker__day--today {
-    color: #00415F;
+    color: #F50707;
 }
 
 .picker__close, .picker__today {
@@ -2249,4 +2249,91 @@ span.help-block {
 }
 .texto-center{
   text-align: center;
+}
+
+input[type=text]:disabled{
+  color: #9E9E9E;
+  border-bottom: 1px dotted rgb(158, 158, 158);
+}
+
+.text-label{
+  color: black;
+}
+/*style for validations file span*/
+
+.help-block-file {
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    margin: 0;
+    color: inherit;
+    opacity: .7;
+    font-size: 13px;
+}
+
+.has-error .help-block-file {
+    color: #f44336;
+    opacity: 1;
+}
+
+span.help-block-file {
+    right: auto;
+}
+
+
+/*  para las notass de venta  */
+.alinear_cabecera {
+  text-align: center;
+}
+
+/* stilo para input field*/
+.input-field .prefix.active {
+    color: #00608B !important;
+}
+
+#stock{
+  
+    display: block;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 17px;
+    font-family: serif;
+    bottom: 30px;
+    
+   
+}
+
+.error{
+    color: #f44336;
+    opacity: 1;
+}
+
+.cuadros{
+  height: 250px;
+}
+.cuadro2{
+  height: 250px;
+}
+.tomag{
+  font-size: 150px !important;
+}
+.centraricon2 {
+    top: 50%;
+    left: 50%;
+    margin-top: 10%;
+}
+
+.imagenpdf{
+  height: 50px !important;
+}
+
+
+.img-button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }

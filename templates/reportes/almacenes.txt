@@ -1,0 +1,4 @@
+|Item|Codigo fabrica|Almacen|Grupo|Subgrupo|Descripcion|Carac especial  1|Carac especial  2|Cantidad|Saldo minimo|Proveedor|Unidad|Costo unitario|Precio unitario|TOTAL COSTO|TOTAL PRECIO|
+{% for it in items %}
+|{{it.codigo_item}}|{{it.codigo_fabrica}}|{{it.almacen}}|{{it.grupo}}|{{it.subgrupo}}|{{it.descripcion|truncatechars:20}}|{{it.carac_especial_1}}|{{it.carac_especial_2}}|{{it.cantidad}}|{{it.saldo_min}}|{{it.proveedor.razon_social}}|{{it.unidad_medida}}|{{it.costo_unitario}}|{{it.precio_unitario}}|{% widthratio it.cantidad 1 it.costo_unitario %}|{% widthratio it.cantidad 1 it.precio_unitario %}|
+{% endfor %}

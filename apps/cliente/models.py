@@ -7,7 +7,7 @@ from django.core.validators import RegexValidator
 class Cliente(models.Model):
 	codigo = models.CharField(max_length=50)
 	razonsocial = models.CharField(max_length=50)
-	nit = models.IntegerField()
+	nit = models.BigIntegerField()
 	direccion = models.CharField(max_length=50)
 	telefonos1 = models.CharField(max_length=8)
 	telefonos2 = models.CharField(max_length=8)

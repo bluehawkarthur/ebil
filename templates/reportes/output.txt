@@ -1,0 +1,4 @@
+|Fecha|Cliente|Monto|
+{% for v in ventas %}
+|{{v.fecha}}|{{v.razon_social}}|{{v.total}}|
+{% endfor %}

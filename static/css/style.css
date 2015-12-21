@@ -2325,5 +2325,25 @@ span.help-block-file {
 }
 
 .imagenpdf{
-  height: 50px !important;
+  height: 65px !important;
+
+}
+
+.imagenpdf2{
+  height: 70px !important;
+
+}
+
+.img-button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.img-button:focus{
+  outline: none;
+  background-color: Transparent;
 }

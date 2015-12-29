@@ -26,6 +26,7 @@ class Item(models.Model):
 	costo_unitario = models.DecimalField(max_digits=6, decimal_places=2)
 	precio_unitario = models.DecimalField(max_digits=6, decimal_places=2)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	fecha_transaccion = models.DateField(null=True, blank=True)
 	
 	def natural_key(self):
 		return (self.codigo_item, self.descripcion, self.precio_unitario, self.unidad_medida)

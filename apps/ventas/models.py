@@ -11,6 +11,13 @@ class Venta(models.Model):
     tipo_compra = models.CharField(max_length=100)
     cantidad_dias = models.IntegerField()
     total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    descuento = models.DecimalField(max_digits=6, decimal_places=2)
+    recargo = models.DecimalField(max_digits=6, decimal_places=2)
+    ice = models.DecimalField(max_digits=6, decimal_places=2)
+    excentos = models.DecimalField(max_digits=6, decimal_places=2)
+    tipo_descuento = models.CharField(max_length=100)
+    tipo_recargo = models.CharField(max_length=100)
+    
     # categoria = models.CharField(max_length=50)
     # movimiento = models.CharField(max_length=100)
 

@@ -55,6 +55,12 @@ def ventaCrear(request):
                 tipo_compra=proceso['tipo_compra'],
                 cantidad_dias=proceso['dias'],
                 total=total,
+                descuento=proceso['descuento'],
+                recargo=proceso['recargo'],
+                ice=proceso['ice'],
+                excentos=proceso['excentos'],
+                tipo_descuento=proceso['tipo_descuento'],
+                tipo_recargo=proceso['tipo_recargo'],
             )
             crearVenta.save()
 
@@ -63,7 +69,7 @@ def ventaCrear(request):
                 item = Item.objects.filter(id=k['pk'])
                 cantidad_total = item[0].cantidad - int(k['cantidad'])
                 print cantidad_total
-                item.update(cantidad=cantidad_total)
+                item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
 
                 crearDetalle = DetalleVenta(
                     venta=crearVenta,

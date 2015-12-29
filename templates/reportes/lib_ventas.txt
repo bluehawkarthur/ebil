@@ -1,0 +1,5 @@
+{% load report_filter %}
+|Fecha|Nit|Nombre Razon Social|Total factura|ICE|Excentos|Neto|Credito Fiscal|
+{% for c in ventas %}
+|{{c.fecha}}|{{c.nit}}|{{c.razon_social}}|{{c.total}}|{{c.ice}}|{{c.excentos}}|{% neto c.total c.ice c.excentos %}|{% cf c.total c.ice c.excentos %}
+{% endfor %}

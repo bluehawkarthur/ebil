@@ -14,32 +14,87 @@
             <div class="invoice-header">
               <div class="row section">
               <form id="encabezado">
-                <div class="col s12 m6 l6">
-                <div class="input-field col s7 has-error">
+                <div class="col s12 m6 l4">
+                <div class="input-field col s10 has-error">
                   <input id="add_nit" name="add_nit" type="text">
                   <label>Nit</label>
                 </div>
-                <div class="input-field col s7 has-error">
+                <div class="input-field col s10 has-error">
                   <input id="add_razon"  name="add_razon" type="text">
                   <label>Razon social</label>
                 </div>
-                <div class="input-field col s7 has-error">
+                <div class="input-field col s10 has-error">
                   <input id="add_factura"  name="nro_factura" type="text">
                   <label>Nro factura</label>
                 </div>
-                <div class="input-field col s7 has-error">
+                <div class="input-field col s10 has-error">
                   <input id="add_autorizacion"  name="add_autorizacion" type="text">
                   <label>Nro Autorizacion</label>
                 </div>
-                <div class="input-field col s7 has-error">
+                <div class="input-field col s10 has-error">
                   <input id="add_fecha"  name="codigo_item" type="text" class="datepicker">
                   <label>Fecha</label>
                 </div>
-                <div class="input-field col s7 has-error">
+                <div class="input-field col s10 has-error">
                   <input id="add_codcontrol"  name="codigo_item" type="text">
                   <label>Código de control</label>
                 </div>
                   
+                </div>
+
+                <div class="col s12 m6 l4">
+                  <div class="row">
+                    <div class="col s12 m6 l5">
+                      <div class="input-field col s12 has-error">
+                        <input id="add_descuentoc"  name="add_descuentoc" type="text" value="0">
+                        <label>Descuentos</label>
+                      </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                      <div class="input-field col s6 has-error">
+                          <input class="with-gap" name="tipo_descuentoc" type="radio" id="test1" value="Bs" checked>
+                          <label for="test1">Bs</label>
+                      </div>
+                      <div class="input-field col s6 has-error">
+                          <input class="with-gap" name="tipo_descuentoc" type="radio" value="%" id="test2">
+                          <label for="test2">%</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12 m6 l5">
+                      <div class="input-field col s12 has-error">
+                        <input id="add_recargoc"  name="add_recargoc" type="text" value="0">
+                        <label>Recargos</label>
+                      </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                      <div class="input-field col s6 has-error">
+                          <input class="with-gap" name="tipo_recargoc" type="radio" id="teste1" value="Bs" checked>
+                          <label for="teste1">Bs</label>
+                      </div>
+                      <div class="input-field col s6 has-error">
+                          <input class="with-gap" name="tipo_recargoc" type="radio" value="%" id="teste2">
+                          <label for="teste2">%</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col s12 m6 l5">
+                      <div class="input-field col s12 has-error">
+                        <input id="add_icec"  name="add_icec" type="text" value="0">
+                        <label>ICE</label>
+                      </div>
+                    </div>
+                    <div class="col s12 m6 l5">
+                      <div class="input-field col s12 has-error">
+                        <input id="add_exentosc"  name="add_exentosc" type="text" value="0">
+                        <label>Exentos</label>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
                 <div class="col s12 m6 l3">
@@ -478,6 +533,13 @@
                         proceso.nro_autorizacion = $('#add_autorizacion').val();
                         proceso.fecha = $('#add_fecha').val();
                         proceso.codigo_control = $('#add_codcontrol').val();
+                        proceso.descuento = $('#add_descuentoc').val();
+                        proceso.recargo = $('#add_recargoc').val();
+                        proceso.ice = $('#add_icec').val();
+                        proceso.excentos = $('#add_exentosc').val();
+
+                        proceso.tipo_descuento = $('input[name="tipo_descuentoc"]:checked').val();
+                        proceso.tipo_recargo = $('input[name="tipo_recargoc"]:checked').val();
 
                         var tipo_c= 'contado';
                         var dias= 0;
@@ -521,6 +583,12 @@
                       delete proceso['fecha'];
                       delete proceso['tipo_compra'];
                       delete proceso['dias'];
+                      delete proceso['descuento'];
+                      delete proceso['recargo'];
+                      delete proceso['ice'];
+                      delete proceso['excentos'];
+                      delete proceso['tipo_descuento'];
+                      delete proceso['tipo_recargo'];
 
                       $('#add_nit').val('');
                       $('#add_razon').val('');
@@ -529,6 +597,13 @@
                       $('#add_codcontrol').val('');
                       $('#add_fecha').val('');
                       $('#dias').val('');
+                      $('#add_descuentoc').val(0);
+                      $('#add_recargoc').val(0);
+                      $('#add_icec').val(0);
+                      $('#add_exentosc').val(0);
+                      $("#test1").prop('checked', true);
+                      $("#teste1").prop('checked', true);
+                      
                       $('#add_tipo').prop('checked', false);
                       $("#input-credito").hide();
                       proceso.producto = new Array();
@@ -623,7 +698,37 @@
                         $( "#add_precio_unitario" ).val( ui.item.precio_unitario );
                         $( "#add_cantidad" ).val( 1 );
 
-                        // $( "#add_descuento" ).val();
+                        // para agregar datos de la cabecera a el menu de items
+                        $( "#add_descuento" ).val($( "#add_descuentoc" ).val());
+                        $( "#add_recargo" ).val($( "#add_recargoc" ).val());
+                        $( "#add_ice" ).val($( "#add_icec" ).val());
+                        $( "#add_exentos" ).val($( "#add_exentosc" ).val());
+                        // para hacer un select en el menu de items
+                        var dato_desc = $('input[name="tipo_descuentoc"]:checked').val();
+                        var dato_recarg = $('input[name="tipo_recargoc"]:checked').val();
+
+                        if(dato_desc=='%'){
+                          dato_desc = 475;
+                        }else{
+                          dato_desc = '';
+                        }
+
+                        if(dato_recarg=='%'){
+                          dato_recarg = 475;
+                        }else{
+                          dato_recarg = '';
+                        }
+
+                    
+                        $('#add_fk_id_formato_dato_descuento option:selected').removeAttr("selected");
+                        $('#add_fk_id_formato_dato_descuento option[value="'+dato_desc+'"]').attr('selected', 'selected');
+
+                        $('#add_fk_id_formato_dato_recargo option:selected').removeAttr("selected");
+                        $('#add_fk_id_formato_dato_recargo option[value="'+dato_recarg+'"]').attr('selected', 'selected');
+
+                        $('#add_fk_id_formato_dato_recargo').material_select();
+                        $('#add_fk_id_formato_dato_descuento').material_select();
+
                         $( "#add_fk_id_formato_dato_descuento" ).val( $( "#fk_id_formato_dato_descuento" ).val());
 
                         // $( "#add_recargo" ).val( $( "#recargo" ).val());

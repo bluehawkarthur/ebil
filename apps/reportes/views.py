@@ -17,8 +17,12 @@ from django.template import RequestContext as ctx
 # import xlsxwriter
 from .excel_utils import WriteToExcel
 from .excel_almacen import WriteToAlmacen
+from .excel_compras import WriteToCompras
+from .excel_ventas import WriteToVentas
 from .pdf_utils import PdfPrint
 from .pdf_almacen import PdfAlmacen
+from .pdf_compras import PdfCompras
+from .pdf_ventas import PdfVentas
 import json
 from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
@@ -141,7 +145,7 @@ def Reporteventa(request):
 			for venta in ventas:
 				total += venta.total
 			
-			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
+			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True, 'date1': date1, 'date2': date2})
 		
 	else:
 		datecompu = date.today()
@@ -151,16 +155,14 @@ def Reporteventa(request):
 			total += venta.total
 
 		return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
-
-
-
 # class ReportVendetalle(DetailView):
 # 	template_name = 'reportes/detalle_ventas.html'
 # 	model = DetalleVenta
 # 	context_object_name = 'detalle'
 
+
 def ReportVendetalle(request):
-	id= request.GET['id']
+	id = request.GET['id']
 	detalle = DetalleVenta.objects.filter(venta=id)
 	data = serializers.serialize(
 		'json', detalle, fields=('cantidad','subtotal','item','descuento','recargo','ice','excentos','scf'), use_natural_keys=True)
@@ -190,6 +192,7 @@ def ReportVendetalle(request):
 #     print venta
 #     return render(request, 'reportes/rep_detalleventa.html', data, context_instance=ctx(request))
 
+
 def detalleVenta(request, pk):
     print pk
     venta = Venta.objects.filter(id=pk)
@@ -214,23 +217,22 @@ def detalleVenta(request, pk):
     return render_to_pdf('reportes/rep_detalleventa.html', data)
 
 
-
 def report_mesVenta(request):
-    
     template_name = "reportes/rep_ventaMes.html"
     town = None
 
     if request.method == 'POST':
         date1 = request.POST['mes']
+        anio = request.POST['anio']
         # obtencion del mes en texto
-        d = date(2015,int(date1),1).strftime('%B')
+        d = date(int(anio),int(date1),1).strftime('%B')
         mes = _(d)
         # obtencion del año actual
-        today = date.today().year
+        # today = date.today().year
 
         try:
         	# obteniendo datos del modelo venta 
-	    	ventas = Venta.objects.filter(fecha__year=today, fecha__month=date1)
+	    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
 	    	total = 0
 	        for venta in ventas:
 				total += venta.total
@@ -276,7 +278,6 @@ def report_mesVenta(request):
 
 
 def report_almacenes(request):
-    
     template_name = "reportes/report_almacenes.html"
     town = None
 
@@ -352,3 +353,162 @@ def report_almacenes(request):
         #     messages.error(request, 'No existen ventas')
 
     return render(request, template_name)
+
+
+def libro_compras(request):
+
+    template_name = "reportes/libro_compras.html"
+    town = None
+
+    if request.method == 'POST':
+        date1 = request.POST['mes']
+        anio = request.POST['anio']
+        # obtencion del mes en texto
+        d = date(int(anio),int(date1),1).strftime('%B')
+        mes = _(d)
+
+        # try:
+        	# obteniendo datos del modelo venta 
+    	compras = Compra.objects.filter(fecha__year=anio, fecha__month=date1)
+    	total = 0
+        for compra in compras:
+			total += compra.total
+
+        if 'excel' in request.POST:
+            response = HttpResponse(content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename=Reporte_compras.xlsx'
+            xlsx_data = WriteToCompras(compras, mes, total, town)
+            response.write(xlsx_data)
+            return response
+
+        if 'pdf' in request.POST:
+            response = HttpResponse(content_type='application/pdf')
+            today = date.today()
+            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+            response['Content-Disposition'] =\
+                'attachement; filename={0}.pdf'.format(filename)
+            buffer = BytesIO()
+            report = PdfCompras(buffer, 'A4')
+            pdf = report.report(compras, 'LIBRO DE COMPRAS', total, mes)
+            response.write(pdf)
+            return response
+
+        if 'txt' in request.POST:
+            response = HttpResponse(content_type='text/plain; charset=utf-8')
+            response['Content-Disposition'] = 'attachment; filename="libro_compras.txt"'
+            t = loader.get_template('reportes/lib_compras.txt')
+            c = Context({'compras' : compras, })
+
+            response.write(t.render(c))
+            return response
+
+    	context = {
+	        'town': town,
+	        'compras': compras,
+	    }
+
+        return render(request, template_name, context)
+        # except Exception, e:
+        #     messages.error(request, 'No existen ventas')
+
+    return render(request, template_name)
+
+
+def libro_ventas(request):
+
+    template_name = "reportes/libro_ventas.html"
+    town = None
+
+    if request.method == 'POST':
+        date1 = request.POST['mes']
+        anio = request.POST['anio']
+        # obtencion del mes en texto
+        d = date(int(anio), int(date1), 1).strftime('%B')
+        mes = _(d)
+
+        # try:
+        	# obteniendo datos del modelo venta 
+    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
+    	total = 0
+        for venta in ventas:
+			total += venta.total
+
+        if 'excel' in request.POST:
+            response = HttpResponse(content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename=libro_ventas.xlsx'
+            xlsx_data = WriteToVentas(ventas, mes, total, town)
+            response.write(xlsx_data)
+            return response
+
+        if 'pdf' in request.POST:
+            response = HttpResponse(content_type='application/pdf')
+            today = date.today()
+            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+            response['Content-Disposition'] =\
+                'attachement; filename={0}.pdf'.format(filename)
+            buffer = BytesIO()
+            report = PdfVentas(buffer, 'A4')
+            pdf = report.report(ventas, 'LIBRO DE VENTAS', total, mes)
+            response.write(pdf)
+            return response
+
+        if 'txt' in request.POST:
+            response = HttpResponse(content_type='text/plain; charset=utf-8')
+            response['Content-Disposition'] = 'attachment; filename="libro_ventas.txt"'
+            t = loader.get_template('reportes/lib_ventas.txt')
+            c = Context({'ventas': ventas, })
+
+            response.write(t.render(c))
+            return response
+
+    	context = {
+	        'town': town,
+	        'compras': ventas,
+	    }
+
+        return render(request, template_name, context)
+        # except Exception, e:
+        #     messages.error(request, 'No existen ventas')
+
+    return render(request, template_name)
+
+
+def ReportAlmacen(request):
+	if request.method == 'POST':
+		date1 = request.POST['date1']
+		date2 = request.POST['date2']
+		# tipo = request.POST['valuacion']
+
+		if date1 != '':
+			items = Item.objects.filter(fecha_transaccion__range=(date1, date2))
+			total = 0
+
+			for it in items:
+				total += it.cantidad * it.precio_unitario
+			
+			return render(request, 'reportes/reporte_almacenes.html', {'items': items, 'total': total, 'ex': True, 'date1': date1, 'date2': date2})
+
+	return render(request, 'reportes/reporte_almacenes.html')
+
+
+def KardexAlmacen(request, pk):
+    venta = Venta.objects.filter(id=pk)
+    detalle = DetalleVenta.objects.filter(venta=venta)
+    
+    vd = []
+    for d in detalle:
+        vd.append(d)
+
+    print vd
+
+    data = {
+        'nit': venta[0].nit,
+        'razon_social': venta[0].razon_social,
+        'fecha': venta[0].fecha,
+        'tipo_compra': venta[0].tipo_compra,
+        'total': venta[0].total,
+        'detalle': vd
+        
+    }
+
+    return render_to_pdf('reportes/rep_detalleventa.html', data)

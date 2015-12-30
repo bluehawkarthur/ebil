@@ -50,7 +50,7 @@
               <td>{{it.cantidad}}</td>
               <td>{{it.precio_unitario}}</td>
               <td>{% widthratio it.cantidad 1 it.precio_unitario %}</td>
-              <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+              <td class="reporte"><a  href="/kardex_almacen/{{ it.pk }}/{{date1}}/{{date2}}/" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
              
           </tr>
                 

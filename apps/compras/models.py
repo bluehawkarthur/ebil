@@ -6,7 +6,7 @@ from apps.producto.models import Item
 
 
 class Compra(models.Model):
-    nit = models.IntegerField()
+    nit = models.BigIntegerField()
     razon_social = models.CharField(max_length=100)
     nro_factura = models.IntegerField()
     nro_autorizacion = models.CharField(max_length=20)

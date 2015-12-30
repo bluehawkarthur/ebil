@@ -30,7 +30,6 @@ from datetime import date
 from django.template import loader, Context
 from django.contrib import messages
 from itertools import chain
-import decimal
 
 
 class RepCompras(TemplateView):
@@ -516,46 +515,48 @@ def KardexAlmacen(request, pk):
 
 
 def promedios(request, pk, date1, date2):
-    movimiento = Movimiento.objects.filter(item=pk, fecha_transaccion__range=(date1, date2)).order_by('fecha_transaccion')
-    producto = Item.objects.get(id=pk)
-    print movimiento
-    data = []
-    saldo = 0
-    saldov = 0
+	movimiento = Movimiento.objects.filter(item=pk, fecha_transaccion__range=(date1, date2)).order_by('fecha_transaccion')
 
-    for m in movimiento:
-        item = Item.objects.filter(id=pk)
-        if m.motivo_movimiento == 'salida':
-            saldo = saldo - m.cantidad
-            salidav = m.precio_unitario * m.cantidad
-            saldov = saldov - salidav
+	print movimiento
 
-            data.append({
-                'fecha': m.fecha_transaccion,
-                'detalle': m.detalle,
-                'pu': m.precio_unitario,
-                'ingreso': 0,
-                'salida': m.cantidad,
-                'saldo': saldo,
-                'ingresov': 0,
-                'salidav': salidav,
-                'saldov': saldov,
-            })
+	data = []
+	saldo = 0
+	saldov = 0
 
-        else:
-            saldo = saldo + m.cantidad
-            ingresov = m.precio_unitario * m.cantidad
-            saldov = saldov + ingresov
-            data.append({
-                'fecha': m.fecha_transaccion,
-                'detalle': m.detalle,
-                'pu': m.precio_unitario,
-                'ingreso': m.cantidad,
-                'salida': 0,
-                'saldo': saldo,
-                'ingresov': ingresov,
-                'salidav': 0,
-                'saldov': saldov,
-            })
+	for m in movimiento:
 
-    return render(request, 'reportes/reporte_kardex.html', {'kardex': data, 'item': producto})
+		item = Item.objects.filter(id=pk)
+    	if m.motivo_movimiento == 'salida':
+
+    		saldo = saldo - m.cantidad
+    		salidav = item[0].precio_unitario * m.cantidad
+    		saldov = saldov - salidav
+
+	    	data.append({
+	    		'fecha': m.fecha_transaccion,
+	    		'detalle': m.detalle,
+	    		'pu': item[0].precio_unitario,
+	    		'ingreso': 0,
+	    		'salida': m.cantidad,
+	    		'saldo': saldo,
+	    		'ingresov': 0,
+	    		'salidav': salidav,
+	    		'saldov': saldov,
+	    	})
+	else:
+		saldo = saldo + m.cantidad
+		ingresov = item[0].precio_unitario * m.cantidad
+		saldov = saldov + ingresov
+	    	data.append({
+	    		'fecha': m.fecha_transaccion,
+	    		'detalle': m.detalle,
+	    		'pu': item[0].precio_unitario,
+	    		'ingreso': m.cantidad,
+	    		'salida': 0,
+	    		'saldo': saldo,
+	    		'ingresov': ingresov,
+	    		'salidav': 0,
+	    		'saldov': saldov,
+	    	})
+
+	return render(request, 'reportes/reporte_kardex.html', {'kardex': data})

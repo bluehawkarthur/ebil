@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^libro_compras/', 'apps.reportes.views.libro_compras', name='libro_compras'),
     url(r'^libro_ventas/', 'apps.reportes.views.libro_ventas', name='libro_ventas'),
     url(r'^reporte_almacen/', 'apps.reportes.views.ReportAlmacen', name='reporte_almacen'),
-    url(r'^kardex_almacen/(?P<pk>\d+)$', 'apps.reportes.views.KardexAlmacen', name='kardex_almacen'),
+    url(r'^kardex_almacen/(?P<pk>\d+)/(?P<date1>[\w-]+)/(?P<date2>[\w-]+)/$', 'apps.reportes.views.promedios', name='kardex_almacen'),
     # url(r'^pdf/$', 'apps.reportes.views.pdf'),
     # url(r'^pdf2/$', 'apps.reportes.views.generar_pdf'),
 

@@ -6,7 +6,7 @@ from apps.producto.models import Item
 class Venta(models.Model):
     # nro_factura = models.IntegerField()
     fecha = models.DateField()
-    nit = models.IntegerField()
+    nit = models.BigIntegerField()
     razon_social = models.CharField(max_length=100)
     tipo_compra = models.CharField(max_length=100)
     cantidad_dias = models.IntegerField()
@@ -26,17 +26,31 @@ class Venta(models.Model):
 
 
 class DetalleVenta(models.Model):
-	venta = models.ForeignKey(Venta)
-	item = models.ForeignKey(Item, db_column='producto_id')
-	cantidad = models.IntegerField()
-	subtotal = models.DecimalField(max_digits=6, decimal_places=2)
-	descuento = models.DecimalField(max_digits=6, decimal_places=2)
-	recargo = models.DecimalField(max_digits=6, decimal_places=2)
-	ice = models.DecimalField(max_digits=6, decimal_places=2)
-	excentos = models.DecimalField(max_digits=6, decimal_places=2)
-	scf = models.DecimalField(max_digits=6, decimal_places=2) #sub total
-	tipo_descuento = models.CharField(max_length=100)
-	tipo_recargo = models.CharField(max_length=100)
+    venta = models.ForeignKey(Venta)
+    item = models.ForeignKey(Item, db_column='producto_id')
+    cantidad = models.IntegerField()
+    precio_unitario = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    subtotal = models.DecimalField(max_digits=6, decimal_places=2)
+    descuento = models.DecimalField(max_digits=6, decimal_places=2)
+    recargo = models.DecimalField(max_digits=6, decimal_places=2)
+    ice = models.DecimalField(max_digits=6, decimal_places=2)
+    excentos = models.DecimalField(max_digits=6, decimal_places=2)
+    scf = models.DecimalField(max_digits=6, decimal_places=2)
+    tipo_descuento = models.CharField(max_length=100)
+    tipo_recargo = models.CharField(max_length=100)
 
-	def __unicode__(self):
-		return u'%s' % self.item
+    def __unicode__(self):
+        return u'%s' % self.item
+
+
+class Movimiento(models.Model):
+    cantidad = models.IntegerField()
+    precio_unitario = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    detalle = models.CharField(max_length=100)
+    fecha_transaccion = models.DateField()
+    motivo_movimiento = models.CharField(max_length=100)
+    item = models.ForeignKey(Item, db_column='producto_id')
+
+
+    def __unicode__(self):
+        return self.motivo_movimiento

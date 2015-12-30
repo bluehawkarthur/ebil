@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response as render, redirect
 from django.template import RequestContext as ctx
 from django.forms.models import inlineformset_factory
 from django.views.generic import TemplateView
-from .models import Venta, DetalleVenta
+from .models import Venta, DetalleVenta, Movimiento
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
 from django.core import serializers
@@ -75,6 +75,7 @@ def ventaCrear(request):
                     venta=crearVenta,
                     item=Item.objects.get(id=k['pk']),
                     cantidad=int(k['cantidad']),
+                    precio_unitario=item[0].precio_unitario,
                     subtotal=decimal.Decimal(k['subtotal']),
                     descuento=decimal.Decimal(k['descuentos']),
                     recargo=decimal.Decimal(k['recargos']),
@@ -86,7 +87,20 @@ def ventaCrear(request):
 
                 )
 
+                detalle = '%s a %s' % ('Venta', proceso['razon'])
+
+                crearMovimiento = Movimiento(
+                    cantidad=int(k['cantidad']),
+                    precio_unitario=item[0].precio_unitario,
+                    detalle=detalle,
+                    fecha_transaccion=proceso['fecha'],
+                    motivo_movimiento='salida',
+                    item=Item.objects.get(id=k['pk']),
+                )
+
                 crearDetalle.save()
+                crearMovimiento.save()
+
             return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
 
             # messages.success(

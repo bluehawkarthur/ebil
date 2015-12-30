@@ -2347,3 +2347,6 @@ span.help-block-file {
   outline: none;
   background-color: Transparent;
 }
+.titulo{
+  text-align: center;
+}

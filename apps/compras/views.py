@@ -13,6 +13,7 @@ from apps.producto.models import Item
 from django.db import transaction
 from django.contrib import messages
 from apps.producto.models import Item
+from apps.ventas.models import Movimiento
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 
@@ -100,7 +101,20 @@ def compraCrear(request):
 
                     )
 
+                    detalle = '%s a %s' % ('Compra', proceso['razon'])
+
+                    crearMovimiento = Movimiento(
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=decimal.Decimal(k['precio_unitario']),
+                        detalle=detalle,
+                        fecha_transaccion=proceso['fecha'],
+                        motivo_movimiento='ingreso',
+                        item=Item.objects.get(id=k['pk']),
+                    )
+
+
                     crearDetalle.save()
+                    crearMovimiento.save()
 
                 else:
                     crearDetalle = DetalleCompra(

@@ -83,13 +83,25 @@ class ListarItem(PaginationMixin, ListView):
 		d_list = dt.split("*")
 		print len(d_list)
 
+		# if (descripcion):
+		# 	object_list = self.model.objects.filter(descripcion__icontains = descripcion).order_by('pk')
+		# elif (descripcion == '*'):
+		# 	object_list = self.model.objects.all().order_by('pk')
+		# else:
+		# 	object_list = self.model.objects.all().order_by('pk')
+		# return object_list
+		resultado = []
 		if (descripcion):
-			object_list = self.model.objects.filter(descripcion__icontains = descripcion).order_by('pk')
+			for i in d_list:
+				object_list = self.model.objects.filter(descripcion__icontains = i).order_by('pk')
+				resultado.extend(object_list)
+				type(resultado)
 		elif (descripcion == '*'):
-			object_list = self.model.objects.all().order_by('pk')
+			resultado = self.model.objects.all().order_by('pk')
 		else:
-			object_list = self.model.objects.all().order_by('pk')
-		return object_list
+			resultado = self.model.objects.all().order_by('pk')
+
+		return resultado
 
 
 class DetalleItem(DetailView):

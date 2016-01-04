@@ -30,8 +30,11 @@ import xlrd
 
 IMPORT_FILE_TYPES = ['.xls', ]
 from django.contrib import messages
+from rolepermissions.mixins import HasRoleMixin
 
-class CrearItem(FormView):
+
+class CrearItem(HasRoleMixin, FormView):
+	allowed_roles = 'adminsistemas'
 	template_name = 'producto/crear_item.html'
 	form_class = ItemForm
 	success_url = reverse_lazy('listar_item')

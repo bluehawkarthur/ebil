@@ -74,7 +74,7 @@ class PdfAlmacen:
             name="ParagraphTitle", fontSize=8, alignment=TA_JUSTIFY,
             fontName="FreeSansBold"))
         styles.add(ParagraphStyle(
-            name="Justify", fontSize=8, alignment=TA_JUSTIFY, fontName="FreeSans"))
+            name="Justify", textTransform='lowercase', fontSize=8, alignment=TA_JUSTIFY, fontName="FreeSans"))
         # list used for elements added into document
         data = []
         data.append(Paragraph(title, styles['Title']))
@@ -131,7 +131,7 @@ class PdfAlmacen:
             totalprecio += weather_history[i].cantidad * weather_history[i].precio_unitario
 
             descripcion = weather_history[i].descripcion
-            desctruncate = (descripcion[:20] + '..') if len(descripcion) > 20 else descripcion
+            desctruncate = (descripcion[:7] + '..') if len(descripcion) > 10 else descripcion
             # add a row to table
             table_data.append([
                 Paragraph(weather_history[i].codigo_item, styles['Justify']),

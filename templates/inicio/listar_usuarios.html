@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+        <div class="row">
+          <div class="col s12 m2">
+            <p>
+                <a href="/register/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+              
+            </p>
+          </div>
+        </div>
+        
+        <div class="row"> 
+          <form class="col m5 s12" method="get">
+          <div class="row">
+          <div class="col s6">
+            <div class="input-field">
+                  <input type="text" class="form-control" name="q" >
+                  <label for="">Buscar</label>
+                 
+            </div><!--end .form-group -->
+          </div>
+          <div class="col s6">
+            
+            <div class="input-field">
+             <button class="btn-floating  waves-effect teal waves-light " type="submit"><i class="md mdi-action-search"></i></button>
+
+            </div>
+          </div> 
+          </div>
+          </form>
+        </div>
+
+        <table class="responsive-table hoverable">
+          <thead>
+            <tr>
+              <th data-field="">Nombre de usuario</th>
+              <th data-field="">Contraseña</th>
+              <th data-field="">Rol</th>
+             
+              <th data-field="">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.username }}</td>
+              <td>{{ user.password|truncatechars:25 }}</td>
+              <td>
+                  {% for group in user.groups.all %}
+                      {{group.name}}
+                  {% endfor %}
+              </td>
+             
+              <td>
+
+                <a href="/editar_user/{{ user.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+                
+
+                <a href="#modal{{user.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+
+                <div id="modal{{user.id}}" class="modal teal">
+                  <div class="modal-content">
+                    <p class="img-dashboard">Esta seguro que quiere eliminar "{{user.username}}"</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+                    <a href="/delete_user/{{user.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% include "_pagination.html" %}
+      
+    </div>
+  </div>
+</section>
+{% endblock content %}

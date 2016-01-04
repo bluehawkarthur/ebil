@@ -8,13 +8,12 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
 from django.core import serializers
 import json
-from apps.producto.models import Item
 from django.db import transaction
 from django.contrib import messages
 from apps.producto.models import Item
+from apps.cliente.models import Cliente
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
-
 
 
 def buscarProducto(request):
@@ -27,6 +26,19 @@ def buscarProducto(request):
         producto = Item.objects.filter(codigo_item__contains=idProducto)
         data = serializers.serialize(
             'json', producto, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
+    return HttpResponse(data, content_type='application/json')
+
+
+def buscarCliente(request):
+    idCliente = request.GET['id']
+    descripcion = Cliente.objects.filter(razonsocial__contains=idCliente)
+    if descripcion:
+        data = serializers.serialize(
+        'json', descripcion, fields=('pk', 'nit', 'razonsocial'))
+    else:
+        nit = Cliente.objects.filter(nit__contains=idCliente)
+        data = serializers.serialize(
+            'json', nit, fields=('pk', 'nit', 'razonsocial'))
     return HttpResponse(data, content_type='application/json')
 
 
@@ -48,8 +60,17 @@ def ventaCrear(request):
                 total += decimal.Decimal(k['sdf'])
 
             print total
+            venta_data = Venta.objects.all().last()
+            print 'datossss ventaaaaaaa'
+
+            nro = venta_data.nro_factura
+            if nro is None:
+                nro = 0
+
+            print nro + 1
             crearVenta = Venta(
                 nit=proceso['nit'],
+                nro_factura=nro + 1,
                 razon_social=proceso['razon'],
                 fecha=proceso['fecha'],
                 tipo_compra=proceso['tipo_compra'],
@@ -153,6 +174,7 @@ def detalleVenta(request, pk):
 
     data = {
         'nit': venta[0].nit,
+        'nro_factura': venta[0].nro_factura,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,

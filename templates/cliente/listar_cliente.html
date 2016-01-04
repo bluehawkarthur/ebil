@@ -7,36 +7,51 @@
 {% block content %}
 <section id="content">
 <div id="chart-dashboard">  
-
+<div class="container">
 <div class="row">
     <div class='input-field col s2'>
         <a href="/CrearCliente" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
-    </div>    
+    </div>  
+</div>
+<div class="row"> 
+  <form class="col m5 s12" method="get">
+    <div class="row">
+      <div class="col s6">
+        <div class="input-field">
+          <input type="text" class="form-control" name="q" >
+          <label for="">Buscar</label>
+
+        </div><!--end .form-group -->
+      </div>
+      <div class="col s6">
+
+        <div class="input-field">
+         <button class="btn-floating  waves-effect teal waves-light " type="submit"><i class="md mdi-action-search"></i></button>
+
+       </div>
+     </div> 
+   </div>
+ </form>
+</div>
+<div class="row">
+<div class="col s12 m8 l12">  
 <table class="responsive-table">
   <thead>
     <tr>
         <th data-field="id">codigo</th>
- 
+        <th>Razon Social</th>
         <th data-field="price">nit</th>
         <th data-field="name">Direccion</th>
-        <th data-field="status">contacto</th>
-        <th data-field="name">categoria</th>
-      
-
-
     </tr>
   </thead>
     <tbody>
     {% for clien in cliente %}
     <tr>
       <td>{{ clien.codigo }}</td>
-  
+      <td>{{clien.razonsocial}}</td>
       <td>{{ clien.nit }}</td>
       <td>{{ clien.direccion }}</td>
-      <td>{{ clien.contacto }}</td>
-      <td>{{ clien.categoria }}</td>
 
-     
       <td>
 
         <a href="/detalle_cliente/{{ clien.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
@@ -61,6 +76,8 @@
     {% endfor %}
   </tbody>
 </table>
+</div>
+</div>
 {% include "_pagination.html" %}
 
 </div>

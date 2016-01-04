@@ -2,11 +2,13 @@ from django.db import models
 import decimal
 from apps.producto.models import Item
 
+
 # Create your models here.
 class Venta(models.Model):
     # nro_factura = models.IntegerField()
     fecha = models.DateField()
     nit = models.BigIntegerField()
+    nro_factura = models.BigIntegerField(null=True, blank=True)
     razon_social = models.CharField(max_length=100)
     tipo_compra = models.CharField(max_length=100)
     cantidad_dias = models.IntegerField()
@@ -17,7 +19,7 @@ class Venta(models.Model):
     excentos = models.DecimalField(max_digits=6, decimal_places=2)
     tipo_descuento = models.CharField(max_length=100)
     tipo_recargo = models.CharField(max_length=100)
-    
+
     # categoria = models.CharField(max_length=50)
     # movimiento = models.CharField(max_length=100)
 

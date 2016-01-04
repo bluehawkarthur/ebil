@@ -1,0 +1,97 @@
+
+
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      {% if user_form.non_field_errors%}
+        <div class="alert alert-danger" role="alert">
+          {{user_form.non_field_errors|removetags:"ul li"}}
+        </div>
+        {% endif %}
+      <div class="card-panel">
+        <h3 class="header2">Registro de usuario</h3>
+          {% csrf_token %} 
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ user_form.errors.username|removetags:'ul li' }}</span>
+                <input id="id_username" {% if user_form.errors.username %} class="invalid" {%endif%} maxlength="30" name="username" value="{{usere.username}}" type="text">
+
+                <label for="emails">{{ user_form.username.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+               <div class="input-field col s6 has-error">
+                <span class="help-block">{{ user_form.errors.password|removetags:'ul li' }}</span>
+                <input disabled id="id_password" value="{{usere.password}}" name="password" type="text">
+                <label for="email">{{ user_form.password.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <a href="/editar_user/{{usere.pk}}/password" class="btn orange waves-effect waves-light right"><i class="mdi-action-lock-outline left"></i>Cambiar contraseña</a>
+         
+              </div>
+
+             
+            </div> 
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ user_form.errors.rol|removetags:'ul li' }}</span>
+                
+                {% block js %}
+                <script>
+                  $('#id_rol option:selected').removeAttr("selected");
+                  {% for group in usere.groups.all %}
+                      
+                  
+                  $('#id_rol option[value="{{group.name}}"]').attr("selected","selected");
+                  {% endfor %}
+                  $('#id_rol').material_select();
+
+                </script>
+                {% endblock js %}
+                <select id="id_rol" name="rol" class="initialized">
+                  <option value="">-- seleccionar --</option>
+                  <option value="administrador">Administrador</option>
+                  <option value="operador">Operador</option>
+                </select>
+           
+                <label for="emails">{{ user_form.rol.label }}</label>
+              </div>
+            </div>
+
+                  
+        <div class="row">  
+        <div class="input-field col s6">
+          <a href="/list_user" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+          <div class="input-field col s6">
+            
+
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+              <i class="mdi-content-send right"></i>
+            </button>
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+
+
+ 

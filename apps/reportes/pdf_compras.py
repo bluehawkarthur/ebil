@@ -83,7 +83,7 @@ class PdfCompras:
             fontName="FreeSansBold"))
 
         styles.add(ParagraphStyle(
-            name="Justify", alignment=TA_JUSTIFY, fontName="FreeSans"))
+            name="Justify", textTransform='lowercase', alignment=TA_JUSTIFY, fontName="FreeSans"))
         # list used for elements added into document
         data = []
         data.append(Paragraph(title, styles['Title']))

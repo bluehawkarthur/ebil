@@ -16,6 +16,7 @@ from apps.producto.models import Item
 from apps.ventas.models import Movimiento
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
+from datetime import date
 
 
 class Success(TemplateView):
@@ -79,7 +80,8 @@ def compraCrear(request):
                 if k['centro_costos'] == 'A':
                     item = Item.objects.filter(id=k['pk'])
                     cantidad_total = item[0].cantidad + int(k['cantidad'])
-                    item.update(cantidad=cantidad_total, precio_unitario=decimal.Decimal(k['precio_unitario']), fecha_transaccion=proceso['fecha'])
+                    today = date.today()
+                    item.update(cantidad=cantidad_total, precio_unitario=decimal.Decimal(k['precio_unitario']), fecha_transaccion=today)
 
                     crearDetalle = DetalleCompra(
                         compra=crearCompra,

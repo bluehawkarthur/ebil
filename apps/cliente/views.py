@@ -8,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import Cliente
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from pure_pagination.mixins import PaginationMixin
 
 # Create your views here.
 class CrearCliente(FormView):
@@ -39,10 +40,21 @@ class CrearCliente(FormView):
 		return super(CrearCliente, self).form_valid(form)
 
 
-class ListarCliente(ListView):
+class ListarCliente(PaginationMixin, ListView):
 	template_name = 'cliente/listar_cliente.html'
 	model = Cliente
-	context_object_name = 'cliente'	
+	context_object_name = 'cliente'
+	paginate_by = 5
+
+	def get_queryset(self):
+
+		razon_social = self.request.GET.get('q', None)
+		    
+		if (razon_social):
+		    object_list = self.model.objects.filter(razonsocial__icontains = razon_social).order_by('pk')
+		else:
+		    object_list = self.model.objects.all().order_by('pk')
+		return object_list
 
 class DetalleCliente(DetailView):
 	template_name = 'cliente/detalle_cliente.html'

@@ -56,8 +56,7 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'widget_tweaks',
     'django_extensions',
-    
-    
+    'rolepermissions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -146,6 +145,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# ======== configure for user roles ===========
+ROLEPERMISSIONS_MODULE = 'apps.inicio.roles'
+
 
 STATIC_ROOT = 'staticfiles'
 

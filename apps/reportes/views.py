@@ -29,8 +29,6 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpRespons
 from datetime import date
 from django.template import loader, Context
 from django.contrib import messages
-from itertools import chain
-import decimal
 
 
 class RepCompras(TemplateView):
@@ -208,6 +206,7 @@ def detalleVenta(request, pk):
 
     data = {
         'nit': venta[0].nit,
+        'nro_factura': venta[0].nro_factura,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
@@ -369,49 +368,49 @@ def libro_compras(request):
         d = date(int(anio),int(date1),1).strftime('%B')
         mes = _(d)
 
-        # try:
-        	# obteniendo datos del modelo venta 
-    	compras = Compra.objects.filter(fecha__year=anio, fecha__month=date1)
-    	total = 0
-        for compra in compras:
-			total += compra.total
+        try:
+        	
+	    	compras = Compra.objects.filter(fecha__year=anio, fecha__month=date1)
+	    	total = 0
+	        for compra in compras:
+				total += compra.total
 
-        if 'excel' in request.POST:
-            response = HttpResponse(content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=Reporte_compras.xlsx'
-            xlsx_data = WriteToCompras(compras, mes, total, town)
-            response.write(xlsx_data)
-            return response
+	        if 'excel' in request.POST:
+	            response = HttpResponse(content_type='application/vnd.ms-excel')
+	            response['Content-Disposition'] = 'attachment; filename=Reporte_compras.xlsx'
+	            xlsx_data = WriteToCompras(compras, mes, total, town)
+	            response.write(xlsx_data)
+	            return response
 
-        if 'pdf' in request.POST:
-            response = HttpResponse(content_type='application/pdf')
-            today = date.today()
-            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
-            response['Content-Disposition'] =\
-                'attachement; filename={0}.pdf'.format(filename)
-            buffer = BytesIO()
-            report = PdfCompras(buffer, 'A4')
-            pdf = report.report(compras, 'LIBRO DE COMPRAS', total, mes)
-            response.write(pdf)
-            return response
+	        if 'pdf' in request.POST:
+	            response = HttpResponse(content_type='application/pdf')
+	            today = date.today()
+	            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+	            response['Content-Disposition'] =\
+	                'attachement; filename={0}.pdf'.format(filename)
+	            buffer = BytesIO()
+	            report = PdfCompras(buffer, 'A4')
+	            pdf = report.report(compras, 'LIBRO DE COMPRAS', total, mes)
+	            response.write(pdf)
+	            return response
 
-        if 'txt' in request.POST:
-            response = HttpResponse(content_type='text/plain; charset=utf-8')
-            response['Content-Disposition'] = 'attachment; filename="libro_compras.txt"'
-            t = loader.get_template('reportes/lib_compras.txt')
-            c = Context({'compras' : compras, })
+	        if 'txt' in request.POST:
+	            response = HttpResponse(content_type='text/plain; charset=utf-8')
+	            response['Content-Disposition'] = 'attachment; filename="libro_compras.txt"'
+	            t = loader.get_template('reportes/lib_compras.txt')
+	            c = Context({'compras' : compras, })
 
-            response.write(t.render(c))
-            return response
+	            response.write(t.render(c))
+	            return response
 
-    	context = {
-	        'town': town,
-	        'compras': compras,
-	    }
+	    	context = {
+		        'town': town,
+		        'compras': compras,
+		    }
 
-        return render(request, template_name, context)
-        # except Exception, e:
-        #     messages.error(request, 'No existen ventas')
+	        return render(request, template_name, context)
+        except Exception, e:
+            messages.error(request, 'No existen compras')
 
     return render(request, template_name)
 
@@ -428,49 +427,49 @@ def libro_ventas(request):
         d = date(int(anio), int(date1), 1).strftime('%B')
         mes = _(d)
 
-        # try:
+        try:
         	# obteniendo datos del modelo venta 
-    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
-    	total = 0
-        for venta in ventas:
-			total += venta.total
+	    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
+	    	total = 0
+	        for venta in ventas:
+				total += venta.total
 
-        if 'excel' in request.POST:
-            response = HttpResponse(content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=libro_ventas.xlsx'
-            xlsx_data = WriteToVentas(ventas, mes, total, town)
-            response.write(xlsx_data)
-            return response
+	        if 'excel' in request.POST:
+	            response = HttpResponse(content_type='application/vnd.ms-excel')
+	            response['Content-Disposition'] = 'attachment; filename=libro_ventas.xlsx'
+	            xlsx_data = WriteToVentas(ventas, mes, total, town)
+	            response.write(xlsx_data)
+	            return response
 
-        if 'pdf' in request.POST:
-            response = HttpResponse(content_type='application/pdf')
-            today = date.today()
-            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
-            response['Content-Disposition'] =\
-                'attachement; filename={0}.pdf'.format(filename)
-            buffer = BytesIO()
-            report = PdfVentas(buffer, 'A4')
-            pdf = report.report(ventas, 'LIBRO DE VENTAS', total, mes)
-            response.write(pdf)
-            return response
+	        if 'pdf' in request.POST:
+	            response = HttpResponse(content_type='application/pdf')
+	            today = date.today()
+	            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+	            response['Content-Disposition'] =\
+	                'attachement; filename={0}.pdf'.format(filename)
+	            buffer = BytesIO()
+	            report = PdfVentas(buffer, 'A4')
+	            pdf = report.report(ventas, 'LIBRO DE VENTAS', total, mes)
+	            response.write(pdf)
+	            return response
 
-        if 'txt' in request.POST:
-            response = HttpResponse(content_type='text/plain; charset=utf-8')
-            response['Content-Disposition'] = 'attachment; filename="libro_ventas.txt"'
-            t = loader.get_template('reportes/lib_ventas.txt')
-            c = Context({'ventas': ventas, })
+	        if 'txt' in request.POST:
+	            response = HttpResponse(content_type='text/plain; charset=utf-8')
+	            response['Content-Disposition'] = 'attachment; filename="libro_ventas.txt"'
+	            t = loader.get_template('reportes/lib_ventas.txt')
+	            c = Context({'ventas': ventas, })
 
-            response.write(t.render(c))
-            return response
+	            response.write(t.render(c))
+	            return response
 
-    	context = {
-	        'town': town,
-	        'compras': ventas,
-	    }
+	    	context = {
+		        'town': town,
+		        'compras': ventas,
+		    }
 
-        return render(request, template_name, context)
-        # except Exception, e:
-        #     messages.error(request, 'No existen ventas')
+	        return render(request, template_name, context)
+        except Exception, e:
+            messages.error(request, 'No existen ventas')
 
     return render(request, template_name)
 
@@ -536,10 +535,10 @@ def promedios(request, pk, date1, date2):
                 'pu': m.precio_unitario,
                 'ingreso': 0,
                 'salida': m.cantidad,
-                'saldo': saldo,
+                'saldo': abs(saldo),
                 'ingresov': 0,
                 'salidav': salidav,
-                'saldov': saldov,
+                'saldov': abs(saldov),
             })
 
         else:

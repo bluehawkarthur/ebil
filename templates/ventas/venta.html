@@ -252,9 +252,20 @@
                 <form action="/ventas/" method="post" id="post_form" onsubmit="onEnviar()" target="_self">
                         {% csrf_token %}
                         <input id="proceso" name="proceso" type="hidden" />
-                         <button class="btn cyan waves-effect waves-light right"  name="action" id="save">Guardar
+                        <div class="row">
+                        <div class="col s12 m6 l6">
+                          
+                          <button class="btn cyan waves-effect waves-light right"  name="action" id="save">Guardar
                           <i class="mdi-content-save right"></i>
                           </button>
+                        </div>
+                        <div class="col s12 m6 l6">
+                         <button class="btn cyan waves-effect waves-light right"  name="rollo">Guardar rollo
+                          <i class="mdi-content-save right"></i>
+                          </button>
+                          </div>
+                        </div>
+
                     </form>
                 <p>
                  

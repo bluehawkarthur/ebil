@@ -119,42 +119,51 @@ def Reporteventa(request):
 		nit = request.POST['nit2']
 		monto = request.POST['monto2']
 		empresa = request.POST['empresa2']
-		
 
 		if date1 != '':
 			if tipo == 'todo':
 				if nit != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), nit=nit)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), nit=nit)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif monto != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas = Venta.objects.filter(fecha__range=(date1, date2))
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2))
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
+
 			else:
 				if nit != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif monto != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 			
 			total = 0
-			for venta in ventas:
+			for venta in ventas1:
 				total += venta.total
 			
-			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True, 'date1': date1, 'date2': date2})
+			return render(request, 'reportes/reporte_venta.html', {'ventas': ventas, 'total': total, 'ex':True, 'date1': date1, 'date2': date2})
 		
 	else:
 		datecompu = date.today()
 		total = 0
-		ventas = Venta.objects.filter(fecha=datecompu)
+		ventas1 = Venta.objects.filter(fecha=datecompu)
+		ventas = DetalleVenta.objects.filter(venta=ventas1)
 		for venta in ventas:
-			total += venta.total
+			total += venta.cantidad * venta.precio_unitario
 
-		return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
+		return render(request, 'reportes/reporte_venta.html', {'ventas': ventas, 'total': total, 'ex': True})
 # class ReportVendetalle(DetailView):
 # 	template_name = 'reportes/detalle_ventas.html'
 # 	model = DetalleVenta

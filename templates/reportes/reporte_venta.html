@@ -37,13 +37,13 @@
 
           <label for="icon_email" class="active nit_label">NIT</label>
         </div>
-        <div class="input-field col s2">
+        <!-- <div class="input-field col s2">
           <i class="mdi-editor-attach-money prefix active"></i>
           <input  name='monto'  id="monto" type="text" >
           <input  name='monto2'  id="monto2" type="hidden" >
 
           <label for="icon_email" class="active">MONTO</label>
-        </div>
+        </div> -->
         <div class="input-field col s2">
           
           <select name="tipo_venta" id="" class="validate">
@@ -62,30 +62,37 @@
     </form>
     </div>
                   
-	
+	   {% for doc in ventas %}
+        {% for docimage in doc.detalleventa.all %}
+          {{ docimage.precio_unitario }}
+        {% endfor %}
+        
+      {% endfor %}
 
     {% if  ex %}
     	<table class='table'>
     		<thead>
           <th>Razon social</th>
+          <th>Detalle</th>
     			<th>Nit</th>
           <th>Fecha</th>
           <th>Monto</th>
     			<th>Tipo venta</th>
-          <th class="reporte">Detalle</th>
+          <!-- <th class="reporte">Detalle</th> -->
           <th class="reporte">Imprimir</th>
     		</thead>
     		<tbody>
     		{%  for venta in ventas %}
-          <tr>
-              <td>{{venta.razon_social}}</td>
-              <td>{{venta.nit}}</td>
-              <td>{{venta.fecha}}</td>
-              <td>{{venta.total}}</td>
-              <td>{{venta.tipo_compra}}</td>
-              <td class="reporte">
+          <tr class="{{venta.venta.pk}}">
+              <td>{{venta.venta.razon_social}}</td>
+              <td>{{venta.item.descripcion}}</td>
+              <td>{{venta.venta.nit}}</td>
+              <td>{{venta.venta.fecha}}</td>
+              <td>{% widthratio venta.cantidad 1 venta.precio_unitario %}</td>
+              <td>{{venta.venta.tipo_compra}}</td>
+              <!-- <td class="reporte">
                 <a  href="#modal{{venta.id}}" class="btn-floating waves-effect tooltipped  modal-trigger teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left" id="{{ venta.id }}"></i></a>
-              </td>
+              </td> -->
              
 
                 <script>
@@ -156,12 +163,12 @@
                   </div>
                 </div>
 
-            <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+            <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
           </tr>
                 
     		{% endfor %}
                 <tr>
-                    <td colspan=2></td>
+                    <td colspan=3></td>
                     <td>Total General:</td>
                     <td>{{total}}</td>
                 </tr>

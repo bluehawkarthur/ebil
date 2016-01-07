@@ -1,5 +1,4 @@
 {% load report_filter %}
-|Fecha|Nit|Nombre Razon Social|Factura|No Autorizacion|Codigo de Control|Total factura|ICE|Excentos|Neto|Credito Fiscal|
 {% for c in compras %}
 |{{c.fecha}}|{{c.nit}}|{{c.razon_social}}|{{c.nro_factura}}|{{c.nro_autorizacion}}|{{c.cod_control}}|{{c.total}}|{{c.ice}}|{{c.excentos}}|{% neto c.total c.ice c.excentos %}|{% cf c.total c.ice c.excentos %}
 {% endfor %}

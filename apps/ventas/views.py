@@ -122,7 +122,10 @@ def ventaCrear(request):
                 crearDetalle.save()
                 crearMovimiento.save()
 
-            return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
+            if 'rollo' in request.POST:
+                return HttpResponseRedirect(reverse('detalleventarollo', args=(crearVenta.pk,)))
+            else:
+                return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
 
             # messages.success(
             #     request, 'La compra se ha realizado satisfactoriamente')
@@ -184,3 +187,28 @@ def detalleVenta(request, pk):
     }
 
     return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+
+def detalleVentarollo(request, pk):
+    print pk
+    venta = Venta.objects.filter(id=pk)
+    detalle = DetalleVenta.objects.filter(venta=venta)
+    
+    vd = []
+    for d in detalle:
+        vd.append(d)
+
+    print vd
+
+    data = {
+        'nit': venta[0].nit,
+        'nro_factura': venta[0].nro_factura,
+        'razon_social': venta[0].razon_social,
+        'fecha': venta[0].fecha,
+        'tipo_compra': venta[0].tipo_compra,
+        'total': venta[0].total,
+        'detalle': vd
+        
+    }
+
+    return render_to_pdf('reportes/rep_detalleventarollo.html', data)

@@ -30,11 +30,8 @@ import xlrd
 
 IMPORT_FILE_TYPES = ['.xls', ]
 from django.contrib import messages
-from rolepermissions.mixins import HasRoleMixin
 
-
-class CrearItem(HasRoleMixin, FormView):
-	allowed_roles = 'adminsistemas'
+class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
 	form_class = ItemForm
 	success_url = reverse_lazy('listar_item')
@@ -68,7 +65,13 @@ class CrearItem(HasRoleMixin, FormView):
 
 
 
-class ListarItem(PaginationMixin, ListView):
+from rolepermissions.mixins import HasRoleMixin
+from ebil.roles import Cliente
+
+import operator
+from django.db.models import Q
+
+class ListarItem(HasRoleMixin, PaginationMixin, ListView):
 	template_name = 'producto/listar_item.html'
 	model = Item
 	paginate_by = 5
@@ -77,31 +80,37 @@ class ListarItem(PaginationMixin, ListView):
 	def get_queryset(self):
 
 		descripcion = self.request.GET.get('q', None)
-
 		dt= "%s" % descripcion
 	
 		d_list = dt.split("*")
-		print len(d_list)
+		
 
+		# resultado = []
 		# if (descripcion):
-		# 	object_list = self.model.objects.filter(descripcion__icontains = descripcion).order_by('pk')
+		# 	for i in d_list:
+		# 		object_list = self.model.objects.filter(descripcion__icontains = i).order_by('pk')
+		# 		resultado.extend(object_list)
+		# 		type(resultado)
 		# elif (descripcion == '*'):
-		# 	object_list = self.model.objects.all().order_by('pk')
+		# 	resultado = self.model.objects.all().order_by('pk')
 		# else:
-		# 	object_list = self.model.objects.all().order_by('pk')
-		# return object_list
-		resultado = []
-		if (descripcion):
-			for i in d_list:
-				object_list = self.model.objects.filter(descripcion__icontains = i).order_by('pk')
-				resultado.extend(object_list)
-				type(resultado)
-		elif (descripcion == '*'):
-			resultado = self.model.objects.all().order_by('pk')
-		else:
-			resultado = self.model.objects.all().order_by('pk')
+		# 	resultado = self.model.objects.all().order_by('pk')
+		# return resultado
+		# object_list = self.model.objects.filter(descripcion__icontains = i).order_by('pk')
+		#///////////////////////////
 
-		return resultado
+		q = d_list
+		query = reduce(operator.and_, (Q(descripcion__contains = item) for item in q))
+		# result = User.objects.filter(query)
+
+		if (descripcion):
+			object_list = self.model.objects.filter(query)
+		elif (descripcion == '*'):
+			object_list = self.model.objects.all().order_by('pk')
+		else:
+			object_list = self.model.objects.all().order_by('pk')
+		return object_list
+
 
 
 class DetalleItem(DetailView):

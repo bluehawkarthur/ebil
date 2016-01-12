@@ -60,9 +60,11 @@ def ventaCrear(request):
                 total += decimal.Decimal(k['sdf'])
 
             venta_data = Venta.objects.all().last()
-
-            nro = venta_data.nro_factura
-            if nro is None:
+            if venta_data:
+                nro = venta_data.nro_factura
+                if nro is None:
+                    nro = 0
+            else:
                 nro = 0
 
             if proceso['tipo_compra'] == 'credito':

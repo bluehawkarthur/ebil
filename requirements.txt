@@ -22,3 +22,4 @@ reportlab==3.2.0
 html5lib==0.999
 git+https://github.com/bluehawkarthur/pisa.git
 django-role-permissions==0.6.2
+django-extensions==1.5.9

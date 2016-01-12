@@ -19,7 +19,8 @@ class Venta(models.Model):
     excentos = models.DecimalField(max_digits=6, decimal_places=2)
     tipo_descuento = models.CharField(max_length=100)
     tipo_recargo = models.CharField(max_length=100)
-
+    monto_pago = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    fecha_vencimiento = models.DateField(null=True, blank=True)
     # categoria = models.CharField(max_length=50)
     # movimiento = models.CharField(max_length=100)
 

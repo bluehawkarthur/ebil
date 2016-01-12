@@ -117,7 +117,7 @@ def Reporteventa(request):
 		date2 = request.POST['date2']
 		tipo = request.POST['tipo_venta']
 		nit = request.POST['nit2']
-		monto = request.POST['monto2']
+		# monto = request.POST['monto2']
 		empresa = request.POST['empresa2']
 
 		if date1 != '':
@@ -128,9 +128,9 @@ def Reporteventa(request):
 				elif empresa != '':
 					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
-				elif monto != '':
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
-					ventas = DetalleVenta.objects.filter(venta=ventas1)
+				# elif monto != '':
+				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
 					ventas1 = Venta.objects.filter(fecha__range=(date1, date2))
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
@@ -142,9 +142,9 @@ def Reporteventa(request):
 				elif empresa != '':
 					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
-				elif monto != '':
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
-					ventas = DetalleVenta.objects.filter(venta=ventas1)
+				# elif monto != '':
+				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
 					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
@@ -567,3 +567,14 @@ def promedios(request, pk, date1, date2):
             })
 
     return render(request, 'reportes/reporte_kardex.html', {'kardex': data, 'item': producto})
+
+
+def Createpago(request):
+
+    if request.method == 'POST':
+        monto = request.POST['monto']
+        venta = request.POST['venta']
+        print monto
+        print venta
+
+    return render(request, 'reportes/reporte_pago.html')

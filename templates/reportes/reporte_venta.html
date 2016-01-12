@@ -1,8 +1,11 @@
+
 {% extends 'base.html' %}
+{% load report_filter %}
 {% block menu %}
     {% include "menu.html" %}
 {% endblock menu %}
 {% block content %}
+
 <section id="content">	
  <div class="container">
     <h3>Reporte de ventas  </h3>
@@ -70,7 +73,7 @@
       {% endfor %}
 
     {% if  ex %}
-    	<table class='table'>
+    	<table class='table' id="tabla">
     		<thead>
           <th>Razon social</th>
           <th>Detalle</th>
@@ -80,6 +83,7 @@
     			<th>Tipo venta</th>
           <!-- <th class="reporte">Detalle</th> -->
           <th class="reporte">Imprimir</th>
+          <th class="reporte">Pago</th>
     		</thead>
     		<tbody>
     		{%  for venta in ventas %}
@@ -90,80 +94,50 @@
               <td>{{venta.venta.fecha}}</td>
               <td>{% widthratio venta.cantidad 1 venta.precio_unitario %}</td>
               <td>{{venta.venta.tipo_compra}}</td>
+
               <!-- <td class="reporte">
                 <a  href="#modal{{venta.id}}" class="btn-floating waves-effect tooltipped  modal-trigger teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left" id="{{ venta.id }}"></i></a>
               </td> -->
              
 
-                <script>
-                  $('#{{ venta.id }}').on('click', function () {
-                    console.log('esto es modalllllllllll {{ venta.id }}');
-                      $.ajax({
-                        url: '/rep_ventadet/',
-                        dataType: "json",
-                        data: {'id':'{{ venta.id }}'},
-                        success: function (data, textStatus, jqXHR) {
-                            console.log('detallessss');
-                            console.log(data);
+                
+             
+            <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+            <td class="reporte">{% dias venta.venta.fecha_vencimiento %}
+              {% if venta.venta.cantidad_dias %}
+              dias
+              <a  href="#modal{{venta.id}}"  class="btn-floating waves-effect tooltipped modal-trigger light-green waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-editor-attach-money" ></i></a>
+               <div id="modal{{venta.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
 
-                            var div = $('#content{{ venta.id }}');
-                            var table = div.children();
-                          
-                            if (table.length == 0){
+                  <div  id="content{{ venta.id }}">
+                      <form class="col s12 m12 l8 offset-l2" target="_blank" action="/create_pago/"  method="POST" enctype='multipart/form-data'>
+                        <div class="modal-content">
+                        <h4 class="header2">Ingrese monto a cancelar</h4>
+                          {% csrf_token %} 
 
-                            div.append('<table class="table">');
-                            div.append('<thead>');
-                            div.append('<th>Cod Item</th>');
-                            div.append('<th>Cantidad</th>');
-                            div.append('<th>Unidad</th>');
-                            div.append('<th>Detalle</th>');
-                            div.append('<th>P.U.</th>');
-                            div.append('<th>Total</th>');
-                            div.append('<th>Desc</th>');
-                            div.append('<th>Recargos</th>');
-                            div.append('<th>ICE</th>');
-                            div.append('<th>Excentos</th>');
-                            div.append('<th>SDF</th>');
-                            div.append('</thead>');
-                            div.append('<tbody>');
-                            for(i=0;i<data.length;i++){
-                                div.append('<tr>');
-                             
-                                  div.append('<td>' + data[i].fields.item[0] + '</td>');
-                                  div.append('<td>' + data[i].fields.cantidad + '</td>');
-                                  div.append('<td>' + data[i].fields.item[3] + '</td>');
-                                  div.append('<td>' + data[i].fields.item[1] + '</td>');
-                                  div.append('<td>' + data[i].fields.item[2] + '</td>');
-                                  div.append('<td>' + data[i].fields.subtotal + '</td>');
-                                  div.append('<td>' + data[i].fields.descuento + '</td>');
-                                  div.append('<td>' + data[i].fields.recargo + '</td>');
-                                  div.append('<td>' + data[i].fields.ice + '</td>');
-                                  div.append('<td>' + data[i].fields.excentos + '</td>');
-                                  div.append('<td>' + data[i].fields.scf + '</td>');
+                            <div class="row">
+                              <div class="input-field col s6">
+                                <input type="text" name="monto">
+                                <input type="hidden" name="venta" value="{{venta.venta.id}}">
+                                <label for="emails">Monto</label>
+                              </div>
 
-                                div.append('</tr>');
-
-                            }
-                            div.append('</tbody>');
-
-                            div.append('</table>');
-                          }
-                            
-                        },
-                    });
-                  });
-                </script>
-               
-                <div id="modal{{venta.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
-                  <div class="modal-content" id="content{{ venta.id }}">
-                      
+                              <div class="input-field col s6">
+                                <button class="btn cyan waves-effect modal-close waves-light right" type="submit" name="action">Guardar
+                                  <i class="mdi-content-send right"></i>
+                                </button>
+                              </div>
+                            </div>
+                        </div>
+                                 
+                    </form>
                   </div>
                   <div class="modal-footer">
                     <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cerrar</a>
                   </div>
                 </div>
-
-            <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+              {%endif%}
+            </td>
           </tr>
                 
     		{% endfor %}
@@ -305,6 +279,12 @@
       $(".empresa_label").addClass('active');
     }
 });
+
+  $("#tabla tbody tr").each(function (index) 
+  {
+    console.log($(this).find('tr').attr('class'));
+
+  });
    </script> 
 {% endblock js %}
 

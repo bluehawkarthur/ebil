@@ -14,6 +14,7 @@ from apps.producto.models import Item
 from apps.cliente.models import Cliente
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
+import datetime
 
 
 def buscarProducto(request):
@@ -52,22 +53,28 @@ def ventaCrear(request):
             if len(proceso['producto']) <= 0:
                 msg = 'No se ha seleccionado ningun producto'
                 raise Exception(msg)
-            print proceso
 
             total = 0
             # calculo total de compras
             for k in proceso['producto']:
                 total += decimal.Decimal(k['sdf'])
 
-            print total
             venta_data = Venta.objects.all().last()
-            print 'datossss ventaaaaaaa'
 
             nro = venta_data.nro_factura
             if nro is None:
                 nro = 0
 
-            print nro + 1
+            if proceso['tipo_compra'] == 'credito':
+                date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
+                end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
+                today = datetime.date.today()
+                
+                print 'tiempo de fecha vencimiento'
+                print (today-datetime.date(2016, 1, 12)).days
+            else:
+                end_date = None
+
             crearVenta = Venta(
                 nit=proceso['nit'],
                 nro_factura=nro + 1,
@@ -82,6 +89,7 @@ def ventaCrear(request):
                 excentos=proceso['excentos'],
                 tipo_descuento=proceso['tipo_descuento'],
                 tipo_recargo=proceso['tipo_recargo'],
+                fecha_vencimiento=end_date,
             )
             crearVenta.save()
 

@@ -1,5 +1,6 @@
 from django import template
 
+
 register = template.Library()
 
 
@@ -15,3 +16,18 @@ def cf(total, ice, excentos, *args, **kwargs):
 	return neto * 13 / 100
 
 register.simple_tag(cf)
+
+import datetime
+
+
+def dias(fecha, *args, **kwargs):
+
+	if fecha is None:
+		day = 0
+	else:
+		today = datetime.date.today()
+		day = (fecha-today).days
+	
+	return day
+
+register.simple_tag(dias)

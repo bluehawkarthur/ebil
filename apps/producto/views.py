@@ -9,6 +9,7 @@ from pure_pagination.mixins import PaginationMixin
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django import forms
 from apps.proveedores.models import Proveedor
+from apps.ventas.models import Movimiento
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -27,9 +28,11 @@ from ebil.settings import MEDIA_ROOT
 
 import os
 import xlrd
+from datetime import date
 
 IMPORT_FILE_TYPES = ['.xls', ]
 from django.contrib import messages
+
 
 class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
@@ -59,19 +62,29 @@ class CrearItem(FormView):
 			item.unidad_medida = form.cleaned_data['unidad_medida']
 			item.costo_unitario = form.cleaned_data['costo_unitario']
 			item.precio_unitario = form.cleaned_data['precio_unitario']
-			item.user= self.request.user
+			item.user = self.request.user
 			item.save()
+			today = date.today()
+			movimiento = Movimiento()
+			movimiento.cantidad = form.cleaned_data['cantidad']
+			movimiento.precio_unitario = form.cleaned_data['precio_unitario']
+			movimiento.detalle = 'Saldo Inicial'
+			movimiento.fecha_transaccion = today.strftime('%Y-%m-%d')
+			movimiento.motivo_movimiento = 'inicial'
+			movimiento.item = item
+			movimiento.save()
 			return super(CrearItem, self).form_valid(form)
 
 
 
 from rolepermissions.mixins import HasRoleMixin
-from ebil.roles import Cliente
+
 
 import operator
 from django.db.models import Q
 
-class ListarItem(HasRoleMixin, PaginationMixin, ListView):
+
+class ListarItem(PaginationMixin, ListView):
 	template_name = 'producto/listar_item.html'
 	model = Item
 	paginate_by = 5
@@ -80,7 +93,7 @@ class ListarItem(HasRoleMixin, PaginationMixin, ListView):
 	def get_queryset(self):
 
 		descripcion = self.request.GET.get('q', None)
-		dt= "%s" % descripcion
+		dt = "%s" % descripcion
 	
 		d_list = dt.split("*")
 		
@@ -100,17 +113,18 @@ class ListarItem(HasRoleMixin, PaginationMixin, ListView):
 		#///////////////////////////
 
 		q = d_list
-		query = reduce(operator.and_, (Q(descripcion__contains = item) for item in q))
+		print d_list
+		query = reduce(operator.and_, (Q(descripcion__contains=item) for item in q))
 		# result = User.objects.filter(query)
 
 		if (descripcion):
 			object_list = self.model.objects.filter(query)
+			print object_list
 		elif (descripcion == '*'):
 			object_list = self.model.objects.all().order_by('pk')
 		else:
 			object_list = self.model.objects.all().order_by('pk')
 		return object_list
-
 
 
 class DetalleItem(DetailView):
@@ -160,8 +174,7 @@ def import_data(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST,
                               request.FILES)
-        
-        
+
         # if request.FILES:
         # 	datos=request.FILES['file']
         # 	filename = datos._name
@@ -175,16 +188,24 @@ def import_data(request):
         # 	dt=pe.get_sheet(file_name='%s' % (rute), name_columns_by_row=0)
         # 	yy=list(dt.colnames)
         # 	print yy
+        today = date.today()
 
+        def choice_func2(row):
+            print 'movimiento'
+            print row
+            cod = Item.objects.filter(codigo_item=row[0])[0]
+            row[2] = 'Saldo Inicial'
+            row[3] = today.strftime('%Y-%m-%d')
+            row[4] = 'inicial'
+            row[5] = cod
+            # row.append(request.user)
+            return row
 
         def choice_func(row):
-    		cod = Proveedor.objects.filter(codigo=row[10])[0]
-    		row[10] = cod
-
-    		row.append(request.user)
-		# print row
-		return row
-
+            cod = Proveedor.objects.filter(codigo=row[10])[0]
+            row[10] = cod
+            row.append(request.user)
+            return row
 
         if form.is_valid():
 
@@ -194,8 +215,7 @@ def import_data(request):
 
             # datos2= pe.get_sheet(file_name='%s' % (datos),name_columns_by_row=0)
             # print(list(datos2.colnames))
-            
-           
+
             # for i in arryadates:
             # 	if i in dt:
             # 		print i
@@ -207,30 +227,36 @@ def import_data(request):
             # print request.FILES['file'].get_sheet()
             # rute= '%s/%s' % (MEDIA_ROOT, datos)
             
-            try:
+            # try:
 
-	            request.FILES['file'].save_book_to_database(
-	                models=[Item],
-	                initializers=[choice_func],
-	                mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen','grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
-	            )
+            request.FILES['file'].save_book_to_database(
+                models=[Item],
+                initializers=[choice_func],
+                mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen', 'grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
+            )
 
-	            messages.success(request, "Los datos se importaron correctamente")
+            request.FILES['file'].save_book_to_database(
+                models=[Movimiento],
+                initializers=[choice_func2],
+                mapdicts=[['cantidad', 'precio_unitario', 'detalle', 'fecha_transaccion', 'motivo_movimiento','item']]
+            )
 
-	            filename = datos._name
-	            print filename
+            messages.success(request, "Los datos se importaron correctamente")
 
-	            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            filename = datos._name
+            print filename
 
-	            for chunk in datos.chunks() :
-	                fd.write(chunk)
-	            fd.close()
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+
+            for chunk in datos.chunks() :
+                fd.write(chunk)
+            fd.close()
 
 
-	            return HttpResponseRedirect(reverse_lazy('listar_item'))
+            return HttpResponseRedirect(reverse_lazy('listar_item'))
 
-            except Exception, e:
-	        	messages.error(request, "error en el archivo por favor verifique q los datos sean correctos")
+          #   except Exception, e:
+	        	# messages.error(request, "error en el archivo por favor verifique q los datos sean correctos")
 
 
 
@@ -240,8 +266,7 @@ def import_data(request):
         'producto/upload_form.html',
         {
             'form': form,
-           
         },
         context_instance=RequestContext(request))
 
-    
+

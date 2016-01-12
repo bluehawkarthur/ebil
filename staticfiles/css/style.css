@@ -2325,9 +2325,14 @@ span.help-block-file {
 }
 
 .imagenpdf{
-  height: 50px !important;
+  height: 70px !important;
+
 }
 
+.imagenpdf2{
+  height: 70px !important;
+
+}
 
 .img-button{
     background-color: Transparent;
@@ -2336,4 +2341,12 @@ span.help-block-file {
     cursor:pointer;
     overflow: hidden;
     outline:none;
+}
+
+.img-button:focus{
+  outline: none;
+  background-color: Transparent;
+}
+.titulo{
+  text-align: center;
 }

@@ -223,3 +223,37 @@ def detalleVentarollo(request, pk):
     }
 
     return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+
+def migrate(request):
+    date1 = '2015-11-1'
+    date2 = '2015-11-30'
+    ventas = Venta.objects.filter(fecha__range=(date1, date2))
+    detalle = DetalleVenta.objects.filter(venta=ventas)
+    print 'migrando datos xfavor spere ..........'
+    for v in detalle:
+        print v.item.precio_unitario
+        v.precio_unitario = v.item.precio_unitario
+        v.save()
+        detalle = '%s a %s' % ('Venta', v.venta.razon_social)
+
+        crearMovimiento = Movimiento(
+            cantidad=v.cantidad,
+            precio_unitario=v.item.precio_unitario,
+            detalle=detalle,
+            fecha_transaccion=v.venta.fecha,
+            motivo_movimiento='salida',
+            item=Item.objects.get(id=v.item.pk),
+        )
+
+        crearMovimiento.save()
+
+
+# def migrate(request):
+#     ventas = Venta.objects.filter(tipo_compra='credito')
+#     for v in ventas:
+#         print v
+#         date_1 = v.fecha
+#         end_date = date_1 + datetime.timedelta(days=int(v.cantidad_dias))
+#         v.fecha_vencimiento = end_date
+#         v.save()

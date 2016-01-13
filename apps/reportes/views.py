@@ -31,6 +31,7 @@ from django.template import loader, Context
 from django.contrib import messages
 import decimal
 from .htmltopdf import render_to_pdf
+from django.core.urlresolvers import reverse_lazy, reverse
 
 
 
@@ -123,7 +124,7 @@ def Reporteventa(request):
 		# monto = request.POST['monto2']
 		empresa = request.POST['empresa2']
 
-		if date1 != '':
+		if date1 != '' and date2 != '':
 			if tipo == 'todo':
 				if nit != '':
 					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), nit=nit)
@@ -157,6 +158,8 @@ def Reporteventa(request):
 				total += venta.total
 			
 			return render(request, 'reportes/reporte_venta.html', {'ventas': ventas, 'total': total, 'ex':True, 'date1': date1, 'date2': date2})
+		else:
+			return render(request, 'reportes/reporte_venta.html', {'valid': True, 'ex':True, 'date1': date1, 'date2': date2})
 		
 	else:
 		datecompu = date.today()

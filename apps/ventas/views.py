@@ -60,6 +60,7 @@ def ventaCrear(request):
                 total += decimal.Decimal(k['sdf'])
 
             venta_data = Venta.objects.all().last()
+
             if venta_data:
                 nro = venta_data.nro_factura
                 if nro is None:

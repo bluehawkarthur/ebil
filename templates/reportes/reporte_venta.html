@@ -92,7 +92,13 @@
               <td>{{venta.item.descripcion}}</td>
               <td>{{venta.venta.nit}}</td>
               <td>{{venta.venta.fecha}}</td>
-              <td>{% widthratio venta.cantidad 1 venta.precio_unitario %}</td>
+              <td>
+                {% if venta.venta.tipo_compra == 'credito' %}
+                  {% resta venta.venta.total  venta.venta.monto_pago %}
+                {%else%}
+                  {% widthratio venta.cantidad 1 venta.precio_unitario %}
+                {%endif%}
+              </td>
               <td>{{venta.venta.tipo_compra}}</td>
 
               <!-- <td class="reporte">
@@ -103,10 +109,11 @@
                 
              
             <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
-            <td class="reporte">{% dias venta.venta.fecha_vencimiento %}
-              {% if venta.venta.cantidad_dias %}
+            <td class="reporte">
+              {% if venta.venta.tipo_compra == 'credito' %}
+              {% dias venta.venta.fecha_vencimiento %}
               dias
-              <a  href="#modal{{venta.id}}"  class="btn-floating waves-effect tooltipped modal-trigger light-green waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-editor-attach-money" ></i></a>
+              <a  href="#modal{{venta.id}}"  class="btn-floating waves-effect tooltipped modal-trigger light-green waves-light " data-position="top" data-delay="50" data-tooltip="Pago"><i class="mdi-editor-attach-money" ></i></a>
                <div id="modal{{venta.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
 
                   <div  id="content{{ venta.id }}">
@@ -123,7 +130,7 @@
                               </div>
 
                               <div class="input-field col s6">
-                                <button class="btn cyan waves-effect modal-close waves-light right" type="submit" name="action">Guardar
+                                <button  class="btn cyan waves-effect modal-close waves-light right" type="submit" name="action">Guardar
                                   <i class="mdi-content-send right"></i>
                                 </button>
                               </div>
@@ -136,6 +143,8 @@
                     <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cerrar</a>
                   </div>
                 </div>
+                {% else %}
+                0
               {%endif%}
             </td>
           </tr>
@@ -171,6 +180,16 @@
 {% endblock content %}
 {% block js %}
    <script>
+   function autoRefresh1()
+    {
+         window.location.reload();
+    }
+     
+     
+   $( ".modal-close" ).click(function() {
+        
+         setInterval('autoRefresh1()', 1000);
+    });
 
    var $monto = $('#monto, #monto2').keyup(function() {
     $monto.not(this).val(this.value);

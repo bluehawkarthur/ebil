@@ -29,6 +29,9 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpRespons
 from datetime import date
 from django.template import loader, Context
 from django.contrib import messages
+import decimal
+from .htmltopdf import render_to_pdf
+
 
 
 class RepCompras(TemplateView):
@@ -574,7 +577,30 @@ def Createpago(request):
     if request.method == 'POST':
         monto = request.POST['monto']
         venta = request.POST['venta']
-        print monto
-        print venta
+        venta_get = Venta.objects.filter(id=venta)
 
-    return render(request, 'reportes/reporte_pago.html')
+        if venta_get[0].monto_pago is None:
+            montofinal = venta_get[0].total - decimal.Decimal(monto)
+            if montofinal == 0:
+                venta_get.update(tipo_compra='contado', monto_pago=monto)
+            else:
+                venta_get.update(monto_pago=monto)
+        else:
+            monto2 = venta_get[0].monto_pago + decimal.Decimal(monto)
+            montofinal = venta_get[0].total - monto2
+            if montofinal == 0:
+                venta_get.update(tipo_compra='contado', monto_pago=monto2)
+            else:
+                venta_get.update(monto_pago=monto2)
+
+        # montofinal = venta_get[0].total - decimal.Decimal(monto)
+        # venta_get.update(monto_pago=montofinal)
+        print monto
+ 
+        data = {
+            'monto': monto,
+            'cliente': venta_get[0].razon_social,
+            'fecha': date.today(),
+        }
+
+    return render_to_pdf('reportes/reporte_pago.html', data)

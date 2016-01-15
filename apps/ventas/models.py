@@ -57,3 +57,12 @@ class Movimiento(models.Model):
 
     def __unicode__(self):
         return self.motivo_movimiento
+
+
+class Cobro(models.Model):
+    venta = models.ForeignKey(Venta)
+    monto_pago = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    fecha_transaccion = models.DateField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.venta.razon_social

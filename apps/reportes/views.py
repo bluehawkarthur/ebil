@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, DetailView
 from apps.compras.models import Compra, DetalleCompra
-from apps.ventas.models import Venta, DetalleVenta, Movimiento
+from apps.ventas.models import Venta, DetalleVenta, Movimiento, Cobro
 from apps.producto.models import Item
 from .htmltopdf import render_to_pdf
 from io import BytesIO
@@ -581,6 +581,12 @@ def Createpago(request):
         monto = request.POST['monto']
         venta = request.POST['venta']
         venta_get = Venta.objects.filter(id=venta)
+        crearcobro = Cobro(
+            venta=Venta.objects.get(id=venta),
+            monto_pago=monto,
+            fecha_transaccion=date.today(),
+        )
+        crearcobro.save()
 
         if venta_get[0].monto_pago is None:
             montofinal = venta_get[0].total - decimal.Decimal(monto)

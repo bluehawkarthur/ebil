@@ -10,19 +10,8 @@
     text-align:center;
    }
    .text-size{
-    font-size: 12px;
+    font-size: 14px;
    }
-/*.spacio, h3, h6{
-	line-height: 0.5px;
-  margin-bottom: 0px !important; 
-}*/
-h6,h3,span{
-  
-   padding-bottom: -17px !important;
-}
-.text-firm{
-	font-size: 12px;
-}
 
    hr {
     background-color: #fff;
@@ -30,32 +19,41 @@ h6,h3,span{
   }
    
   @page {
-    margin-top: 0.5cm;
-    margin-left: 0.15cm;
+    margin: 1cm;
+    margin-right: 12cm;
+    
+    size: 7cm;
+  }
+
+  /*@page {
+    margin: 0.5cm;
     
     size: 7cm, 40cm;
-  }
+  }*/
+
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <div class='col s4 center-text text-size'>
-	<div class="spacio">
-        <h6>EVEREST</h6>
-        <span>NOTA DE SALIDA</span>
-	
+      <div class=' center-text text-size'>
+
+        <span>EVEREST</span>
+        <span>NOTA DE VENTA</span>
         <h3>{{tipo_compra|upper}}</h3>
         <h6>COCHABAMBA - BOLIVIA</h6>
-        ----------------------------------------------------------
+        .................................................................
+        
         <h3>NIT: 1028627025<h3>
-        <h3>NOTA NRO: {{nro_factura}}<h3>
-        ------------------------------------------------------
+        <h3>NOTA NRO: <h3>
+        ............................................................
+   
         <h3>Fecha: {{fecha|date:'SHORT_DATE_FORMAT'}}</h3>
         <h3>SR.(ES): {{razon_social}}</h3>
         <h3>NIT/CI: {{nit}}</h3>
-         ----------------------------------------------------------
-	</div>
+        ................................................................
+        
+       
           <table>
             <thead>
               <tr>
@@ -69,7 +67,7 @@ h6,h3,span{
              {%  for d in detalle %}
               <tr>
                 <td>{{d.cantidad}}</td>
-                <td>{{d.item.descripcion|truncatechars:50}}</td>
+                <td>{{d.item.descripcion|truncatechars:20}}</td>
                 <td>{{d.item.precio_unitario}}</td>
                 <td>{{d.subtotal}}</td>
               </tr>
@@ -82,18 +80,9 @@ h6,h3,span{
               </tr>
             </tbody>
           </table>
-	<div>
-	<br>
-	<br>
-	<br>
-	.........................
-	<br>
-	<span class="text-firm">Firma</span>	
-
-	</div>
 
       </div>
-    	
+    
     </div>  
   </div>
 </body>

@@ -30,8 +30,9 @@ import os
 import xlrd
 from datetime import date
 
-IMPORT_FILE_TYPES = ['.xls', ]
+IMPORT_FILE_TYPES = ['.xls', '.xlsx', ]
 from django.contrib import messages
+import decimal
 
 
 class CrearItem(FormView):
@@ -190,17 +191,6 @@ def import_data(request):
         # 	print yy
         today = date.today()
 
-        def choice_func2(row):
-            print 'movimiento'
-            print row
-            cod = Item.objects.filter(codigo_item=row[0])[0]
-            row[2] = 'Saldo Inicial'
-            row[3] = today.strftime('%Y-%m-%d')
-            row[4] = 'inicial'
-            row[5] = cod
-            # row.append(request.user)
-            return row
-
         def choice_func(row):
             cod = Proveedor.objects.filter(codigo=row[10])[0]
             row[10] = cod
@@ -225,32 +215,60 @@ def import_data(request):
          #    for d in datos2:
         	# print d['codigo_item']
             # print request.FILES['file'].get_sheet()
-            # rute= '%s/%s' % (MEDIA_ROOT, datos)
-            
+            filename = datos._name
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            print fd
+
+            for chunk in datos.chunks():
+                fd.write(chunk)
+            fd.close()
+
+            rute = '%s/%s' % (MEDIA_ROOT, datos)
+            book = xlrd.open_workbook(rute)
+            sheet = book.sheet_by_name('Sheet1')
+
+            for r in range(1, sheet.nrows):
+                print sheet.cell(r, 0).value
+                crearItem = Item(
+                    codigo_item=sheet.cell(r, 0).value,
+                    codigo_fabrica=sheet.cell(r, 1).value,
+                    almacen=sheet.cell(r, 2).value,
+                    grupo=sheet.cell(r, 3).value,
+                    subgrupo=sheet.cell(r, 4).value,
+                    descripcion=sheet.cell(r, 5).value,
+                    carac_especial_1=sheet.cell(r, 6).value,
+                    carac_especial_2=sheet.cell(r, 7).value,
+                    cantidad=sheet.cell(r, 8).value,
+                    saldo_min=sheet.cell(r, 9).value,
+                    proveedor=Proveedor.objects.get(codigo=sheet.cell(r, 10).value),
+                    imagen=sheet.cell(r, 11).value,
+                    unidad_medida=sheet.cell(r, 12).value,
+                    costo_unitario=decimal.Decimal(sheet.cell(r, 13).value),
+                    precio_unitario=decimal.Decimal(sheet.cell(r, 14).value),
+                    user=request.user,
+                )
+                crearItem.save()
+
+
+
             # try:
 
-            request.FILES['file'].save_book_to_database(
-                models=[Item],
-                initializers=[choice_func],
-                mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen', 'grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
-            )
-
-            request.FILES['file'].save_book_to_database(
-                models=[Movimiento],
-                initializers=[choice_func2],
-                mapdicts=[['cantidad', 'precio_unitario', 'detalle', 'fecha_transaccion', 'motivo_movimiento','item']]
-            )
+            # request.FILES['file'].save_book_to_database(
+            #     models=[Item],
+            #     initializers=[choice_func],
+            #     mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen', 'grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
+            # )
 
             messages.success(request, "Los datos se importaron correctamente")
 
-            filename = datos._name
-            print filename
+            # filename = datos._name
+            # # print filename
 
-            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            # fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
 
-            for chunk in datos.chunks() :
-                fd.write(chunk)
-            fd.close()
+            # for chunk in datos.chunks() :
+            #     fd.write(chunk)
+            # fd.close()
 
 
             return HttpResponseRedirect(reverse_lazy('listar_item'))

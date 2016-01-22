@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
-from .forms import LoginForm, UserForm, UserFormedit, reset_form
+from .forms import LoginForm, UserForm, UserFormedit, reset_form, RolForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.template import RequestContext
@@ -12,6 +12,7 @@ from apps.inicio.roles import *
 from rolepermissions.decorators import has_role_decorator
 from django.contrib.auth.models import User
 from pure_pagination.mixins import PaginationMixin
+from .models import Rol
 
 # Create your views here.
 
@@ -78,6 +79,21 @@ def register(request):
                 Administrador.assign_role_to_user(user)
             else:
                 Operador.assign_role_to_user(user)
+                
+                create1 = Rol(user=user, modelos='almacenes', crear=False, editar=False, eliminar=False)
+                create2 = Rol(user=user, modelos='clientes', crear=False, editar=False, eliminar=False)
+                create3 = Rol(user=user, modelos='proveedores', crear=False, editar=False, eliminar=False)
+                create4 = Rol(user=user, modelos='reportes', crear=False, editar=False, eliminar=False)
+                create5 = Rol(user=user, modelos='compras', crear=False, editar=False, eliminar=False)
+                create6 = Rol(user=user, modelos='usuarios', crear=False, editar=False, eliminar=False)
+                create7 = Rol(user=user, modelos='bancarizacion', crear=False, editar=False, eliminar=False)
+                create8 = Rol(user=user, modelos='configuracion', crear=False, editar=False, eliminar=False)
+
+                rol_list = [create1, create2, create3, create4, create5, create6, create7, create8]
+
+                for rol in rol_list:
+                    rol.save()
+
 
             # profile.user = user
             return HttpResponseRedirect(reverse_lazy('list_user'))
@@ -128,27 +144,46 @@ class EditUser(UpdateView):
         return self.render_to_response(context)
 
 
+# def user_edit(request, pk):
+#         user = get_object_or_404(User, pk=pk)
+#         form = UserFormedit()
+#         print user.password
+#         if request.method == "POST":
+
+#             form = UserFormedit(request.POST, instance=user)
+#             if form.is_valid():
+#                 user = form.save(commit=False)
+#                 # post.author = request.user
+#                 user.save()
+#                 rol = form.cleaned_data['rol']
+
+#                 if rol == 'administrador':
+#                     Administrador.assign_role_to_user(user)
+#                 else:
+#                     Operador.assign_role_to_user(user)
+
+#                 return HttpResponseRedirect(reverse_lazy('list_user'))
+
+#         return render(request, 'inicio/update.html', {'user_form': form, 'usere': user})
+
 def user_edit(request, pk):
-        user = get_object_or_404(User, pk=pk)
-        form = UserFormedit()
-        print user.password
+        # user = get_object_or_404(User, pk=pk)
+        # form = UserFormedit()
+        # print user.password
         if request.method == "POST":
 
-            form = UserFormedit(request.POST, instance=user)
-            if form.is_valid():
-                user = form.save(commit=False)
-                # post.author = request.user
-                user.save()
-                rol = form.cleaned_data['rol']
+            formset = RolForm(request.POST, queryset=Rol.objects.filter(user=pk))
+            if formset.is_valid():
+                for form in formset.forms:
+                    user = form.save(commit=False)
+                    user.save()
 
-                if rol == 'administrador':
-                    Administrador.assign_role_to_user(user)
-                else:
-                    Operador.assign_role_to_user(user)
+            return HttpResponseRedirect(reverse_lazy('list_user'))
+        else:
+            formset = RolForm(queryset=Rol.objects.filter(user=pk))
 
-                return HttpResponseRedirect(reverse_lazy('list_user'))
+        return render(request, 'inicio/edit_inline.html', {'formset': formset})
 
-        return render(request, 'inicio/update.html', {'user_form': form, 'usere': user})
 
 
 def change_password(request, pk):

@@ -249,6 +249,16 @@ def import_data(request):
                 )
                 crearItem.save()
 
+                crearMovimiento = Movimiento(
+                    cantidad=sheet.cell(r, 8).value,
+                    precio_unitario=decimal.Decimal(sheet.cell(r, 14).value),
+                    detalle='Saldo Inicial',
+                    fecha_transaccion=date.today(),
+                    motivo_movimiento='inicial',
+                    item=crearItem,
+                )
+                crearMovimiento.save()
+
 
 
             # try:

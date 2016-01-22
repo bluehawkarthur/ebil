@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+  <style>
+   .center-text{
+    text-align:center;
+   }
+   .text-size{
+    font-size: 12px;
+   }
+    
+  .i {
+      text-align: right;
+      font-size: 13px;
+    }
+
+ 
+    #tablein #tablein2td, .caja {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  </style>
+</head>
+<body>
+<section id="content">
+  <!--start container-->
+  <div class="container">
+    <div id="invoice">
+      <table style="border:1px solid black; padding: 5px;">
+        <tr style="border:none;">
+          <td class="text-size center-text" colspan="2">
+          <b style="font-size: 20px;">CIERRE DE CAJA</b>
+          </td>
+        </tr>
+
+        <tr>
+          <td><b style="font-size: 15px;">Saldo inicial:</b></td><td class='i'>{{cajai}}</td>
+        </tr>
+
+        <tr>
+          <td><b style="font-size: 15px;">Ventas al contado:</b>
+            <table id='tablein'>
+              {% for i in ventas %}
+                <tr class='caja'><td class='text-size'>{{i.razon_social}}</td><td class='i'>{{i.total}}</td></tr>
+              {% endfor %}
+            </table>
+          </td>
+          <td class='i'>{{sub}}</td>
+        </tr>
+
+        <tr>
+          <td><b style="font-size: 15px;">Cobros realizados:</b>
+             <table id='tablein'>
+              {% for i in cobros %}
+                <tr class='caja'><td class='text-size'>{{i.venta.razon_social}}</td><td class='i'>{{i.monto_pago}}</td></tr>
+              {% endfor %}
+            </table>
+          </td>
+          <td class='i'>{{totcobros}}</td>
+         
+        </tr>
+
+        <tr>
+          <td><b style="font-size: 15px;">Gastos:</b></td><td class='i'>{{gastos}}</td>
+        </tr>
+        <tr>
+          <td><b style="font-size: 15px;">SALDO FINAL CAJA:</b></td><td class='i'><b>{{total}}</b></td>
+        </tr>
+      </table>
+
+      
+    </div>
+  </div>
+</section>
+</body>
+</html>

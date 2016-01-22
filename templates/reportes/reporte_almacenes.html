@@ -10,15 +10,36 @@
     <form class="col s12" action="/reporte_almacen/" method='POST'>{% csrf_token %}
       <h4 class="header2">Filtrar</h4>
       <div class="row">
-        <div class="input-field col s4">
-          <i class="mdi-editor-insert-invitation prefix active"></i>
-          <input class="datepicker" value="{{date1}}" name='date1' placeholder="0000-00-00" id="icon_prefix2" type="text" class="validate">
-          <label for="icon_prefix" class="active">Desde</label>
+        <div class="col s3">
+          <div class="input-field">
+            <select id="myselect" name="mes">
+              <option value="1">Enero</option>
+              <option value="2">Febrero</option>
+              <option value="3">Marzo</option>
+              <option value="4">Abril</option>
+              <option value="5">Mayo</option>
+              <option value="6">Junio</option>
+              <option value="7">Julio</option>
+              <option value="8">Agosto</option>
+              <option value="9">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div><!--end .form-group -->
         </div>
-        <div class="input-field col s4">
-          <i class="mdi-editor-insert-invitation prefix active"></i>
-          <input class="datepicker" name='date2' value="{{date2}}" placeholder="0000-00-00" id="icon_email" type="email" class="validate">
-          <label for="icon_email" class="active">Hasta</label>
+        <div class="col s3">
+          <div class="input-field">
+            <select id="anio" name="anio">
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            
+            </select>
+          </div><!--end .form-group -->
         </div>
          <div class="input-field col s3">
           <div class="input-field col s12">
@@ -40,7 +61,8 @@
           <th>Saldo</th>
           <th>P/U</th>
     			<th>Total</th>
-          <th class="reporte">Imprimir</th>
+          <th class="reporte">Kardex</th>
+          <!-- <th class="reporte">Imprimir</th> -->
     		</thead>
     		<tbody>
     		{%  for it in items %}
@@ -50,7 +72,10 @@
               <td>{{it.cantidad}}</td>
               <td>{{it.precio_unitario}}</td>
               <td>{% widthratio it.cantidad 1 it.precio_unitario %}</td>
-              <td class="reporte"><a  href="/kardex_almacen/{{ it.pk }}/{{date1}}/{{date2}}/" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+              <td class="reporte">
+                <a  href="/kardex_almacen/{{ it.pk }}/{{date1}}/{{anio}}/" target="_blank" class="btn-floating waves-effect tooltipped  light-green waves-light " data-position="top" data-delay="50" data-tooltip="Ingresar"><i class="mdi-action-assignment" ></i></a>
+              </td>
+              <!-- <td class="reporte"><a  href="/kardex_almacen/{{ it.pk }}/{{date1}}/{{anio}}/" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td> -->
              
           </tr>
                 
@@ -83,5 +108,17 @@
             </div>
 </section>
 {% endblock content %}
+{% block js %}
+<script>
+  $('#anio option:selected').removeAttr("selected");
+  var fullDate = new Date();
+  
+  var currentDate =  fullDate.getFullYear();
+  $('#anio option[value="'+currentDate+'"]').attr("selected","selected");
+
+  $('#anio').material_select();
+
+</script>
+{% endblock js %}
 
 

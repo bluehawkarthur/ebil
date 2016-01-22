@@ -9,6 +9,7 @@
 <section id="content">
   <div id="chart-dashboard">  
     <div class="container">
+        {% if almacenes_role.crear %}
         <div class="row">
           <div class="col s12 m2">
             <p>
@@ -23,6 +24,7 @@
             </p>
           </div>
         </div>
+        {% endif %} 
         
         <div class="row"> 
           <form class="col m5 s12" method="get">
@@ -44,7 +46,7 @@
           </div>
           </form>
         </div>
-
+        {{item_role}}
         <table class="responsive-table hoverable">
           <thead>
             <tr>
@@ -76,14 +78,15 @@
               <td>{{ it.cantidad }}</td>
               <td>{{ it.precio_unitario }}</td>
               <td>
-
-                <a href="/detalle_item/{{ it.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
-
-                <a href="/editar_item/{{ it.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
                 
-
+                <a href="/detalle_item/{{ it.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
+           
+                {% if almacenes_role.editar %}
+                <a href="/editar_item/{{ it.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+                {% endif %}
+                {% if almacenes_role.eliminar %}
                 <a href="#modal{{it.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
-
+                {% endif %}
                 <div id="modal{{it.id}}" class="modal teal">
                   <div class="modal-content">
                     <p class="img-dashboard">Esta seguro que quiere eliminar "{{it.codigo_item}}"</p>

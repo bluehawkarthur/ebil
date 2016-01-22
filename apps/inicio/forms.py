@@ -6,6 +6,8 @@ from nocaptcha_recaptcha.fields import NoReCaptchaField
 from django.contrib.auth.forms import AuthenticationForm
 import socket
 from django.contrib.auth.models import User
+from .models import Rol
+from django.forms import modelformset_factory
 
 
 REMOTE_SERVER = "www.google.com"
@@ -72,3 +74,18 @@ class reset_form(forms.Form):
             if self.cleaned_data['newpassword1'] != self.cleaned_data['newpassword2']:
                 raise forms.ValidationError("Los dos campos de contraseña no coinciden.")
         return self.cleaned_data
+
+
+RolFormSet = modelformset_factory(Rol, extra=0, fields=('modelos', 'crear', 'editar', 'eliminar' ))
+
+
+class RolForm(RolFormSet):
+
+    def add_fields(self, form, index):
+
+        super(RolForm, self).add_fields(form, index)
+        form.fields['modelos'] = forms.CharField(required=False)
+        form.fields['modelos'].widget.attrs['disabled'] = True
+        form.fields['crear'] = forms.BooleanField(required=False)
+        form.fields['editar'] = forms.BooleanField(required=False)
+

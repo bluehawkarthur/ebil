@@ -631,6 +631,9 @@ if ($) { Vel = $.Velocity } else { Vel = Velocity};
       $(modal).find(".modal-close").click(function(e) {
         $(modal).closeModal(options);
       });
+      $(modal).find(".modal-close2").click(function(e) {
+        $(modal).closeModal(options);
+      });
 
       $("#lean-overlay").css({ display : "block", opacity : 0 });
 

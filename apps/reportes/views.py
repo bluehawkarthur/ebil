@@ -32,6 +32,7 @@ from django.contrib import messages
 import decimal
 from .htmltopdf import render_to_pdf
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.db.models import Q
 
 
 
@@ -490,21 +491,17 @@ def libro_ventas(request):
 
 
 def ReportAlmacen(request):
-	if request.method == 'POST':
-		date1 = request.POST['date1']
-		date2 = request.POST['date2']
-		# tipo = request.POST['valuacion']
+    if request.method == 'POST':
+        date1 = request.POST['mes']
+        anio = request.POST['anio']
 
-		if date1 != '':
-			items = Item.objects.filter(fecha_transaccion__range=(date1, date2))
-			total = 0
+        items = Item.objects.filter(fecha_transaccion__year=anio, fecha_transaccion__month=date1)
+        total = 0
 
-			for it in items:
-				total += it.cantidad * it.precio_unitario
-			
-			return render(request, 'reportes/reporte_almacenes.html', {'items': items, 'total': total, 'ex': True, 'date1': date1, 'date2': date2})
-
-	return render(request, 'reportes/reporte_almacenes.html')
+        for it in items:
+            total += it.cantidad * it.precio_unitario
+        return render(request, 'reportes/reporte_almacenes.html', {'items': items, 'total': total, 'ex': True, 'date1': date1, 'anio': anio})
+    return render(request, 'reportes/reporte_almacenes.html')
 
 
 def KardexAlmacen(request, pk):
@@ -529,15 +526,21 @@ def KardexAlmacen(request, pk):
     return render_to_pdf('reportes/rep_detalleventa.html', data)
 
 
-def promedios(request, pk, date1, date2):
-    movimiento = Movimiento.objects.filter(item=pk, fecha_transaccion__range=(date1, date2)).order_by('fecha_transaccion')
+def promedios(request, pk, date1, anio):
+    movimiento = Movimiento.objects.filter(item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('fecha_transaccion')
     producto = Item.objects.get(id=pk)
-    print movimiento
+    movimientoinit = Movimiento.objects.filter(item=pk, motivo_movimiento='inicial')
+    datosfinal = []
+    datosfinal.extend(movimientoinit)
+    datosfinal.extend(movimiento)
+    
+    for d in datosfinal:
+    	print d
     data = []
     saldo = 0
     saldov = 0
 
-    for m in movimiento:
+    for m in datosfinal:
         item = Item.objects.filter(id=pk)
         if m.motivo_movimiento == 'salida':
             saldo = saldo - m.cantidad
@@ -605,7 +608,6 @@ def Createpago(request):
         # montofinal = venta_get[0].total - decimal.Decimal(monto)
         # venta_get.update(monto_pago=montofinal)
         print monto
- 
         data = {
             'monto': monto,
             'cliente': venta_get[0].razon_social,
@@ -613,3 +615,33 @@ def Createpago(request):
         }
 
     return render_to_pdf('reportes/reporte_pago.html', data)
+
+
+class ReporteCaja(TemplateView):
+	template_name = 'reportes/caja.html'
+	success_url = reverse_lazy('rep_caja')
+
+	def post(self, request, *args, **kwargs):
+		hoy = request.POST['hoy']
+		cajai = request.POST['si']
+		gastos = request.POST['gd']
+		
+
+		if hoy != '':
+#			ventas = Venta.objects.filter(fecha=hoy)
+			ventas = Venta.objects.filter(Q(fecha=hoy) & Q(tipo_compra='contado'))
+			cobros = Cobro.objects.filter(fecha_transaccion=date.today())
+			totcobros = 0
+			for x in cobros:
+				totcobros = totcobros+x.monto_pago
+			sub = 0
+			for i in ventas:
+				sub = sub+i.total
+			total = decimal.Decimal(cajai)+sub-decimal.Decimal(gastos)+totcobros
+			print total
+
+
+			return render_to_pdf('reportes/ccaja.html', {'sub': sub, 'cajai': cajai, 'gastos': gastos, 'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})
+		else:
+			ventas = Venta.objects.filter(fecha=hoy)
+			return render(request, 'reportes/ccaja.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

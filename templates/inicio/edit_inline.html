@@ -1,0 +1,59 @@
+
+
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <table>
+        <thead>
+          <th>Modelo</th>
+          <th>Crear</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+
+        </thead>
+        <tbody>
+          {% for form in formset.forms %}
+            <tr>
+              <td>
+                {{ form.id }}
+                {{form.modelos}}
+                
+              </td>
+              <td>
+                
+                {{form.crear}}
+                <label for="id_form-{{ forloop.counter0 }}-crear"></label>
+              </td>
+              <td>
+                {{form.editar}}
+                <label for="id_form-{{ forloop.counter0 }}-editar"></label>
+              </td>
+              <td>
+              {{form.eliminar}}
+              <label for="id_form-{{ forloop.counter0 }}-eliminar"></label>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {{ formset.management_form }}
+      {% csrf_token %}
+      <button type="submit"  value="save">save</button>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+
+
+ 

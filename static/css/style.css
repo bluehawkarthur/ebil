@@ -2350,3 +2350,12 @@ span.help-block-file {
 .titulo{
   text-align: center;
 }
+
+.cyan-disable {
+    color: #7D8588 !important;
+}
+
+.linka-disable {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}

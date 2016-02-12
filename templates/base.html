@@ -66,11 +66,39 @@
                     <ul class="left">
                       <li class="no-hover"><a href="#" data-activates="slide-out" class="menu-sidebar-collapse btn-floating btn-flat btn-medium waves-effect waves-light cyan hide-on-large-only"><i class="mdi-navigation-menu"></i></a></li>
                       <li><h1 class="logo-wrapper"><a href="/" class="brand-logo darken-1"><img src="{% static "images/logo_ebil.png"%}" alt="materialize logo" style="width: 100px;"></a> <span class="logo-text">Materialize</span></h1></li>
+
                     </ul>
                     {% if user.is_authenticated %}
                     <ul class="right ">                        
-                        <li> <a href="/logout">Salir</a>
+                        
+                        <li>
+                        {% if user.avatar %}
+                            <img  style="height: 50px;margin-top: 5px;" src="{{user.avatar.url }}" class="circle responsive-img valign profile-image" alt="your image" />
+                        {% else %}
+                            <img  style="height: 50px;margin-top: 5px;" src="{% static "images/user.png"%}" class="circle responsive-img valign profile-image" alt="your image" />
+                        {% endif %}
+                            
                         </li>
+                        <li>
+                        <a class="dropdown-menu cyan-text" href="#!" data-activates="Tablesdropdown2">
+                            
+                            <span style="color: white;">
+                            {{user.username}}<i class="mdi-navigation-arrow-drop-down right"></i></span>
+
+                        </a><ul id="Tablesdropdown2" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">
+                         <li><a href="#" class="cyan-text"><i class="mdi-action-face-unlock left"></i> Perfil</a>
+                              </li>
+                              
+                              
+                              <li class="divider"></li>
+                             
+                              <li><a href="/logout" class="cyan-text"><i class="mdi-hardware-keyboard-tab left"></i> Salir</a>
+                              </li>
+                
+                  
+                </ul>
+                    </li>
+                    
                        
                     </ul>
                     {% endif %}

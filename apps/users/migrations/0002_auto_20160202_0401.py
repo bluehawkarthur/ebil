@@ -7,11 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('inicio', '0002_auto_20150818_2254'),
+        ('users', '0001_initial'),
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='Libro',
+        migrations.AlterField(
+            model_name='user',
+            name='telefono',
+            field=models.IntegerField(null=True, blank=True),
         ),
     ]

@@ -15,10 +15,17 @@
                         </a>
                     </li>                    
                     <li>
+                        {% if almacenes_role.operar %}
                         <a class="dropdown-menu cyan-text" href="/listar_item" data-activates="CSSdropdown">
                             <i class="mdi-action-store"></i>
                             <span>Almacenes</span>
                         </a>
+                        {% else %}
+                        <a class="dropdown-menu cyan-disable">
+                        <i class="mdi-action-store"></i>
+                        <span>Almacenes</span>
+                        </a>
+                        {% endif %}
                     </li>
                     <li>
                         <a class="dropdown-menu cyan-text" href="/compras" data-activates="UIElementsdropdown">

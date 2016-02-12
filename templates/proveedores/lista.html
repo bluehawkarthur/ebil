@@ -67,17 +67,17 @@
       <td>{{ provee.direccion }}</td>
       <td>{{ provee.telefono1 }}</td>
       <td>
-        <a href="/detail_proveedor/{{ provee.id }}" class="btn waves-effect teal waves-light">
+        <a href="/detail_proveedor/{{ provee.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle">
         <i class="mdi-action-search left"></i>
         Ver
         </a>
           
-          <a href="/edit_proveedor/{{ provee.id }}" class="btn waves-effect light-green waves-light ">
+          <a href="/edit_proveedor/{{ provee.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar">
               <i class="mdi-editor-mode-edit left"></i>
               Editar
           </a>
       
-        <a href="#modal{{provee.id}}"  class="btn waves-effect red  modal-trigger waves-light ">
+        <a href="#modal{{provee.id}}"  class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar">
             <i class="mdi-action-delete left"></i>
             Eliminar
         </a>

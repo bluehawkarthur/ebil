@@ -9,6 +9,7 @@
     {% include "menu.html" %}
 {% endblock menu %}
 {% block content %}
+{% load staticfiles %}
 {% load widget_tweaks %}
 
 <section id="content">
@@ -22,6 +23,53 @@
       <div class="card-panel">
         <h3 class="header2">Registro de usuario</h3>
           {% csrf_token %} 
+          <fieldset>
+            <legend>Datos personales</legend>
+            <div class="row">
+              <div class=" col s6 ">
+              <div class="input-field has-error">
+                <span class="help-block">{{ user_form.errors.nombre|removetags:'ul li' }}</span>
+                <input id="id_nombre" {% if user_form.errors.nombre %} class="invalid" {%endif%} maxlength="30" name="nombre" value="{{usere.nombre}}" type="text">
+                <label for="emails">{{ user_form.nombre.label }}</label>
+                </div>
+                <div class="input-field has-error">
+                <span class="help-block">{{ user_form.errors.p_apellido|removetags:'ul li' }}</span>
+                <input id="id_p_apellido" {% if user_form.errors.p_apellido %} class="invalid" {%endif%} maxlength="30" name="p_apellido" value="{{usere.p_apellido}}" type="text">
+                <label for="emails">{{ user_form.p_apellido.label }}</label>
+                </div>
+                <div class="input-field has-error">
+                <span class="help-block">{{ user_form.errors.s_apellido|removetags:'ul li' }}</span>
+                <input id="id_s_apellido" {% if user_form.errors.s_apellido %} class="invalid" {%endif%} maxlength="30" name="s_apellido" value="{{usere.s_apellido}}" type="text">
+                <label for="emails">{{ user_form.s_apellido.label }}</label>
+                </div>
+              </div>
+              <div class="file-field input-field col s6 has-error"> 
+                <div class="btn btn-file">
+                  <span>{{ user_form.avatar.label }}</span>
+                  {{ user_form.avatar|add_error_class:"invalid" }}  
+
+                </div>
+
+                <!-- <div id="im"></div> -->
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                  {% if usere.avatar %}
+                      <img id="image_upload_preview" style="width:120px" src="{{usere.avatar.url }}" alt="your image" />
+                  {% else %}
+                      <img id="image_upload_preview" style="width:120px" src="{% static "images/user.png"%}" alt="your image" />
+                  {% endif %}
+                  
+
+                  <span class="help-block">{{ user_form.errors.avatar|removetags:'ul li' }}</span>
+
+                  
+                </div>
+              </div>
+            </div>
+            </fieldset>
+
+            <fieldset>
+            <legend>Datos de usuario</legend>
 
             <div class="row">
               <div class="input-field col s6 has-error">
@@ -72,7 +120,7 @@
                 <label for="emails">{{ user_form.rol.label }}</label>
               </div>
             </div>
-
+        </fieldset>
                   
         <div class="row">  
         <div class="input-field col s6">

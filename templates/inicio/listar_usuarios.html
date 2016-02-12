@@ -38,11 +38,13 @@
           </div>
           </form>
         </div>
-
+        {{ user.nombre }}
         <table class="responsive-table hoverable">
           <thead>
             <tr>
               <th data-field="">Nombre de usuario</th>
+              <th>Nombre</th>
+              <th>Primer apellido</th>
               <th data-field="">Contraseña</th>
               <th data-field="">Rol</th>
              
@@ -51,8 +53,11 @@
           </thead>
           <tbody>
             {% for user in users %}
+            {% if not user.is_superuser %}
             <tr>
               <td>{{ user.username }}</td>
+              <td>{{ user.nombre }}</td>
+              <td>{{ user.p_apellido }}</td>
               <td>{{ user.password|truncatechars:25 }}</td>
               <td>
                   {% for group in user.groups.all %}
@@ -61,6 +66,11 @@
               </td>
              
               <td>
+                {% for group in user.groups.all %}
+                  {% if group.name == 'operador' %}
+                <a href="/permisos_user/{{ user.id }}" class="btn-floating waves-effect tooltipped orange waves-light "  data-position="top" data-delay="50" data-tooltip="Pemisos"><i class="mdi-action-https left"></i></a>
+                  {% endif %}
+                {% endfor %}
 
                 <a href="/editar_user/{{ user.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
                 
@@ -78,6 +88,7 @@
                 </div>
               </td>
             </tr>
+            {% endif %}
             {% endfor %}
           </tbody>
         </table>

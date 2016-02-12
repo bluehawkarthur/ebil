@@ -86,46 +86,33 @@ from django.db.models import Q
 
 
 class ListarItem(PaginationMixin, ListView):
-	template_name = 'producto/listar_item.html'
-	model = Item
-	paginate_by = 5
-	context_object_name = 'item'
+    template_name = 'producto/listar_item.html'
+    model = Item
+    paginate_by = 5
+    context_object_name = 'item'
 
-	def get_queryset(self):
+    def get_queryset(self):
+        descripcion = self.request.GET.get('q', None)
+        dt = "%s" % descripcion
+        d_list = dt.split("*")
+        q = d_list
 
-		descripcion = self.request.GET.get('q', None)
-		dt = "%s" % descripcion
-	
-		d_list = dt.split("*")
-		
+        query = reduce(operator.and_, (Q(descripcion__contains=item) for item in q))
+        r = self.model.objects.filter(query)
 
-		# resultado = []
-		# if (descripcion):
-		# 	for i in d_list:
-		# 		object_list = self.model.objects.filter(descripcion__icontains = i).order_by('pk')
-		# 		resultado.extend(object_list)
-		# 		type(resultado)
-		# elif (descripcion == '*'):
-		# 	resultado = self.model.objects.all().order_by('pk')
-		# else:
-		# 	resultado = self.model.objects.all().order_by('pk')
-		# return resultado
-		# object_list = self.model.objects.filter(descripcion__icontains = i).order_by('pk')
-		#///////////////////////////
+        if r:
+            query2 = query
+            print 'entrooooo'
+        else:
+            query2 = query = reduce(operator.and_, (Q(codigo_item__contains=item) for item in q))
 
-		q = d_list
-		print d_list
-		query = reduce(operator.and_, (Q(descripcion__contains=item) for item in q))
-		# result = User.objects.filter(query)
-
-		if (descripcion):
-			object_list = self.model.objects.filter(query)
-			print object_list
-		elif (descripcion == '*'):
-			object_list = self.model.objects.all().order_by('pk')
-		else:
-			object_list = self.model.objects.all().order_by('pk')
-		return object_list
+        if (descripcion):
+            object_list = self.model.objects.filter(query2)
+        elif (descripcion == '*'):
+            object_list = self.model.objects.all().order_by('pk')
+        else:
+            object_list = self.model.objects.all().order_by('pk')
+        return object_list
 
 
 class DetalleItem(DetailView):

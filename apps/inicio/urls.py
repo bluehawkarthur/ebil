@@ -13,5 +13,6 @@ urlpatterns = [
   	url(r'^delete_user/(?P<id>\d+)$', 'apps.inicio.views.eliminar', name='delete_user'),
   	url(r'^editar_user/(?P<pk>\d+)$', 'apps.inicio.views.user_edit', name='editar_user'),
   	url(r'^editar_user/(?P<pk>\d+)/password$', 'apps.inicio.views.change_password', name='user_password'),
+    url(r'^permisos_user/(?P<pk>\d+)$', 'apps.inicio.views.user_permisos', name='permisos_user'),
   	
 ]

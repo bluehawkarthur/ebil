@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     # use for local ad not produccion 
     # 'debug_toolbar',
     # aplicaciones
+    'apps.users',
     'apps.inicio',
     'apps.proveedores',
     'apps.producto',
@@ -57,7 +58,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'django_extensions',
     'rolepermissions',
-    'tabular_permissions',
+    'imagekit',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,7 +102,7 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ebil',
+        'NAME': 'ebil1',
         'USER': 'root',
         'PASSWORD': '1',
         'HOST': 'localhost',
@@ -125,6 +126,7 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
+AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-bo'
 
@@ -176,6 +178,6 @@ if DEBUG:
 
 # ======= configure for debug toolbar =====
 
-# DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# DEBUG_TOOLBAR_PATCH_SETTINGS = True
 # INTERNAL_IPS = ('127.0.0.1',)
 

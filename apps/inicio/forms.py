@@ -5,7 +5,8 @@ from django import forms, http
 from nocaptcha_recaptcha.fields import NoReCaptchaField
 from django.contrib.auth.forms import AuthenticationForm
 import socket
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from apps.users.models import User
 from .models import Rol
 from django.forms import modelformset_factory
 
@@ -40,14 +41,27 @@ list_of_choices = (
     ('operador', 'Operador'),
 )
 
+
 class UserForm(forms.ModelForm):
+    nombre = forms.CharField(label="Nombre")
+    p_apellido = forms.CharField(label="Primer apellido")
+    s_apellido = forms.CharField(required=False, label="Segundo apellido")
+    avatar = forms.ImageField(required=False, label="Foto")
     password = forms.CharField(widget=forms.PasswordInput(), label="Contraseña")
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=dict(max_length=30, render_value=False)), label="Contraseña (confirmación):")
     rol = forms.ChoiceField(choices=list_of_choices)
 
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('nombre', 'p_apellido', 'avatar', 's_apellido', 'username', 'password')
+
+    def clean_username(self): # check if username dos not exist before
+        try:
+            User.objects.get(username=self.cleaned_data['username']) #get user from user model
+        except User.DoesNotExist :
+            return self.cleaned_data['username']
+
+        raise forms.ValidationError("este usuario ya existe")
 
     def clean(self):
         if 'password' in self.cleaned_data and 'password2' in self.cleaned_data:
@@ -57,12 +71,15 @@ class UserForm(forms.ModelForm):
 
 
 class UserFormedit(forms.ModelForm):
-    
+    nombre = forms.CharField(label="Nombre")
+    p_apellido = forms.CharField(label="Primer apellido")
+    s_apellido = forms.CharField(required=False, label="Segundo apellido")
+    avatar = forms.ImageField(required=False, label="Foto")
     rol = forms.ChoiceField(choices=list_of_choices)
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('nombre', 'p_apellido', 'avatar', 's_apellido', 'username')
 
 
 class reset_form(forms.Form):
@@ -76,7 +93,7 @@ class reset_form(forms.Form):
         return self.cleaned_data
 
 
-RolFormSet = modelformset_factory(Rol, extra=0, fields=('modelos', 'crear', 'editar', 'eliminar' ))
+RolFormSet = modelformset_factory(Rol, extra=0, fields=('modelos', 'operar', 'crear', 'editar', 'eliminar' ))
 
 
 class RolForm(RolFormSet):

@@ -17,6 +17,7 @@
       <table>
         <thead>
           <th>Modelo</th>
+          <th>Operar/Navegar</th>
           <th>Crear</th>
           <th>Editar</th>
           <th>Eliminar</th>
@@ -32,6 +33,11 @@
               </td>
               <td>
                 
+                {{form.operar}}
+                <label for="id_form-{{ forloop.counter0 }}-operar"></label>
+              </td>
+              {% if form.modelos.value != 'reportes' and form.modelos.value != 'compras' %}
+              <td>
                 {{form.crear}}
                 <label for="id_form-{{ forloop.counter0 }}-crear"></label>
               </td>
@@ -43,6 +49,7 @@
               {{form.eliminar}}
               <label for="id_form-{{ forloop.counter0 }}-eliminar"></label>
               </td>
+              {% endif %}
             </tr>
           {% endfor %}
         </tbody>

@@ -12,8 +12,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='libro',
-            name='portada',
-            field=models.ImageField(upload_to=b'portadas'),
+            model_name='rol',
+            name='eliminar',
+            field=models.BooleanField(),
         ),
     ]

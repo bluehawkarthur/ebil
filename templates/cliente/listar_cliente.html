@@ -8,11 +8,13 @@
 <section id="content">
 <div id="chart-dashboard">  
 <div class="container">
+{% if clientes_role.crear %}
 <div class="row">
     <div class='input-field col s2'>
         <a href="/CrearCliente" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
     </div>  
 </div>
+{% endif %}
 <div class="row"> 
   <form class="col m5 s12" method="get">
     <div class="row">

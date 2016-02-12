@@ -10,9 +10,12 @@ from django.utils.decorators import method_decorator
 from django.template import RequestContext
 from apps.inicio.roles import *
 from rolepermissions.decorators import has_role_decorator
-from django.contrib.auth.models import User
+from rolepermissions.verifications import has_role
+# from django.contrib.auth.models import User
 from pure_pagination.mixins import PaginationMixin
 from .models import Rol
+from django.conf import settings
+from apps.users.models import User
 
 # Create your views here.
 
@@ -56,7 +59,7 @@ class LogoutView(RedirectView):
 class Reportes(TemplateView):
     template_name = 'inicio/reportes.html'
 
-@has_role_decorator('adminstrador')
+@has_role_decorator('administrador')
 def register(request):
     context = RequestContext(request)
 
@@ -64,7 +67,7 @@ def register(request):
 
     if request.method == 'POST':
 
-        user_form = UserForm(data=request.POST)
+        user_form = UserForm(request.POST, request.FILES)
 
         # If the two forms are valid...
         if user_form.is_valid():
@@ -73,30 +76,47 @@ def register(request):
 
             user.set_password(user.password)
             user.save()
+            # profile = Profile()
+            # profile.user = user
+            # profile.nombre = user_form.cleaned_data['nombre']
+            # profile.save()
             rol = user_form.cleaned_data['rol']
 
             if rol == 'administrador':
                 Administrador.assign_role_to_user(user)
-            else:
-                Operador.assign_role_to_user(user)
-                
-                create1 = Rol(user=user, modelos='almacenes', crear=False, editar=False, eliminar=False)
-                create2 = Rol(user=user, modelos='clientes', crear=False, editar=False, eliminar=False)
-                create3 = Rol(user=user, modelos='proveedores', crear=False, editar=False, eliminar=False)
-                create4 = Rol(user=user, modelos='reportes', crear=False, editar=False, eliminar=False)
-                create5 = Rol(user=user, modelos='compras', crear=False, editar=False, eliminar=False)
-                create6 = Rol(user=user, modelos='usuarios', crear=False, editar=False, eliminar=False)
-                create7 = Rol(user=user, modelos='bancarizacion', crear=False, editar=False, eliminar=False)
-                create8 = Rol(user=user, modelos='configuracion', crear=False, editar=False, eliminar=False)
+                create1 = Rol(user=user, modelos='almacenes', operar=True, crear=True, editar=True, eliminar=True)
+                create2 = Rol(user=user, modelos='clientes', operar=True, crear=True, editar=True, eliminar=True)
+                create3 = Rol(user=user, modelos='proveedores', operar=True, crear=True, editar=True, eliminar=True)
+                create4 = Rol(user=user, modelos='reportes', operar=True, crear=True, editar=True, eliminar=True)
+                create5 = Rol(user=user, modelos='compras', operar=True, crear=True, editar=True, eliminar=True)
+                create6 = Rol(user=user, modelos='usuarios', operar=True, crear=True, editar=True, eliminar=True)
+                create7 = Rol(user=user, modelos='bancarizacion', operar=True, crear=True, editar=True, eliminar=True)
+                create8 = Rol(user=user, modelos='configuracion', operar=True, crear=True, editar=True, eliminar=True)
 
                 rol_list = [create1, create2, create3, create4, create5, create6, create7, create8]
 
                 for rol in rol_list:
                     rol.save()
 
+                return HttpResponseRedirect(reverse_lazy('list_user'))
+            else:
+                Operador.assign_role_to_user(user)
 
-            # profile.user = user
-            return HttpResponseRedirect(reverse_lazy('list_user'))
+                create1 = Rol(user=user, modelos='almacenes', operar=False, crear=False, editar=False, eliminar=False)
+                create2 = Rol(user=user, modelos='clientes', operar=False, crear=False, editar=False, eliminar=False)
+                create3 = Rol(user=user, modelos='proveedores', operar=False, crear=False, editar=False, eliminar=False)
+                create4 = Rol(user=user, modelos='reportes', operar=False, crear=False, editar=False, eliminar=False)
+                create5 = Rol(user=user, modelos='compras', operar=False, crear=False, editar=False, eliminar=False)
+                create6 = Rol(user=user, modelos='usuarios', operar=False, crear=False, editar=False, eliminar=False)
+                create7 = Rol(user=user, modelos='bancarizacion', operar=False, crear=False, editar=False, eliminar=False)
+                create8 = Rol(user=user, modelos='configuracion', operar=False, crear=False, editar=False, eliminar=False)
+
+                rol_list = [create1, create2, create3, create4, create5, create6, create7, create8]
+
+                for rol in rol_list:
+                    rol.save()
+                return HttpResponseRedirect(reverse_lazy('permisos_user', kwargs={'pk':user.pk}))
+
             registered = True
 
         else:
@@ -109,7 +129,7 @@ def register(request):
 
 class ListarUsuario(PaginationMixin, ListView):
     template_name = 'inicio/listar_usuarios.html'
-    paginate_by = 5
+    paginate_by = 10
     model = User
     context_object_name = 'users'
 
@@ -144,29 +164,49 @@ class EditUser(UpdateView):
         return self.render_to_response(context)
 
 
-# def user_edit(request, pk):
-#         user = get_object_or_404(User, pk=pk)
-#         form = UserFormedit()
-#         print user.password
-#         if request.method == "POST":
-
-#             form = UserFormedit(request.POST, instance=user)
-#             if form.is_valid():
-#                 user = form.save(commit=False)
-#                 # post.author = request.user
-#                 user.save()
-#                 rol = form.cleaned_data['rol']
-
-#                 if rol == 'administrador':
-#                     Administrador.assign_role_to_user(user)
-#                 else:
-#                     Operador.assign_role_to_user(user)
-
-#                 return HttpResponseRedirect(reverse_lazy('list_user'))
-
-#         return render(request, 'inicio/update.html', {'user_form': form, 'usere': user})
-
 def user_edit(request, pk):
+        user = get_object_or_404(User, pk=pk)
+        form = UserFormedit()
+    
+        if request.method == "POST":
+
+            form = UserFormedit(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                user = form.save(commit=False)
+                # post.author = request.user
+                user.save()
+                rol = form.cleaned_data['rol']
+
+                roles = Rol.objects.filter(user=user)
+
+                if rol == 'administrador':
+                   
+                    for r in roles:
+                        r.operar = True
+                        r.crear = True
+                        r.editar = True
+                        r.eliminar = True
+                        r.save()
+                    Administrador.assign_role_to_user(user)
+                    return HttpResponseRedirect(reverse_lazy('list_user'))
+                else:
+                    if not has_role(user, [Operador]):
+                        for r in roles:
+                            r.operar = False
+                            r.crear = False
+                            r.editar = False
+                            r.eliminar = False
+                            r.save()
+                            Operador.assign_role_to_user(user)
+                        return HttpResponseRedirect(reverse_lazy('permisos_user', kwargs={'pk':user.pk}))
+
+                    return HttpResponseRedirect(reverse_lazy('list_user'))
+
+
+        return render(request, 'inicio/update.html', {'user_form': form, 'usere': user})
+
+
+def user_permisos(request, pk):
         # user = get_object_or_404(User, pk=pk)
         # form = UserFormedit()
         # print user.password

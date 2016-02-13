@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+
+{% block content %}
+
+{% load staticfiles %}
+         
+
+          
+
+  <!--chart dashboard start-->
+                    <div id="chart-dashboard">
+                        <div class="row">
+                              <div class="col s12 m3 l3">
+                                <div class="card">
+                                    <div class="card-move-up green waves-effect waves-block waves-light cuadro-lateral">
+                                        <div class="centrar">
+                                            <i class="mdi-action-settings Large img-dashboard"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-content  teal darken-2">
+                                        
+                                        <div class="line-chart-wrapper">
+                                            <p class="white-text"> Configuracion</p>
+                                            
+                                        </div>
+                                    </div>
+                         
+                                </div>
+                                <div class="card">
+                                    <div class="card-move-up teal waves-effect waves-block waves-light cuadro-lateral">
+                                    
+                                    <a class="linka">
+                                        <div class="centrar">
+                                           
+                                            <i class="mdi-social-people Large"></i>
+                                        </div>
+                                    </a>
+                                    </div>
+                                    <div class="card-content  teal darken-2">
+                                     
+                                        <div class="line-chart-wrapper">
+                                            <p class="margin white-text"> Clientes</p>
+                                           
+                                        </div>
+                                    </div>
+                         
+                                </div>
+                            </div>
+                            <div class="col s12 m8 l6">
+                                <div class="card">
+                                    <div class="card-move-up waves-effect waves-block waves-light">
+                                        <div class="move-up cyan darken-1 cuadro">
+                                            <div>
+                                                <span class="chart-title white-text"></span>
+                                            </div>
+                                            <a class="linka">
+                                                <div class="trending-line-chart-wrapper">
+                                                    <img class=" responsive-img" src="{% static "images/facturar.png"%}">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="card-content  teal darken-2">
+                                   
+                                    <div class="line-chart-wrapper">
+                                        <p class="margin white-text">Facturar</p>
+                                      
+                                    </div>
+                                 
+                                    
+                                     
+                                    
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col s12 m4 l3">
+                                <div class="card">
+                                    <div class="card-move-up green waves-effect waves-block waves-light cuadro-lateral">
+
+                                    <a class="linka">
+                                        <div class="centrar">
+                                            
+                                           <i class="mdi-editor-border-color Large img-dashboard"></i>
+                                        </div>
+                                    </a>
+                                   
+                                    </div>
+                                    <div class="card-content  teal darken-2">
+                                        
+                                        <div class="line-chart-wrapper">
+                                            <p class="margin white-text">Reportes</p>
+                                          
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div class="card">
+                                    <div class="card-move-up teal waves-effect waves-block waves-light cuadro-lateral">
+                                  
+                                    <a class="linka">
+                                        <div class="centrar">
+                                           
+                                            <i class="mdi-social-person Large img-dashboard"></i>
+                                        </div>
+                                    </a>
+                            
+                                    </div>
+                                    <div class="card-content  teal darken-2">
+                                       
+                                        <div class="line-chart-wrapper">
+                                            <p class="margin white-text">Usuarios</p>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--chart dashboard end-->
+
+                    <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+                    <!--card stats start-->
+                    <div id="card-stats">
+                        <div class="row">
+                            <div class="col s12 m6 l3">
+                                <div class="card">
+                                    <div class="card-content   green white-text waves-effect waves-block waves-light cuadro-top">
+                                    
+                                    <a class="linka">
+                                       <div class="centrar2">
+                                        <i class="mdi-action-store Large"></i>
+                                       </div>
+                                    </a> 
+                                    
+                                    </div>
+                                    <div class="card-action  teal darken-2">
+                                        <p class="margin white-text">Almacenes</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l3">
+                                <div class="card">
+                                    <div class="card-content teal white-text cuadro-top waves-effect waves-block waves-light">
+                                
+                                    <a  class="linka">
+                                        <div class="centrar2">
+                                        <i class="mdi-action-shopping-cart Large"></i>
+                                        </div>
+                                    </a>
+                    
+                                    </div>
+                                    <div class="card-action teal darken-2">
+                                        <p class="margin white-text">Compras</p>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col s12 m6 l3">
+                                <div class="card">
+                                    <div class="card-content blue-grey white-text cuadro-top waves-effect waves-block waves-light">
+                                    
+                                    <a  class="linka">
+                                        <div class="centrar2">
+                                        <i class="mdi-maps-local-shipping Large"></i>
+                                        </div>
+                                    </a>
+                                
+                                    </div>
+                                    <div class="card-action teal darken-2">
+                                        <p class="margin white-text">Proveedores</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l3">
+                                <div class="card">
+                                    <div class="card-content green white-text cuadro-top waves-effect waves-block waves-light">
+                                        
+                                        <div class="centrar2">
+                                        <i class="mdi-action-account-balance-wallet Large"></i>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="card-action  teal darken-2">
+                                        <p class="margin white-text">Bancarizacion</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--card stats end-->
+
+
+    
+{% endblock content %}

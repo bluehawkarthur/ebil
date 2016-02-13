@@ -6,6 +6,19 @@ from imagekit.processors import ResizeToFill
 from imagekit.models import ProcessedImageField
 
 
+class Personajuridica(models.Model):
+    razon_social = models.CharField(max_length=100)
+    nit = models.BigIntegerField()
+    direccion = models.CharField(max_length=100)
+    telefono = models.IntegerField()
+    telefono2 = models.IntegerField()
+    telefono3 = models.IntegerField()
+    departamento = models.CharField(max_length=100)
+    municipios = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.razon_social
+
 class UserManager(BaseUserManager, models.Manager):
 
     def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
@@ -38,6 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                            processors=[ResizeToFill(300, 300)],
                                            format='JPEG',
                                            options={'quality': 60})
+    empresa = models.OneToOneField(Personajuridica, null=True)
 
     objects = UserManager()
 

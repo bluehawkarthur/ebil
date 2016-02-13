@@ -28,19 +28,30 @@ class Inicio(TemplateView):
         return super(Inicio, self).dispatch(*args, **kwargs)
 
 
+class InicioRoot(TemplateView):
+    template_name = "inicio/root.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(InicioRoot, self).dispatch(*args, **kwargs)
+
+
 class Index(View):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             return HttpResponseRedirect(reverse_lazy('login'))
         else:
-            return HttpResponseRedirect(reverse_lazy('inicio'))  
+            if request.user.is_superuser:
+                return HttpResponseRedirect(reverse_lazy('inicio_root'))
+            else:
+                return HttpResponseRedirect(reverse_lazy('inicio'))
 
 
 class LoginView(FormView):
     form_class = LoginForm
     template_name = "inicio/login.html"
-    success_url = reverse_lazy("inicio")
+    success_url = reverse_lazy("index")
 
     def form_valid(self, form):
         login(self.request, form.get_user())

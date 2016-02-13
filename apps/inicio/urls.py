@@ -1,12 +1,13 @@
 from django.conf.urls import include, url
 
-from .views import LoginView, LogoutView, Index, Inicio, Reportes, ListarUsuario, EditUser
+from .views import LoginView, LogoutView, Index, Inicio, Reportes, ListarUsuario, EditUser, InicioRoot
 
 urlpatterns = [
 	url(r'^$', Index.as_view(), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
   	url(r'^logout/$', LogoutView.as_view(), name='logout'),
   	url(r'^inicio/$', Inicio.as_view(), name='inicio'),
+    url(r'^inicio_root/$', InicioRoot.as_view(), name='inicio_root'),
   	url(r'^reportes/$', Reportes.as_view(), name='reportes'),
   	url(r'^register/$', 'apps.inicio.views.register', name='register'),
   	url(r'^list_user/$', ListarUsuario.as_view(), name='list_user'),

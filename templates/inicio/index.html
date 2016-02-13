@@ -16,11 +16,15 @@
                               <div class="col s12 m3 l3">
                                 <div class="card">
                                     <div class="card-move-up green waves-effect waves-block waves-light cuadro-lateral">
+                                        {% if bancarizacion_role.operar %}
                                         <div class="centrar">
-                                       
                                             <i class="mdi-action-settings Large img-dashboard"></i>
-                                            
                                         </div>
+                                        {% else %}
+                                        <div class="centrar">
+                                            <i class="mdi-action-settings Large img-dashboard linka-disable"></i>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                     <div class="card-content  teal darken-2">
                                         
@@ -33,12 +37,21 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-move-up teal waves-effect waves-block waves-light cuadro-lateral">
+                                    {% if clientes_role.operar %}
                                     <a href="/listar_cliente" class="linka">
                                         <div class="centrar">
                                            
                                             <i class="mdi-social-people Large img-dashboard"></i>
                                         </div>
                                     </a>
+                                    {% else %}
+                                    <a class="linka-disable">
+                                        <div class="centrar">
+                                           
+                                            <i class="mdi-social-people Large"></i>
+                                        </div>
+                                    </a>
+                                    {% endif %}
                                     </div>
                                     <div class="card-content  teal darken-2">
                                      
@@ -84,12 +97,21 @@
                             <div class="col s12 m4 l3">
                                 <div class="card">
                                     <div class="card-move-up green waves-effect waves-block waves-light cuadro-lateral">
+                                    {% if reportes_role.operar %}
                                     <a href="/reportes/" class="linka">
                                         <div class="centrar">
                                             
                                            <i class="mdi-editor-border-color Large img-dashboard"></i>
                                         </div>
                                     </a>
+                                    {% else %}
+                                    <a class="linka-disable">
+                                        <div class="centrar">
+                                            
+                                           <i class="mdi-editor-border-color Large "></i>
+                                        </div>
+                                    </a>
+                                    {% endif %}
                                     </div>
                                     <div class="card-content  teal darken-2">
                                         
@@ -102,12 +124,21 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-move-up teal waves-effect waves-block waves-light cuadro-lateral">
+                                    {% if usuarios_role.operar %}
                                     <a href="/list_user/" class="linka">
                                         <div class="centrar">
                                            
                                             <i class="mdi-social-person Large img-dashboard"></i>
                                         </div>
                                     </a>
+                                    {% else %}
+                                    <a class="linka-disable">
+                                        <div class="centrar">
+                                           
+                                            <i class="mdi-social-person Large"></i>
+                                        </div>
+                                    </a>
+                                    {% endif %}
                                     </div>
                                     <div class="card-content  teal darken-2">
                                        
@@ -145,20 +176,26 @@
                                     {% endif %}
                                     </div>
                                     <div class="card-action  teal darken-2">
-                                        
-                                            <p class="margin white-text">Almacenes</p>
-                                        
+                                        <p class="margin white-text">Almacenes</p> 
                                     </div>
                                 </div>
                             </div>
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content teal white-text cuadro-top waves-effect waves-block waves-light">
+                                    {% if compras_role.operar %}
                                     <a href="/compras" class="linka">
                                         <div class="centrar2">
                                         <i class="mdi-action-shopping-cart Large"></i>
                                         </div>
-                                     </a>
+                                    </a>
+                                    {% else %}
+                                    <a class="linka-disable">
+                                        <div class="centrar2">
+                                        <i class="mdi-action-shopping-cart Large"></i>
+                                        </div>
+                                    </a>
+                                    {% endif %}
                                     </div>
                                     <div class="card-action teal darken-2">
                                         <p class="margin white-text">Compras</p>
@@ -168,11 +205,19 @@
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content blue-grey white-text cuadro-top waves-effect waves-block waves-light">
+                                    {% if proveedores_role.operar %}
                                     <a href="/list_proveedor" class="linka">
                                         <div class="centrar2">
                                         <i class="mdi-maps-local-shipping Large"></i>
                                         </div>
                                     </a>
+                                    {% else %}
+                                    <a class="linka-disable">
+                                        <div class="centrar2">
+                                        <i class="mdi-maps-local-shipping Large"></i>
+                                        </div>
+                                    </a>
+                                    {% endif %}
                                     </div>
                                     <div class="card-action teal darken-2">
                                         <p class="margin white-text">Proveedores</p>
@@ -182,9 +227,15 @@
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content green white-text cuadro-top waves-effect waves-block waves-light">
+                                        {% if bancarizacion_role.operar %}
                                         <div class="centrar2">
                                         <i class="mdi-action-account-balance-wallet Large"></i>
                                         </div>
+                                        {% else %}
+                                        <div class="centrar2">
+                                        <i class="mdi-action-account-balance-wallet Large linka-disable"></i>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                     <div class="card-action  teal darken-2">
                                         <p class="margin white-text">Bancarizacion</p>

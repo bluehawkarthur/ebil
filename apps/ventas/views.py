@@ -364,6 +364,19 @@ def migrate(request):
 
     print palabra
     print round(25089,49)
+    ventas = Venta.objects.all()
+    # detalle = DetalleVenta.objects.filter(venta=ventas)
+    for v in ventas:
+        detalle = DetalleVenta.objects.filter(venta=v)
+        if detalle:
+            print 'tiene detalle', v.nit
+        else:
+            print 'noooo tiene', v.nit
+    # for d in detalle:
+    #     if d:
+    #         print 'tiene detalle'
+    #     else:
+    #         print 'noooo tiene'
     # print r
     # date1 = '2015-11-1'
     # date2 = '2015-11-30'

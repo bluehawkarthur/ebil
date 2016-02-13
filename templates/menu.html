@@ -3,16 +3,31 @@
                 <div class="nav-wrapper">                  
                   <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li>
+                        {% if bancarizacion_role.operar %}
                         <a href="index.html" class="cyan-text">
                             <i class="mdi-action-settings"></i>
                             <span>Configuracion</span>
                         </a>
+                        {% else %}
+                        <a  class="cyan-disable">
+                            <i class="mdi-action-settings"></i>
+                            <span>Configuracion</span>
+                        </a>
+                        {% endif %}
                     </li>
                     <li>
+                        {% if clientes_role.operar %}
                         <a href="/listar_cliente" class="cyan-text">
                             <i class="mdi-social-people"></i>
                             <span>Clientes</span>
                         </a>
+                        {% else %}
+                        <a class="cyan-disable">
+                            <i class="mdi-social-people"></i>
+                            <span>Clientes</span>
+                        </a>
+                        {% endif %}
+
                     </li>                    
                     <li>
                         {% if almacenes_role.operar %}
@@ -28,16 +43,30 @@
                         {% endif %}
                     </li>
                     <li>
+                        {% if compras_role.operar %}
                         <a class="dropdown-menu cyan-text" href="/compras" data-activates="UIElementsdropdown">
                             <i class="mdi-action-shopping-cart"></i>
                             <span>Compras</span>
                         </a>
+                        {% else %}
+                        <a class="dropdown-menu cyan-disable" data-activates="UIElementsdropdown">
+                            <i class="mdi-action-shopping-cart"></i>
+                            <span>Compras</span>
+                        </a>
+                        {% endif %}
                     </li>
                     <li>
+                        {% if proveedores_role.operar %}
                         <a href="/list_proveedor" class="cyan-text">
                             <i class="mdi-maps-local-shipping"></i>
                             <span>Proveedores</span>
                         </a>
+                        {% else %}
+                        <a  class="cyan-disable">
+                            <i class="mdi-maps-local-shipping"></i>
+                            <span>Proveedores</span>
+                        </a>
+                        {% endif %}
                     </li>
                     <li>
                         <a href="/ventas" class="cyan-text">
@@ -46,36 +75,59 @@
                         </a>
                     </li>
                     <li>
+                        {% if bancarizacion_role.operar %}
                         <a class="dropdown-menu cyan-text" href="#!" data-activates="Tablesdropdown">
                             <i class="mdi-action-account-balance-wallet"></i>
                             <span>Bancarizacion<i class="mdi-navigation-arrow-drop-down right"></i></span>
-                        </a><ul id="Tablesdropdown" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">
-                  <li><a href="table-basic.html" class="cyan-text">Basic Tables</a></li>
-                  <li><a href="table-data.html" class="cyan-text">Data Tables</a></li>
-                </ul>
+                        </a>
+                        {% else %}
+                        <a class="cyan-disable" href="#!" data-activates="Tablesdropdown">
+                            <i class="mdi-action-account-balance-wallet"></i>
+                            <span>Bancarizacion<i class="mdi-navigation-arrow-drop-down right"></i></span>
+                        </a>
+                        {% endif %}
+                        <ul id="Tablesdropdown" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">
+                          <li><a href="table-basic.html" class="cyan-text">Basic Tables</a></li>
+                          <li><a href="table-data.html" class="cyan-text">Data Tables</a></li>
+                        </ul>
                     </li>
                     
                     <li>
+                        {% if reportes_role.operar %}
                         <a class="dropdown-menu cyan-text" href="#!" data-activates="Pagesdropdown">
                             <i class="mdi-editor-border-color"></i>
                             <span>Reportes<i class="mdi-navigation-arrow-drop-down right"></i></span>
-                        </a><ul id="Pagesdropdown" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 729px; opacity: 1; display: none;">
+                        </a>
+                        {% else %}
+                        <a class="cyan-disable" href="#!" data-activates="Pagesdropdown">
+                            <i class="mdi-editor-border-color"></i>
+                            <span>Reportes<i class="mdi-navigation-arrow-drop-down right"></i></span>
+                        </a>
+                        {% endif %}
+                        <ul id="Pagesdropdown" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 729px; opacity: 1; display: none;">
                     
-                    <li><a href="/libro_compras" class="cyan-text">Libro de Compras</a></li>
-                    <li><a href="/libro_ventas" class="cyan-text">Libro de Ventas</a></li>
-                    <li><a href="/rep_ventaMes" class="cyan-text">Ventas mensuales</a></li>
-                    <li><a href="/rep_almacenes" class="cyan-text">Reporte de almacenes</a></li>
-                    <li><a  class="cyan-text">------ Reportes rapidos ------</a></li>
-                    <li><a href="/reporte_venta" class="cyan-text">Ventas</a></li>
-                    <li><a href="/reporte_almacen" class="cyan-text">Almacenes</a></li>
-                </ul>
+                            <li><a href="/libro_compras" class="cyan-text">Libro de Compras</a></li>
+                            <li><a href="/libro_ventas" class="cyan-text">Libro de Ventas</a></li>
+                            <li><a href="/rep_ventaMes" class="cyan-text">Ventas mensuales</a></li>
+                            <li><a href="/rep_almacenes" class="cyan-text">Reporte de almacenes</a></li>
+                            <li><a  class="cyan-text">------ Reportes rapidos ------</a></li>
+                            <li><a href="/reporte_venta" class="cyan-text">Ventas</a></li>
+                            <li><a href="/reporte_almacen" class="cyan-text">Almacenes</a></li>
+                        </ul>
                     </li>
                    
                     <li>
+                        {% if usuarios_role.operar %}
                         <a href="/list_user" class="dropdown-menu cyan-text" href="#!" data-activates="Usersdropdown">
                             <i class="mdi-action-account-circle"></i>
                             <span>Usuarios</span>
                         </a>
+                        {% else %}
+                        <a  class="dropdown-menu cyan-disable" href="#!" data-activates="Usersdropdown">
+                            <i class="mdi-action-account-circle"></i>
+                            <span>Usuarios</span>
+                        </a>
+                        {% endif %}
                     </li>
                   
                     

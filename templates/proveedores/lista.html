@@ -7,13 +7,11 @@
 <div id="chart-dashboard">  
 
 <div class="container">
-
+{% if proveedores_role.crear %}
 <div class="row">
   <div class="col s12 m2">
-
     <p>
       <a href="/crear_proveedor/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
-
     </p>
   </div>
   <div class="col s12 m2">
@@ -23,6 +21,7 @@
     </p>
   </div>
 </div>
+{% endif %}
 
 <div class="row"> 
   <form class="col m5 s12" method="get">
@@ -71,16 +70,19 @@
         <i class="mdi-action-search left"></i>
         Ver
         </a>
-          
+          {% if proveedores_role.editar %}
           <a href="/edit_proveedor/{{ provee.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar">
               <i class="mdi-editor-mode-edit left"></i>
               Editar
           </a>
-      
-        <a href="#modal{{provee.id}}"  class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar">
-            <i class="mdi-action-delete left"></i>
-            Eliminar
-        </a>
+          {% endif %}
+          {% if proveedores_role.eliminar %}
+          <a href="#modal{{provee.id}}"  class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar">
+              <i class="mdi-action-delete left"></i>
+              Eliminar
+          </a>
+          {% endif %}
+
         <div id="modal{{provee.id}}" class="modal teal">
           <div class="modal-content">
             <p class="img-dashboard">Esta seguro que quiere eliminar "{{provee.razon_social}}"</p>

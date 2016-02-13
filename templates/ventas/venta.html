@@ -18,7 +18,7 @@
               <form id="encabezado">
                 <div class="col s12 m6 l4">
                 <div class="input-field col s7 has-error">
-                  <input id="add_nit" name="add_nit" type="text">
+                  <input id="add_nit" name="add_nit" type="number">
                   <label>Nit</label>
                 </div>
                 <div class="input-field col s7 has-error">
@@ -37,7 +37,7 @@
                   <div class="row">
                     <div class="col s12 m6 l5">
                       <div class="input-field col s12 has-error">
-                        <input id="add_descuentoc"  name="add_descuentoc" type="text" value="0">
+                        <input id="add_descuentoc"  name="add_descuentoc" type="number" value="0">
                         <label>Descuentos</label>
                       </div>
                     </div>
@@ -55,7 +55,7 @@
                   <div class="row">
                     <div class="col s12 m6 l5">
                       <div class="input-field col s12 has-error">
-                        <input id="add_recargoc"  name="add_recargoc" type="text" value="0">
+                        <input id="add_recargoc"  name="add_recargoc" type="number" value="0">
                         <label>Recargos</label>
                       </div>
                     </div>
@@ -74,13 +74,13 @@
                   <div class="row">
                     <div class="col s12 m6 l5">
                       <div class="input-field col s12 has-error">
-                        <input id="add_icec"  name="add_icec" type="text" value="0">
+                        <input id="add_icec"  name="add_icec" type="number" value="0">
                         <label>ICE</label>
                       </div>
                     </div>
                     <div class="col s12 m6 l5">
                       <div class="input-field col s12 has-error">
-                        <input id="add_exentosc"  name="add_exentosc" type="text" value="0">
+                        <input id="add_exentosc"  name="add_exentosc" type="number" value="0">
                         <label>Exentos</label>
                       </div>
                     </div>
@@ -166,21 +166,21 @@
                 <td width="7%"><input type="text" value="0" id="add_cantidad" class="form-control add_calculo_totales_down"></td>
                 <td width="7%"><input type="text" value="0" id="add_total" class="form-control add_total"></td>
                 <td width="7%" rowspan="2">
-                  <input type="text" id="add_descuento" value="0" class="form-control add_calculo_totales_down">
+                  <input type="number" id="add_descuento" value="0" class="form-control add_calculo_totales_down">
                   <select name="add_costos" id="add_fk_id_formato_dato_descuento" class="add_calculo_totales">
                     <option value="">Bs</option>
                     <option value="475">%</option>
                   </select>
                 </td>
                 <td width="7%" rowspan="2">
-                <input type="text" id="add_recargo" value="0" class="form-control add_calculo_totales_down">
+                <input type="number" id="add_recargo" value="0" class="form-control add_calculo_totales_down">
                 <select name="add_costos" id="add_fk_id_formato_dato_recargo" class="add_calculo_totales">
                     <option value="">Bs</option>
                     <option value="475">%</option>
                 </select>
                 </td>
-                <td width="7%"><input type="text" id="add_ice" value="0" class="form-control add_calculo_totales_down"></td>
-                <td width="7%"><input type="text" id="add_exentos" value="0" class="form-control add_calculo_totales_down"></td>
+                <td width="7%"><input type="number" id="add_ice" value="0" class="form-control add_calculo_totales_down"></td>
+                <td width="7%"><input type="number" id="add_exentos" value="0" class="form-control add_calculo_totales_down"></td>
                 <td width="7%"><input type="text" id="add_sujeto_credito_fiscal" class="form-control add_scf"></td>
                 
                 <td>
@@ -596,7 +596,7 @@
 
                       $('#add_nit').val('');
                       $('#add_razon').val('');
-                      $('#add_fecha').val('');
+                      // $('#add_fecha').val('');
                       $('#dias').val('');
                       $('#add_descuentoc').val(0);
                       $('#add_recargoc').val(0);

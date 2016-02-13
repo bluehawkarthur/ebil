@@ -11,10 +11,11 @@
     <div class="container">
         <div class="row">
           <div class="col s12 m2">
+          {% if usuarios_role.crear %}
             <p>
                 <a href="/register/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
-              
             </p>
+          {% endif %}
           </div>
         </div>
         
@@ -38,7 +39,7 @@
           </div>
           </form>
         </div>
-        {{ user.nombre }}
+        
         <table class="responsive-table hoverable">
           <thead>
             <tr>
@@ -66,17 +67,17 @@
               </td>
              
               <td>
+                {% if usuarios_role.editar %}
                 {% for group in user.groups.all %}
                   {% if group.name == 'operador' %}
                 <a href="/permisos_user/{{ user.id }}" class="btn-floating waves-effect tooltipped orange waves-light "  data-position="top" data-delay="50" data-tooltip="Pemisos"><i class="mdi-action-https left"></i></a>
                   {% endif %}
                 {% endfor %}
-
                 <a href="/editar_user/{{ user.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
-                
-
+                {% endif %}
+                {% if usuarios_role.eliminar %}
                 <a href="#modal{{user.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
-
+                {% endif %}
                 <div id="modal{{user.id}}" class="modal teal">
                   <div class="modal-content">
                     <p class="img-dashboard">Esta seguro que quiere eliminar "{{user.username}}"</p>

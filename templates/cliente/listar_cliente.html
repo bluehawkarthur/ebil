@@ -57,10 +57,12 @@
       <td>
 
         <a href="/detalle_cliente/{{ clien.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
-
+        {% if clientes_role.editar %}
         <a href="/editar_cliente/{{ clien.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
-
+        {% endif %}
+        {% if clientes_role.eliminar %}
         <a href="#modal{{clien.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+        {% endif %}
 
         <div id="modal{{clien.id}}" class="modal teal">
           <div class="modal-content">

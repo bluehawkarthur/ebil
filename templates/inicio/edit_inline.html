@@ -37,18 +37,31 @@
                 <label for="id_form-{{ forloop.counter0 }}-operar"></label>
               </td>
               {% if form.modelos.value != 'reportes' and form.modelos.value != 'compras' %}
-              <td>
-                {{form.crear}}
-                <label for="id_form-{{ forloop.counter0 }}-crear"></label>
-              </td>
-              <td>
-                {{form.editar}}
-                <label for="id_form-{{ forloop.counter0 }}-editar"></label>
-              </td>
-              <td>
-              {{form.eliminar}}
-              <label for="id_form-{{ forloop.counter0 }}-eliminar"></label>
-              </td>
+                <td>
+                  {{form.crear}}
+                  <label for="id_form-{{ forloop.counter0 }}-crear"></label>
+                </td>
+                <td>
+                  {{form.editar}}
+                  <label for="id_form-{{ forloop.counter0 }}-editar"></label>
+                </td>
+                <td>
+                {{form.eliminar}}
+                <label for="id_form-{{ forloop.counter0 }}-eliminar"></label>
+                </td>
+              {% else %}
+                <td>
+                  {{form.crear|attr:"disabled:disabled"}}
+                  <label for="id_form-{{ forloop.counter0 }}-crear"></label>
+                </td>
+                <td>
+                  {{form.editar|attr:"disabled:disabled"}}
+                  <label for="id_form-{{ forloop.counter0 }}-editar"></label>
+                </td>
+                <td>
+                {{form.eliminar|attr:"disabled:disabled"}}
+                <label for="id_form-{{ forloop.counter0 }}-eliminar"></label>
+                </td>
               {% endif %}
             </tr>
           {% endfor %}
@@ -56,10 +69,42 @@
       </table>
       {{ formset.management_form }}
       {% csrf_token %}
-      <button type="submit"  value="save">save</button>
+      <button class="btn cyan waves-effect waves-light right" id="save" name="action">Guardar
+      <i class="mdi-content-save right"></i>
+      </button>
     </form>
   </div>
 </section>
+ {% endblock %}
+
+ {% block js %}
+  <script>
+   // $("tbody tr:first").find('input').each(function(){
+   //  var $totalIngredientes = $('#id_form-TOTAL_FORMS');
+   //  var total = parseInt($totalIngredientes.val(), 10);
+
+   //  $('#id_form-1-operar').click(function(event) {
+   //      if(this.checked) { 
+   //          $('#id_form-1-crear').each(function() { 
+   //              this.checked = true;           
+   //          });
+   //          $('#id_form-1-editar').each(function() { 
+   //              this.checked = true;           
+   //          });
+   //      }else{
+   //          $('#id_form-1-crear').each(function() {
+   //              this.checked = false;                       
+   //          });
+   //          $('#id_form-1-editar').each(function() {
+   //              this.checked = false;                       
+   //          });      
+   //      }
+   //  });
+    
+
+  });
+   </script>
+
  {% endblock %}
 
 

@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ebil1',
+        'NAME': 'ever',
         'USER': 'root',
         'PASSWORD': '1',
         'HOST': 'localhost',

@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9fzbh^dl_t)t3f_hu=hbi@5t%92$=$zh1rsov_e=xxr2r01%4i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -167,16 +167,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 NORECAPTCHA_SITE_KEY  = '6LfeIg0TAAAAAKNqc6kXnxJoNkmtZByMJC-X2wfV'
 NORECAPTCHA_SECRET_KEY  = '6LfeIg0TAAAAAD1rb1X8vu8BbPJ2DZ4JIJP9tlGF'
 
-if DEBUG:
+# if DEBUG:
 
-    from fnmatch import fnmatch
-    class glob_list(list):
-        def __contains__(self, key):
-            for elt in self:
-                if fnmatch(key, elt): return True
-            return False
+#     from fnmatch import fnmatch
+#     class glob_list(list):
+#         def __contains__(self, key):
+#             for elt in self:
+#                 if fnmatch(key, elt): return True
+#             return False
 
-    INTERNAL_IPS = glob_list(['127.0.0.1', '192.168.*.*'])
+#     INTERNAL_IPS = glob_list(['127.0.0.1', '192.168.*.*'])
 
 # ======= configure for debug toolbar =====
 

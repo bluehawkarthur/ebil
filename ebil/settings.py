@@ -117,10 +117,10 @@ WSGI_APPLICATION = 'ebil.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd47512b9tqcqjl',
-        'USER':'uwybtnhtgnbyqu',
-        'PASSWORD': 'edge96Ow3pKLeOng926Rch7XCO',
-        'HOST': 'ec2-54-197-241-24.compute-1.amazonaws.com',
+        'NAME': 'dd8fn02nku5hv3',
+        'USER':'jfhmrhqtxvmfry',
+        'PASSWORD': 'cJDWllEf9ZkLFsmhB8mb7uxLCO',
+        'HOST': 'ec2-54-83-29-133.compute-1.amazonaws.com',
         'PORT': '5432',
         
     }

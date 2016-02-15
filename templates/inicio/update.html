@@ -101,13 +101,16 @@
                 
                 {% block js %}
                 <script>
+                  $('#id_empresa option:selected').removeAttr("selected");
                   $('#id_rol option:selected').removeAttr("selected");
                   {% for group in usere.groups.all %}
                       
                   
                   $('#id_rol option[value="{{group.name}}"]').attr("selected","selected");
                   {% endfor %}
+                  $('#id_empresa option[value="{{usere.empresa.pk}}"]').attr("selected","selected");
                   $('#id_rol').material_select();
+                  $('#id_empresa').material_select();
 
                 </script>
                 {% endblock js %}
@@ -119,6 +122,18 @@
            
                 <label for="emails">{{ user_form.rol.label }}</label>
               </div>
+              {% if user.is_superuser %}
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ user_form.errors.empresa|removetags:'ul li' }}</span>
+                
+               
+                {{ user_form.empresa|add_error_class:"invalid" }}
+           
+                <label for="emails">{{ user_form.empresa.label }}</label>
+              </div>
+              {% else %}
+              <input name="empresa" type="hidden" value="{{user.empresa.pk}}">
+              {% endif %}
             </div>
         </fieldset>
                   

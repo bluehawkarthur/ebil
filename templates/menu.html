@@ -3,10 +3,10 @@
                 <div class="nav-wrapper">                  
                   <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li>
-                        {% if bancarizacion_role.operar %}
-                        <a href="index.html" class="cyan-text">
+                        {% if configuracion_role.operar %}
+                        <a href="#!" class="dropdown-menu cyan-text" data-activates="Tablesdropdown3">
                             <i class="mdi-action-settings"></i>
-                            <span>Configuracion</span>
+                            <span>Configuracion<i class="mdi-navigation-arrow-drop-down right"></i></span>
                         </a>
                         {% else %}
                         <a  class="cyan-disable">
@@ -14,6 +14,11 @@
                             <span>Configuracion</span>
                         </a>
                         {% endif %}
+                        
+                        <ul id="Tablesdropdown3" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">
+                          <li><a href="/empresa" class="cyan-text">Datos empresa</a></li>
+                          <li><a href="/lista_datosdosificacion" class="cyan-text">Datos dosificacion</a></li>
+                        </ul>
                     </li>
                     <li>
                         {% if clientes_role.operar %}

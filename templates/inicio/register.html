@@ -97,6 +97,16 @@
                 {{ user_form.rol|add_error_class:"invalid" }}
                 <label for="emails">{{ user_form.rol.label }}</label>
               </div>
+              {% if user.is_superuser %}
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ user_form.errors.empresa|removetags:'ul li' }}</span>
+                {{ user_form.empresa|add_error_class:"invalid" }}
+                <label for="emails">{{ user_form.empresa.label }}</label>
+              </div>
+              {% else %}
+                
+                <input type="hidden" name="empresa" id="id_empresa" value="{{user.empresa.pk}}">
+              {% endif %}
             </div>
             </fieldset>
 

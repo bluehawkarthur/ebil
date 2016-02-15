@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,11 +118,25 @@
             </tr>
             {% endfor %}
             <tr style="border-botton:1px; border-right:none; border-left:none;">
-              <td colspan="9" class="white"></td>
+              <td colspan="9" class="white">
+                
+              </td>
               <td ><br><b>Total:</b></td>
               <td class="" id="sum-subtotal"><br>{{total}}</td>
             </tr>
+            <tr style=" border-botton:1px; border-right:none; border-left:none;">
+            <td style="padding: 5px;" colspan="3">
+              <b>Codigo de control:<br> {{codigo_control}}</b>
+            </td>
+              <td >
+                
+            
+            <img  src="media/codigo/QQRR.png" style="zoom: 20%;" />
+              </td>
+            </tr>
+
           </tbody>
+
           </table>
                 </div>
                 

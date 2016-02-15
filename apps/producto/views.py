@@ -33,6 +33,7 @@ from datetime import date
 IMPORT_FILE_TYPES = ['.xls', '.xlsx', ]
 from django.contrib import messages
 import decimal
+from django.db import IntegrityError
 
 
 class CrearItem(FormView):
@@ -43,38 +44,44 @@ class CrearItem(FormView):
 	# personalize choices for user authenticate
 	def get_form(self, form_class):
 		form = form_class(**self.get_form_kwargs())
-		form.fields['proveedor'].queryset = Proveedor.objects.filter(user=self.request.user.id).all()
+		form.fields['proveedor'].queryset = Proveedor.objects.filter(
+		    empresa=self.request.user.empresa).all()
 		return form
 
 	def form_valid(self, form):
-			item = Item()
-			item.codigo_item = form.cleaned_data['codigo_item']
-			item.codigo_fabrica = form.cleaned_data['codigo_fabrica']
-			item.almacen = form.cleaned_data['almacen']
-			item.grupo = form.cleaned_data['grupo']
-			item.subgrupo = form.cleaned_data['subgrupo']
-			item.descripcion = form.cleaned_data['descripcion']
-			item.carac_especial_1 = form.cleaned_data['carac_especial_1']
-			item.carac_especial_2 = form.cleaned_data['carac_especial_2']
-			item.cantidad = form.cleaned_data['cantidad']
-			item.saldo_min = form.cleaned_data['saldo_min']
-			item.proveedor = form.cleaned_data['proveedor']
-			item.imagen = form.cleaned_data['imagen']
-			item.unidad_medida = form.cleaned_data['unidad_medida']
-			item.costo_unitario = form.cleaned_data['costo_unitario']
-			item.precio_unitario = form.cleaned_data['precio_unitario']
-			item.user = self.request.user
+		item = Item()
+		item.codigo_item = form.cleaned_data['codigo_item']
+		item.codigo_fabrica = form.cleaned_data['codigo_fabrica']
+		item.almacen = form.cleaned_data['almacen']
+		item.grupo = form.cleaned_data['grupo']
+		item.subgrupo = form.cleaned_data['subgrupo']
+		item.descripcion = form.cleaned_data['descripcion']
+		item.carac_especial_1 = form.cleaned_data['carac_especial_1']
+		item.carac_especial_2 = form.cleaned_data['carac_especial_2']
+		item.cantidad = form.cleaned_data['cantidad']
+		item.saldo_min = form.cleaned_data['saldo_min']
+		item.proveedor = form.cleaned_data['proveedor']
+		item.imagen = form.cleaned_data['imagen']
+		item.unidad_medida = form.cleaned_data['unidad_medida']
+		item.costo_unitario = form.cleaned_data['costo_unitario']
+		item.precio_unitario = form.cleaned_data['precio_unitario']
+		item.empresa = self.request.user.empresa
+		today = date.today()
+		movimiento = Movimiento()
+		movimiento.cantidad = form.cleaned_data['cantidad']
+		movimiento.precio_unitario = form.cleaned_data['precio_unitario']
+		movimiento.detalle = 'Saldo Inicial'
+		movimiento.fecha_transaccion = today.strftime('%Y-%m-%d')
+		movimiento.motivo_movimiento = 'inicial'
+		movimiento.empresa = self.request.user.empresa
+		try:
 			item.save()
-			today = date.today()
-			movimiento = Movimiento()
-			movimiento.cantidad = form.cleaned_data['cantidad']
-			movimiento.precio_unitario = form.cleaned_data['precio_unitario']
-			movimiento.detalle = 'Saldo Inicial'
-			movimiento.fecha_transaccion = today.strftime('%Y-%m-%d')
-			movimiento.motivo_movimiento = 'inicial'
-			movimiento.item = item
-			movimiento.save()
-			return super(CrearItem, self).form_valid(form)
+		except IntegrityError:
+			messages.error(self.request, "error CODIGO DUPLICADO")
+			return self.form_invalid(form)
+		movimiento.item = item
+		movimiento.save()
+		return super(CrearItem, self).form_valid(form)
 
 
 
@@ -107,11 +114,11 @@ class ListarItem(PaginationMixin, ListView):
             query2 = query = reduce(operator.and_, (Q(codigo_item__contains=item) for item in q))
 
         if (descripcion):
-            object_list = self.model.objects.filter(query2)
+            object_list = self.model.objects.filter(query2, empresa=self.request.user.empresa)
         elif (descripcion == '*'):
-            object_list = self.model.objects.all().order_by('pk')
+            object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('pk')
         else:
-            object_list = self.model.objects.all().order_by('pk')
+            object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('pk')
         return object_list
 
 
@@ -232,7 +239,7 @@ def import_data(request):
                     unidad_medida=sheet.cell(r, 12).value,
                     costo_unitario=decimal.Decimal(sheet.cell(r, 13).value),
                     precio_unitario=decimal.Decimal(sheet.cell(r, 14).value),
-                    user=request.user,
+                    empresa=request.user.empresa,
                 )
                 crearItem.save()
 
@@ -243,6 +250,7 @@ def import_data(request):
                     fecha_transaccion=date.today(),
                     motivo_movimiento='inicial',
                     item=crearItem,
+                    empresa=request.user.empresa,
                 )
                 crearMovimiento.save()
 
@@ -272,7 +280,6 @@ def import_data(request):
 
           #   except Exception, e:
 	        	# messages.error(request, "error en el archivo por favor verifique q los datos sean correctos")
-
 
 
     else:

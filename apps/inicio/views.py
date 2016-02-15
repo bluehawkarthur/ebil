@@ -70,7 +70,7 @@ class LogoutView(RedirectView):
 class Reportes(TemplateView):
     template_name = 'inicio/reportes.html'
 
-@has_role_decorator('administrador')
+# @has_role_decorator('administrador')
 def register(request):
     context = RequestContext(request)
 
@@ -84,13 +84,10 @@ def register(request):
         if user_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
-
+            user.empresa = user_form.cleaned_data['empresa']
             user.set_password(user.password)
             user.save()
-            # profile = Profile()
-            # profile.user = user
-            # profile.nombre = user_form.cleaned_data['nombre']
-            # profile.save()
+          
             rol = user_form.cleaned_data['rol']
 
             if rol == 'administrador':
@@ -147,11 +144,17 @@ class ListarUsuario(PaginationMixin, ListView):
     def get_queryset(self):
 
         username = self.request.GET.get('q', None)
-
-        if (username):
-            object_list = self.model.objects.filter(username__icontains = username).order_by('pk')
+        if self.request.user.is_superuser:
+            if (username):
+                object_list = self.model.objects.filter(username__icontains = username).order_by('pk')
+            else:
+                object_list = self.model.objects.all().order_by('pk')
         else:
-            object_list = self.model.objects.all().order_by('pk')
+            if (username):
+                object_list = self.model.objects.filter(username__icontains = username).order_by('pk')
+            else:
+                object_list = self.model.objects.filter(empresa=self.request.user.empresa.pk).order_by('pk')
+                print 'llego'
         return object_list
 
 @has_role_decorator('adminstrador')
@@ -185,6 +188,7 @@ def user_edit(request, pk):
             if form.is_valid():
                 user = form.save(commit=False)
                 # post.author = request.user
+                user.empresa = form.cleaned_data['empresa']
                 user.save()
                 rol = form.cleaned_data['rol']
 

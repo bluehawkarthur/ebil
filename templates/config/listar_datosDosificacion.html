@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+        <div class="row">
+          <div class="col s12 m2">
+            <p>
+                <a href="/crear_datosDosificacion/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+            </p>
+          </div>
+        </div>
+
+        <table class="responsive-table hoverable">
+          <thead>
+            <tr>
+              <th data-field="">sucursal</th>
+              <th data-field="">actividad</th>
+              <th data-field="">nro_conrelativo</th>
+              <th data-field="">fecha</th>
+              <th data-field="">nro_autorizacion</th>
+              <th data-field="">llave_digital</th>
+              <th data-field="">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sucur in listar_datosDosificacion %}
+            <tr>
+              <td>{{ sucur.sucursal }}</td>
+              <td>{{ sucur.actividad }}</td>
+              <td>{{ sucur.nro_conrelativo }}</td>
+              <td>{{ sucur.fecha }}</td>
+              <td>{{ sucur.nro_autorizacion }}</td>
+              <td>{{ sucur.llave_digital }}</td>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% include "_pagination.html" %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
+

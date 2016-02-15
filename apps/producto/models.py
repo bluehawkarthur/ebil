@@ -2,6 +2,8 @@ from django.db import models
 from apps.proveedores.models import Proveedor
 from django.conf import settings
 
+from apps.users.models import Personajuridica
+
 
 class ItemManager(models.Manager):
     def get_by_natural_key(self, descripcion, precio_unitario):
@@ -20,13 +22,16 @@ class Item(models.Model):
 	carac_especial_2 = models.CharField(max_length=100)
 	cantidad = models.IntegerField()
 	saldo_min = models.IntegerField()
-	proveedor = models.ForeignKey(Proveedor, related_name='proveedor') #Relacion a la tabla de proveedores
+	proveedor = models.ForeignKey(Proveedor, related_name='proveedor', blank=True, null=True) #Relacion a la tabla de proveedores
 	imagen = models.ImageField(upload_to='items', null=True, blank=True)
 	unidad_medida = models.CharField(max_length=100)
 	costo_unitario = models.DecimalField(max_digits=6, decimal_places=2)
 	precio_unitario = models.DecimalField(max_digits=6, decimal_places=2)
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 	fecha_transaccion = models.DateField(null=True, blank=True)
+
+	class Meta:
+		unique_together = ('codigo_item', 'empresa',)
 	
 	def natural_key(self):
 		return (self.codigo_item, self.descripcion, self.precio_unitario, self.unidad_medida)

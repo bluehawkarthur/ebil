@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+<section id="content">
+	<div class="row">
+		<form class="col s12 m12 l8 offset-l2" action="" enctype="multipart/form-data"  method="post">
+			<div class="card-panel">
+				{% csrf_token %}
+				<h4 class="header2">Importar datos en excel</h4>
+				<div class="file-field input-field col s12 has-error"> 
+					<div class="btn btn-file">
+						<span>{{ form.file.label }}</span>
+						{{ form.file|add_error_class:"invalid" }}  
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path validate" type="text" placeholder="Por favor, sube un archivo .xls">
+						<span class="help-block">{{ form.errors.file|removetags:'ul li' }}</span>
+					</div>
+				</div>
+
+				<div class="row">  
+					<div class="input-field col s6">
+						<a href="/listar_cliente" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+					</div>                 
+					<div class="input-field col s6">
+					<button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+							<i class="mdi-content-send right"></i>
+						</button>
+					</div> 
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+{% endblock content %}
+

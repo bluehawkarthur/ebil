@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+        <div class="row">
+          <div class="col s12 m2">
+            <p>
+                <a href="/createpersojuridica/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+              
+            </p>
+          </div>
+        </div>
+
+        <table class="responsive-table hoverable">
+          <thead>
+            <tr>
+              <th data-field="">razon_social</th>
+              <th data-field="">nit</th>
+              <th data-field="">direccion</th>
+              <th data-field="">telefono</th>
+              <th data-field="">departamento</th>
+              <th data-field="">municipios</th>
+              <th data-field="">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pers in personajuridica %}
+            <tr>
+              <td>{{ pers.razon_social }}</td>
+              <td>{{ pers.nit }}</td>
+              <td>{{ pers.direccion }}</td>
+              <td>{{ pers.telefono }}</td>
+              <td>{{ pers.departamento }}</td>
+              <td>{{ pers.municipios }}</td>
+             <td>
+
+                <a href="/detalle_item/{{ it.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
+
+                <a href="/editar_item/{{ it.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+                
+
+                <a href="#modal{{it.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+
+                <div id="modal{{it.id}}" class="modal teal">
+                  <div class="modal-content">
+                    <p class="img-dashboard">Esta seguro que quiere eliminar "{{it.codigo_item}}"</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+                    <a href="/delete_item/{{it.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      
+        {% include "_pagination.html" %}
+      
+    </div>
+  </div>
+</section>
+{% endblock content %}

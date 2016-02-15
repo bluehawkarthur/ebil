@@ -6,7 +6,7 @@ from nocaptcha_recaptcha.fields import NoReCaptchaField
 from django.contrib.auth.forms import AuthenticationForm
 import socket
 # from django.contrib.auth.models import User
-from apps.users.models import User
+from apps.users.models import User, Personajuridica
 from .models import Rol
 from django.forms import modelformset_factory
 
@@ -50,6 +50,7 @@ class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(), label="Contraseña")
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=dict(max_length=30, render_value=False)), label="Contraseña (confirmación):")
     rol = forms.ChoiceField(choices=list_of_choices)
+    empresa = forms.ModelChoiceField(queryset=Personajuridica.objects.all().order_by('-id'), empty_label='seleccione')
 
     class Meta:
         model = User
@@ -58,7 +59,7 @@ class UserForm(forms.ModelForm):
     def clean_username(self): # check if username dos not exist before
         try:
             User.objects.get(username=self.cleaned_data['username']) #get user from user model
-        except User.DoesNotExist :
+        except User.DoesNotExist:
             return self.cleaned_data['username']
 
         raise forms.ValidationError("este usuario ya existe")
@@ -76,6 +77,7 @@ class UserFormedit(forms.ModelForm):
     s_apellido = forms.CharField(required=False, label="Segundo apellido")
     avatar = forms.ImageField(required=False, label="Foto")
     rol = forms.ChoiceField(choices=list_of_choices)
+    empresa = forms.ModelChoiceField(queryset=Personajuridica.objects.all(), empty_label='seleccione')
 
     class Meta:
         model = User

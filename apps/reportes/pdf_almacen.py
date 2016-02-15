@@ -133,6 +133,10 @@ class PdfAlmacen:
             descripcion = weather_history[i].descripcion
             desctruncate = (descripcion[:7] + '..') if len(descripcion) > 10 else descripcion
             # add a row to table
+            if weather_history[i].proveedor:
+                razon = weather_history[i].proveedor.razon_social
+            else:
+                razon=''
             table_data.append([
                 Paragraph(weather_history[i].codigo_item, styles['Justify']),
                 Paragraph(weather_history[i].codigo_fabrica, styles['Justify']),
@@ -145,7 +149,7 @@ class PdfAlmacen:
                 Paragraph(weather_history[i].carac_especial_2, styles['Justify']),
                 weather_history[i].cantidad,
                 weather_history[i].saldo_min,
-                Paragraph(weather_history[i].proveedor.razon_social, styles['Justify']),
+                Paragraph(razon, styles['Justify']),
                 Paragraph(weather_history[i].unidad_medida, styles['Justify']),
                 weather_history[i].costo_unitario,
                 weather_history[i].precio_unitario,

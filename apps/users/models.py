@@ -11,8 +11,8 @@ class Personajuridica(models.Model):
     nit = models.BigIntegerField()
     direccion = models.CharField(max_length=100)
     telefono = models.IntegerField()
-    telefono2 = models.IntegerField()
-    telefono3 = models.IntegerField()
+    telefono2 = models.IntegerField(null=True, blank=True)
+    telefono3 = models.IntegerField(null=True, blank=True)
     departamento = models.CharField(max_length=100)
     municipios = models.CharField(max_length=100)
 
@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                            processors=[ResizeToFill(300, 300)],
                                            format='JPEG',
                                            options={'quality': 60})
-    empresa = models.OneToOneField(Personajuridica, null=True)
+    empresa = models.ForeignKey(Personajuridica, null=True)
 
     objects = UserManager()
 

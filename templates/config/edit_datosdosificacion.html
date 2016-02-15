@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+<section id="content">
+  <div class="row">
+    <div class="col s12 m12 l8 offset-l2">
+      <div class="card-panel">
+        <h4 class="header2">Datos Dosificacion</h4>
+        <div class="row">
+          <form class="col s12" method="post">
+            {% csrf_token %}
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.nro_conrelativo|removetags:'ul li' }}</span>
+                {{ form.nro_conrelativo|add_error_class:"invalid" }}
+                <label for="emails">{{ form.nro_conrelativo.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.fecha|removetags:'ul li' }}</span>
+              {{ form.fecha|add_class:"datepicker"|add_error_class:"invalid"}}
+              <label for="">{{ form.fecha.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="input-field col s6 has-error">
+               <span class="help-block">{{ form.errors.nro_autorizacion|removetags:'ul li' }}</span>
+              {{ form.nro_autorizacion|add_error_class:"invalid" }}
+                <label for="email">{{ form.nro_autorizacion.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error">
+               <span class="help-block">{{ form.errors.llave_digital|removetags:'ul li' }}</span>
+              {{ form.llave_digital|add_error_class:"invalid" }}
+                <label for="email">{{ form.llave_digital.label }}</label>
+              </div>
+            </div>
+          </div> <!-- row  -->
+   
+          <div class="row">  
+          <div class="input-field col s6">
+            <a href="/lista_datosdosificacion" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+          </div>                 
+            <div class="input-field col s6">
+              
+              <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+                <i class="mdi-content-send right"></i>
+              </button>
+            </div> 
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+
+ 

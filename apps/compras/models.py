@@ -1,7 +1,7 @@
 from django.db import models
 import decimal
 from apps.producto.models import Item
-
+from apps.users.models import Personajuridica
 # Create your models here.
 
 
@@ -21,6 +21,7 @@ class Compra(models.Model):
     excentos = models.DecimalField(max_digits=6, decimal_places=2)
     tipo_descuento = models.CharField(max_length=100)
     tipo_recargo = models.CharField(max_length=100)
+    empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 
     def __unicode__(self):
         return U" %s- %s" % (self.nit, self.nro_factura)

@@ -88,7 +88,11 @@ def WriteToAlmacen(weather_data, mes, total, town=None):
         # worksheet_s.write_number(row, 0, idx + 1, cell_center)
         total_costo += data.cantidad * data.costo_unitario
         total_precio += data.cantidad * data.precio_unitario
-
+        if data.proveedor:
+            razon = data.proveedor.razon_social
+        else:
+            razon=''
+            
         worksheet_s.write(row, 0, data.codigo_item, cell_center)
         worksheet_s.write_string(row, 1, data.codigo_fabrica, cell)
         worksheet_s.write_number(row, 2, data.almacen, cell_center)
@@ -99,7 +103,7 @@ def WriteToAlmacen(weather_data, mes, total, town=None):
         worksheet_s.write_string(row, 7, data.carac_especial_2, cell_center)
         worksheet_s.write_number(row, 8, data.cantidad, cell_center)
         worksheet_s.write_number(row, 9, data.saldo_min, cell_center)
-        worksheet_s.write_string(row, 10, data.proveedor.razon_social, cell_center)
+        worksheet_s.write_string(row, 10, razon, cell_center)
         worksheet_s.write_string(row, 11, data.unidad_medida, cell_center)
         worksheet_s.write_number(row, 12, data.costo_unitario, cell_center)
         worksheet_s.write_number(row, 13, data.precio_unitario, cell_center)

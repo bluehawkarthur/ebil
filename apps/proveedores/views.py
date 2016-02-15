@@ -10,14 +10,19 @@ from django import forms
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 import django_excel as excel
+from django.contrib import messages
 import pyexcel.ext.xls
 import pyexcel.ext.xlsx
 import sys
+from django.db import IntegrityError
 PY2 = sys.version_info[0] == 2
 if PY2:
     import pyexcel.ext.ods
 else:
     import pyexcel.ext.ods3
+
+
+
 
 # Create your views here.
 class CrearProveedor(SuccessMessageMixin, FormView):
@@ -25,7 +30,6 @@ class CrearProveedor(SuccessMessageMixin, FormView):
 	form_class = CreateForm
 	success_url = reverse_lazy('lista')
 	success_message = "%(razon_social)s fue creado con exito"
-
 
 	def form_valid(self, form):
 		registrar = Proveedor()
@@ -43,9 +47,17 @@ class CrearProveedor(SuccessMessageMixin, FormView):
 		registrar.fecha2 = form.cleaned_data['fecha2']
 		registrar.texto1 = form.cleaned_data['texto1']
 		registrar.fecha2 = form.cleaned_data['fecha2']
-		registrar.user= self.request.user
-		registrar.save()
+		registrar.empresa = self.request.user.empresa
+		try:
+			registrar.save()
+		except IntegrityError:
+			messages.error(self.request, "error CODIGO DUPLICADO")
+			return self.form_invalid(form)
+		
+		
+
 		return super(CrearProveedor, self).form_valid(form)
+
 	
 
 class ListProveedor(PaginationMixin, ListView):
@@ -58,9 +70,9 @@ class ListProveedor(PaginationMixin, ListView):
 		razon_social = self.request.GET.get('q', None)
 		    
 		if (razon_social):
-		    object_list = self.model.objects.filter(razon_social__icontains = razon_social).order_by('pk')
+		    object_list = self.model.objects.filter(razon_social__icontains=razon_social, empresa=self.request.user.empresa).order_by('pk')
 		else:
-		    object_list = self.model.objects.all().order_by('pk')
+		    object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('pk')
 		return object_list
 
 
@@ -98,20 +110,14 @@ def import_data(request):
         form = UploadFileForm(request.POST,
                               request.FILES)
         def choice_func(row):
-            print 'aquiiiiiiii stasssss'
-            print row[0]
-            
-            print 'muestra qqqqq'
-   
-            row.append(request.user)
-
-            print row
+            row.append(request.user.empresa)
             return row
+
         if form.is_valid():
             request.FILES['file'].save_book_to_database(
                 models=[Proveedor],
                 initializers=[choice_func],
-                mapdicts=[['codigo', 'razon_social', 'nit','direccion', 'telefono1', 'contactos', 'rubro', 'ubicacion_geo', 'fecha1', 'fecha2', 'texto1', 'texto2', 'user']]
+                mapdicts=[['codigo', 'razon_social', 'nit','direccion', 'telefono1', 'contactos', 'rubro', 'ubicacion_geo', 'fecha1', 'fecha2', 'texto1', 'texto2', 'empresa']]
             )
             return HttpResponseRedirect(reverse_lazy('lista'))
         

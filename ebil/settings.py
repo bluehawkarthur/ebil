@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'apps.compras',
     'apps.reportes',
     'apps.ventas',
+    'apps.config',
     #librerias
     # 'captcha',
     'nocaptcha_recaptcha',
@@ -59,6 +60,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'rolepermissions',
     'imagekit',
+    'qrcode',
 )
 
 MIDDLEWARE_CLASSES = (

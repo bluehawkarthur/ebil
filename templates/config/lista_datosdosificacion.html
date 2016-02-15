@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m2">
+          <p>
+            <a href="/creardatosDosificacion/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+
+          </p>
+        </div>
+      </div>
+      <table class="responsive-table hoverable">
+        <thead>
+          <tr>
+            
+            <th data-field="">nro_conrelativo</th>
+            <th data-field="">fecha</th>
+            <th data-field="">nro_autorizacion</th>
+            <th data-field="">llave_digital</th>
+            <th>acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dosific in DatosDosificacion %}
+          <tr>
+            <td>{{ dosific.nro_conrelativo }}</td>
+            <td>{{ dosific.fecha }}</td>
+            <td>{{ dosific.nro_autorizacion }}</td>
+            <td>{{ dosific.llave_digital }}</td>
+            <td>
+
+              <a href="/detalle_datosdosificacion/{{ dosific.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
+
+              <a href="/edit_datosdosificacion/{{ dosific.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+
+
+              <a href="#modal{{dosific.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+
+              <div id="modal{{dosific.id}}" class="modal teal">
+                <div class="modal-content">
+                  <p class="img-dashboard">Esta seguro que quiere eliminar "{{dosific.nro_conrelativo}}"</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+                  <a href="/delete_datosdosificacion/{{dosific.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>      
+      {% include "_pagination.html" %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

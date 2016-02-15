@@ -128,30 +128,30 @@ def Reporteventa(request):
 		if date1 != '' and date2 != '':
 			if tipo == 'todo':
 				if nit != '':
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), nit=nit)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), nit=nit)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), razon_social=empresa)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				# elif monto != '':
 				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
 				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2))
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2))
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 
 			else:
 				if nit != '':
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				# elif monto != '':
 				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
 				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo)
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 			
 			total = 0
@@ -165,7 +165,7 @@ def Reporteventa(request):
 	else:
 		datecompu = date.today()
 		total = 0
-		ventas1 = Venta.objects.filter(fecha=datecompu)
+		ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha=datecompu)
 		ventas = DetalleVenta.objects.filter(venta=ventas1)
 		for venta in ventas:
 			total += venta.cantidad * venta.precio_unitario
@@ -249,7 +249,7 @@ def report_mesVenta(request):
 
         try:
         	# obteniendo datos del modelo venta 
-	    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
+	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
 	    	total = 0
 	        for venta in ventas:
 				total += venta.total
@@ -302,7 +302,7 @@ def report_almacenes(request):
 
         # try:
         	# obteniendo datos del modelo venta 
-	    	items = Item.objects.all()
+	    	items = Item.objects.filter(empresa=request.user.empresa)
 	    	# datos = []
 	     #    for it in items:
 	        
@@ -386,7 +386,7 @@ def libro_compras(request):
 
         try:
         	
-	    	compras = Compra.objects.filter(fecha__year=anio, fecha__month=date1)
+	    	compras = Compra.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
 	    	total = 0
 	        for compra in compras:
 				total += compra.total
@@ -444,8 +444,8 @@ def libro_ventas(request):
         mes = _(d)
 
         try:
-        	# obteniendo datos del modelo venta 
-	    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
+        	# obteniendo datos del modelo venta
+	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
 	    	total = 0
 	        for venta in ventas:
 				total += venta.total
@@ -495,7 +495,7 @@ def ReportAlmacen(request):
         date1 = request.POST['mes']
         anio = request.POST['anio']
 
-        items = Item.objects.filter(fecha_transaccion__year=anio, fecha_transaccion__month=date1)
+        items = Item.objects.filter(empresa=request.user.empresa, fecha_transaccion__year=anio, fecha_transaccion__month=date1)
         total = 0
 
         for it in items:
@@ -505,7 +505,7 @@ def ReportAlmacen(request):
 
 
 def KardexAlmacen(request, pk):
-    venta = Venta.objects.filter(id=pk)
+    venta = Venta.objects.filter(empresa=request.user.empresa, id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
     
     vd = []
@@ -527,9 +527,9 @@ def KardexAlmacen(request, pk):
 
 
 def promedios(request, pk, date1, anio):
-    movimiento = Movimiento.objects.filter(item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('fecha_transaccion')
+    movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('fecha_transaccion')
     producto = Item.objects.get(id=pk)
-    movimientoinit = Movimiento.objects.filter(item=pk, motivo_movimiento='inicial')
+    movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, motivo_movimiento='inicial')
     datosfinal = []
     datosfinal.extend(movimientoinit)
     datosfinal.extend(movimiento)
@@ -583,11 +583,12 @@ def Createpago(request):
     if request.method == 'POST':
         monto = request.POST['monto']
         venta = request.POST['venta']
-        venta_get = Venta.objects.filter(id=venta)
+        venta_get = Venta.objects.filter(empresa=request.user.empresa, id=venta)
         crearcobro = Cobro(
             venta=Venta.objects.get(id=venta),
             monto_pago=monto,
             fecha_transaccion=date.today(),
+            empresa=request.user.empresa,
         )
         crearcobro.save()
 
@@ -629,8 +630,8 @@ class ReporteCaja(TemplateView):
 
 		if hoy != '':
 #			ventas = Venta.objects.filter(fecha=hoy)
-			ventas = Venta.objects.filter(Q(fecha=hoy) & Q(tipo_compra='contado'))
-			cobros = Cobro.objects.filter(fecha_transaccion=date.today())
+			ventas = Venta.objects.filter(Q(empresa=self.request.user.empresa) & Q(fecha=hoy) & Q(tipo_compra='contado'))
+			cobros = Cobro.objects.filter(empresa=self.request.user.empresa, fecha_transaccion=date.today())
 			totcobros = 0
 			for x in cobros:
 				totcobros = totcobros+x.monto_pago
@@ -643,5 +644,5 @@ class ReporteCaja(TemplateView):
 
 			return render_to_pdf('reportes/ccaja.html', {'sub': sub, 'cajai': cajai, 'gastos': gastos, 'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})
 		else:
-			ventas = Venta.objects.filter(fecha=hoy)
+			ventas = Venta.objects.filter(empresa=self.request.user.empresa, fecha=hoy)
 			return render(request, 'reportes/ccaja.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

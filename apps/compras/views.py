@@ -25,12 +25,12 @@ class Success(TemplateView):
 
 def buscarProducto(request):
     idProducto = request.GET['id']
-    descripcion = Item.objects.filter(descripcion__contains=idProducto)
+    descripcion = Item.objects.filter(descripcion__contains=idProducto, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
         'json', descripcion, fields=('pk','codigo_item','codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
     else:
-        producto = Item.objects.filter(codigo_item__contains=idProducto)
+        producto = Item.objects.filter(codigo_item__contains=idProducto, empresa=request.user.empresa)
         data = serializers.serialize(
             'json', producto, fields=('pk','codigo_item','codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
     return HttpResponse(data, content_type='application/json')
@@ -72,6 +72,7 @@ def compraCrear(request):
                 excentos=proceso['excentos'],
                 tipo_descuento=proceso['tipo_descuento'],
                 tipo_recargo=proceso['tipo_recargo'],
+                empresa=request.user.empresa,
 
             )
             crearCompra.save()
@@ -112,6 +113,7 @@ def compraCrear(request):
                         fecha_transaccion=proceso['fecha'],
                         motivo_movimiento='ingreso',
                         item=Item.objects.get(id=k['pk']),
+                        empresa=request.user.empresa,
                     )
 
 
@@ -135,6 +137,7 @@ def compraCrear(request):
                         centro_costos=k['centro_costos'],
                         tipo_descuento=k['tipo_descuento'],
                         tipo_recargo=k['tipo_recargo'],
+                        empresa=request.user.empresa,
 
                     )
 

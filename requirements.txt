@@ -25,3 +25,7 @@ django-role-permissions==0.6.2
 django-extensions==1.5.9
 XlsxWriter==0.7.3
 django-imagekit==3.2.7
+git+https://github.com/bluehawkarthur/python_stdnum.git
+qrcode==5.2.2
+git+git://github.com/ojii/pymaging.git#egg=pymaging
+git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png

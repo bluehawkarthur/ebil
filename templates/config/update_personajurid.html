@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Persona juridica</h3>
+          {% csrf_token %} 
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.razon_social|removetags:'ul li' }}</span>
+                {{ form.razon_social|add_error_class:"invalid" }}
+                <label for="emails">{{ form.razon_social.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
+              {{ form.nit|add_error_class:"invalid" }}
+                <label for="email">{{ form.nit.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.direccion|removetags:'ul li' }}</span>
+                {{ form.direccion|add_error_class:"invalid" }}
+                <label for="emails">{{ form.direccion.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.telefono|removetags:'ul li' }}</span>
+              {{ form.telefono|add_error_class:"invalid" }}
+                <label for="email">{{ form.telefono.label }}</label>
+              </div>
+            </div> 
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.telefono2|removetags:'ul li' }}</span>
+                {{ form.telefono2|add_error_class:"invalid" }}
+                <label for="emails">{{ form.telefono2.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.telefono3|removetags:'ul li' }}</span>
+              {{ form.telefono3|add_error_class:"invalid" }}
+                <label for="email">{{ form.telefono3.label }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.departamento|removetags:'ul li' }}</span>
+                {{ form.departamento|add_error_class:"invalid" }}
+                <label for="emails">{{ form.departamento.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.municipios |removetags:'ul li' }}</span>
+              {{ form.municipios|add_error_class:"invalid" }}
+                <label for="email">{{ form.municipios.label }}</label>
+              </div>
+            </div>                 
+        <div class="row">                   
+          <div class="input-field col s12">
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+              <i class="mdi-content-send right"></i>
+            </button>
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+
+
+ 
+
+

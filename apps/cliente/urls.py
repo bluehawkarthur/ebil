@@ -7,4 +7,5 @@ urlpatterns = patterns('',
 	url(r'^detalle_cliente/(?P<pk>\d+)$', DetalleCliente.as_view(), name='detalle_cliente'),
 	url(r'^editar_cliente/(?P<pk>\d+)$', EditCliente.as_view(), name='editar_cliente'),
     url(r'^delete_cliente/(?P<id>\d+)$', 'apps.cliente.views.eliminar', name='delete'),
+    url(r'^cliente_import/', 'apps.cliente.views.import_data', name="import_cliente"),
 )

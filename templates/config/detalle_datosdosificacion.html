@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Detalle datos dosificacion</h3>
+        <div class="row">
+          {% csrf_token %} 
+
+
+         <div class="row">
+          <div class="input-field col s6 has-error">
+            <div class="input-field col s6 has-error">
+              <input disabled type="text" value="{{DatosDosificacion.nro_conrelativo}}">
+              <label for="emails">nro_conrelativo</label>
+            </div>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <div class="input-field col s6 has-error">
+             <input disabled type="text" value="{{DatosDosificacion.fecha}}">
+             <label for="emails">fecha</label>
+           </div>
+         </div>
+       </div>
+       <div class="row">
+        <div class="input-field col s6 has-error">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{DatosDosificacion.nro_autorizacion}}">
+            <label for="emails">nro_autorizacion</label>
+          </div>
+        </div>
+
+        <div class="input-field col s6 has-error">
+         <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{DatosDosificacion.llave_digital}}">
+           <label for="emails">llave_digital</label>
+         </div>
+       </div>
+     </div>
+
+   </div>
+   <div class="row">                   
+    <div class="col s12 m6 l6 center-align">
+      <a href="/lista_datosdosificacion" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+      <p>
+      </p>
+    </div>
+  </div>
+</div>
+
+</div>
+</form>
+</div>
+</section>
+{% endblock %}
+

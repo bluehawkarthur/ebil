@@ -1,7 +1,5 @@
 from django.db import models
-from django.conf import settings
-
-from django.core.validators import RegexValidator
+from apps.users.models import Personajuridica
 
 # Create your models here.
 class Cliente(models.Model):
@@ -15,12 +13,12 @@ class Cliente(models.Model):
 	contacto = models.CharField(max_length=50)
 	rubro = models.CharField(max_length=50)
 	categoria = models.CharField(max_length=50)
-	ubucaciongeo = models.CharField(max_length=50) 
+	ubucaciongeo = models.CharField(max_length=50)
 	fecha = models.DateField()
 	fecha2 = models.DateField()
 	textos = models.CharField(max_length=50)
 	textos2 = models.CharField(max_length=50)
-	# user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.contacto

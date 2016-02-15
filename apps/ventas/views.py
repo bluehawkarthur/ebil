@@ -15,16 +15,18 @@ from apps.cliente.models import Cliente
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 import datetime
+from .numero_autorizacion import codigoControl
+from apps.config.models import DatosDosificacion
 
 
 def buscarProducto(request):
     idProducto = request.GET['id']
-    descripcion = Item.objects.filter(descripcion__contains=idProducto)
+    descripcion = Item.objects.filter(descripcion__contains=idProducto, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
         'json', descripcion, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
     else:
-        producto = Item.objects.filter(codigo_item__contains=idProducto)
+        producto = Item.objects.filter(codigo_item__contains=idProducto, empresa=request.user.empresa)
         data = serializers.serialize(
             'json', producto, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
     return HttpResponse(data, content_type='application/json')
@@ -32,18 +34,21 @@ def buscarProducto(request):
 
 def buscarCliente(request):
     idCliente = request.GET['id']
-    descripcion = Cliente.objects.filter(razonsocial__contains=idCliente)
+    descripcion = Cliente.objects.filter(razonsocial__contains=idCliente, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
         'json', descripcion, fields=('pk', 'nit', 'razonsocial'))
     else:
-        nit = Cliente.objects.filter(nit__contains=idCliente)
+        nit = Cliente.objects.filter(nit__contains=idCliente, empresa=request.user.empresa)
         data = serializers.serialize(
             'json', nit, fields=('pk', 'nit', 'razonsocial'))
     return HttpResponse(data, content_type='application/json')
 
 
+
+
 def ventaCrear(request):
+
 
     form = None
     if request.method == 'POST':
@@ -60,14 +65,23 @@ def ventaCrear(request):
                 total += decimal.Decimal(k['sdf'])
 
             venta_data = Venta.objects.all().last()
+           
+            dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+            
+            nro_init2 = int(dosificacion.nro_conrelativo)
+            contador = dosificacion.contador
 
-            if venta_data:
+            nro_init = int(dosificacion.nro_conrelativo) - 1
+            if venta_data and (venta_data.nro_factura-contador)==nro_init2:
+                contador = contador + 1
+                dos = DatosDosificacion.objects.filter(id=dosificacion.pk)
+                dos.update(contador=contador)
                 nro = venta_data.nro_factura
                 if nro is None:
-                    nro = 0
+                    nro = nro_init
             else:
-                nro = 0
-
+                nro = nro_init
+            
             if proceso['tipo_compra'] == 'credito':
                 date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
                 end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
@@ -93,6 +107,7 @@ def ventaCrear(request):
                 tipo_descuento=proceso['tipo_descuento'],
                 tipo_recargo=proceso['tipo_recargo'],
                 fecha_vencimiento=end_date,
+                empresa=request.user.empresa,
             )
             print crearVenta
             crearVenta.save()
@@ -129,6 +144,7 @@ def ventaCrear(request):
                     fecha_transaccion=proceso['fecha'],
                     motivo_movimiento='salida',
                     item=Item.objects.get(id=k['pk']),
+                    empresa=request.user.empresa,
                 )
 
                 crearDetalle.save()
@@ -177,7 +193,6 @@ def ventaCrear(request):
 #     return render('ventas/detalle.html', data, context_instance=ctx(request))
 
 def detalleVenta(request, pk):
-    print pk
     venta = Venta.objects.filter(id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
     
@@ -185,14 +200,16 @@ def detalleVenta(request, pk):
     for d in detalle:
         vd.append(d)
 
-    print vd
-
+    dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total)
+    print 'sssssssssssssss',cod_control
     data = {
         'nit': venta[0].nit,
         'nro_factura': venta[0].nro_factura,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
+        'codigo_control': cod_control,
         'total': venta[0].total,
         'detalle': vd
         

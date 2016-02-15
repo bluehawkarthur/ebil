@@ -167,16 +167,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 NORECAPTCHA_SITE_KEY  = '6LfeIg0TAAAAAKNqc6kXnxJoNkmtZByMJC-X2wfV'
 NORECAPTCHA_SECRET_KEY  = '6LfeIg0TAAAAAD1rb1X8vu8BbPJ2DZ4JIJP9tlGF'
 
-# if DEBUG:
+if DEBUG:
 
-#     from fnmatch import fnmatch
-#     class glob_list(list):
-#         def __contains__(self, key):
-#             for elt in self:
-#                 if fnmatch(key, elt): return True
-#             return False
+    from fnmatch import fnmatch
+    class glob_list(list):
+        def __contains__(self, key):
+            for elt in self:
+                if fnmatch(key, elt): return True
+            return False
 
-#     INTERNAL_IPS = glob_list(['127.0.0.1', '192.168.*.*'])
+    INTERNAL_IPS = glob_list(['127.0.0.1', '192.168.*.*'])
 
 # ======= configure for debug toolbar =====
 

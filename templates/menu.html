@@ -74,10 +74,17 @@
                         {% endif %}
                     </li>
                     <li>
+                        {% if facturacion_role.operar %}
                         <a href="/ventas" class="cyan-text">
                             <i class="mdi-action-description"></i>
                             <span>Facturar</span>
                         </a>
+                        {% else %}
+                        <a class="cyan-disable">
+                            <i class="mdi-action-description"></i>
+                            <span>Facturar</span>
+                        </a>
+                        {% endif %}
                     </li>
                     <li>
                         {% if bancarizacion_role.operar %}

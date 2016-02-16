@@ -100,8 +100,10 @@ def register(request):
                 create6 = Rol(user=user, modelos='usuarios', operar=True, crear=True, editar=True, eliminar=True)
                 create7 = Rol(user=user, modelos='bancarizacion', operar=True, crear=True, editar=True, eliminar=True)
                 create8 = Rol(user=user, modelos='configuracion', operar=True, crear=True, editar=True, eliminar=True)
+                create8 = Rol(user=user, modelos='configuracion', operar=True, crear=True, editar=True, eliminar=True)
+                create9 = Rol(user=user, modelos='facturacion', operar=True, crear=True, editar=True, eliminar=True)
 
-                rol_list = [create1, create2, create3, create4, create5, create6, create7, create8]
+                rol_list = [create1, create2, create3, create4, create5, create6, create7, create8, create9]
 
                 for rol in rol_list:
                     rol.save()
@@ -118,8 +120,9 @@ def register(request):
                 create6 = Rol(user=user, modelos='usuarios', operar=False, crear=False, editar=False, eliminar=False)
                 create7 = Rol(user=user, modelos='bancarizacion', operar=False, crear=False, editar=False, eliminar=False)
                 create8 = Rol(user=user, modelos='configuracion', operar=False, crear=False, editar=False, eliminar=False)
+                create9 = Rol(user=user, modelos='facturacion', operar=False, crear=False, editar=False, eliminar=False)
 
-                rol_list = [create1, create2, create3, create4, create5, create6, create7, create8]
+                rol_list = [create1, create2, create3, create4, create5, create6, create7, create8, create9]
 
                 for rol in rol_list:
                     rol.save()

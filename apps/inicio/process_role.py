@@ -13,6 +13,7 @@ def rol(request):
     usuarios = {}
     bancarizacion = {}
     configuracion = {}
+    facturacion = {}
 
     for r in roles:
         if r.modelos == 'almacenes':
@@ -67,6 +68,11 @@ def rol(request):
                 'operar': r.operar
             })
 
+        if r.modelos == 'facturacion':
+            facturacion.update({
+                'operar': r.operar
+            })
+
     return {
         'almacenes_role': item,
         'clientes_role': clientes,
@@ -76,5 +82,6 @@ def rol(request):
         'usuarios_role': usuarios,
         'bancarizacion_role': bancarizacion,
         'configuracion_role': configuracion,
+        'facturacion_role': facturacion,
 
     }

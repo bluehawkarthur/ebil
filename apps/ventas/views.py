@@ -197,11 +197,13 @@ def detalleVenta(request, pk):
     detalle = DetalleVenta.objects.filter(venta=venta)
     
     vd = []
+    scf = 0
     for d in detalle:
+        scf = scf + d.scf
         vd.append(d)
 
     dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
-    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total)
+    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
     print 'sssssssssssssss',cod_control
     data = {
         'nit': venta[0].nit,

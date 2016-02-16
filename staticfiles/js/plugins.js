@@ -284,3 +284,7 @@ function readURL(input) {
     $("#id_imagen").change(function () {
         readURL(this);
     });
+
+    $("#id_avatar").change(function () {
+        readURL(this);
+    });

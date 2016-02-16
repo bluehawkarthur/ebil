@@ -36,7 +36,7 @@
                 {{form.operar}}
                 <label for="id_form-{{ forloop.counter0 }}-operar"></label>
               </td>
-              {% if form.modelos.value != 'reportes' and form.modelos.value != 'compras' %}
+              {% if form.modelos.value != 'reportes' and form.modelos.value != 'compras' and form.modelos.value != 'facturacion' and form.modelos.value != 'configuracion' %}
                 <td>
                   {{form.crear}}
                   <label for="id_form-{{ forloop.counter0 }}-crear"></label>

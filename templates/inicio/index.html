@@ -70,11 +70,19 @@
                                             <div>
                                                 <span class="chart-title white-text"></span>
                                             </div>
+                                            {% if facturacion_role.operar %}
                                             <a href="/ventas" class="linka">
                                                 <div class="trending-line-chart-wrapper">
                                                     <img class=" responsive-img" src="{% static "images/facturar.png"%}">
                                                 </div>
                                             </a>
+                                            {% else %}
+                                            <a  class="linka-disable">
+                                                <div class="trending-line-chart-wrapper">
+                                                    <img class=" responsive-img" src="{% static "images/facturar.png"%}">
+                                                </div>
+                                            </a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                   

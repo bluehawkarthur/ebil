@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^', include('apps.ventas.urls')),
     url(r'^', include('apps.reportes.urls')),
     url(r'^', include('apps.config.urls')),
-    # url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     # url for debug toolbar for local and not produccion
     # url(r'^__debug__/', include(debug_toolbar.urls)),
     # url(r'^', include('apps.almacen.urls')),

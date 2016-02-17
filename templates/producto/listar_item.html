@@ -62,14 +62,27 @@
           </thead>
           <tbody>
             {% for it in item %}
-            <tr>
-              <td>{{ it.codigo_item }}</td>
+            <tr id="{{it.pk}}" data-content="{{it.imagen.url}}">
+              <td>
+              {{ it.codigo_item }}
+
+              {% block js %}
+                  <script>
+                    $("#{{it.pk}}").airview({
+                        url: '', 
+                        width: 250, 
+                        container:'body'
+                    });
+                  </script>
+              {% endblock js %}
+
+              </td>
               <td>{{ it.codigo_fabrica }}</td>
               <td>{{ it.almacen }}</td>
               <td>{{ it.descripcion|truncatechars:25 }}</td>
               <td>
               {% if it.imagen %}
-                <img src="{{it.imagen.url}}" alt="" style="width:70px">
+                <!-- <img src="{{it.imagen.url}}" alt="" style="width:70px"  width="80"> -->
               {% else %}
                 <span>imagen no encontrada</span>
               {% endif %} 

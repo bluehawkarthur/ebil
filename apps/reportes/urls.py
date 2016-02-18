@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^rep_ventas/', RepVentas.as_view(), name='rep_ventas'),
     url(r'^buscar_item/$', 'apps.reportes.views.buscarProducto'),
     url(r'^reporte_venta/', 'apps.reportes.views.Reporteventa', name='reporteventa'),
+    url(r'^reporte_compra/', 'apps.reportes.views.Reportcompra', name='reportecompra'),
     url(r'^rep_ventadet/$', 'apps.reportes.views.ReportVendetalle', name='reporteventadet'),
     url(r'^rep_detalle_venta/(?P<pk>\d+)$', 'apps.reportes.views.detalleVenta', name='repdetalleventa'),
     # url(r'^excel/$',  'apps.reportes.views.excel', name='excel'),

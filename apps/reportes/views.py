@@ -645,3 +645,60 @@ class ReporteCaja(TemplateView):
 		else:
 			ventas = Venta.objects.filter(fecha=hoy)
 			return render(request, 'reportes/ccaja.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})
+
+
+def Reportcompra(request):
+	if request.method == 'POST':
+		date1 = request.POST['date1']
+		date2 = request.POST['date2']
+		tipo = request.POST['tipo_venta']
+		nit = request.POST['nit2']
+		# monto = request.POST['monto2']
+		empresa = request.POST['empresa2']
+
+		if date1 != '' and date2 != '':
+			if tipo == 'todo':
+				if nit != '':
+					ventas1 = Compra.objects.filter(fecha__range=(date1, date2), nit=nit)
+					ventas = DetalleCompra.objects.filter(compra=ventas1)
+				elif empresa != '':
+					ventas1 = Compra.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+					ventas = DetalleCompra.objects.filter(compra=ventas1)
+				# elif monto != '':
+				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+				# 	ventas = DetalleCompra.objects.filter(venta=ventas1)
+				else:
+					ventas1 = Compra.objects.filter(fecha__range=(date1, date2))
+					ventas = DetalleCompra.objects.filter(compra=ventas1)
+
+			else:
+				if nit != '':
+					ventas1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					ventas = DetalleCompra.objects.filter(compra=ventas1)
+				elif empresa != '':
+					ventas1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					ventas = DetalleCompra.objects.filter(compra=ventas1)
+				# elif monto != '':
+				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+				# 	ventas = DetalleCompra.objects.filter(venta=ventas1)
+				else:
+					ventas1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					ventas = DetalleCompra.objects.filter(compra=ventas1)
+			
+			total = 0
+			for venta in ventas1:
+				total += venta.total
+			
+			return render(request, 'reportes/reporte_venta.html', {'ventas': ventas, 'total': total, 'ex':True, 'date1': date1, 'date2': date2})
+		else:
+			return render(request, 'reportes/reporte_venta.html', {'valid': True, 'ex':True, 'date1': date1, 'date2': date2})
+		
+	else:
+		datecompu = date.today()
+		total = 0
+		ventas1 = Compra.objects.filter(fecha=datecompu)
+		ventas = DetalleCompra.objects.filter(compra=ventas1)
+		for venta in ventas:
+			total += venta.cantidad * venta.precio_unitario
+
+		return render(request, 'reportes/reporte_compra.html', {'ventas': ventas, 'total': total, 'ex': True})

@@ -106,6 +106,13 @@
                     <input id="dias" maxlength="10" name="codigo_item" type="text">
                     <label>Dias</label>
                   </div>
+                  <div class="input-field">
+                    <select name="movimiento" id="movimiento">
+                      <option value="venta">Venta</option>
+                      <option value="baja">Baja</option>
+                    </select>
+                    <label>Movimiento</label>
+                  </div>
                   
                 </div>
                 </form>
@@ -544,7 +551,7 @@
 
                         proceso.tipo_descuento = $('input[name="tipo_descuentoc"]:checked').val();
                         proceso.tipo_recargo = $('input[name="tipo_recargoc"]:checked').val();
-
+                        proceso.movimiento = $('#movimiento').val();
 
                         var tipo_c= 'contado';
                         var dias= 0;

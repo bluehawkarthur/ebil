@@ -17,6 +17,7 @@ from apps.ventas.models import Movimiento
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 from datetime import date
+import datetime
 
 
 class Success(TemplateView):
@@ -55,7 +56,13 @@ def compraCrear(request):
             for k in proceso['producto']:
                 total += decimal.Decimal(k['sdf'])
 
-            print total
+            if proceso['tipo_compra'] == 'credito':
+                date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
+                end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
+                today = datetime.date.today()
+            else:
+                end_date = None
+
             crearCompra = Compra(
                 nit=proceso['nit'],
                 razon_social=proceso['razon'],
@@ -72,6 +79,7 @@ def compraCrear(request):
                 excentos=proceso['excentos'],
                 tipo_descuento=proceso['tipo_descuento'],
                 tipo_recargo=proceso['tipo_recargo'],
+                fecha_vencimiento=end_date,
 
             )
             crearCompra.save()

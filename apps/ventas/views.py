@@ -67,72 +67,87 @@ def ventaCrear(request):
                     nro = 0
             else:
                 nro = 0
+            if proceso['movimiento'] == 'venta':
+                if proceso['tipo_compra'] == 'credito':
+                    date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
+                    end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
+                    today = datetime.date.today()
+                    
+                    print 'tiempo de fecha vencimiento'
+                    print (today-datetime.date(2016, 1, 12)).days
+                else:
+                    end_date = None
 
-            if proceso['tipo_compra'] == 'credito':
-                date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
-                end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
-                today = datetime.date.today()
-                
-                print 'tiempo de fecha vencimiento'
-                print (today-datetime.date(2016, 1, 12)).days
+                crearVenta = Venta(
+                    nit=proceso['nit'],
+                    nro_factura=nro + 1,
+                    razon_social=proceso['razon'],
+                    fecha=proceso['fecha'],
+                    tipo_compra=proceso['tipo_compra'],
+                    cantidad_dias=proceso['dias'],
+                    total=total,
+                    descuento=proceso['descuento'],
+                    recargo=proceso['recargo'],
+                    ice=proceso['ice'],
+                    excentos=proceso['excentos'],
+                    tipo_descuento=proceso['tipo_descuento'],
+                    tipo_recargo=proceso['tipo_recargo'],
+                    fecha_vencimiento=end_date,
+                )
+
+                crearVenta.save()
+
+                for k in proceso['producto']:
+                    item = Item.objects.filter(id=k['pk'])
+                    cantidad_total = item[0].cantidad - int(k['cantidad'])
+                    print cantidad_total
+                    item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
+
+                    crearDetalle = DetalleVenta(
+                        venta=crearVenta,
+                        item=Item.objects.get(id=k['pk']),
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        subtotal=decimal.Decimal(k['subtotal']),
+                        descuento=decimal.Decimal(k['descuentos']),
+                        recargo=decimal.Decimal(k['recargos']),
+                        ice=decimal.Decimal(k['ice']),
+                        excentos=decimal.Decimal(k['excentos']),
+                        scf=decimal.Decimal(k['sdf']),
+                        tipo_descuento=k['tipo_descuento'],
+                        tipo_recargo=k['tipo_recargo'],
+
+                    )
+
+                    detalle = '%s a %s' % ('Venta', proceso['razon'])
+
+                    crearMovimiento = Movimiento(
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        detalle=detalle,
+                        fecha_transaccion=proceso['fecha'],
+                        motivo_movimiento='salida',
+                        item=Item.objects.get(id=k['pk']),
+                    )
+
+                    crearDetalle.save()
+                    crearMovimiento.save()
             else:
-                end_date = None
-
-            crearVenta = Venta(
-                nit=proceso['nit'],
-                nro_factura=nro + 1,
-                razon_social=proceso['razon'],
-                fecha=proceso['fecha'],
-                tipo_compra=proceso['tipo_compra'],
-                cantidad_dias=proceso['dias'],
-                total=total,
-                descuento=proceso['descuento'],
-                recargo=proceso['recargo'],
-                ice=proceso['ice'],
-                excentos=proceso['excentos'],
-                tipo_descuento=proceso['tipo_descuento'],
-                tipo_recargo=proceso['tipo_recargo'],
-                fecha_vencimiento=end_date,
-            )
-            print crearVenta
-            crearVenta.save()
-
-            for k in proceso['producto']:
-             
-                item = Item.objects.filter(id=k['pk'])
-                cantidad_total = item[0].cantidad - int(k['cantidad'])
-                print cantidad_total
-                item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
-
-                crearDetalle = DetalleVenta(
-                    venta=crearVenta,
-                    item=Item.objects.get(id=k['pk']),
-                    cantidad=int(k['cantidad']),
-                    precio_unitario=item[0].precio_unitario,
-                    subtotal=decimal.Decimal(k['subtotal']),
-                    descuento=decimal.Decimal(k['descuentos']),
-                    recargo=decimal.Decimal(k['recargos']),
-                    ice=decimal.Decimal(k['ice']),
-                    excentos=decimal.Decimal(k['excentos']),
-                    scf=decimal.Decimal(k['sdf']),
-                    tipo_descuento=k['tipo_descuento'],
-                    tipo_recargo=k['tipo_recargo'],
-
-                )
-
-                detalle = '%s a %s' % ('Venta', proceso['razon'])
-
-                crearMovimiento = Movimiento(
-                    cantidad=int(k['cantidad']),
-                    precio_unitario=item[0].precio_unitario,
-                    detalle=detalle,
-                    fecha_transaccion=proceso['fecha'],
-                    motivo_movimiento='salida',
-                    item=Item.objects.get(id=k['pk']),
-                )
-
-                crearDetalle.save()
-                crearMovimiento.save()
+                for k in proceso['producto']:
+                    item = Item.objects.filter(id=k['pk'])
+                    cantidad_total = item[0].cantidad - int(k['cantidad'])
+                    print cantidad_total
+                    item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
+                    crearMovimiento = Movimiento(
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        detalle='Baja',
+                        fecha_transaccion=proceso['fecha'],
+                        motivo_movimiento='salida',
+                        item=Item.objects.get(id=k['pk']),
+                    )
+                    crearMovimiento.save()
+                return HttpResponseRedirect(reverse('registrarventas'))
 
             if 'rollo' in request.POST:
                 return HttpResponseRedirect(reverse('detalleventarollo', args=(crearVenta.pk,)))

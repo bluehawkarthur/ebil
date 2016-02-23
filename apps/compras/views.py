@@ -14,6 +14,7 @@ from django.db import transaction
 from django.contrib import messages
 from apps.producto.models import Item
 from apps.ventas.models import Movimiento
+from apps.proveedores.models import Proveedor
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 from datetime import date
@@ -33,6 +34,19 @@ def buscarProducto(request):
         producto = Item.objects.filter(codigo_item__contains=idProducto, empresa=request.user.empresa)
         data = serializers.serialize(
             'json', producto, fields=('pk','codigo_item','codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
+    return HttpResponse(data, content_type='application/json')
+
+
+def buscarProveedor(request):
+    idProveedor = request.GET['id']
+    descripcion = Proveedor.objects.filter(razon_social__contains=idProveedor, empresa=request.user.empresa)
+    if descripcion:
+        data = serializers.serialize(
+        'json', descripcion, fields=('pk', 'nit', 'razon_social'))
+    else:
+        nit = Proveedor.objects.filter(nit__contains=idProveedor, empresa=request.user.empresa)
+        data = serializers.serialize(
+            'json', nit, fields=('pk', 'nit', 'razon_social'))
     return HttpResponse(data, content_type='application/json')
 
 

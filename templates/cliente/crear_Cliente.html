@@ -87,26 +87,28 @@
                 {{ form.ubucaciongeo|add_error_class:"invalid" }}
                 <label for="emails">{{ form.ubucaciongeo.label }}</label>
               </div>
+              
+            </div>         
+            <div class="row">
               <div class="input-field col s6 has-error">
                   <span class="help-block">{{ form.errors.fecha|removetags:'ul li' }}</span>
                   {{ form.fecha|add_class:"datepicker"|add_error_class:"invalid"}}
                   <label for="">{{ form.fecha.label }}</label>
               </div>
-            </div>         
-            <div class="row">
               <div class="input-field col s6 has-error">
                   <span class="help-block">{{ form.errors.fecha2|removetags:'ul li' }}</span>
                   {{ form.fecha2|add_class:"datepicker"|add_error_class:"invalid"}}
                   <label for="">{{ form.fecha2.label }}</label>
               </div>
+              
+              
+            </div>  
+            <div class="row">
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.textos|removetags:'ul li' }}</span>
                 {{ form.textos|add_error_class:"invalid" }}
                 <label for="emails">{{ form.textos.label }}</label>
               </div>
-              
-            </div>  
-            <div class="row">
         
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.textos2|removetags:'ul li' }}</span>

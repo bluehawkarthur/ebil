@@ -130,14 +130,17 @@ def import_data(request):
         def choice_func(row):
             row.append(request.user.empresa)
             return row
-            
+
         if form.is_valid():
-            request.FILES['file'].save_book_to_database(
-                models=[Cliente],
-                initializers=[choice_func],
-                mapdicts=[['codigo', 'razonsocial', 'nit', 'direccion', 'telefonos1', 'telefonos2', 'telefonos3', 'contacto', 'rubro', 'categoria', 'ubucaciongeo', 'fecha', 'fecha2', 'textos', 'textos2','empresa']]
-            )
-            return HttpResponseRedirect(reverse_lazy('lista'))
+        	try:
+	            request.FILES['file'].save_book_to_database(
+	                models=[Cliente],
+	                initializers=[choice_func],
+	                mapdicts=[['codigo', 'razonsocial', 'nit', 'direccion', 'telefonos1', 'telefonos2', 'telefonos3', 'contacto', 'rubro', 'categoria', 'ubucaciongeo', 'fecha', 'fecha2', 'textos', 'textos2','empresa']]
+	            )
+	            return HttpResponseRedirect(reverse_lazy('lista'))
+	        except Exception, e:
+	        	messages.error(request, "error en el archivo por favor verifique q los datos sean correctos")
     else:
         form = UploadFileForm()
     return render_to_response(

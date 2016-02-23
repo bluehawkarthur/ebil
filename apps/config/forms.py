@@ -30,6 +30,6 @@ class EmpresaFormedit(forms.ModelForm):
 
 class DatosDosificacionForm(forms.Form):
     nro_conrelativo = forms.IntegerField()
-    fecha = forms.DateField()
+    fecha = forms.DateField(label="Fecha limite de emision")
     nro_autorizacion = forms.IntegerField()
     llave_digital = forms.CharField()

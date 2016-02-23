@@ -48,6 +48,7 @@ def Empresa(request):
             # user.empresa = form.cleaned_data['empresa']
             user.save()
             messages.success(request, "Los datos se guardaron correctamente")
+            return HttpResponseRedirect(reverse_lazy('index'))
 
     return render(request, 'config/empresa.html', {'form': form, 'empresa': empresa})
 

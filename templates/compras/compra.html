@@ -750,6 +750,105 @@
                       }
                       });
 
+
+                      $( "#add_nit" ).autocomplete({
+                      source: function( request, response ) {
+                        console.log(request);
+                        $.ajax({
+                          url: "/buscar_proveedor/",
+                          dataType: "json",
+                          data: {'id':request.term},
+                          success: function( data ) {
+                           console.log(data);
+                           response($.map(data, function (pn) {
+                            console.log('estoo es stockkkkkkkkkk')
+                            console.log(pn);
+                            console.log('uuuuuuuuuuuuuuuuuuuuu')
+                            return {
+                              pk: pn.pk,
+                              nit: pn.fields.nit,
+                              razon_social: pn.fields.razon_social,
+                              label: pn.fields.nit+"-"+pn.fields.razon_social
+                            };
+                          }));
+
+                         }
+                       });
+                      }, 
+
+                      focus: function(event, ui) {
+                        event.preventDefault();
+                        $(this).val(ui.item.nit);
+                      },
+
+                      minLength: 2,       
+                      select: function( event, ui ) {
+                        var fila = new Object();
+                        fila.pk = ui.item.pk_id_item;
+                        fila.nit = ui.item.nit;
+                        fila.razon_social = ui.item.razon_social;
+
+                        $( "#add_razon" ).focus().val( ui.item.razon_social );
+
+                        return false;
+                      },      
+                      open: function() {
+                        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+                      },
+                      close: function() {
+                        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                      }
+                      });
+
+                      $( "#add_razon" ).autocomplete({
+                      source: function( request, response ) {
+                        console.log(request);
+                        $.ajax({
+                          url: "/buscar_proveedor/",
+                          dataType: "json",
+                          data: {'id':request.term},
+                          success: function( data ) {
+                           console.log(data);
+                           response($.map(data, function (pn) {
+                            console.log('estoo es stockkkkkkkkkk')
+                            console.log(pn);
+                            console.log('uuuuuuuuuuuuuuuuuuuuu')
+                            return {
+                              pk: pn.pk,
+                              nit: pn.fields.nit,
+                              razon_social: pn.fields.razon_social,
+                              label: pn.fields.razon_social+"-"+pn.fields.nit
+                            };
+                          }));
+
+                         }
+                       });
+                      }, 
+
+                      focus: function(event, ui) {
+                        event.preventDefault();
+                        $(this).val(ui.item.razon_social);
+                      },
+
+                      minLength: 2,       
+                      select: function( event, ui ) {
+                        var fila = new Object();
+                        fila.pk = ui.item.pk_id_item;
+                        fila.nit = ui.item.nit;
+                        fila.razon_social = ui.item.razon_social;
+                        
+                        $( "#add_nit" ).focus().val( ui.item.nit );
+
+                        return false;
+                      },      
+                      open: function() {
+                        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+                      },
+                      close: function() {
+                        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                      }
+                      });
+
   });
 
   </script>

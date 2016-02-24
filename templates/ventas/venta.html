@@ -323,6 +323,23 @@
                 }
             });
 
+            //============= corregir sta con errores de cantidad ==========================
+            //=============================================================================
+            // $("#add_cantidad").keyup(function(){
+            //       if ( $( "#add_cantidad" ).val()<= $( "#stock_add").val()){
+
+            //       }else{
+            //         $( "#add_cantidad" ).val('');
+            //         $.bootstrapGrowl("No existe la cantidad de items disponibles que coloco", {
+            //             type: 'danger',
+            //             offset: {from: 'top', amount: 150},
+            //             align: 'center',
+            //             width: 350,
+            //             allow_dismiss: false
+            //         });
+            //       };
+            // }); 
+            // ==================== hasta aqui =========================================
 
             //====== codigo para desabilitar inputs de almacen =========
             // code for disable input is codigo item)===========
@@ -770,11 +787,11 @@
 
                         $('#add_fk_id_formato_dato_recargo option:selected').removeAttr("selected");
                         $('#add_fk_id_formato_dato_recargo option[value="'+dato_recarg+'"]').attr('selected', 'selected');
+                        
 
                         $('#add_fk_id_formato_dato_recargo').material_select();
                         $('#add_fk_id_formato_dato_descuento').material_select();
-
-
+                        add_calculo_totales();
                         // $( "#add_descuento" ).val();
                         $( "#add_fk_id_formato_dato_descuento" ).val( $( "#fk_id_formato_dato_descuento" ).val());
 
@@ -786,7 +803,7 @@
 
                         $( "#add_excentos" ).val( $( "#excentos" ).val());
                         $( "#add_fk_id_formato_dato_excentos" ).val( $( "#fk_id_formato_dato_excentos" ).val());
-                        add_calculo_totales();
+                       
                         return false;
                       },      
                       open: function() {

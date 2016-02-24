@@ -728,7 +728,7 @@
 
                         $('#add_fk_id_formato_dato_recargo').material_select();
                         $('#add_fk_id_formato_dato_descuento').material_select();
-
+                        add_calculo_totales();
                         $( "#add_fk_id_formato_dato_descuento" ).val( $( "#fk_id_formato_dato_descuento" ).val());
 
                         // $( "#add_recargo" ).val( $( "#recargo" ).val());
@@ -739,7 +739,7 @@
 
                         $( "#add_excentos" ).val( $( "#excentos" ).val());
                         $( "#add_fk_id_formato_dato_excentos" ).val( $( "#fk_id_formato_dato_excentos" ).val());
-                        add_calculo_totales();
+                        
                         return false;
                       },      
                       open: function() {

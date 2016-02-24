@@ -74,9 +74,9 @@ class ListarCliente(PaginationMixin, ListView):
 		razon_social = self.request.GET.get('q', None)
 		    
 		if (razon_social):
-		    object_list = self.model.objects.filter(razonsocial__icontains=razon_social, empresa=self.request.user.empresa).order_by('pk')
+		    object_list = self.model.objects.filter(razonsocial__icontains=razon_social, empresa=self.request.user.empresa).order_by('razonsocial')
 		else:
-		    object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('pk')
+		    object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('razonsocial')
 		return object_list
 
 

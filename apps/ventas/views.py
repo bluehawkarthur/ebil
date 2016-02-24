@@ -21,7 +21,7 @@ from apps.config.models import DatosDosificacion
 
 def buscarProducto(request):
     idProducto = request.GET['id']
-    descripcion = Item.objects.filter(descripcion__contains=idProducto, empresa=request.user.empresa)
+    descripcion = Item.objects.filter(descripcion__icontains=idProducto, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
         'json', descripcion, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
@@ -34,14 +34,15 @@ def buscarProducto(request):
 
 def buscarCliente(request):
     idCliente = request.GET['id']
-    descripcion = Cliente.objects.filter(razonsocial__contains=idCliente, empresa=request.user.empresa)
+
+    descripcion = Cliente.objects.filter(razonsocial__icontains=idCliente, empresa=request.user.empresa)
+    
+
     if descripcion:
-        data = serializers.serialize(
-        'json', descripcion, fields=('pk', 'nit', 'razonsocial'))
+        data = serializers.serialize('json', descripcion, fields=('pk', 'nit', 'razonsocial'))
     else:
         nit = Cliente.objects.filter(nit__contains=idCliente, empresa=request.user.empresa)
-        data = serializers.serialize(
-            'json', nit, fields=('pk', 'nit', 'razonsocial'))
+        data = serializers.serialize('json', nit, fields=('pk', 'nit', 'razonsocial'))
     return HttpResponse(data, content_type='application/json')
 
 

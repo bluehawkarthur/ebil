@@ -33,7 +33,8 @@ import decimal
 from .htmltopdf import render_to_pdf
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models import Q
-
+from apps.config.models import DatosDosificacion
+from apps.ventas.numero_autorizacion import codigoControl
 
 
 class RepCompras(TemplateView):
@@ -214,22 +215,28 @@ def detalleVenta(request, pk):
     venta = Venta.objects.filter(id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
     
+    
     vd = []
+    scf = 0
     for d in detalle:
+        scf = scf + d.scf
         vd.append(d)
 
-    print vd
-
+    dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+    print 'sssssssssssssss',cod_control
     data = {
         'nit': venta[0].nit,
         'nro_factura': venta[0].nro_factura,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
+        'codigo_control': cod_control,
         'total': venta[0].total,
         'detalle': vd
         
     }
+
 
     return render_to_pdf('reportes/rep_detalleventa.html', data)
 

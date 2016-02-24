@@ -26,7 +26,7 @@ class Success(TemplateView):
 
 def buscarProducto(request):
     idProducto = request.GET['id']
-    descripcion = Item.objects.filter(descripcion__contains=idProducto, empresa=request.user.empresa)
+    descripcion = Item.objects.filter(descripcion__icontains=idProducto, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
         'json', descripcion, fields=('pk','codigo_item','codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
@@ -39,7 +39,7 @@ def buscarProducto(request):
 
 def buscarProveedor(request):
     idProveedor = request.GET['id']
-    descripcion = Proveedor.objects.filter(razon_social__contains=idProveedor, empresa=request.user.empresa)
+    descripcion = Proveedor.objects.filter(razon_social__icontains=idProveedor, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
         'json', descripcion, fields=('pk', 'nit', 'razon_social'))

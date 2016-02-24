@@ -43,7 +43,6 @@ class CrearProveedor(SuccessMessageMixin, FormView):
 		registrar.fecha2 = form.cleaned_data['fecha2']
 		registrar.texto1 = form.cleaned_data['texto1']
 		registrar.fecha2 = form.cleaned_data['fecha2']
-		registrar.user= self.request.user
 		registrar.save()
 		return super(CrearProveedor, self).form_valid(form)
 	
@@ -103,7 +102,7 @@ def import_data(request):
             
             print 'muestra qqqqq'
    
-            row.append(request.user)
+            
 
             print row
             return row
@@ -111,7 +110,7 @@ def import_data(request):
             request.FILES['file'].save_book_to_database(
                 models=[Proveedor],
                 initializers=[choice_func],
-                mapdicts=[['codigo', 'razon_social', 'nit','direccion', 'telefono1', 'contactos', 'rubro', 'ubicacion_geo', 'fecha1', 'fecha2', 'texto1', 'texto2', 'user']]
+                mapdicts=[['codigo', 'razon_social', 'nit','direccion', 'telefono1', 'contactos', 'rubro', 'ubicacion_geo', 'fecha1', 'fecha2', 'texto1', 'texto2']]
             )
             return HttpResponseRedirect(reverse_lazy('lista'))
         

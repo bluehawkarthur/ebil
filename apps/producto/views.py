@@ -63,7 +63,6 @@ class CrearItem(FormView):
 			item.unidad_medida = form.cleaned_data['unidad_medida']
 			item.costo_unitario = form.cleaned_data['costo_unitario']
 			item.precio_unitario = form.cleaned_data['precio_unitario']
-			item.user = self.request.user
 			item.save()
 			today = date.today()
 			movimiento = Movimiento()
@@ -232,7 +231,6 @@ def import_data(request):
                     unidad_medida=sheet.cell(r, 12).value,
                     costo_unitario=decimal.Decimal(sheet.cell(r, 13).value),
                     precio_unitario=decimal.Decimal(sheet.cell(r, 14).value),
-                    user=request.user,
                 )
                 crearItem.save()
 

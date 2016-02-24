@@ -16,7 +16,6 @@ class Proveedor(models.Model):
 	fecha2 = models.DateField()
 	texto1 = models.CharField(max_length=50, null=True)
 	texto2 = models.CharField(max_length=50, null=True)
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
 	def __unicode__(self):
 		return self.razon_social

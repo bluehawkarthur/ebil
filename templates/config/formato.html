@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+<section id="content">
+  <div class="row">
+    <div class="col s12 m12 l8 offset-l2">
+      
+      <div class="card-panel">
+        <h4 class="header2">Formato Factura</h4>
+        <div class="row">
+          <form class="col s12" method="post">
+            {% csrf_token %}
+            {% block js %}
+            
+                <script>
+                
+                $("input[name='formato'][value='{{formato.formato}}']").attr('checked', 'checked');
+                $("input[name='tamanio'][value='{{formato.tamanio}}']").attr('checked', 'checked');
+                
+              $('#impresion> option[value="{{formato.impresion}}"]').attr('selected', 'selected'); 
+              $('#frases_titulo> option[value="{{formato.frases_titulo}}"]').attr('selected', 'selected'); 
+              $('#frases_subtitulo> option[value="{{formato.frases_subtitulo}}"]').attr('selected', 'selected'); 
+              $('#frases_pie> option[value="{{formato.frases_pie}}"]').attr('selected', 'selected'); 
+              $('#facturacion> option[value="{{formato.facturacion}}"]').attr('selected', 'selected'); 
+   
+              
+                </script>
+              {% endblock js %}
+            
+           
+
+             <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.formato|removetags:'ul li' }}</span>
+                  <p>
+                  <input class="with-gap" name="formato" value="general" type="radio" id="fdfd"  />
+                  <label for="fdfd">General</label>
+
+                  <input class="with-gap" name="formato" value="cada_una" type="radio" id="ww">
+                  <label for="ww">Cada una</label>
+                </p>
+                <label for="emails">{{ form.formato.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.impresion|removetags:'ul li' }}</span>
+                  <select name="impresion" id="impresion" class="validate">
+                    <option value="Vacia">Vacia</option>
+                    <option value="Completa">Completa</option>
+                    <option value="Semi-completa">Semi-completa</option>
+                  </select>
+                  <label for="emails">{{ form.impresion.label }}</label>
+              </div>
+
+             <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.facturacion|removetags:'ul li' }}</span>
+                  <select name="facturacion" id="facturacion" class="validate">
+                    <option value="Normal">Normal</option>
+                    <option value="Facturación por terceros">Facturación por terceros</option>
+                    <option value="Conjunta">Conjunta</option>
+                  </select>
+                  <label for="emails">{{ form.facturacion.label }}</label>
+              </div>
+            </div>
+
+              <div class="row">
+                <div class="input-field col s6 has-error">
+                  <span class="help-block">{{ form.errors.tamanio|removetags:'ul li' }}</span>
+                   <p>
+                    <input class="with-gap" name="tamanio" value="oficio" type="radio" id="tertt" />
+                    <label for="tertt">oficio</label>
+                    <input class="with-gap" name="tamanio"  value="carta" type="radio" id="tryyy">
+                    <label for="tryyy">Carta</label>
+                    <input class="with-gap" name="tamanio" value="1/2oficio" type="radio" id="teww">
+                    <label for="teww">1/2 oficio</label>
+                    <input class="with-gap" name="tamanio" value="rollo" type="radio" id="terr">
+                    <label for="terr">rollo</label>
+                  </p>
+                  <label for="emails">{{ form.tamanio.label }}</label>
+                </div>
+              </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.frases_titulo|removetags:'ul li' }}</span>
+                <select name="frases_titulo" id="frases_titulo" class="validate">
+                  <option value="Factura">Factura</option>
+                  <option value="Factura por compras">Factura por compras</option>
+                  <option value="Factura Conjunta">Factura Conjunta</option>
+                  <option value="Factura de Alquiler">Factura de Alquiler</option>
+                  <option value="Comercial de Expotacion">Comercial de Expotacion</option>
+                  <option value="En Libre Consignacion">En Libre Consignacion</option>
+                  <option value="Factura Turistica">Factura Turistica</option>
+                  <option value="Factura Artistas Nacionales">Factura Artistas Nacionales</option>
+                </select>
+                  <label for="icon_email">Fraces_titulo</label>
+              </div>
+              <div class="input-field col s6 has-error">
+              <span class="help-block">{{ form.errors.frases_subtitulo|removetags:'ul li' }}</span>
+                <select name="frases_subtitulo" id="frases_subtitulo" class="validate">
+                    
+                    <option value="Derecho a Credito Fiscal">Derecho a Credito Fiscal</option>
+                    <option value="A Credito Fiscal">A Credito Fiscal</option>
+                    <option value="Fiscal Ley Nro 366 del Libro Y la Factura">Fiscal Ley Nro 366 del Libro Y la Factura</option>
+                    <option value="A Credito Fiscal-Venta Moneda Extranjera">A Credito Fiscal-Venta Moneda Extranjera</option>
+                    <option value="Franca sin Derecho A Credito Fiscal">Franca sin Derecho A Credito Fiscal</option>
+                    <option value="Espectaculo Publico Eventual">Espectaculo Publico Eventual</option>
+                  </select>
+                  <label for="icon_email">Frases_subtitulo</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+              <span class="help-block">{{ form.errors.frases_pie|removetags:'ul li' }}</span>
+                <select name="frases_pie" id="frases_pie" class="validate">
+                  <option value="Ley N° 453: La entidad financiera debe informar por escrito los motivos por los cuales se denegó un crédito">Ley N° 453: La entidad financiera debe informar por escrito los motivos por los cuales se denegó un crédito.</option>
+                  <option value="Ley N° 453: Los medios de comunicación deben difundir mensajes o programas de educación de consumo responsable y sustentable.">Ley N° 453: Los medios de comunicación deben difundir mensajes o programas de educación de consumo responsable y sustentable.</option>
+                  <option value="Ley N° 453: Los medios de comunicación deben promover el respeto de los derechos de los usuarios y consumidores.">Ley N° 453: Los medios de comunicación deben promover el respeto de los derechos de los usuarios y consumidores.</option>
+                  <option value="Ley N° 453: Las publicaciones, mensajes e imágenes no deben promover la sumisión o explotación de las mujeres.">Ley N° 453: Las publicaciones, mensajes e imágenes no deben promover la sumisión o explotación de las mujeres.</option>
+                  <option value="Ley N° 453: Las publicaciones, mensajes e imágenes no deben deshonrar y atentar contra la dignidad e imagen de la mujer.">Ley N° 453: Las publicaciones, mensajes e imágenes no deben deshonrar y atentar contra la dignidad e imagen de la mujer.</option>
+                  <option value="Ley N° 453: Los medios de comunicación deben evitar contenidos inapropiados que vulneren la protección de niñas, niños y adolescentes">Ley N° 453: Los medios de comunicación deben evitar contenidos inapropiados que vulneren la protección de niñas, niños y adolescentes</option>
+                </select>
+                <label for="icon_email">Frases_pie</label>
+              </div>
+            </div>
+          </div> <!-- row  -->
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+                    <i class="mdi-content-send right"></i>
+                  </button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+
+</section>
+
+{% endblock %}
+
+
+ 

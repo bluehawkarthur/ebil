@@ -3,8 +3,8 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
-from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm
-from .models import DatosDosificacion
+from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm
+from .models import DatosDosificacion, Formatofactura
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
 from django.contrib import messages
@@ -28,6 +28,17 @@ def Createpersojuridica(request):
                 departamento=form.cleaned_data['departamento'],
                 municipios=form.cleaned_data['municipios'])
             personajurid.save()
+            formatofact = Formatofactura(
+                formato='general',
+                impresion='vacia',
+                facturacion='normal',
+                tamanio='oficio',
+                frases_titulo='Factura',
+                frases_subtitulo='',
+                frases_pie='',
+                Personajuridica=personajurid
+            )
+            formatofact.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
             # render_to_response('config/createpersojuridica.html')
     else:
@@ -51,6 +62,24 @@ def Empresa(request):
             return HttpResponseRedirect(reverse_lazy('index'))
 
     return render(request, 'config/empresa.html', {'form': form, 'empresa': empresa})
+
+
+def Formatfactura(request):
+    formato = get_object_or_404(Formatofactura, empresa=request.user.empresa.pk)
+
+    form = FormatofacturaForm()
+
+    if request.method == "POST":
+
+        form = FormatofacturaForm(request.POST, instance=formato)
+        if form.is_valid():
+            user = form.save(commit=False)
+            # user.empresa = form.cleaned_data['empresa']
+            user.save()
+            messages.success(request, "Los datos se guardaron correctamente")
+            return HttpResponseRedirect(reverse_lazy('index'))
+
+    return render(request, 'config/formato.html', {'form': form, 'formato': formato})
 
 
 class ListarPersonajuridica(PaginationMixin, ListView):
@@ -146,3 +175,24 @@ def DeleteDatosDosificacion(request, datosdosificacion):
     e.delete()
     print e
     return HttpResponseRedirect(reverse_lazy('lista_datosdosificacion'))
+
+
+def CrearFormatofactura(request):
+    if request.method == 'POST':
+        form = FormatofacturaForm(request.POST)
+        if form.is_valid():
+            formatofactura = Formatofactura(
+                formato=form.cleaned_data['formato'],
+                impresion=form.cleaned_data['impresion'],
+                facturacion=form.cleaned_data['facturacion'],
+                tamanio=form.cleaned_data['tamanio'],
+                frases_titulo=form.cleaned_data['frases_titulo'],
+                frases_subtitulo=form.cleaned_data['frases_subtitulo'],
+                frases_pie=form.cleaned_data['frases_pie'])
+            formatofactura.save()
+            return HttpResponseRedirect(reverse_lazy('crearfacturaCampos'))
+            # return render_to_response('config/crearFormatofactura.html')
+    else:
+        form = FormatofacturaForm()
+    variables = RequestContext(request, {'form': form})
+    return render_to_response('config/crearFormatofactura.html', variables)

@@ -5,6 +5,7 @@ from .views import ListarPersonajuridica, EditPersonajuridica, DetallePersonajur
 urlpatterns = [
     url(r'^createpersojuridica/$', 'apps.config.views.Createpersojuridica', name='createpersojuridica'),
     url(r'^empresa/$', 'apps.config.views.Empresa', name='empresa'),
+    url(r'^formato_factura/$', 'apps.config.views.Formatfactura', name='formato_factura'),
     url(r'^editpersonajurid/(?P<pk>\d+)$', 'apps.config.views.EditPersonajuridica', name='editpersonajurid'),
     url(r'^listarPersonajuridica/', ListarPersonajuridica.as_view(), name='listarPersonajuridica'),
     url(r'^edit_Personajuridica/(?P<pk>\d+)$', EditPersonajuridica.as_view(), name='edit_Personajuridica'),
@@ -16,6 +17,6 @@ urlpatterns = [
     url(r'^detalle_datosdosificacion/(?P<pk>\d+)$', DetalleDatosDosificacion.as_view(), name='detalle_datosdosificacion'),
     url(r'^edit_datosdosificacion/(?P<pk>\d+)$', EditDatosDosificacion.as_view(), name='edit_datosdosificacion'),
     url(r'^delete_datosdosificacion/(?P<datosdosificacion>\d+)$', 'apps.config.views.DeleteDatosDosificacion', name='datosdosificacion_delete'),
-
+    url(r'^crearFormatofactura/$', 'apps.config.views.CrearFormatofactura', name='crearFormatofactura'),
 
 ]

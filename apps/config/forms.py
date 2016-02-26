@@ -1,5 +1,6 @@
 from django import forms
 from apps.users.models import Personajuridica
+from .models import Formatofactura
 
 
 class PersonajuridicaForm(forms.Form):
@@ -33,3 +34,17 @@ class DatosDosificacionForm(forms.Form):
     fecha = forms.DateField(label="Fecha limite de emision")
     nro_autorizacion = forms.IntegerField()
     llave_digital = forms.CharField()
+
+
+class FormatofacturaForm(forms.ModelForm):
+    formato = forms.CharField(max_length=100)
+    impresion = forms.CharField(max_length=100)
+    facturacion = forms.CharField(max_length=100)
+    tamanio = forms.CharField(max_length=100)
+    frases_titulo = forms.CharField(max_length=100)
+    frases_subtitulo = forms.CharField(max_length=100)
+    frases_pie = forms.CharField(max_length=2100)
+
+    class Meta:
+        model = Formatofactura
+        fields = ('formato', 'impresion', 'facturacion', 'tamanio', 'frases_titulo', 'frases_subtitulo', 'frases_pie')

@@ -259,11 +259,7 @@
                           <i class="mdi-content-save right"></i>
                           </button>
                         </div>
-                        <div class="col s12 m6 l6">
-                         <button class="btn cyan waves-effect waves-light right"  name="rollo">Guardar rollo
-                          <i class="mdi-content-save right"></i>
-                          </button>
-                          </div>
+                        
                         </div>
 
                     </form>
@@ -325,20 +321,20 @@
 
             //============= corregir sta con errores de cantidad ==========================
             //=============================================================================
-            // $("#add_cantidad").keyup(function(){
-            //       if ( $( "#add_cantidad" ).val()<= $( "#stock_add").val()){
+            $("#add_cantidad").keyup(function(){
+                  if ( $( "#add_cantidad" ).val()<= parseInt($( "#stock_add").val())){
 
-            //       }else{
-            //         $( "#add_cantidad" ).val('');
-            //         $.bootstrapGrowl("No existe la cantidad de items disponibles que coloco", {
-            //             type: 'danger',
-            //             offset: {from: 'top', amount: 150},
-            //             align: 'center',
-            //             width: 350,
-            //             allow_dismiss: false
-            //         });
-            //       };
-            // }); 
+                  }else{
+                    $( "#add_cantidad" ).val('');
+                    $.bootstrapGrowl("No existe la cantidad de items disponibles que coloco", {
+                        type: 'danger',
+                        offset: {from: 'top', amount: 150},
+                        align: 'center',
+                        width: 350,
+                        allow_dismiss: false
+                    });
+                  };
+            }); 
             // ==================== hasta aqui =========================================
 
             //====== codigo para desabilitar inputs de almacen =========

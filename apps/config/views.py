@@ -15,7 +15,6 @@ from datetime import date
 from ebil.settings import MEDIA_ROOT
 from django import forms
 import os
-import sys
 IMPORT_FILE_TYPES = ['.json',]
 
 
@@ -256,18 +255,18 @@ def import_base(request):
         if form.is_valid():
 
             datos = request.FILES['file']
+
             filename = datos._name
             fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
             print fd
 
             for chunk in datos.chunks():
                 fd.write(chunk)
-         
             fd.close()
 
-            # rute = '%s/%s' % (MEDIA_ROOT, datos)
-            call_command('loaddata', fd.name, traceback=True)
-            # os.unlink(rute)
+            rute = '%s/%s' % (MEDIA_ROOT, datos)
+            call_command('loaddata', rute)
+            os.unlink(rute)
             return HttpResponseRedirect(reverse_lazy('listar_item'))
 
     else:

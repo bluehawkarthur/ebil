@@ -44,7 +44,7 @@ def Createpersojuridica(request):
                 frases_titulo='Factura',
                 frases_subtitulo='',
                 frases_pie='',
-                Personajuridica=personajurid
+                empresa=personajurid
             )
             formatofact.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))

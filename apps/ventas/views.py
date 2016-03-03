@@ -238,6 +238,8 @@ def detalleVenta(request, pk):
     }
 
     formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    print 'el formato'
+    print formato
 
     if formato.impresion == 'Vacia':
         if formato.tamanio == 'rollo':

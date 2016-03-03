@@ -256,7 +256,7 @@ def import_base(request):
         if form.is_valid():
 
             datos = request.FILES['file']
-            content = sys.stdin.read()
+            content = sys.stdin.read(datos)
             filename = datos._name
             fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
             print fd

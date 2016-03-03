@@ -15,6 +15,7 @@ from datetime import date
 from ebil.settings import MEDIA_ROOT
 from django import forms
 import os
+import sys
 IMPORT_FILE_TYPES = ['.json',]
 
 
@@ -255,13 +256,14 @@ def import_base(request):
         if form.is_valid():
 
             datos = request.FILES['file']
-
+            content = sys.stdin.read()
             filename = datos._name
             fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
             print fd
 
-            for chunk in datos.chunks():
-                fd.write(chunk)
+            # for chunk in datos.chunks():
+            #     fd.write(chunk)
+            fd.write(content)
             fd.close()
 
             rute = '%s/%s' % (MEDIA_ROOT, datos)

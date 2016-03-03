@@ -265,7 +265,7 @@ def import_base(request):
             fd.close()
 
             rute = '%s/%s' % (MEDIA_ROOT, datos)
-            call_command('loaddata', rute)
+            call_command('loaddata', rute, traceback=True)
             # os.unlink(rute)
             return HttpResponseRedirect(reverse_lazy('listar_item'))
 

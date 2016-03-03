@@ -256,18 +256,17 @@ def import_base(request):
         if form.is_valid():
 
             datos = request.FILES['file']
-            content = sys.stdin.read(datos)
             filename = datos._name
             fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
             print fd
 
-            # for chunk in datos.chunks():
-            #     fd.write(chunk)
-            fd.write(content)
+            for chunk in datos.chunks():
+                fd.write(chunk)
+         
             fd.close()
 
-            rute = '%s/%s' % (MEDIA_ROOT, datos)
-            call_command('loaddata', rute, traceback=True)
+            # rute = '%s/%s' % (MEDIA_ROOT, datos)
+            call_command('loaddata', fd.name, traceback=True)
             # os.unlink(rute)
             return HttpResponseRedirect(reverse_lazy('listar_item'))
 

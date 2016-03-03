@@ -66,9 +66,10 @@ def ventaCrear(request):
             for k in proceso['producto']:
                 total += decimal.Decimal(k['sdf'])
 
-            venta_data = Venta.objects.all().last()
+            venta_data = Venta.objects.filter(empresa=request.user.empresa).last()
 
             dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+
             print dosificacion
             if dosificacion !=  None:
                 if dosificacion.fecha >= datetime.date.today():
@@ -86,6 +87,11 @@ def ventaCrear(request):
                     else:
                         nro = nro_init
 
+                    fecha_venta = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d").strftime("%Y-%m-%d")
+                    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, nro + 1, proceso['nit'], fecha_venta, total, request.user.empresa.nit, total)
+
+                    print 'el cogigo en venta', cod_control
+                    
                     if proceso['tipo_compra'] == 'credito':
                         date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
                         end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
@@ -112,15 +118,19 @@ def ventaCrear(request):
                         tipo_recargo=proceso['tipo_recargo'],
                         fecha_vencimiento=end_date,
                         empresa=request.user.empresa,
+                        numero_autorizacion=dosificacion.nro_autorizacion,
+                        llave_digital=dosificacion.llave_digital,
+                        codigo_control=cod_control,
+                        fecha_limite=dosificacion.fecha,
                     )
-                    print crearVenta
+                    
                     crearVenta.save()
 
                     for k in proceso['producto']:
                      
                         item = Item.objects.filter(id=k['pk'])
                         cantidad_total = item[0].cantidad - int(k['cantidad'])
-                        print cantidad_total
+                        
                         item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
 
                         crearDetalle = DetalleVenta(
@@ -154,14 +164,7 @@ def ventaCrear(request):
                         crearDetalle.save()
                         crearMovimiento.save()
 
-                    formato = Formatofactura.objects.get(empresa=request.user.empresa)
-                    print 'el formato esssss'
-                    print formato.tamanio
-
-                    if formato.tamanio == 'rollo':
-                        return HttpResponseRedirect(reverse('detalleventarollo', args=(crearVenta.pk,)))
-                    else:
-                        return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
+                    return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
 
                     # messages.success(
                     #     request, 'La compra se ha realizado satisfactoriamente')
@@ -207,59 +210,104 @@ def ventaCrear(request):
 def detalleVenta(request, pk):
     venta = Venta.objects.filter(id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
-    
+
     vd = []
     scf = 0
     for d in detalle:
         scf = scf + d.scf
         vd.append(d)
 
-    dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
-    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
-    print 'sssssssssssssss',cod_control
-    data = {
-        'nit': venta[0].nit,
-        'nro_factura': venta[0].nro_factura,
-        'razon_social': venta[0].razon_social,
-        'fecha': venta[0].fecha,
-        'tipo_compra': venta[0].tipo_compra,
-        'codigo_control': cod_control,
-        'total': venta[0].total,
-        'detalle': vd
-        
-    }
-
-    return render_to_pdf('reportes/rep_detalleventa.html', data)
-
-
-def detalleVentarollo(request, pk):
-    print pk
-    venta = Venta.objects.filter(id=pk)
-    detalle = DetalleVenta.objects.filter(venta=venta)
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
     
-    vd = []
-    scf = 0
-    for d in detalle:
-        scf = scf + d.scf
-        vd.append(d)
-
-    dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
-    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
-    date_1 = datetime.datetime.strptime(str(dosificacion.fecha), "%Y-%m-%d").strftime("%d/%m/%Y")
     data = {
         'nit': venta[0].nit,
         'nro_factura': venta[0].nro_factura,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
-        'codigo_control': cod_control,
+        'codigo_control': venta[0].codigo_control,
         'total': venta[0].total,
         'detalle': vd,
-        'fecha_limite': date_1,
+        'formato': formato,
+        'numero_autorizacion': venta[0].numero_autorizacion,
+        'fecha_limite': venta[0].fecha_limite,
+        'empresa': request.user.get_empresa()
 
     }
 
-    return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+
+    if formato.impresion == 'Vacia':
+        if formato.tamanio == 'rollo':
+            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+        elif formato.tamanio == 'carta':
+            return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+        elif formato.tamanio == 'oficio':
+            return render_to_pdf('reportes/rep_ventaoficio.html', data)
+
+        elif formato.tamanio == '1/2oficio':
+            return render_to_pdf('reportes/rep_ventamedio.html', data)
+
+    elif formato.impresion == 'Completa':
+        if formato.tamanio == 'rollo':
+            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+        elif formato.tamanio == 'carta':
+            return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+
+        elif formato.tamanio == 'oficio':
+            return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+
+        elif formato.tamanio == '1/2oficio':
+            return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+
+    elif formato.impresion == 'Semi-completa':
+        if formato.tamanio == 'rollo':
+            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+        elif formato.tamanio == 'carta':
+            return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+
+        elif formato.tamanio == 'oficio':
+            return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+
+        elif formato.tamanio == '1/2oficio':
+            return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+
+
+# def detalleVentarollo(request, pk):
+#     print pk
+#     venta = Venta.objects.filter(id=pk)
+#     detalle = DetalleVenta.objects.filter(venta=venta)
+    
+#     vd = []
+#     scf = 0
+#     for d in detalle:
+#         scf = scf + d.scf
+#         vd.append(d)
+
+#     dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+#     # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+#     date_1 = datetime.datetime.strptime(str(dosificacion.fecha), "%Y-%m-%d").strftime("%d/%m/%Y")
+
+#     data = {
+#         'nit': venta[0].nit,
+#         'nro_factura': venta[0].nro_factura,
+#         'razon_social': venta[0].razon_social,
+#         'fecha': venta[0].fecha,
+#         'tipo_compra': venta[0].tipo_compra,
+#         'codigo_control': venta[0].codigo_control,
+#         'total': venta[0].total,
+#         'detalle': vd,
+#         'fecha_limite': date_1,
+
+#     }
+
+#     return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
 
 def migrate(request):

@@ -12,7 +12,7 @@
     text-align:center;
    }
    .text-size{
-    font-size: 12px;
+    font-size: 13px;
 
    }
    .border{
@@ -21,7 +21,7 @@
    @page {
     margin: 1cm;
     
-    size: 21cm, 28cm;
+    size: 21.5cm, 34cm;
   }
   </style>
 </head>
@@ -44,10 +44,7 @@
                   <td class="center-text text-size" >
                   <br>
 
-                    <b>{{empresa.razon_social|upper}}</b> <br>
-                    <b>{{empresa.direccion|upper}}</b> <br>
-                    <b>TELF.: {{empresa.telefono|upper}}</b><br>
-                    <b>{{empresa.municipios|upper}} - {{empresa.departamento|upper}}</b>
+                    
                   </td>
                   <td class="center-text">
 
@@ -85,7 +82,7 @@
                 <tr>
                   <td colspan="3" class="center-text" style=" padding: 5px; ">
 
-                    <b style="font-size: 20px;">{{formato.frases_titulo|upper}}</b> <br>
+                    <b style="font-size: 21px;">{{formato.frases_titulo|upper}}</b> <br>
                     <!-- <b>{{tipo_compra|upper}}</b> -->
                   </td>
                 </tr>
@@ -175,7 +172,7 @@
           <table >
             <tr>
               <td colspan="2"   class="text-size"><div style="border:1px solid black; padding: 5px;"><b>Codigo de Control: {{codigo_control}}</b></div></td>
-              <td rowspan="2" align="center"><img  src="media/codigo/QQRR.png" style="zoom: 25%;" /></td>
+              <td rowspan="2" align="center"><img  src="media/codigo/QQRR.png" style="zoom: 27%;" /></td>
             </tr>
             <tr >
               <td colspan="2" class="text-size"><div style="border:1px solid black; padding: 5px;"><b>Fecha limite de emision : 31/12/2015</b></div></td>
@@ -184,11 +181,7 @@
           </table>
           <br>
           <br>
-          <div style="border:1px solid black; padding: 5px; text-align:center;">
-            "ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE ÉSTA SERÁ SANCIONADO DE ACUERDO A LEY"<br>
-            {{formato.frases_pie}}
-          </div>
-         
+          
                 </div>
                 
               </div>

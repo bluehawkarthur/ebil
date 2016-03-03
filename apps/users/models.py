@@ -64,6 +64,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.username
 
+    def get_empresa(self):
+        return self.empresa
+
     # def save(self, *args, **kwargs):
     #     if self.avatar:
     #         image = Img.open(StringIO.StringIO(self.avatar.read()))

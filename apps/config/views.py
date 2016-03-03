@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
+from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
 from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm
@@ -8,6 +10,12 @@ from .models import DatosDosificacion, Formatofactura
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
 from django.contrib import messages
+from django.core.management import call_command
+from datetime import date
+from ebil.settings import MEDIA_ROOT
+from django import forms
+import os
+IMPORT_FILE_TYPES = ['.json',]
 
 
 class Configuraciones(TemplateView):
@@ -196,3 +204,76 @@ def CrearFormatofactura(request):
         form = FormatofacturaForm()
     variables = RequestContext(request, {'form': form})
     return render_to_response('config/crearFormatofactura.html', variables)
+
+
+def copiaBase(request):
+    template_name = "config/copia_base.html"
+
+    if request.method == 'POST':
+
+        if 'copia' in request.POST:
+            response = HttpResponse(content_type='text/plain; charset=utf-8')
+            today = date.today()
+            filename = 'copia_base' + today.strftime('%Y-%m-%d')
+            response['Content-Disposition'] =\
+                'attachement; filename={0}.json'.format(filename)
+
+            # response['Content-Disposition'] = 'attachment; filename="copia_base.json"'
+            output = open('templates/config/output_filename.json', 'w')
+            call_command('dumpdata', format='json', indent=3, stdout=output)
+            output.close()
+            t = loader.get_template('config/output_filename.json')
+
+            response.write(t.render())
+
+            return response
+
+    return render(request, template_name)
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
+
+    def clean(self):
+        data = super(UploadFileForm, self).clean()
+
+        if 'file' not in data:
+            raise forms.ValidationError('')
+
+        docfile = data['file']
+        extension = os.path.splitext(docfile.name)[1]
+
+        if not (extension in IMPORT_FILE_TYPES):
+            raise forms.ValidationError(u'%s no es un archivo válido. Por favor, asegúrese de que su archivo tenga la extension .json' % docfile.name)
+
+
+def import_base(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST,
+                              request.FILES)
+
+        if form.is_valid():
+
+            datos = request.FILES['file']
+
+            filename = datos._name
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            print fd
+
+            for chunk in datos.chunks():
+                fd.write(chunk)
+            fd.close()
+
+            rute = '%s/%s' % (MEDIA_ROOT, datos)
+            call_command('loaddata', rute)
+            os.unlink(rute)
+            return HttpResponseRedirect(reverse_lazy('listar_item'))
+
+    else:
+        form = UploadFileForm()
+    return render_to_response(
+        'config/upload_base.html',
+        {
+            'form': form,
+        },
+        context_instance=RequestContext(request))

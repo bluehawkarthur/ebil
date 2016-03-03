@@ -48,18 +48,42 @@ h6,h3,span{
     <div class="row">
       <div class='col s4 center-text text-size'>
 	<div class="spacio">
-        <h6>EVEREST</h6>
-        <span>NOTA DE SALIDA</span>
+        <h6>{{empresa.razon_social|upper}}</h6>
+        <span>{{empresa.direccion|upper}}</span><br>
+        <span>TELF.: {{empresa.telefono|upper}}</span><br>
+        <span>{{empresa.municipios|upper}} - {{empresa.departamento|upper}}</span>
+        <h3>{{formato.frases_titulo|upper}}</h3>
 	
-        <h3>{{tipo_compra|upper}}</h3>
-        <h6>COCHABAMBA - BOLIVIA</h6>
+        
         ----------------------------------------------------------
-        <h3>NIT: 1028627025<h3>
-        <h3>NOTA NRO: {{nro_factura}}<h3>
-        ------------------------------------------------------
-        <h3>Fecha: {{fecha|date:'SHORT_DATE_FORMAT'}}</h3>
-        <h3>SR.(ES): {{razon_social}}</h3>
-        <h3>NIT/CI: {{nit}}</h3>
+        <table style="padding-left:7px;" >
+          <tr>
+            <td align="left">NIT:</td>
+            <td align="left">{{empresa.nit}}</td>
+          </tr>
+          <tr>
+            <td align="left">N° FACTURA:</td>
+            <td align="left">{{nro_factura}}</td>
+          </tr>
+           <tr>
+            <td align="left">N° AUTORIZACION:</td>
+            <td align="left">{{numero_autorizacion}}</td>
+          </tr>
+        </table>
+       
+        ---------------------------------------------------------
+        <br>
+        <table style="padding-left:7px; ">
+          <tr>
+            <td align="left">
+              <span>Fecha: {{fecha|date:'SHORT_DATE_FORMAT'}}</span><br>
+        <span>NIT/CI: {{nit}}</span><br>
+        <span>SR.(ES): {{razon_social}}</span><br>
+            </td>
+          </tr>
+        </table>
+        
+        
          ----------------------------------------------------------
 	</div>
           <table>
@@ -88,16 +112,17 @@ h6,h3,span{
               </tr>
             </tbody>
           </table>
+          ----------------------------------------------------------
           <h3>CODIGO DE CONTROL: {{codigo_control}}</h3>
-          <h3>FECHA LIMITE EMICION: {{fecha_limite}}</h3>
-          <img  src="media/codigo/QQRR.png" style="zoom: 20%;" />
+          <h3>FECHA LIMITE DE EMICION: {{fecha_limite|date:'SHORT_DATE_FORMAT'}}</h3>
+          <img  src="media/codigo/QQRR.png" style="zoom: 22%;" />
 	<div>
 	<br>
 	<br>
 	<br>
-	.........................
-	<br>
-	<span class="text-firm">Firma</span>	
+	<b style="font-size: 10px;">"ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE ÉSTA SERÁ SANCIONADO DE ACUERDO A LEY"</b>
+	
+	
 
 	</div>
 

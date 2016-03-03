@@ -72,7 +72,7 @@ def sumatorias(r):
     for i in r:
         sumatoria = sumatoria + ord(i)
     v.append(sumatoria)
-    print v, type(r)
+  
 
     sp1 = 0
     sp2 = 0
@@ -131,12 +131,11 @@ def codigoControl(llave_dosificacion, num_autorizacion, num_de_factura, nit_ci, 
     # 20070702
     fecha_transaccion2 = str(fecha_transaccion)
     fecha_transaccion2 = fecha_transaccion2.replace("-", "")
-
     monto_transaccion = total
+
     # 13227.51
     monto_transaccion = int(round(monto_transaccion))
-
-    li = [num_de_factura, nit_ci, fecha_transaccion2, monto_transaccion]
+    li = [num_de_factura, int(nit_ci), fecha_transaccion2, monto_transaccion]
     li2 = verhoeff(li)
     suma_verhoeff = 0
     for ii in li2:

@@ -222,8 +222,9 @@ def detalleVenta(request, pk):
         scf = scf + d.scf
         vd.append(d)
 
-    dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
-    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+    # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+    cod_control = codigoControl(venta[0].llave_digital, venta[0].numero_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
     print 'sssssssssssssss',cod_control
     data = {
         'nit': venta[0].nit,
@@ -231,7 +232,7 @@ def detalleVenta(request, pk):
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
-        'codigo_control': cod_control,
+        'codigo_control': venta[0].codigo_control,
         'total': venta[0].total,
         'detalle': vd
         

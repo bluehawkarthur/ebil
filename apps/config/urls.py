@@ -18,5 +18,7 @@ urlpatterns = [
     url(r'^edit_datosdosificacion/(?P<pk>\d+)$', EditDatosDosificacion.as_view(), name='edit_datosdosificacion'),
     url(r'^delete_datosdosificacion/(?P<datosdosificacion>\d+)$', 'apps.config.views.DeleteDatosDosificacion', name='datosdosificacion_delete'),
     url(r'^crearFormatofactura/$', 'apps.config.views.CrearFormatofactura', name='crearFormatofactura'),
+    url(r'^copia_base/', 'apps.config.views.copiaBase', name='copia_base'),
+    url(r'^base_import/', 'apps.config.views.import_base', name="base_import"),
 
 ]

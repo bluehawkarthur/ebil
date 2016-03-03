@@ -12,16 +12,17 @@
     text-align:center;
    }
    .text-size{
-    font-size: 12px;
+    font-size: 13px;
 
    }
    .border{
     border:solid 1px;
    }
+  
    @page {
     margin: 1cm;
     
-    size: 21cm, 28cm;
+    size: 21.5cm, 34cm;
   }
   </style>
 </head>
@@ -42,12 +43,7 @@
                 <tr style="border:none;"></tr>
                 <tr style="border:none;">
                   <td class="center-text text-size" >
-                  <br>
-
-                    <b>{{empresa.razon_social|upper}}</b> <br>
-                    <b>{{empresa.direccion|upper}}</b> <br>
-                    <b>TELF.: {{empresa.telefono|upper}}</b><br>
-                    <b>{{empresa.municipios|upper}} - {{empresa.departamento|upper}}</b>
+                  
                   </td>
                   <td class="center-text">
 
@@ -56,22 +52,22 @@
                   </td>
                   <td   style="padding:2.5px; font-size: 12px;" width="200">
                     
-                    <table style="border:1px solid black; ">
+                    <table >
                     <tbody>
                       <tr style="border:none;">
-                        <td><b>NIT:</b></td>
-                        <td><b>{{empresa.nit}}</b></td>
+                        <td></td>
+                        
                       </tr>
                       <tr style="border:none;">
-                        <td><b>No FACTURA:</b></td>
+                        <td></td>
                         <td><b>{{nro_factura}}</b></td>
                       </tr>
                       <tr style="border:none;">
-                        <td><b>No AUTORIZACION:</b></td>
+                        <td></td>
                         <td><b>{{numero_autorizacion}}</b></td>
                       </tr>
                       <tr >
-                        <td colspan="2" style="text-align:center; font-size: 15px;"><b>ORIGINAL</b></td>
+                        <td colspan="2" style="text-align:center; font-size: 15px;"></td>
                         
                       </tr>
                     </tbody>
@@ -85,23 +81,23 @@
                 <tr>
                   <td colspan="3" class="center-text" style=" padding: 5px; ">
 
-                    <b style="font-size: 20px;">{{formato.frases_titulo|upper}}</b> <br>
+                    
                     <!-- <b>{{tipo_compra|upper}}</b> -->
                   </td>
                 </tr>
               
               </table>
-              <table style="border:1px solid black; padding: 5px; ">
+              <table >
                 <tr style="border:none;">
                   <td class="text-size">
                   <br>
-                  <b>Lugar y Fecha: {{fecha}}</b><br>
-                  <b>Señor(es): {{razon_social}}</b> <br>
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{fecha}}</b><br>
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{razon_social}}</b> <br>
                   
                   </td>
                   <td></td>
                   <td class="text-size center-text">
-                    <b>NIT/CI: {{nit}}</b> 
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{nit}}</b> 
                   </td>
                   
 
@@ -117,21 +113,10 @@
                 <div class="col s12 m12 l12">
 
           
-          <table style="border:1px solid black;" class="text-size">
+          <table  class="text-size">
           <thead>
             <tr style="border-botton:1px; border-right:none; border-left:none;">
-              <th data-field="item">Cod Item</th>
-              <th data-field="item">Cantidad</th>
-              <th data-field="item">Unidad</th>
-              <th data-field="item">Detalle</th>
-              <th data-field="uprice">P. U.</th>
               
-              <th data-field="price">Total</th>
-              <th>Descuentos</th>
-              <th>Recargos</th>
-              <th>ICE</th>
-              <th>Excentos</th>
-              <th>Sujeto a DF</th>
             </tr>
           </thead>
           <tbody>
@@ -163,7 +148,7 @@
               <td colspan="9" class="white">
                 
               </td>
-              <td ><br><b>Total:</b></td>
+              <td ><br><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></td>
               <td class="" id="sum-subtotal"><br>{{total}}</td>
             </tr>
             
@@ -174,19 +159,18 @@
           <br>
           <table >
             <tr>
-              <td colspan="2"   class="text-size"><div style="border:1px solid black; padding: 5px;"><b>Codigo de Control: {{codigo_control}}</b></div></td>
-              <td rowspan="2" align="center"><img  src="media/codigo/QQRR.png" style="zoom: 25%;" /></td>
+              <td colspan="2"   class="text-size"><div style=" padding: 5px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{codigo_control}}</b></div></td>
+              <td rowspan="2" align="center"></td>
             </tr>
             <tr >
-              <td colspan="2" class="text-size"><div style="border:1px solid black; padding: 5px;"><b>Fecha limite de emision : 31/12/2015</b></div></td>
+              <td colspan="2" class="text-size"><div style="padding: 5px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 31/12/2015</b></div></td>
 
             </tr>
           </table>
           <br>
           <br>
-          <div style="border:1px solid black; padding: 5px; text-align:center;">
-            "ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE ÉSTA SERÁ SANCIONADO DE ACUERDO A LEY"<br>
-            {{formato.frases_pie}}
+          <div style="padding: 5px; text-align:center;">
+            
           </div>
          
                 </div>

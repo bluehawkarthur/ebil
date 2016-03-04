@@ -1,0 +1,2336 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO root;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO root;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO root;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO root;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO root;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO root;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: cliente_cliente; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE cliente_cliente (
+    id integer NOT NULL,
+    codigo character varying(50) NOT NULL,
+    razonsocial character varying(50) NOT NULL,
+    nit bigint NOT NULL,
+    direccion character varying(50) NOT NULL,
+    telefonos1 character varying(8) NOT NULL,
+    telefonos2 character varying(8) NOT NULL,
+    telefonos3 character varying(8) NOT NULL,
+    contacto character varying(50) NOT NULL,
+    rubro character varying(50) NOT NULL,
+    categoria character varying(50) NOT NULL,
+    ubucaciongeo character varying(50) NOT NULL,
+    fecha date NOT NULL,
+    fecha2 date NOT NULL,
+    textos character varying(50) NOT NULL,
+    textos2 character varying(50) NOT NULL,
+    empresa_id integer
+);
+
+
+ALTER TABLE public.cliente_cliente OWNER TO root;
+
+--
+-- Name: cliente_cliente_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE cliente_cliente_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cliente_cliente_id_seq OWNER TO root;
+
+--
+-- Name: cliente_cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE cliente_cliente_id_seq OWNED BY cliente_cliente.id;
+
+
+--
+-- Name: compras_compra; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE compras_compra (
+    id integer NOT NULL,
+    nit bigint NOT NULL,
+    razon_social character varying(100) NOT NULL,
+    nro_factura integer NOT NULL,
+    nro_autorizacion character varying(20) NOT NULL,
+    fecha date NOT NULL,
+    cod_control character varying(100) NOT NULL,
+    total numeric(10,2),
+    cantidad_dias integer NOT NULL,
+    tipo_compra character varying(100) NOT NULL,
+    descuento numeric(10,2) NOT NULL,
+    excentos numeric(10,2) NOT NULL,
+    ice numeric(10,2) NOT NULL,
+    recargo numeric(10,2) NOT NULL,
+    tipo_descuento character varying(100) NOT NULL,
+    tipo_recargo character varying(100) NOT NULL,
+    empresa_id integer
+);
+
+
+ALTER TABLE public.compras_compra OWNER TO root;
+
+--
+-- Name: compras_compra_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE compras_compra_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.compras_compra_id_seq OWNER TO root;
+
+--
+-- Name: compras_compra_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE compras_compra_id_seq OWNED BY compras_compra.id;
+
+
+--
+-- Name: compras_detallecompra; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE compras_detallecompra (
+    id integer NOT NULL,
+    codigo character varying(100) NOT NULL,
+    cantidad integer NOT NULL,
+    unidad character varying(10) NOT NULL,
+    detalle character varying(100) NOT NULL,
+    precio_unitario numeric(10,2) NOT NULL,
+    subtotal numeric(10,2) NOT NULL,
+    descuento numeric(10,2) NOT NULL,
+    recargo numeric(10,2) NOT NULL,
+    ice numeric(10,2) NOT NULL,
+    excentos numeric(10,2) NOT NULL,
+    scf numeric(10,2) NOT NULL,
+    centro_costos character varying(100) NOT NULL,
+    compra_id integer NOT NULL,
+    producto_id integer,
+    tipo_descuento character varying(100) NOT NULL,
+    tipo_recargo character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.compras_detallecompra OWNER TO root;
+
+--
+-- Name: compras_detallecompra_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE compras_detallecompra_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.compras_detallecompra_id_seq OWNER TO root;
+
+--
+-- Name: compras_detallecompra_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE compras_detallecompra_id_seq OWNED BY compras_detallecompra.id;
+
+
+--
+-- Name: config_datosdosificacion; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE config_datosdosificacion (
+    id integer NOT NULL,
+    nro_conrelativo bigint NOT NULL,
+    fecha date NOT NULL,
+    nro_autorizacion bigint NOT NULL,
+    llave_digital character varying(200) NOT NULL,
+    empresa_id integer,
+    contador integer NOT NULL
+);
+
+
+ALTER TABLE public.config_datosdosificacion OWNER TO root;
+
+--
+-- Name: config_datosdosificacion_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE config_datosdosificacion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.config_datosdosificacion_id_seq OWNER TO root;
+
+--
+-- Name: config_datosdosificacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE config_datosdosificacion_id_seq OWNED BY config_datosdosificacion.id;
+
+
+--
+-- Name: config_formatofactura; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE config_formatofactura (
+    id integer NOT NULL,
+    formato character varying(100) NOT NULL,
+    impresion character varying(100) NOT NULL,
+    facturacion character varying(100) NOT NULL,
+    tamanio character varying(100) NOT NULL,
+    frases_titulo character varying(100) NOT NULL,
+    frases_subtitulo character varying(100) NOT NULL,
+    frases_pie character varying(200) NOT NULL,
+    empresa_id integer
+);
+
+
+ALTER TABLE public.config_formatofactura OWNER TO root;
+
+--
+-- Name: config_formatofactura_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE config_formatofactura_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.config_formatofactura_id_seq OWNER TO root;
+
+--
+-- Name: config_formatofactura_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE config_formatofactura_id_seq OWNED BY config_formatofactura.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO root;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO root;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO root;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO root;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO root;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO root;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO root;
+
+--
+-- Name: inicio_rol; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE inicio_rol (
+    id integer NOT NULL,
+    modelos character varying(100) NOT NULL,
+    crear boolean NOT NULL,
+    editar boolean NOT NULL,
+    eliminar boolean NOT NULL,
+    user_id integer NOT NULL,
+    operar boolean NOT NULL
+);
+
+
+ALTER TABLE public.inicio_rol OWNER TO root;
+
+--
+-- Name: inicio_rol_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE inicio_rol_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.inicio_rol_id_seq OWNER TO root;
+
+--
+-- Name: inicio_rol_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE inicio_rol_id_seq OWNED BY inicio_rol.id;
+
+
+--
+-- Name: producto_item; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE producto_item (
+    id integer NOT NULL,
+    codigo_item character varying(100) NOT NULL,
+    codigo_fabrica character varying(100) NOT NULL,
+    almacen integer NOT NULL,
+    grupo character varying(100) NOT NULL,
+    subgrupo character varying(100) NOT NULL,
+    descripcion character varying(200) NOT NULL,
+    carac_especial_1 character varying(100) NOT NULL,
+    carac_especial_2 character varying(100) NOT NULL,
+    cantidad integer NOT NULL,
+    saldo_min integer NOT NULL,
+    imagen character varying(100),
+    unidad_medida character varying(100) NOT NULL,
+    costo_unitario numeric(6,2) NOT NULL,
+    precio_unitario numeric(6,2) NOT NULL,
+    proveedor_id integer,
+    fecha_transaccion date,
+    empresa_id integer
+);
+
+
+ALTER TABLE public.producto_item OWNER TO root;
+
+--
+-- Name: producto_item_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE producto_item_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.producto_item_id_seq OWNER TO root;
+
+--
+-- Name: producto_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE producto_item_id_seq OWNED BY producto_item.id;
+
+
+--
+-- Name: proveedores_proveedor; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE proveedores_proveedor (
+    id integer NOT NULL,
+    codigo character varying(20) NOT NULL,
+    razon_social character varying(150) NOT NULL,
+    nit character varying(20) NOT NULL,
+    direccion character varying(50) NOT NULL,
+    telefono1 integer NOT NULL,
+    telefono2 integer,
+    telefono3 integer,
+    contactos character varying(150) NOT NULL,
+    rubro character varying(50) NOT NULL,
+    ubicacion_geo character varying(50) NOT NULL,
+    fecha1 date NOT NULL,
+    fecha2 date NOT NULL,
+    texto1 character varying(50),
+    texto2 character varying(50),
+    empresa_id integer
+);
+
+
+ALTER TABLE public.proveedores_proveedor OWNER TO root;
+
+--
+-- Name: proveedores_proveedor_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE proveedores_proveedor_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.proveedores_proveedor_id_seq OWNER TO root;
+
+--
+-- Name: proveedores_proveedor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE proveedores_proveedor_id_seq OWNED BY proveedores_proveedor.id;
+
+
+--
+-- Name: users_personajuridica; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE users_personajuridica (
+    id integer NOT NULL,
+    razon_social character varying(100) NOT NULL,
+    nit bigint NOT NULL,
+    direccion character varying(100) NOT NULL,
+    telefono integer NOT NULL,
+    telefono2 integer,
+    telefono3 integer,
+    departamento character varying(100) NOT NULL,
+    municipios character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.users_personajuridica OWNER TO root;
+
+--
+-- Name: users_personajuridica_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE users_personajuridica_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_personajuridica_id_seq OWNER TO root;
+
+--
+-- Name: users_personajuridica_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE users_personajuridica_id_seq OWNED BY users_personajuridica.id;
+
+
+--
+-- Name: users_user; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE users_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(100) NOT NULL,
+    email character varying(254) NOT NULL,
+    nombre character varying(200) NOT NULL,
+    p_apellido character varying(100) NOT NULL,
+    s_apellido character varying(100) NOT NULL,
+    direccion character varying(100) NOT NULL,
+    telefono integer,
+    avatar character varying(100) NOT NULL,
+    is_active boolean NOT NULL,
+    is_staff boolean NOT NULL,
+    empresa_id integer
+);
+
+
+ALTER TABLE public.users_user OWNER TO root;
+
+--
+-- Name: users_user_groups; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE users_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.users_user_groups OWNER TO root;
+
+--
+-- Name: users_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE users_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_groups_id_seq OWNER TO root;
+
+--
+-- Name: users_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE users_user_groups_id_seq OWNED BY users_user_groups.id;
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE users_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_id_seq OWNER TO root;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE users_user_id_seq OWNED BY users_user.id;
+
+
+--
+-- Name: users_user_user_permissions; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE users_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.users_user_user_permissions OWNER TO root;
+
+--
+-- Name: users_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE users_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_user_permissions_id_seq OWNER TO root;
+
+--
+-- Name: users_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE users_user_user_permissions_id_seq OWNED BY users_user_user_permissions.id;
+
+
+--
+-- Name: ventas_cobro; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE ventas_cobro (
+    id integer NOT NULL,
+    monto_pago numeric(6,2),
+    fecha_transaccion date,
+    venta_id integer NOT NULL,
+    empresa_id integer
+);
+
+
+ALTER TABLE public.ventas_cobro OWNER TO root;
+
+--
+-- Name: ventas_cobro_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE ventas_cobro_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ventas_cobro_id_seq OWNER TO root;
+
+--
+-- Name: ventas_cobro_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE ventas_cobro_id_seq OWNED BY ventas_cobro.id;
+
+
+--
+-- Name: ventas_detalleventa; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE ventas_detalleventa (
+    id integer NOT NULL,
+    cantidad integer NOT NULL,
+    subtotal numeric(10,2) NOT NULL,
+    descuento numeric(10,2) NOT NULL,
+    recargo numeric(10,2) NOT NULL,
+    ice numeric(10,2) NOT NULL,
+    excentos numeric(10,2) NOT NULL,
+    scf numeric(10,2) NOT NULL,
+    producto_id integer NOT NULL,
+    venta_id integer NOT NULL,
+    tipo_descuento character varying(100) NOT NULL,
+    tipo_recargo character varying(100) NOT NULL,
+    precio_unitario numeric(10,2)
+);
+
+
+ALTER TABLE public.ventas_detalleventa OWNER TO root;
+
+--
+-- Name: ventas_detalleventa_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE ventas_detalleventa_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ventas_detalleventa_id_seq OWNER TO root;
+
+--
+-- Name: ventas_detalleventa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE ventas_detalleventa_id_seq OWNED BY ventas_detalleventa.id;
+
+
+--
+-- Name: ventas_movimiento; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE ventas_movimiento (
+    id integer NOT NULL,
+    cantidad integer NOT NULL,
+    fecha_transaccion date NOT NULL,
+    motivo_movimiento character varying(100) NOT NULL,
+    producto_id integer NOT NULL,
+    detalle character varying(100) NOT NULL,
+    precio_unitario numeric(6,2),
+    empresa_id integer
+);
+
+
+ALTER TABLE public.ventas_movimiento OWNER TO root;
+
+--
+-- Name: ventas_movimiento_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE ventas_movimiento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ventas_movimiento_id_seq OWNER TO root;
+
+--
+-- Name: ventas_movimiento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE ventas_movimiento_id_seq OWNED BY ventas_movimiento.id;
+
+
+--
+-- Name: ventas_venta; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE ventas_venta (
+    id integer NOT NULL,
+    fecha date NOT NULL,
+    nit bigint NOT NULL,
+    razon_social character varying(100) NOT NULL,
+    tipo_compra character varying(100) NOT NULL,
+    cantidad_dias integer NOT NULL,
+    total numeric(10,2),
+    descuento numeric(10,2) NOT NULL,
+    excentos numeric(10,2) NOT NULL,
+    ice numeric(10,2) NOT NULL,
+    recargo numeric(10,2) NOT NULL,
+    tipo_descuento character varying(100) NOT NULL,
+    tipo_recargo character varying(100) NOT NULL,
+    nro_factura bigint,
+    monto_pago numeric(10,2),
+    fecha_vencimiento date,
+    empresa_id integer,
+    codigo_control character varying(255) NOT NULL,
+    llave_digital character varying(200) NOT NULL,
+    numero_autorizacion bigint NOT NULL,
+    fecha_limite date
+);
+
+
+ALTER TABLE public.ventas_venta OWNER TO root;
+
+--
+-- Name: ventas_venta_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE ventas_venta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ventas_venta_id_seq OWNER TO root;
+
+--
+-- Name: ventas_venta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE ventas_venta_id_seq OWNED BY ventas_venta.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY cliente_cliente ALTER COLUMN id SET DEFAULT nextval('cliente_cliente_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY compras_compra ALTER COLUMN id SET DEFAULT nextval('compras_compra_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY compras_detallecompra ALTER COLUMN id SET DEFAULT nextval('compras_detallecompra_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY config_datosdosificacion ALTER COLUMN id SET DEFAULT nextval('config_datosdosificacion_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY config_formatofactura ALTER COLUMN id SET DEFAULT nextval('config_formatofactura_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY inicio_rol ALTER COLUMN id SET DEFAULT nextval('inicio_rol_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY producto_item ALTER COLUMN id SET DEFAULT nextval('producto_item_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY proveedores_proveedor ALTER COLUMN id SET DEFAULT nextval('proveedores_proveedor_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_personajuridica ALTER COLUMN id SET DEFAULT nextval('users_personajuridica_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user ALTER COLUMN id SET DEFAULT nextval('users_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user_groups ALTER COLUMN id SET DEFAULT nextval('users_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('users_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_cobro ALTER COLUMN id SET DEFAULT nextval('ventas_cobro_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_detalleventa ALTER COLUMN id SET DEFAULT nextval('ventas_detalleventa_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_movimiento ALTER COLUMN id SET DEFAULT nextval('ventas_movimiento_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_venta ALTER COLUMN id SET DEFAULT nextval('ventas_venta_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_group (id, name) FROM stdin;
+1	administrador
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add content type	4	add_contenttype
+11	Can change content type	4	change_contenttype
+12	Can delete content type	4	delete_contenttype
+13	Can add session	5	add_session
+14	Can change session	5	change_session
+15	Can delete session	5	delete_session
+16	Can add personajuridica	6	add_personajuridica
+17	Can change personajuridica	6	change_personajuridica
+18	Can delete personajuridica	6	delete_personajuridica
+19	Can add user	7	add_user
+20	Can change user	7	change_user
+21	Can delete user	7	delete_user
+22	Can add rol	8	add_rol
+23	Can change rol	8	change_rol
+24	Can delete rol	8	delete_rol
+25	Can add proveedor	9	add_proveedor
+26	Can change proveedor	9	change_proveedor
+27	Can delete proveedor	9	delete_proveedor
+28	Can add item	10	add_item
+29	Can change item	10	change_item
+30	Can delete item	10	delete_item
+31	Can add cliente	11	add_cliente
+32	Can change cliente	11	change_cliente
+33	Can delete cliente	11	delete_cliente
+34	Can add compra	12	add_compra
+35	Can change compra	12	change_compra
+36	Can delete compra	12	delete_compra
+37	Can add detalle compra	13	add_detallecompra
+38	Can change detalle compra	13	change_detallecompra
+39	Can delete detalle compra	13	delete_detallecompra
+40	Can add venta	14	add_venta
+41	Can change venta	14	change_venta
+42	Can delete venta	14	delete_venta
+43	Can add detalle venta	15	add_detalleventa
+44	Can change detalle venta	15	change_detalleventa
+45	Can delete detalle venta	15	delete_detalleventa
+46	Can add movimiento	16	add_movimiento
+47	Can change movimiento	16	change_movimiento
+48	Can delete movimiento	16	delete_movimiento
+49	Can add cobro	17	add_cobro
+50	Can change cobro	17	change_cobro
+51	Can delete cobro	17	delete_cobro
+52	Can add datos dosificacion	18	add_datosdosificacion
+53	Can change datos dosificacion	18	change_datosdosificacion
+54	Can delete datos dosificacion	18	delete_datosdosificacion
+55	Can add formatofactura	19	add_formatofactura
+56	Can change formatofactura	19	change_formatofactura
+57	Can delete formatofactura	19	delete_formatofactura
+58		7	edit
+59		7	create
+60		7	delete
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 60, true);
+
+
+--
+-- Data for Name: cliente_cliente; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY cliente_cliente (id, codigo, razonsocial, nit, direccion, telefonos1, telefonos2, telefonos3, contacto, rubro, categoria, ubucaciongeo, fecha, fecha2, textos, textos2, empresa_id) FROM stdin;
+\.
+
+
+--
+-- Name: cliente_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('cliente_cliente_id_seq', 1, false);
+
+
+--
+-- Data for Name: compras_compra; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY compras_compra (id, nit, razon_social, nro_factura, nro_autorizacion, fecha, cod_control, total, cantidad_dias, tipo_compra, descuento, excentos, ice, recargo, tipo_descuento, tipo_recargo, empresa_id) FROM stdin;
+\.
+
+
+--
+-- Name: compras_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('compras_compra_id_seq', 1, false);
+
+
+--
+-- Data for Name: compras_detallecompra; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY compras_detallecompra (id, codigo, cantidad, unidad, detalle, precio_unitario, subtotal, descuento, recargo, ice, excentos, scf, centro_costos, compra_id, producto_id, tipo_descuento, tipo_recargo) FROM stdin;
+\.
+
+
+--
+-- Name: compras_detallecompra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('compras_detallecompra_id_seq', 1, false);
+
+
+--
+-- Data for Name: config_datosdosificacion; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY config_datosdosificacion (id, nro_conrelativo, fecha, nro_autorizacion, llave_digital, empresa_id, contador) FROM stdin;
+\.
+
+
+--
+-- Name: config_datosdosificacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('config_datosdosificacion_id_seq', 1, false);
+
+
+--
+-- Data for Name: config_formatofactura; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY config_formatofactura (id, formato, impresion, facturacion, tamanio, frases_titulo, frases_subtitulo, frases_pie, empresa_id) FROM stdin;
+1	general	vacia	normal	oficio	Factura			1
+\.
+
+
+--
+-- Name: config_formatofactura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('config_formatofactura_id_seq', 1, true);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	contenttypes	contenttype
+5	sessions	session
+6	users	personajuridica
+7	users	user
+8	inicio	rol
+9	proveedores	proveedor
+10	producto	item
+11	cliente	cliente
+12	compras	compra
+13	compras	detallecompra
+14	ventas	venta
+15	ventas	detalleventa
+16	ventas	movimiento
+17	ventas	cobro
+18	config	datosdosificacion
+19	config	formatofactura
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 19, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2016-03-04 12:15:53.861261-04
+2	contenttypes	0002_remove_content_type_name	2016-03-04 12:15:53.903369-04
+3	auth	0001_initial	2016-03-04 12:15:54.825562-04
+4	auth	0002_alter_permission_name_max_length	2016-03-04 12:15:55.0075-04
+5	auth	0003_alter_user_email_max_length	2016-03-04 12:15:55.072368-04
+6	auth	0004_alter_user_username_opts	2016-03-04 12:15:55.240595-04
+7	auth	0005_alter_user_last_login_null	2016-03-04 12:15:55.30252-04
+8	auth	0006_require_contenttypes_0002	2016-03-04 12:15:55.366898-04
+9	users	0001_initial	2016-03-04 12:15:56.083323-04
+10	admin	0001_initial	2016-03-04 12:15:56.360015-04
+11	users	0002_auto_20160202_0401	2016-03-04 12:15:56.414705-04
+12	users	0003_auto_20160211_2021	2016-03-04 12:15:56.463858-04
+13	users	0004_auto_20160213_2145	2016-03-04 12:15:56.649064-04
+14	users	0005_auto_20160213_2147	2016-03-04 12:15:56.761363-04
+15	users	0006_auto_20160214_1539	2016-03-04 12:15:56.904836-04
+16	users	0007_auto_20160214_1725	2016-03-04 12:15:57.01572-04
+17	cliente	0001_initial	2016-03-04 12:15:57.116429-04
+18	cliente	0002_auto_20151118_1611	2016-03-04 12:15:57.74086-04
+19	cliente	0003_auto_20151207_2208	2016-03-04 12:15:58.013545-04
+20	cliente	0004_cliente_empresa	2016-03-04 12:15:58.172193-04
+21	proveedores	0001_initial	2016-03-04 12:15:58.328016-04
+22	producto	0001_initial	2016-03-04 12:15:58.551066-04
+23	producto	0002_auto_20150919_0056	2016-03-04 12:15:58.627537-04
+24	producto	0003_item_user	2016-03-04 12:15:58.953422-04
+25	producto	0004_auto_20150925_2225	2016-03-04 12:15:59.083565-04
+26	producto	0005_auto_20150926_1535	2016-03-04 12:15:59.239358-04
+27	producto	0006_auto_20150926_1548	2016-03-04 12:15:59.63991-04
+28	compras	0001_initial	2016-03-04 12:16:00.207712-04
+29	compras	0002_auto_20151104_1656	2016-03-04 12:16:00.351606-04
+30	compras	0003_auto_20151104_2034	2016-03-04 12:16:01.10765-04
+31	compras	0004_auto_20151104_2147	2016-03-04 12:16:01.654759-04
+32	compras	0005_auto_20151105_0527	2016-03-04 12:16:02.242146-04
+33	compras	0006_auto_20151105_0544	2016-03-04 12:16:02.753974-04
+34	compras	0007_auto_20151105_0551	2016-03-04 12:16:03.015038-04
+35	compras	0008_auto_20151105_0642	2016-03-04 12:16:03.31549-04
+36	compras	0009_auto_20151105_0936	2016-03-04 12:16:03.626417-04
+37	compras	0010_auto_20151116_1355	2016-03-04 12:16:04.838968-04
+38	compras	0011_auto_20151116_2341	2016-03-04 12:16:04.982208-04
+39	compras	0012_auto_20151117_1413	2016-03-04 12:16:06.287223-04
+40	compras	0013_auto_20151127_2214	2016-03-04 12:16:06.484205-04
+41	compras	0014_auto_20151127_2219	2016-03-04 12:16:06.672789-04
+42	compras	0015_auto_20151127_2239	2016-03-04 12:16:06.851212-04
+43	compras	0016_auto_20151223_1738	2016-03-04 12:16:07.901141-04
+44	compras	0017_auto_20151230_1623	2016-03-04 12:16:08.119347-04
+45	compras	0018_compra_empresa	2016-03-04 12:16:08.274196-04
+46	compras	0019_auto_20160222_1948	2016-03-04 12:16:08.586845-04
+47	compras	0020_auto_20160222_1956	2016-03-04 12:16:09.077596-04
+48	compras	0021_auto_20160222_2013	2016-03-04 12:16:10.110691-04
+49	compras	0022_auto_20160222_2016	2016-03-04 12:16:10.875108-04
+50	config	0001_initial	2016-03-04 12:16:11.098017-04
+51	config	0002_datosdosificacion_contador	2016-03-04 12:16:11.343319-04
+52	config	0003_formatofactura	2016-03-04 12:16:11.631551-04
+53	config	0004_auto_20160225_1959	2016-03-04 12:16:11.787213-04
+54	inicio	0001_initial	2016-03-04 12:16:12.009805-04
+55	inicio	0002_auto_20160211_2021	2016-03-04 12:16:12.121563-04
+56	inicio	0003_auto_20160211_2024	2016-03-04 12:16:12.364868-04
+57	inicio	0004_auto_20160211_2027	2016-03-04 12:16:12.608697-04
+58	inicio	0005_rol_operar	2016-03-04 12:16:12.865914-04
+59	producto	0007_auto_20151105_0642	2016-03-04 12:16:13.635183-04
+60	producto	0008_auto_20151107_1730	2016-03-04 12:16:14.953992-04
+61	producto	0009_auto_20151107_2015	2016-03-04 12:16:15.065874-04
+62	producto	0010_auto_20151119_2133	2016-03-04 12:16:15.367031-04
+63	producto	0011_auto_20151119_2140	2016-03-04 12:16:15.66791-04
+64	producto	0012_item_fecha_transaccion	2016-03-04 12:16:15.788173-04
+65	producto	0013_auto_20160214_1833	2016-03-04 12:16:16.178371-04
+66	producto	0014_auto_20160214_1837	2016-03-04 12:16:16.333065-04
+67	producto	0015_auto_20160214_2216	2016-03-04 12:16:16.510886-04
+68	proveedores	0002_auto_20150923_1625	2016-03-04 12:16:16.733202-04
+69	proveedores	0003_auto_20150923_2059	2016-03-04 12:16:16.899777-04
+70	proveedores	0004_proveedor_user	2016-03-04 12:16:17.335072-04
+71	proveedores	0005_auto_20150925_2225	2016-03-04 12:16:17.577467-04
+72	proveedores	0006_auto_20160214_1856	2016-03-04 12:16:17.894177-04
+73	proveedores	0007_auto_20160214_2054	2016-03-04 12:16:18.0662-04
+74	proveedores	0008_auto_20160214_2057	2016-03-04 12:16:18.222746-04
+75	sessions	0001_initial	2016-03-04 12:16:18.589507-04
+76	ventas	0001_initial	2016-03-04 12:16:19.156518-04
+77	ventas	0002_auto_20151106_1859	2016-03-04 12:16:20.091457-04
+78	ventas	0003_auto_20151116_2313	2016-03-04 12:16:20.268955-04
+79	ventas	0004_auto_20151116_2359	2016-03-04 12:16:20.99152-04
+80	ventas	0005_auto_20151117_1413	2016-03-04 12:16:22.238382-04
+81	ventas	0006_auto_20151226_2046	2016-03-04 12:16:23.937931-04
+82	ventas	0007_movimiento	2016-03-04 12:16:24.203301-04
+83	ventas	0008_remove_movimiento_precio_unitario	2016-03-04 12:16:24.336659-04
+84	ventas	0009_movimiento_detalle	2016-03-04 12:16:24.671053-04
+85	ventas	0010_movimiento_precio_unitario	2016-03-04 12:16:24.949415-04
+86	ventas	0011_auto_20151229_2320	2016-03-04 12:16:25.080372-04
+87	ventas	0012_remove_movimiento_precio_unitario	2016-03-04 12:16:25.213269-04
+88	ventas	0013_detalleventa_precio_unitario	2016-03-04 12:16:25.348036-04
+89	ventas	0014_movimiento_precio_unitario	2016-03-04 12:16:25.502873-04
+90	ventas	0015_auto_20151230_1623	2016-03-04 12:16:25.72558-04
+91	ventas	0016_venta_nro_factura	2016-03-04 12:16:25.960323-04
+92	ventas	0017_auto_20160104_2046	2016-03-04 12:16:26.091778-04
+93	ventas	0018_venta_monto_pago	2016-03-04 12:16:26.225544-04
+94	ventas	0019_venta_fecha_vencimiento	2016-03-04 12:16:26.370007-04
+95	ventas	0020_venta_updated	2016-03-04 12:16:26.593582-04
+96	ventas	0021_remove_venta_updated	2016-03-04 12:16:26.746949-04
+97	ventas	0022_venta_fecha_transaccion	2016-03-04 12:16:26.880341-04
+98	ventas	0023_auto_20160115_1605	2016-03-04 12:16:27.292582-04
+99	ventas	0024_movimiento_empresa	2016-03-04 12:16:27.493456-04
+100	ventas	0025_auto_20160214_1934	2016-03-04 12:16:27.926136-04
+101	ventas	0026_auto_20160224_2003	2016-03-04 12:16:29.994504-04
+102	ventas	0027_auto_20160229_1750	2016-03-04 12:16:30.88786-04
+103	ventas	0028_venta_fecha_limite	2016-03-04 12:16:31.028825-04
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 103, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+x33fl32n2eqpk6cgt4sciedk195wlra1	OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-03-18 12:31:55.258257-04
+\.
+
+
+--
+-- Data for Name: inicio_rol; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY inicio_rol (id, modelos, crear, editar, eliminar, user_id, operar) FROM stdin;
+1	almacenes	t	t	t	2	t
+2	clientes	t	t	t	2	t
+3	proveedores	t	t	t	2	t
+4	reportes	t	t	t	2	t
+5	compras	t	t	t	2	t
+6	usuarios	t	t	t	2	t
+7	bancarizacion	t	t	t	2	t
+8	configuracion	t	t	t	2	t
+9	facturacion	t	t	t	2	t
+\.
+
+
+--
+-- Name: inicio_rol_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('inicio_rol_id_seq', 9, true);
+
+
+--
+-- Data for Name: producto_item; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY producto_item (id, codigo_item, codigo_fabrica, almacen, grupo, subgrupo, descripcion, carac_especial_1, carac_especial_2, cantidad, saldo_min, imagen, unidad_medida, costo_unitario, precio_unitario, proveedor_id, fecha_transaccion, empresa_id) FROM stdin;
+1	P1-33	qq	1	g1	aaaa	producto2	aaa	qqq	12	4	hhhhh	qqq	-34.00	89.00	1	\N	1
+2	P2-44	aa	1	g1	sss	producto3	aaa	qqq	12	5	ggg	qqq	34.00	89.00	2	\N	1
+\.
+
+
+--
+-- Name: producto_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('producto_item_id_seq', 2, true);
+
+
+--
+-- Data for Name: proveedores_proveedor; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY proveedores_proveedor (id, codigo, razon_social, nit, direccion, telefono1, telefono2, telefono3, contactos, rubro, ubicacion_geo, fecha1, fecha2, texto1, texto2, empresa_id) FROM stdin;
+3	p32	juan	ewewe	wewe	343434	\N	\N	erererree	hdhdh	erererre	2015-09-23	2015-09-23	ttttttt	ererer	1
+4	p42	ramon	wewew	weewe	343434	\N	\N	ererere	dhdhd	yyyyyy	2015-09-23	2015-09-23	rterrere	ererer	1
+5	p52	nose	wewew	wewe	343434	\N	\N	erereerer	dhdhdhdh	uuuuuuu	2015-09-23	2015-09-23	ererreerr	ererewew	1
+6	p62	nancy	wewew	wewe	343434	\N	\N	ererere	w	uuuuuuu	2015-09-23	2015-09-23	rerer	qqqq	1
+7	p72	anita	wewew	rtrtrtrtrt	343434	\N	\N	ererr	eeeeeeee	uuuuuuu	2015-09-23	2015-09-23	rerer	rtetete	1
+1	p1	pedro	qwqww	hkjhj	45644446	32424	4242	errerere	hjhjh	jhjhh	2015-09-23	2015-09-23	jhjhjhj	jhjh	1
+2	p3	jose	uyyyuyuyy	wewe	343434	44646	45646	erer	dfdhdh	ererrrreer	2015-09-23	2015-09-23	uuuuuu	ererer	1
+\.
+
+
+--
+-- Name: proveedores_proveedor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('proveedores_proveedor_id_seq', 7, true);
+
+
+--
+-- Data for Name: users_personajuridica; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY users_personajuridica (id, razon_social, nit, direccion, telefono, telefono2, telefono3, departamento, municipios) FROM stdin;
+1	Empresa srl	324234	sacaba	456567888	\N	\N	Cochabamba	Cochabamba
+\.
+
+
+--
+-- Name: users_personajuridica_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('users_personajuridica_id_seq', 1, true);
+
+
+--
+-- Data for Name: users_user; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY users_user (id, password, last_login, is_superuser, username, email, nombre, p_apellido, s_apellido, direccion, telefono, avatar, is_active, is_staff, empresa_id) FROM stdin;
+1	pbkdf2_sha256$20000$Vq5gtzC1o03h$LGdTa6ebHTyzANLLrhZCK9M0KqxoE6n0bMQJ8I7M6vA=	2016-03-04 12:30:26.694326-04	t	admin	admin@gmail.com					\N		t	t	\N
+2	pbkdf2_sha256$20000$cOzvYO4D14h5$9VYlzDMDXgiCtLIPuLYqp6tImPm/SdR+Gw8TkSaC9kA=	2016-03-04 12:31:55.221584-04	f	jose		jose daniel	fernandez			\N		t	f	1
+\.
+
+
+--
+-- Data for Name: users_user_groups; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY users_user_groups (id, user_id, group_id) FROM stdin;
+1	2	1
+\.
+
+
+--
+-- Name: users_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('users_user_groups_id_seq', 1, true);
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('users_user_id_seq', 2, true);
+
+
+--
+-- Data for Name: users_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY users_user_user_permissions (id, user_id, permission_id) FROM stdin;
+1	2	58
+2	2	59
+3	2	60
+\.
+
+
+--
+-- Name: users_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('users_user_user_permissions_id_seq', 3, true);
+
+
+--
+-- Data for Name: ventas_cobro; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY ventas_cobro (id, monto_pago, fecha_transaccion, venta_id, empresa_id) FROM stdin;
+\.
+
+
+--
+-- Name: ventas_cobro_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('ventas_cobro_id_seq', 1, false);
+
+
+--
+-- Data for Name: ventas_detalleventa; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY ventas_detalleventa (id, cantidad, subtotal, descuento, recargo, ice, excentos, scf, producto_id, venta_id, tipo_descuento, tipo_recargo, precio_unitario) FROM stdin;
+\.
+
+
+--
+-- Name: ventas_detalleventa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('ventas_detalleventa_id_seq', 1, false);
+
+
+--
+-- Data for Name: ventas_movimiento; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY ventas_movimiento (id, cantidad, fecha_transaccion, motivo_movimiento, producto_id, detalle, precio_unitario, empresa_id) FROM stdin;
+1	12	2016-03-04	inicial	1	Saldo Inicial	89.00	1
+2	12	2016-03-04	inicial	2	Saldo Inicial	89.00	1
+\.
+
+
+--
+-- Name: ventas_movimiento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('ventas_movimiento_id_seq', 2, true);
+
+
+--
+-- Data for Name: ventas_venta; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY ventas_venta (id, fecha, nit, razon_social, tipo_compra, cantidad_dias, total, descuento, excentos, ice, recargo, tipo_descuento, tipo_recargo, nro_factura, monto_pago, fecha_vencimiento, empresa_id, codigo_control, llave_digital, numero_autorizacion, fecha_limite) FROM stdin;
+\.
+
+
+--
+-- Name: ventas_venta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('ventas_venta_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cliente_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY cliente_cliente
+    ADD CONSTRAINT cliente_cliente_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: compras_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY compras_compra
+    ADD CONSTRAINT compras_compra_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: compras_detallecompra_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY compras_detallecompra
+    ADD CONSTRAINT compras_detallecompra_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: config_datosdosificacion_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY config_datosdosificacion
+    ADD CONSTRAINT config_datosdosificacion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: config_formatofactura_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY config_formatofactura
+    ADD CONSTRAINT config_formatofactura_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_45f3b1d93ec8c61c_uniq; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_45f3b1d93ec8c61c_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: inicio_rol_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY inicio_rol
+    ADD CONSTRAINT inicio_rol_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: producto_item_codigo_item_414f76a526d6b16a_uniq; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY producto_item
+    ADD CONSTRAINT producto_item_codigo_item_414f76a526d6b16a_uniq UNIQUE (codigo_item, empresa_id);
+
+
+--
+-- Name: producto_item_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY producto_item
+    ADD CONSTRAINT producto_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: proveedores_proveedor_codigo_233936747ace4be4_uniq; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY proveedores_proveedor
+    ADD CONSTRAINT proveedores_proveedor_codigo_233936747ace4be4_uniq UNIQUE (codigo, empresa_id);
+
+
+--
+-- Name: proveedores_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY proveedores_proveedor
+    ADD CONSTRAINT proveedores_proveedor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_personajuridica_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_personajuridica
+    ADD CONSTRAINT users_personajuridica_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_user_groups
+    ADD CONSTRAINT users_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_user_groups
+    ADD CONSTRAINT users_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: users_user_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_user
+    ADD CONSTRAINT users_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_user_user_permissions
+    ADD CONSTRAINT users_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_user_user_permissions
+    ADD CONSTRAINT users_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: users_user_username_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY users_user
+    ADD CONSTRAINT users_user_username_key UNIQUE (username);
+
+
+--
+-- Name: ventas_cobro_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY ventas_cobro
+    ADD CONSTRAINT ventas_cobro_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ventas_detalleventa_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY ventas_detalleventa
+    ADD CONSTRAINT ventas_detalleventa_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ventas_movimiento_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY ventas_movimiento
+    ADD CONSTRAINT ventas_movimiento_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ventas_venta_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY ventas_venta
+    ADD CONSTRAINT ventas_venta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_253ae2a6331666e8_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_253ae2a6331666e8_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: cliente_cliente_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX cliente_cliente_e8f8b1ef ON cliente_cliente USING btree (empresa_id);
+
+
+--
+-- Name: compras_compra_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX compras_compra_e8f8b1ef ON compras_compra USING btree (empresa_id);
+
+
+--
+-- Name: compras_detallecompra_98926b7a; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX compras_detallecompra_98926b7a ON compras_detallecompra USING btree (compra_id);
+
+
+--
+-- Name: compras_detallecompra_bb91903a; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX compras_detallecompra_bb91903a ON compras_detallecompra USING btree (producto_id);
+
+
+--
+-- Name: config_datosdosificacion_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX config_datosdosificacion_e8f8b1ef ON config_datosdosificacion USING btree (empresa_id);
+
+
+--
+-- Name: config_formatofactura_99033793; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX config_formatofactura_99033793 ON config_formatofactura USING btree (empresa_id);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_461cfeaa630ca218_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_461cfeaa630ca218_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: inicio_rol_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX inicio_rol_e8701ad4 ON inicio_rol USING btree (user_id);
+
+
+--
+-- Name: producto_item_7ac33b97; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX producto_item_7ac33b97 ON producto_item USING btree (proveedor_id);
+
+
+--
+-- Name: producto_item_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX producto_item_e8f8b1ef ON producto_item USING btree (empresa_id);
+
+
+--
+-- Name: proveedores_proveedor_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX proveedores_proveedor_e8f8b1ef ON proveedores_proveedor USING btree (empresa_id);
+
+
+--
+-- Name: users_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX users_user_groups_0e939a4f ON users_user_groups USING btree (group_id);
+
+
+--
+-- Name: users_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX users_user_groups_e8701ad4 ON users_user_groups USING btree (user_id);
+
+
+--
+-- Name: users_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX users_user_user_permissions_8373b171 ON users_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: users_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX users_user_user_permissions_e8701ad4 ON users_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: users_user_username_4c640ec321317c71_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX users_user_username_4c640ec321317c71_like ON users_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: ventas_cobro_a3d89257; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_cobro_a3d89257 ON ventas_cobro USING btree (venta_id);
+
+
+--
+-- Name: ventas_cobro_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_cobro_e8f8b1ef ON ventas_cobro USING btree (empresa_id);
+
+
+--
+-- Name: ventas_detalleventa_a3d89257; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_detalleventa_a3d89257 ON ventas_detalleventa USING btree (venta_id);
+
+
+--
+-- Name: ventas_detalleventa_bb91903a; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_detalleventa_bb91903a ON ventas_detalleventa USING btree (producto_id);
+
+
+--
+-- Name: ventas_movimiento_bb91903a; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_movimiento_bb91903a ON ventas_movimiento USING btree (producto_id);
+
+
+--
+-- Name: ventas_movimiento_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_movimiento_e8f8b1ef ON ventas_movimiento USING btree (empresa_id);
+
+
+--
+-- Name: ventas_venta_e8f8b1ef; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX ventas_venta_e8f8b1ef ON ventas_venta USING btree (empresa_id);
+
+
+--
+-- Name: auth_content_type_id_508cf46651277a81_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_content_type_id_508cf46651277a81_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cliente_empresa_id_4460358c141d43ca_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY cliente_cliente
+    ADD CONSTRAINT cliente_empresa_id_4460358c141d43ca_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: compras_detall_producto_id_70cc5b8fd5c40dd8_fk_producto_item_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY compras_detallecompra
+    ADD CONSTRAINT compras_detall_producto_id_70cc5b8fd5c40dd8_fk_producto_item_id FOREIGN KEY (producto_id) REFERENCES producto_item(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: compras_detalle_compra_id_260163a87f2dc4c4_fk_compras_compra_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY compras_detallecompra
+    ADD CONSTRAINT compras_detalle_compra_id_260163a87f2dc4c4_fk_compras_compra_id FOREIGN KEY (compra_id) REFERENCES compras_compra(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: compras_empresa_id_7eea939fe3275050_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY compras_compra
+    ADD CONSTRAINT compras_empresa_id_7eea939fe3275050_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: config__empresa_id_1878d10dab020fa3_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY config_datosdosificacion
+    ADD CONSTRAINT config__empresa_id_1878d10dab020fa3_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: config__empresa_id_5d9206fe61298748_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY config_formatofactura
+    ADD CONSTRAINT config__empresa_id_5d9206fe61298748_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djan_content_type_id_697914295151027a_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT djan_content_type_id_697914295151027a_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_52fdd58701c5f563_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_users_user_id FOREIGN KEY (user_id) REFERENCES users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: inicio_rol_user_id_58d5dbd511e7da4e_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY inicio_rol
+    ADD CONSTRAINT inicio_rol_user_id_58d5dbd511e7da4e_fk_users_user_id FOREIGN KEY (user_id) REFERENCES users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: produ_proveedor_id_2e3a63b725ac1d76_fk_proveedores_proveedor_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY producto_item
+    ADD CONSTRAINT produ_proveedor_id_2e3a63b725ac1d76_fk_proveedores_proveedor_id FOREIGN KEY (proveedor_id) REFERENCES proveedores_proveedor(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: product_empresa_id_5ef429c8bcb95c43_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY producto_item
+    ADD CONSTRAINT product_empresa_id_5ef429c8bcb95c43_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: proveed_empresa_id_663a7143a630cf74_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY proveedores_proveedor
+    ADD CONSTRAINT proveed_empresa_id_663a7143a630cf74_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_u_empresa_id_1b65d54b7d3e46a8_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user
+    ADD CONSTRAINT users_u_empresa_id_1b65d54b7d3e46a8_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_groups_group_id_2f68d48d4a1739d2_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user_groups
+    ADD CONSTRAINT users_user_groups_group_id_2f68d48d4a1739d2_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_groups_user_id_5a589bf89ab6090b_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user_groups
+    ADD CONSTRAINT users_user_groups_user_id_5a589bf89ab6090b_fk_users_user_id FOREIGN KEY (user_id) REFERENCES users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_permission_id_600d52ebc008620d_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user_user_permissions
+    ADD CONSTRAINT users_user_permission_id_600d52ebc008620d_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_user_permi_user_id_317f5474dc092747_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY users_user_user_permissions
+    ADD CONSTRAINT users_user_user_permi_user_id_317f5474dc092747_fk_users_user_id FOREIGN KEY (user_id) REFERENCES users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas__empresa_id_17cab6d9162e8d5e_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_movimiento
+    ADD CONSTRAINT ventas__empresa_id_17cab6d9162e8d5e_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas__empresa_id_3510925b858a8027_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_cobro
+    ADD CONSTRAINT ventas__empresa_id_3510925b858a8027_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas__empresa_id_449f35eb814e4bae_fk_users_personajuridica_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_venta
+    ADD CONSTRAINT ventas__empresa_id_449f35eb814e4bae_fk_users_personajuridica_id FOREIGN KEY (empresa_id) REFERENCES users_personajuridica(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas_cobro_venta_id_5b9a12545bd6e49c_fk_ventas_venta_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_cobro
+    ADD CONSTRAINT ventas_cobro_venta_id_5b9a12545bd6e49c_fk_ventas_venta_id FOREIGN KEY (venta_id) REFERENCES ventas_venta(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas_detalle_producto_id_118158844bdb77dc_fk_producto_item_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_detalleventa
+    ADD CONSTRAINT ventas_detalle_producto_id_118158844bdb77dc_fk_producto_item_id FOREIGN KEY (producto_id) REFERENCES producto_item(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas_detallevent_venta_id_40e30ceafe7e4dbd_fk_ventas_venta_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_detalleventa
+    ADD CONSTRAINT ventas_detallevent_venta_id_40e30ceafe7e4dbd_fk_ventas_venta_id FOREIGN KEY (venta_id) REFERENCES ventas_venta(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ventas_movimie_producto_id_4759f7a5e9047040_fk_producto_item_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY ventas_movimiento
+    ADD CONSTRAINT ventas_movimie_producto_id_4759f7a5e9047040_fk_producto_item_id FOREIGN KEY (producto_id) REFERENCES producto_item(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

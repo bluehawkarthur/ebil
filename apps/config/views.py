@@ -46,6 +46,7 @@ def Createpersojuridica(request):
                 frases_pie='',
                 empresa=personajurid
             )
+            
             formatofact.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
             # render_to_response('config/createpersojuridica.html')

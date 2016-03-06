@@ -268,7 +268,8 @@ def import_base(request):
             rute = '%s/%s' % (MEDIA_ROOT, datos)
             call_command('loaddata', rute)
             os.unlink(rute)
-            return HttpResponseRedirect(reverse_lazy('listar_item'))
+            messages.success(request, "Los datos se cargaron correctamente")
+            return HttpResponseRedirect(reverse_lazy('index'))
 
     else:
         form = UploadFileForm()

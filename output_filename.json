@@ -153,11 +153,11 @@
 },
 {
    "fields": {
-      "expire_date": "2016-03-18T16:31:55.258Z",
-      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+      "expire_date": "2016-03-20T22:37:15.698Z",
+      "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
    },
    "model": "sessions.session",
-   "pk": "x33fl32n2eqpk6cgt4sciedk195wlra1"
+   "pk": "1ebe8f8b3cyr8lty0md7ivx995ucniig"
 },
 {
    "fields": {
@@ -324,7 +324,7 @@
    "fields": {
       "empresa": 1,
       "proveedor": 1,
-      "cantidad": 11,
+      "cantidad": 10,
       "almacen": 1,
       "saldo_min": 4,
       "precio_unitario": "89.00",
@@ -371,6 +371,32 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "fecha": "2016-03-04",
+      "excentos": "0.00",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "codigo_control": "65-63-80-C2",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr",
+      "numero_autorizacion": 32424242,
+      "nro_factura": 2,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "razon_social": "wrwrw",
+      "nit": 234224
+   },
+   "model": "ventas.venta",
+   "pk": 2
+},
+{
+   "fields": {
       "excentos": "0.00",
       "recargo": "0.00",
       "cantidad": 1,
@@ -386,6 +412,24 @@
    },
    "model": "ventas.detalleventa",
    "pk": 1
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 2,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 1,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 2
 },
 {
    "fields": {
@@ -416,9 +460,22 @@
 {
    "fields": {
       "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 1,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-04",
+      "detalle": "Venta a wrwrw"
+   },
+   "model": "ventas.movimiento",
+   "pk": 4
+},
+{
+   "fields": {
+      "empresa": 1,
       "fecha": "2016-03-31",
       "nro_conrelativo": 1,
-      "contador": 0,
+      "contador": 1,
       "nro_autorizacion": 32424242,
       "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr"
    },
@@ -997,7 +1054,7 @@
       "direccion": "",
       "is_superuser": true,
       "is_staff": true,
-      "last_login": "2016-03-04T16:30:26.694Z",
+      "last_login": "2016-03-06T22:37:15.684Z",
       "avatar": "",
       "groups": [],
       "user_permissions": [],

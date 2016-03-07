@@ -153,11 +153,19 @@
 },
 {
    "fields": {
-      "expire_date": "2016-03-20T22:37:15.698Z",
-      "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
+      "model": "clientecampos",
+      "app_label": "config"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 20
+},
+{
+   "fields": {
+      "expire_date": "2016-03-21T20:32:45.250Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
    },
    "model": "sessions.session",
-   "pk": "1ebe8f8b3cyr8lty0md7ivx995ucniig"
+   "pk": "bbeuonnhhn511ip3a111q0usq0sray8e"
 },
 {
    "fields": {
@@ -172,6 +180,20 @@
    },
    "model": "users.personajuridica",
    "pk": 1
+},
+{
+   "fields": {
+      "telefono3": null,
+      "telefono2": null,
+      "municipios": "Entre Rios (Bulo Bulo)",
+      "razon_social": "Ferreteria",
+      "departamento": "Cochabamba",
+      "direccion": "sacaba",
+      "telefono": 42321212,
+      "nit": 34242342
+   },
+   "model": "users.personajuridica",
+   "pk": 2
 },
 {
    "fields": {
@@ -319,6 +341,153 @@
    },
    "model": "proveedores.proveedor",
    "pk": 7
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "errerere",
+      "telefono1": 45644446,
+      "ubicacion_geo": "jhjhh",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "pedro",
+      "texto2": "jhjh",
+      "direccion": "hkjhj",
+      "texto1": "jhjhjhj",
+      "rubro": "hjhjh",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p12",
+      "nit": "qwqww"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 8
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "erer",
+      "telefono1": 343434,
+      "ubicacion_geo": "ererrrreer",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "jose",
+      "texto2": "ererer",
+      "direccion": "wewe",
+      "texto1": "uuuuuu",
+      "rubro": "dfdhdh",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p22",
+      "nit": "uyyyuyuyy"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 9
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "erererree",
+      "telefono1": 343434,
+      "ubicacion_geo": "erererre",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "juan",
+      "texto2": "ererer",
+      "direccion": "wewe",
+      "texto1": "ttttttt",
+      "rubro": "hdhdh",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p32",
+      "nit": "ewewe"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 10
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "ererere",
+      "telefono1": 343434,
+      "ubicacion_geo": "yyyyyy",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "ramon",
+      "texto2": "ererer",
+      "direccion": "weewe",
+      "texto1": "rterrere",
+      "rubro": "dhdhd",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p42",
+      "nit": "wewew"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 11
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "erereerer",
+      "telefono1": 343434,
+      "ubicacion_geo": "uuuuuuu",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "nose",
+      "texto2": "ererewew",
+      "direccion": "wewe",
+      "texto1": "ererreerr",
+      "rubro": "dhdhdhdh",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p52",
+      "nit": "wewew"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 12
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "ererere",
+      "telefono1": 343434,
+      "ubicacion_geo": "uuuuuuu",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "nancy",
+      "texto2": "qqqq",
+      "direccion": "wewe",
+      "texto1": "rerer",
+      "rubro": "w",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p62",
+      "nit": "wewew"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 13
+},
+{
+   "fields": {
+      "empresa": 2,
+      "contactos": "ererr",
+      "telefono1": 343434,
+      "ubicacion_geo": "uuuuuuu",
+      "telefono3": null,
+      "telefono2": null,
+      "razon_social": "anita",
+      "texto2": "rtetete",
+      "direccion": "rtrtrtrtrt",
+      "texto1": "rerer",
+      "rubro": "eeeeeeee",
+      "fecha2": "2015-09-23",
+      "fecha1": "2015-09-23",
+      "codigo": "p72",
+      "nit": "wewew"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 14
 },
 {
    "fields": {
@@ -484,6 +653,18 @@
 },
 {
    "fields": {
+      "empresa": 2,
+      "fecha": "2016-03-31",
+      "nro_conrelativo": 100,
+      "contador": 0,
+      "nro_autorizacion": 131313,
+      "llave_digital": "adadadasd3242424"
+   },
+   "model": "config.datosdosificacion",
+   "pk": 2
+},
+{
+   "fields": {
       "empresa": 1,
       "tamanio": "carta",
       "frases_titulo": "Factura",
@@ -495,6 +676,20 @@
    },
    "model": "config.formatofactura",
    "pk": 1
+},
+{
+   "fields": {
+      "empresa": 2,
+      "tamanio": "oficio",
+      "frases_titulo": "Factura",
+      "formato": "general",
+      "facturacion": "normal",
+      "frases_pie": "Ley N\u00b0 453: Si se te ha vulnerado alg\u00fan derecho puedes exigir la reposici\u00f3n o restauraci\u00f3n.",
+      "impresion": "vacia",
+      "frases_subtitulo": "Derecho a Credito Fiscal"
+   },
+   "model": "config.formatofactura",
+   "pk": 2
 },
 {
    "fields": {
@@ -1038,6 +1233,33 @@
 },
 {
    "fields": {
+      "codename": "add_clientecampos",
+      "name": "Can add cliente campos",
+      "content_type": 20
+   },
+   "model": "auth.permission",
+   "pk": 61
+},
+{
+   "fields": {
+      "codename": "change_clientecampos",
+      "name": "Can change cliente campos",
+      "content_type": 20
+   },
+   "model": "auth.permission",
+   "pk": 62
+},
+{
+   "fields": {
+      "codename": "delete_clientecampos",
+      "name": "Can delete cliente campos",
+      "content_type": 20
+   },
+   "model": "auth.permission",
+   "pk": 63
+},
+{
+   "fields": {
       "name": "administrador",
       "permissions": []
    },
@@ -1076,7 +1298,7 @@
       "direccion": "",
       "is_superuser": false,
       "is_staff": false,
-      "last_login": "2016-03-04T16:31:55.221Z",
+      "last_login": "2016-03-07T20:32:45.216Z",
       "avatar": "",
       "groups": [
          1
@@ -1093,6 +1315,34 @@
    },
    "model": "users.user",
    "pk": 2
+},
+{
+   "fields": {
+      "username": "juan",
+      "s_apellido": "",
+      "p_apellido": "perez",
+      "is_active": true,
+      "empresa": 2,
+      "direccion": "",
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2016-03-06T23:28:34.749Z",
+      "avatar": "",
+      "groups": [
+         1
+      ],
+      "user_permissions": [
+         59,
+         60,
+         58
+      ],
+      "nombre": "juan",
+      "password": "pbkdf2_sha256$20000$J9tZn0lTQlgu$JwFHl/4Z1NDfzWdBYu6FUDtmN/aWsqjByL6rhU51Kq8=",
+      "telefono": null,
+      "email": ""
+   },
+   "model": "users.user",
+   "pk": 3
 },
 {
    "fields": {
@@ -1201,5 +1451,113 @@
    },
    "model": "inicio.rol",
    "pk": 9
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "almacenes",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 10
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "clientes",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 11
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "proveedores",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 12
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "reportes",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 13
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "compras",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 14
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "usuarios",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 15
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "bancarizacion",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 16
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "configuracion",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 17
+},
+{
+   "fields": {
+      "crear": true,
+      "modelos": "facturacion",
+      "operar": true,
+      "user": 3,
+      "editar": true,
+      "eliminar": true
+   },
+   "model": "inicio.rol",
+   "pk": 18
 }
 ]

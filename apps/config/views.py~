@@ -47,47 +47,47 @@ def Createpersojuridica(request):
                 frases_pie='Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.',
                 empresa=personajurid
             )
-    #         clienteconfig = Cliente(
-    #             codigo_usar=True
-    #             codigo_requerido=True
-				# codigo_tipo='alfa_numerico'
-				# codigo_caractr=50
-    #             razonsocal_usar=True
-    #             razonsocal_requerido=True
-    #             razonsocal_tipo='alfa_numerico'
-    #             razonsocal_caractr=100
-    #             nit_usar=True
-    #             nit_requerido=True
-    #             nit_tipo='numerico'
-    #             nit_caractr=20
-    #             direccion_usar=True
-    #             direccion_requerido=True
-    #             direccion_tipo='alfa_numerico'
-    #             direccion_caractr=50
-    #             telefonos_usar=True
-    #             telefonos_requerido=True
-    #             telefonos_tipo='numerico'
-    #             telefonos_caractr=20
-    #             contacto_usar=True
-    #             contacto_requerido=True
-    #             contacto_tipo='alfa_numerico'
-    #             contacto_caractr=50
-    #             rubro_usar=True
-    #             rubro_requerido=True
-    #             rubro_tipo='alfa_numerico'
-    #             rubro_caractr=50
-    #             categoria_usar=True
-    #             categoria_requerido=True
-    #             categoria_tipo='alfa_numerico'
-    #             categoria_caractr=50
-    #             ubicaciongeo_usar=True
-    #             ubicaciongeo_requerido=True
-    #             ubicaciongeo_tipo='alfa_numerico'
-    #             ubicaciongeo_caractr=50
-    #             empresa=personajurid
-    #         )
+            clienteconfig = Cliente(
+                codigo_usar=True
+                codigo_requerido=True
+				codigo_tipo='alfa_numerico'
+				codigo_caractr=50
+                razonsocal_usar=True
+                razonsocal_requerido=True
+                razonsocal_tipo='alfa_numerico'
+                razonsocal_caractr=100
+                nit_usar=True
+                nit_requerido=True
+                nit_tipo='numerico'
+                nit_caractr=20
+                direccion_usar=True
+                direccion_requerido=True
+                direccion_tipo='alfa_numerico'
+                direccion_caractr=50
+                telefonos_usar=True
+                telefonos_requerido=True
+                telefonos_tipo='numerico'
+                telefonos_caractr=20
+                contacto_usar=True
+                contacto_requerido=True
+                contacto_tipo='alfa_numerico'
+                contacto_caractr=50
+                rubro_usar=True
+                rubro_requerido=True
+                rubro_tipo='alfa_numerico'
+                rubro_caractr=50
+                categoria_usar=True
+                categoria_requerido=True
+                categoria_tipo='alfa_numerico'
+                categoria_caractr=50
+                ubicaciongeo_usar=True
+                ubicaciongeo_requerido=True
+                ubicaciongeo_tipo='alfa_numerico'
+                ubicaciongeo_caractr=50
+                empresa=personajurid
+            )
 
-    #         clienteconfig.save()
+            clienteconfig.save()
             formatofact.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
             # render_to_response('config/createpersojuridica.html')

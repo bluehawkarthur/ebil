@@ -244,15 +244,15 @@ def import_data(request):
             #         else:
             #             print "error"
 
-            
-
             try:
                 errores = []
                 for r in range(1, sheet.nrows):
-                    val = sheet.cell_type(r, 8)
-                    
+
                     if sheet.cell_type(r, 8) != xlrd.XL_CELL_NUMBER:
                         errores.append('* cantidad "%s" tiene que ser numerico' % (sheet.cell(r, 8).value))
+
+                    if sheet.cell_type(r, 9) != xlrd.XL_CELL_NUMBER:
+                        errores.append('* saldo_min "%s" tiene que ser numerico' % (sheet.cell(r, 9).value))
 
                     if sheet.cell_type(r, 11) != xlrd.XL_CELL_TEXT:
                         errores.append('* imagen "%s" tiene que ser texto' % (sheet.cell(r, 11).value))
@@ -260,11 +260,18 @@ def import_data(request):
                     if not Proveedor.objects.filter(codigo=sheet.cell(r, 10).value):
                         errores.append('* el proveedor "%s" no existe en la base de datos' % (sheet.cell(r, 10).value))
 
+                    if sheet.cell_type(r, 13) != xlrd.XL_CELL_NUMBER:
+                        errores.append('* costo_unitario "%s" tiene que ser numerico' % (sheet.cell(r, 13).value))
+
+                    if sheet.cell_type(r, 14) != xlrd.XL_CELL_NUMBER:
+                        errores.append('* precio_unitario "%s" tiene que ser numerico' % (sheet.cell(r, 14).value))
+
                 for s in range(1, sheet.nrows):
 
                     if errores:
                         for err in errores:
                             messages.error(request, err)
+                            # messages.error(request, ', '.join([str(x) for x in errores]))
                         return render_to_response(
                         'producto/upload_form.html',
                         {

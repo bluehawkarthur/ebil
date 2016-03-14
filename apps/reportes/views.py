@@ -668,30 +668,30 @@ def Reportcompra(request):
 		if date1 != '' and date2 != '':
 			if tipo == 'todo':
 				if nit != '':
-					compra1 = Compra.objects.filter(fecha__range=(date1, date2), nit=nit)
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), nit=nit, empresa=request.user.empresa)
 					compras = DetalleCompra.objects.filter(compra=compra1)
 				elif empresa != '':
-					compra1 = Compra.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), razon_social=empresa, empresa=request.user.empresa)
 					compras = DetalleCompra.objects.filter(compra=compra1)
 				# elif monto != '':
 				# 	compra1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
 				# 	compras = DetalleCompra.objects.filter(venta=compra1)
 				else:
-					compra1 = Compra.objects.filter(fecha__range=(date1, date2))
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), empresa=request.user.empresa)
 					compras = DetalleCompra.objects.filter(compra=compra1)
 
 			else:
 				if nit != '':
-					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit, empresa=request.user.empresa)
 					compras = DetalleCompra.objects.filter(compra=compra1)
 				elif empresa != '':
-					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa, empresa=request.user.empresa)
 					compras = DetalleCompra.objects.filter(compra=compra1)
 				# elif monto != '':
 				# 	compra1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
 				# 	compras = DetalleCompra.objects.filter(venta=compra1)
 				else:
-					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, empresa=request.user.empresa)
 					compras = DetalleCompra.objects.filter(compra=compra1)
 			
 			total = 0
@@ -705,7 +705,7 @@ def Reportcompra(request):
 	else:
 		datecompu = date.today()
 		total = 0
-		compra1 = Compra.objects.filter(fecha=datecompu)
+		compra1 = Compra.objects.filter(fecha=datecompu, empresa=request.user.empresa)
 		compras = DetalleCompra.objects.filter(compra=compra1)
 		for compra in compras:
 			total += compra.cantidad * compra.precio_unitario
@@ -719,7 +719,6 @@ def detalleCompra(request, pk):
     vd = []
     for d in detalle:
         vd.append(d)
-
 
     data = {
         'nit': compra[0].nit,

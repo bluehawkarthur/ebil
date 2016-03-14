@@ -35,6 +35,8 @@ from django.contrib import messages
 import decimal
 from django.db import IntegrityError
 
+import xlsxwriter
+
 
 class CrearItem(FormView):
 	template_name = 'producto/crear_item.html'
@@ -90,6 +92,7 @@ from rolepermissions.mixins import HasRoleMixin
 
 import operator
 from django.db.models import Q
+import itertools
 
 
 class ListarItem(PaginationMixin, ListView):
@@ -104,17 +107,28 @@ class ListarItem(PaginationMixin, ListView):
         d_list = dt.split("*")
         q = d_list
 
-        query = reduce(operator.and_, (Q(descripcion__contains=item) for item in q))
+        q_objects = []
+
+        for item in q:
+            q_objects.append(Q(descripcion__icontains=item))
+            q_objects.append(Q(codigo_item__icontains=item))
+            q_objects.append(Q(codigo_fabrica__icontains=item))
+            q_objects.append(Q(carac_especial_1__icontains=item))
+            q_objects.append(Q(carac_especial_2__icontains=item))
+
+        query = reduce(operator.or_, q_objects)
+
+        # query = reduce(operator.and_, (Q(descripcion__icontains=item) for item in q))
         r = self.model.objects.filter(query)
 
-        if r:
-            query2 = query
-            print 'entrooooo'
-        else:
-            query2 = query = reduce(operator.and_, (Q(codigo_item__contains=item) for item in q))
+        # if r:
+        #     query2 = query
+        #     print 'entrooooo'
+        # else:
+        #     query2 = reduce(operator.and_, (Q(codigo_item__icontains=item) for item in q))
 
         if (descripcion):
-            object_list = self.model.objects.filter(query2, empresa=self.request.user.empresa)
+            object_list = self.model.objects.filter(query, empresa=self.request.user.empresa)
         elif (descripcion == '*'):
             object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('pk')
         else:
@@ -221,65 +235,99 @@ def import_data(request):
             book = xlrd.open_workbook(rute)
             sheet = book.sheet_by_name('Sheet1')
 
-            for r in range(1, sheet.nrows):
-                print sheet.cell(r, 0).value
-                crearItem = Item(
-                    codigo_item=sheet.cell(r, 0).value,
-                    codigo_fabrica=sheet.cell(r, 1).value,
-                    almacen=sheet.cell(r, 2).value,
-                    grupo=sheet.cell(r, 3).value,
-                    subgrupo=sheet.cell(r, 4).value,
-                    descripcion=sheet.cell(r, 5).value,
-                    carac_especial_1=sheet.cell(r, 6).value,
-                    carac_especial_2=sheet.cell(r, 7).value,
-                    cantidad=sheet.cell(r, 8).value,
-                    saldo_min=sheet.cell(r, 9).value,
-                    proveedor=Proveedor.objects.get(codigo=sheet.cell(r, 10).value),
-                    imagen=sheet.cell(r, 11).value,
-                    unidad_medida=sheet.cell(r, 12).value,
-                    costo_unitario=decimal.Decimal(sheet.cell(r, 13).value),
-                    precio_unitario=decimal.Decimal(sheet.cell(r, 14).value),
-                    empresa=request.user.empresa,
-                )
-                crearItem.save()
+            # wb = xlrd.open_workbook(rute)
+            # ws = wb.sheet_by_name('Sheet1')
+            # for i in range(ws.nrows):
+            #     for j in range(ws.ncols):
+            #         if ws.cell_type(i, j) != xlrd.XL_CELL_EMPTY:
+            #             print ("  (%d, %d):%s:%s" % (i, j, ws.cell_type(i, j), ws.cell_value(i, j)))
+            #         else:
+            #             print "error"
 
-                crearMovimiento = Movimiento(
-                    cantidad=sheet.cell(r, 8).value,
-                    precio_unitario=decimal.Decimal(sheet.cell(r, 14).value),
-                    detalle='Saldo Inicial',
-                    fecha_transaccion=date.today(),
-                    motivo_movimiento='inicial',
-                    item=crearItem,
-                    empresa=request.user.empresa,
-                )
-                crearMovimiento.save()
+            
+
+            try:
+                errores = []
+                for r in range(1, sheet.nrows):
+                    val = sheet.cell_type(r, 8)
+                    
+                    if sheet.cell_type(r, 8) != xlrd.XL_CELL_NUMBER:
+                        errores.append('* cantidad "%s" tiene que ser numerico' % (sheet.cell(r, 8).value))
+
+                    if sheet.cell_type(r, 11) != xlrd.XL_CELL_TEXT:
+                        errores.append('* imagen "%s" tiene que ser texto' % (sheet.cell(r, 11).value))
+
+                    if not Proveedor.objects.filter(codigo=sheet.cell(r, 10).value):
+                        errores.append('* el proveedor "%s" no existe en la base de datos' % (sheet.cell(r, 10).value))
+
+                for s in range(1, sheet.nrows):
+
+                    if errores:
+                        for err in errores:
+                            messages.error(request, err)
+                        return render_to_response(
+                        'producto/upload_form.html',
+                        {
+                            'form': form,
+                        },
+                        context_instance=RequestContext(request))
+                    else:
+
+                        crearItem = Item(
+                            codigo_item=sheet.cell(s, 0).value,
+                            codigo_fabrica=sheet.cell(s, 1).value,
+                            almacen=sheet.cell(s, 2).value,
+                            grupo=sheet.cell(s, 3).value,
+                            subgrupo=sheet.cell(s, 4).value,
+                            descripcion=sheet.cell(s, 5).value,
+                            carac_especial_1=sheet.cell(s, 6).value,
+                            carac_especial_2=sheet.cell(s, 7).value,
+                            cantidad=sheet.cell(s, 8).value,
+                            saldo_min=sheet.cell(s, 9).value,
+                            proveedor=Proveedor.objects.get(codigo=sheet.cell(s, 10).value),
+                            imagen=sheet.cell(s, 11).value,
+                            unidad_medida=sheet.cell(s, 12).value,
+                            costo_unitario=decimal.Decimal(sheet.cell(s, 13).value),
+                            precio_unitario=decimal.Decimal(sheet.cell(s, 14).value),
+                            empresa=request.user.empresa,
+                        )
+                        crearItem.save()
+
+                        crearMovimiento = Movimiento(
+                            cantidad=sheet.cell(s, 8).value,
+                            precio_unitario=decimal.Decimal(sheet.cell(s, 14).value),
+                            detalle='Saldo Inicial',
+                            fecha_transaccion=date.today(),
+                            motivo_movimiento='inicial',
+                            item=crearItem,
+                            empresa=request.user.empresa,
+                        )
+                        crearMovimiento.save()
+
+                # try:
+
+                # request.FILES['file'].save_book_to_database(
+                #     models=[Item],
+                #     initializers=[choice_func],
+                #     mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen', 'grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
+                # )
+
+                messages.success(request, "Los datos se importaron correctamente")
+
+                # filename = datos._name
+                # # print filename
+
+                # fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+
+                # for chunk in datos.chunks() :
+                #     fd.write(chunk)
+                # fd.close()
 
 
+                return HttpResponseRedirect(reverse_lazy('listar_item'))
 
-            # try:
-
-            # request.FILES['file'].save_book_to_database(
-            #     models=[Item],
-            #     initializers=[choice_func],
-            #     mapdicts=[['codigo_item', 'codigo_fabrica', 'almacen', 'grupo', 'subgrupo', 'descripcion', 'carac_especial_1', 'carac_especial_2', 'cantidad', 'saldo_min', 'proveedor', 'imagen', 'unidad_medida', 'costo_unitario', 'precio_unitario', 'user']]
-            # )
-
-            messages.success(request, "Los datos se importaron correctamente")
-
-            # filename = datos._name
-            # # print filename
-
-            # fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
-
-            # for chunk in datos.chunks() :
-            #     fd.write(chunk)
-            # fd.close()
-
-
-            return HttpResponseRedirect(reverse_lazy('listar_item'))
-
-          #   except Exception, e:
-	        	# messages.error(request, "error en el archivo por favor verifique q los datos sean correctos")
+            except Exception, e:
+	        	messages.error(request, e)
 
 
     else:

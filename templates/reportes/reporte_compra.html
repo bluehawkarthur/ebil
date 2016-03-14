@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load report_filter %}
 {% block menu %}
@@ -6,11 +5,11 @@
 {% endblock menu %}
 {% block content %}
 
-<section id="content">	
+<section id="content">  
  <div class="container">
     <h3>Reporte de compras  </h3>
   <div class="row" id="formulario-buscar">
-    <form class="col s12" action="/reporte_venta/" method='POST'>{% csrf_token %}
+    <form class="col s12" action="/reporte_compra/" method='POST'>{% csrf_token %}
       {% if valid%}
       <div class="alert alert-danger" role="alert">
         <span>Ingrese las fechas para que pueda hacer la consulta</span>
@@ -49,12 +48,11 @@
           <i class="mdi-editor-attach-money prefix active"></i>
           <input  name='monto'  id="monto" type="text" >
           <input  name='monto2'  id="monto2" type="hidden" >
-
           <label for="icon_email" class="active">MONTO</label>
         </div> -->
         <div class="input-field col s2">
           
-          <select name="tipo_venta" id="" class="validate">
+          <select name="tipo_compra" id="" class="validate">
             <option value="todo">Seleccionar</option>
             <option value="contado">Contado</option>
             <option value="credito">Credito</option>
@@ -70,7 +68,7 @@
     </form>
     </div>
                   
-	   {% for doc in ventas %}
+     {% for doc in ventas %}
         {% for docimage in doc.detalleventa.all %}
           {{ docimage.precio_unitario }}
         {% endfor %}
@@ -78,64 +76,64 @@
       {% endfor %}
 
     {% if  ex %}
-    	<table class='table' id="tabla">
-    		<thead>
+      <table class='table' id="tabla">
+        <thead>
           <th>Razon social</th>
           <th>Detalle</th>
-    			<th>Nit</th>
+          <th>Nit</th>
           <th>Fecha</th>
           <th>Monto</th>
-    			<th>Tipo venta</th>
+          <th>Tipo compra</th>
           <!-- <th class="reporte">Detalle</th> -->
           <th class="reporte">Imprimir</th>
           <th class="reporte">Pago</th>
-    		</thead>
-    		<tbody>
-    		{%  for venta in ventas %}
-          <tr class="{{venta.venta.pk}}">
-              <td>{{venta.venta.razon_social}}</td>
-              <td>{{venta.item.descripcion}}</td>
-              <td>{{venta.venta.nit}}</td>
-              <td>{{venta.venta.fecha}}</td>
+        </thead>
+        <tbody>
+        {%  for compra in compras %}
+          <tr class="{{compra.compra.pk}}">
+              <td>{{compra.compra.razon_social}}</td>
+              <td>{{compra.producto.descripcion}}</td>
+              <td>{{compra.compra.nit}}</td>
+              <td>{{compra.compra.fecha}}</td>
               <td>
-                {% if venta.venta.tipo_compra == 'credito' %}
-                  {% resta venta.venta.total  venta.venta.monto_pago %}
+                {% if compra.compra.tipo_compra == 'credito' %}
+                  {% resta compra.compra.total  compra.compra.monto_pago %}
                 {%else%}
-                  {% widthratio venta.cantidad 1 venta.precio_unitario %}
+                  {% widthratio compra.cantidad 1 compra.precio_unitario %}
                 {%endif%}
               </td>
-              <td>{{venta.venta.tipo_compra}}</td>
+              <td>{{compra.compra.tipo_compra}}</td>
 
               <!-- <td class="reporte">
-                <a  href="#modal{{venta.id}}" class="btn-floating waves-effect tooltipped  modal-trigger teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left" id="{{ venta.id }}"></i></a>
+                <a  href="#modal{{compra.id}}" class="btn-floating waves-effect tooltipped  modal-trigger teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left" id="{{ compra.id }}"></i></a>
               </td> -->
              
 
                 
              
-            <td class="reporte"><a  href="/rep_detalle_venta/{{ venta.venta.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
+            <td class="reporte"><a  href="/rep_detalle_compra/{{ compra.compra.pk }}" target="_blank" class="btn-floating waves-effect tooltipped  orange waves-light " data-position="top" data-delay="50" data-tooltip="Imprimir"><i class="mdi-action-print" ></i></a></td>
             <td class="reporte">
-              {% if venta.venta.tipo_compra == 'credito' %}
-              {% dias venta.venta.fecha_vencimiento %}
+              {% if compra.compra.tipo_compra == 'credito' %}
+              {% dias compra.compra.fecha_vencimiento %}
               dias
-              <a  href="#modal{{venta.id}}"  class="btn-floating waves-effect tooltipped modal-trigger light-green waves-light " data-position="top" data-delay="50" data-tooltip="Pago"><i class="mdi-editor-attach-money" ></i></a>
-               <div id="modal{{venta.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
+              <a  href="#modal{{compra.id}}"  class="btn-floating waves-effect tooltipped modal-trigger light-green waves-light " data-position="top" data-delay="50" data-tooltip="Pago"><i class="mdi-editor-attach-money" ></i></a>
+               <div id="modal{{compra.id}}" class="modal" style="display: none; opacity: 1; top: 0px;">
 
-                  <div  id="content{{ venta.id }}">
-                      <form id="form_pago{{ venta.id }}" class="col s12 m12 l8 offset-l2" target="_blank" action="/create_pago/"  method="POST" enctype='multipart/form-data'>
+                  <div  id="content{{ compra.id }}">
+                      <form id="form_pago{{ compra.id }}" class="col s12 m12 l8 offset-l2" target="_blank" action="/create_pagocompra/"  method="POST" enctype='multipart/form-data'>
                         <div class="modal-content">
                         <h4 class="header2">Ingrese monto a cancelar</h4>
                           {% csrf_token %} 
 
                             <div class="row">
                               <div class="input-field col s6">
-                                <input type="text" id="monto{{ venta.id }}" name="monto">
-                                <input type="hidden" name="venta" value="{{venta.venta.id}}">
+                                <input type="text" id="monto{{ compra.id }}" name="monto">
+                                <input type="hidden" name="compra" value="{{compra.compra.id}}">
                                 <label for="emails">Monto</label>
                               </div>
 
                               <div class="input-field col s6">
-                                <button  class="btn cyan waves-effect modal-close2  waves-light right" type="submit" id="guardar_monto{{ venta.id }}" name="action">Guardar
+                                <button  class="btn cyan waves-effect modal-close2  waves-light right" type="submit" id="guardar_monto{{ compra.id }}" name="action">Guardar
                                   <i class="mdi-content-send right"></i>
                                 </button>
                               </div>
@@ -147,16 +145,16 @@
 
                     <script>
                         // ------------------ validate for save monto -------------
-                         $('#guardar_monto{{ venta.id }}').prop('disabled', true); 
-                          $('input#monto{{ venta.id }}').on('blur keyup', function() {
-                              if ($("#form_pago{{ venta.id }}").valid()) {
-                                  $('#guardar_monto{{ venta.id }}').prop('disabled', false);  
+                         $('#guardar_monto{{ compra.id }}').prop('disabled', true); 
+                          $('input#monto{{ compra.id }}').on('blur keyup', function() {
+                              if ($("#form_pago{{ compra.id }}").valid()) {
+                                  $('#guardar_monto{{ compra.id }}').prop('disabled', false);  
                               } else {
-                                  $('#guardar_monto{{ venta.id }}').prop('disabled', 'disabled');
+                                  $('#guardar_monto{{ compra.id }}').prop('disabled', 'disabled');
                               }
                           });
                           
-                          $("#form_pago{{ venta.id }}").validate({
+                          $("#form_pago{{ compra.id }}").validate({
                               rules: {
                                   monto: {
                                       required: true,
@@ -177,13 +175,13 @@
             </td>
           </tr>
                 
-    		{% endfor %}
+        {% endfor %}
                 <tr>
                     <td colspan=3></td>
                     <td>Total General:</td>
                     <td>{{total}}</td>
                 </tr>
-    		</tbody>
+        </tbody>
         </table>    
     {% else %}
       <h3>No se encontraron resultados!</h3>
@@ -195,77 +193,14 @@
                 <div class="input-field col s12 m6 l2">
                 <a class="btn btn-floating-action btn-primary cyan print" href="javascript:void(0);" onclick="javascript:window.print();" id="print"><i class="mdi-action-print left"></i>  imprimir</a>
                 </div>
-                <div class="input-field col s12 m6 l6">
-
-                   
-                   <a class="waves-effect waves-light btn modal-trigger  light-green print" href="#modalx"><i class="mdi-notification-play-install left"></i>Cierre de Caja</a>
-
-                
-                </div>
               </div>
             </div>
 </section>
-<div id="modalx" class="modal" style="display: none; opacity: 1; top: 0px;">
-  <div class="modal-content">
-   <div class="container">
-    <div class="row">
-      <div class="col s12 m12 l12 ">
-        <h5>Datos para cierre de caja:</h5>
-        <form action="/caja/" method='POST' id="form_caja" name="myform" target="_blank">{% csrf_token %}
-          <div class="row">
-            <div class="col s12 m12 l7">
-              <label>Fecha</label>
-              <input id="add_fecha"  name="hoy" type="text" class="datepicker">
-              <label for="">Saldo inicial de caja:</label>
-              <input type="number" step="0.01"  required = "required" name='si' id=''>
-              <label for="">Gastos reailzadosen el dia:</label>
-              <input type="number" step="0.01"  required = "required" name='gd' id=''>
-            </div>
-            <div class="col s12 m12 l5">
-             <button style="margin-top: 120px;" class="waves-effect waves-light cyan btn modal-close2" id="guardar_caja" type="submit">Aceptar <i class="mdi-content-send right"></i></button>
-            </div>
-          </div>
-          
-         
 
-          </form>
-          <div class="modal-footer">
-            
-            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cerrar</a>
-          </div>
-
-        
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 {% endblock content %}
 {% block js %}
    <script>
-   // ------------------ validate for save monto -------------
-   $('#guardar_caja').prop('disabled', true); 
-    $('input').on('blur keyup', function() {
-        if ($("#form_caja").valid()) {
-            $('#guardar_caja').prop('disabled', false);  
-        } else {
-            $('#guardar_caja').prop('disabled', 'disabled');
-        }
-    });
-    
-    $("#form_caja").validate({
-        rules: {
-            si: {
-                required: true,
-                minlength: 1
-            },
-            gd: {
-                required: true,
-                minlength: 1
-            }
-        }
-    });
-
+   
     // ---------- refresh page this save monto ---------
    function autoRefresh1()
     {
@@ -275,14 +210,10 @@
    $( ".modal-close2" ).click(function() {
          setInterval('autoRefresh1()', 1000);
     });
-
-
    var $monto = $('#monto, #monto2').keyup(function() {
     $monto.not(this).val(this.value);
     });
-
    
-
    $('#empresa').on('blur keyup', function() {
                 if ($("#empresa").val()=='') {
                     $('#nit').prop('disabled', false); 
@@ -294,7 +225,6 @@
                     $('#monto').prop('disabled', 'disabled');
                 }
     });
-
     $('#nit').on('blur keyup', function() {
                 if ($("#nit").val()=='') {
                     $('#empresa').prop('disabled', false);  
@@ -313,13 +243,10 @@
                     $('#nit').prop('disabled', 'disabled');
                 }
     });
-
      $( "#empresa" ).autocomplete({
-
       source: function( request, response ) {
         console.log('estamos en JQUERY');
         console.log(request);
-
         $.ajax({
           url: "/buscar_empresa/",
           dataType: "json",
@@ -334,7 +261,6 @@
               nit: pn.fields.nit,
               label: pn.fields.razon_social
             };
-
           }));
        }
    });
@@ -349,13 +275,10 @@
       $(".nit_label").addClass('active');
     }
 });
-
   $( "#nit" ).autocomplete({
-
       source: function( request, response ) {
         console.log('estamos en JQUERY');
         console.log(request);
-
         $.ajax({
           url: "/buscar_empresa/",
           dataType: "json",
@@ -370,7 +293,6 @@
               nit: pn.fields.nit,
               label: pn.fields.nit
             };
-
           }));
        }
    });
@@ -384,13 +306,10 @@
       $(".empresa_label").addClass('active');
     }
 });
-
   $("#tabla tbody tr").each(function (index) 
   {
     console.log($(this).find('tr').attr('class'));
-
   });
-
   var fullDate = new Date();
   var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : (fullDate.getMonth()+1);
   
@@ -398,5 +317,3 @@
   $("#add_fecha").val(currentDate);
    </script> 
 {% endblock js %}
-
-

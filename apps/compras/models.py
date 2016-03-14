@@ -22,6 +22,8 @@ class Compra(models.Model):
     tipo_descuento = models.CharField(max_length=100)
     tipo_recargo = models.CharField(max_length=100)
     empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
+    monto_pago = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    fecha_vencimiento = models.DateField(null=True, blank=True)
 
     def __unicode__(self):
         return U" %s- %s" % (self.nit, self.nro_factura)
@@ -47,3 +49,20 @@ class DetalleCompra(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.detalle
+
+
+class CentroCostos(models.Model):
+    descripcion = models.CharField(max_length=100, null=True, blank=True)
+    cod = models.CharField(max_length=100, null=True, blank=True)
+    empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
+
+    def __unicode__(self):
+        return u'%s' % self.descripcion
+
+class CobroCompra(models.Model):
+    compra = models.ForeignKey(Compra)
+    monto_pago = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    fecha_transaccion = models.DateField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.compra.razon_social

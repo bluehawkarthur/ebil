@@ -25,13 +25,13 @@ class Item(models.Model):
 	proveedor = models.ForeignKey(Proveedor, related_name='proveedor', blank=True, null=True) #Relacion a la tabla de proveedores
 	imagen = models.ImageField(upload_to='items', null=True, blank=True)
 	unidad_medida = models.CharField(max_length=100)
-	costo_unitario = models.DecimalField(max_digits=6, decimal_places=2)
-	precio_unitario = models.DecimalField(max_digits=6, decimal_places=2)
+	costo_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+	precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
 	empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 	fecha_transaccion = models.DateField(null=True, blank=True)
 
-	class Meta:
-		unique_together = ('codigo_item', 'empresa',)
+	# class Meta:
+	# 	unique_together = ('codigo_item', 'carac_especial_1', 'carac_especial_2', 'cantidad',)
 	
 	def natural_key(self):
 		return (self.codigo_item, self.descripcion, self.precio_unitario, self.unidad_medida)

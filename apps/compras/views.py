@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response as render, redirect
 from django.template import RequestContext as ctx
 from django.forms.models import inlineformset_factory
 from django.views.generic import TemplateView
-from .models import Compra, DetalleCompra
+from .models import Compra, DetalleCompra, CentroCostos
 from .forms import CompraForm
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
@@ -18,6 +18,7 @@ from apps.proveedores.models import Proveedor
 import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 from datetime import date
+import datetime
 
 
 class Success(TemplateView):
@@ -53,6 +54,7 @@ def buscarProveedor(request):
 def compraCrear(request):
 
     form = None
+    centro_costos = CentroCostos.objects.filter(empresa=request.user.empresa)
     if request.method == 'POST':
         sid = transaction.savepoint()
         try:
@@ -68,6 +70,13 @@ def compraCrear(request):
             # calculo total de compras
             for k in proceso['producto']:
                 total += decimal.Decimal(k['sdf'])
+
+            if proceso['tipo_compra'] == 'credito':
+                date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
+                end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
+                today = datetime.date.today()
+            else:
+                end_date = None
 
             print total
             crearCompra = Compra(
@@ -87,6 +96,7 @@ def compraCrear(request):
                 tipo_descuento=proceso['tipo_descuento'],
                 tipo_recargo=proceso['tipo_recargo'],
                 empresa=request.user.empresa,
+                fecha_vencimiento=end_date,
 
             )
             crearCompra.save()
@@ -135,6 +145,17 @@ def compraCrear(request):
                     crearMovimiento.save()
 
                 else:
+                    print 'centro de costossssssss'
+                    print k['centro_costos']
+                    if CentroCostos.objects.filter(descripcion=k['centro_costos']):
+                        pass
+                    else:
+                        centro = CentroCostos(
+                            descripcion=k['centro_costos'],
+                            empresa=request.user.empresa
+                        )
+                        centro.save()
+
                     crearDetalle = DetalleCompra(
                         compra=crearCompra,
                         codigo=k['codigo_item'],
@@ -151,15 +172,13 @@ def compraCrear(request):
                         centro_costos=k['centro_costos'],
                         tipo_descuento=k['tipo_descuento'],
                         tipo_recargo=k['tipo_recargo'],
-                        empresa=request.user.empresa,
 
                     )
 
                     crearDetalle.save()
-            
+
             return HttpResponseRedirect(reverse('detallecompra', args=(crearCompra.pk,)))
 
-           
 
         except Exception, e:
             try:
@@ -168,14 +187,14 @@ def compraCrear(request):
                 pass
             messages.error(request, e)
 
-    return render('compras/compra.html', {'form': form}, context_instance=ctx(request))
+    return render('compras/compra.html', {'form': form, 'costos': centro_costos}, context_instance=ctx(request))
 
 
 # def detalleCompra(request, pk):
 #     print pk
 #     compra = Compra.objects.filter(id=pk)
 #     detalle = DetalleCompra.objects.filter(compra=compra)
-    
+
 
 #     vd = []
 #     for d in detalle:

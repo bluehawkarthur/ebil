@@ -161,11 +161,51 @@
 },
 {
    "fields": {
+      "model": "centrocostos",
+      "app_label": "compras"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 21
+},
+{
+   "fields": {
+      "model": "cobrocompra",
+      "app_label": "compras"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 22
+},
+{
+   "fields": {
+      "expire_date": "2016-03-25T19:07:57.922Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "92ay0bnll1rmhqfvgps1sx8w1xdgeg8k"
+},
+{
+   "fields": {
+      "expire_date": "2016-03-23T17:12:58.021Z",
+      "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
+   },
+   "model": "sessions.session",
+   "pk": "95adarss9k80rjv45aokqg99kv27o21m"
+},
+{
+   "fields": {
       "expire_date": "2016-03-21T20:32:45.250Z",
       "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
    },
    "model": "sessions.session",
    "pk": "bbeuonnhhn511ip3a111q0usq0sray8e"
+},
+{
+   "fields": {
+      "expire_date": "2016-03-21T18:41:40.341Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "d9bjk8ir1b2e8zz6ap95i87b361niw2z"
 },
 {
    "fields": {
@@ -492,25 +532,744 @@
 {
    "fields": {
       "empresa": 1,
-      "proveedor": 1,
-      "cantidad": 10,
+      "proveedor": 3,
+      "cantidad": 4,
       "almacen": 1,
-      "saldo_min": 4,
-      "precio_unitario": "89.00",
-      "unidad_medida": "qqq",
-      "carac_especial_2": "qqq",
-      "subgrupo": "aaaa",
-      "codigo_item": "P1-33",
-      "carac_especial_1": "aaa",
-      "descripcion": "producto2",
-      "costo_unitario": "-34.00",
-      "grupo": "g1",
-      "fecha_transaccion": "2016-03-04",
-      "codigo_fabrica": "qq",
-      "imagen": "hhhhh"
+      "saldo_min": 32,
+      "precio_unitario": "34.00",
+      "unidad_medida": "asda",
+      "carac_especial_2": "sdfsdf",
+      "subgrupo": "asdas",
+      "codigo_item": "juan",
+      "carac_especial_1": "asdasd",
+      "descripcion": "sdfsdfsd",
+      "costo_unitario": "45.00",
+      "grupo": "sdfsdf",
+      "fecha_transaccion": null,
+      "codigo_fabrica": "sdfsdfs",
+      "imagen": ""
    },
    "model": "producto.item",
+   "pk": 15
+},
+{
+   "fields": {
+      "empresa": 1,
+      "proveedor": 1,
+      "cantidad": 456,
+      "almacen": 1,
+      "saldo_min": 39,
+      "precio_unitario": "34.00",
+      "unidad_medida": "ddff",
+      "carac_especial_2": "dfgdg",
+      "subgrupo": "gdg",
+      "codigo_item": "juju",
+      "carac_especial_1": "dfgdgd",
+      "descripcion": "dgdg",
+      "costo_unitario": "45.00",
+      "grupo": "dfgdg",
+      "fecha_transaccion": null,
+      "codigo_fabrica": "gdg",
+      "imagen": "items/1610392d637623abe9f267b976793e08.jpg"
+   },
+   "model": "producto.item",
+   "pk": 16
+},
+{
+   "fields": {
+      "empresa": 1,
+      "proveedor": 2,
+      "cantidad": 34,
+      "almacen": 1,
+      "saldo_min": 3430,
+      "precio_unitario": "34.00",
+      "unidad_medida": "dffdfdf",
+      "carac_especial_2": "fgfg",
+      "subgrupo": "dgffg",
+      "codigo_item": "jujuiiii",
+      "carac_especial_1": "gffg",
+      "descripcion": "fgfg",
+      "costo_unitario": "345.00",
+      "grupo": "fgfgg",
+      "fecha_transaccion": null,
+      "codigo_fabrica": "ddfdfd",
+      "imagen": "items/front-15_wv9zNHl.jpg"
+   },
+   "model": "producto.item",
+   "pk": 18
+},
+{
+   "fields": {
+      "empresa": 1,
+      "proveedor": 7,
+      "cantidad": 44,
+      "almacen": 1,
+      "saldo_min": 23,
+      "precio_unitario": "34.00",
+      "unidad_medida": "dfdsf",
+      "carac_especial_2": "sdfsdf",
+      "subgrupo": "sddsfsdf",
+      "codigo_item": "jose",
+      "carac_especial_1": "sdfsfs",
+      "descripcion": "sdfsf",
+      "costo_unitario": "29.00",
+      "grupo": "sdfsf",
+      "fecha_transaccion": null,
+      "codigo_fabrica": "sdfs",
+      "imagen": "items/12524284_992309177519492_997169529297864341_n_mskhEJM.jpg"
+   },
+   "model": "producto.item",
+   "pk": 19
+},
+{
+   "fields": {
+      "empresa": 1,
+      "proveedor": 1,
+      "cantidad": 23,
+      "almacen": 1,
+      "saldo_min": 233232,
+      "precio_unitario": "23.00",
+      "unidad_medida": "sddsf",
+      "carac_especial_2": "ewrwer",
+      "subgrupo": "wwer",
+      "codigo_item": "werrewr",
+      "carac_especial_1": "sadsad",
+      "descripcion": "werwer",
+      "costo_unitario": "2342344.00",
+      "grupo": "24234",
+      "fecha_transaccion": null,
+      "codigo_fabrica": "werwe",
+      "imagen": ""
+   },
+   "model": "producto.item",
+   "pk": 20
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "fsdfsfw24242",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "rwrwrwr",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 342424,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "nro_autorizacion": "3242423423424",
+      "fecha": "2016-03-09",
+      "nit": 23424
+   },
+   "model": "compras.compra",
    "pk": 1
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "sdfsfsfsfsf",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "sdfsdfs",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 342424,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "nro_autorizacion": "352352552525",
+      "fecha": "2016-03-09",
+      "nit": 24234
+   },
+   "model": "compras.compra",
+   "pk": 2
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "wrwrwrwr",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "werwrwr",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 3234234,
+      "tipo_recargo": "Bs",
+      "total": "4.00",
+      "nro_autorizacion": "324242242424",
+      "fecha": "2016-03-10",
+      "nit": 32424
+   },
+   "model": "compras.compra",
+   "pk": 3
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "dsgsfsdgsg352525",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "sdfsfsf",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 32423432,
+      "tipo_recargo": "Bs",
+      "total": "10.00",
+      "nro_autorizacion": "2424242424244",
+      "fecha": "2016-03-10",
+      "nit": 2342342
+   },
+   "model": "compras.compra",
+   "pk": 4
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "sdsdf345345",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "sfsfsf",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 23424,
+      "tipo_recargo": "Bs",
+      "total": "10.00",
+      "nro_autorizacion": "234242424242",
+      "fecha": "2016-03-10",
+      "nit": 234234
+   },
+   "model": "compras.compra",
+   "pk": 5
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "sdsdf345345",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "sfsfsf",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 23424,
+      "tipo_recargo": "Bs",
+      "total": "10.00",
+      "nro_autorizacion": "234242424242",
+      "fecha": "2016-03-10",
+      "nit": 234234
+   },
+   "model": "compras.compra",
+   "pk": 6
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "dddffgdgdgd",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "werwrwr",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 32423424,
+      "tipo_recargo": "Bs",
+      "total": "100.00",
+      "nro_autorizacion": "324234242424",
+      "fecha": "2016-03-10",
+      "nit": 24242
+   },
+   "model": "compras.compra",
+   "pk": 7
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "dddffgdgdgd",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "werwrwr",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 32423424,
+      "tipo_recargo": "Bs",
+      "total": "100.00",
+      "nro_autorizacion": "324234242424",
+      "fecha": "2016-03-10",
+      "nit": 24242
+   },
+   "model": "compras.compra",
+   "pk": 8
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "gdggw54353453453453",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "dsdgsg",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 323,
+      "tipo_recargo": "Bs",
+      "total": "100.00",
+      "nro_autorizacion": "23423546765747",
+      "fecha": "2016-03-10",
+      "nit": 3242342
+   },
+   "model": "compras.compra",
+   "pk": 9
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "32erwtwtwtwt",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "sdfsf",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 3242,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "nro_autorizacion": "3242353456546364",
+      "fecha": "2016-03-10",
+      "nit": 234242
+   },
+   "model": "compras.compra",
+   "pk": 10
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "qweqweqwe324234",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "dsfdsfs",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 42342,
+      "tipo_recargo": "Bs",
+      "total": "100.00",
+      "nro_autorizacion": "324524564757",
+      "fecha": "2016-03-10",
+      "nit": 3242342
+   },
+   "model": "compras.compra",
+   "pk": 11
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "rdfgdfg3e63433463",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "werwrwr",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 355,
+      "tipo_recargo": "Bs",
+      "total": "100.00",
+      "nro_autorizacion": "242326262626",
+      "fecha": "2016-03-10",
+      "nit": 242342
+   },
+   "model": "compras.compra",
+   "pk": 12
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "dfgdfgdgdg353346",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "ewwrweetwt",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 34534535,
+      "tipo_recargo": "Bs",
+      "total": "24.00",
+      "nro_autorizacion": "4534535445",
+      "fecha": "2016-03-10",
+      "nit": 2423423
+   },
+   "model": "compras.compra",
+   "pk": 13
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "dfgdgdg54645645646",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "werwrwrwrwrwr",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 45,
+      "tipo_recargo": "Bs",
+      "total": "1125.00",
+      "nro_autorizacion": "345535353535353",
+      "fecha": "2016-03-10",
+      "nit": 23424244
+   },
+   "model": "compras.compra",
+   "pk": 14
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "fdgdfgdgd45456464",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "sdfsdfsfs",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 35345353,
+      "tipo_recargo": "Bs",
+      "total": "68.00",
+      "nro_autorizacion": "34534635363663",
+      "fecha": "2016-03-10",
+      "nit": 325234235
+   },
+   "model": "compras.compra",
+   "pk": 15
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "sdfsdfsdfsdfsfsds",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "werwrwrw",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 4353453,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "nro_autorizacion": "43534534535353",
+      "fecha": "2016-03-11",
+      "nit": 2143234
+   },
+   "model": "compras.compra",
+   "pk": 16
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "fgdgdgdg",
+      "cantidad_dias": 30,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": "2016-04-10",
+      "razon_social": "etertert",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": "20.00",
+      "tipo_compra": "credito",
+      "nro_factura": 34535,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "nro_autorizacion": "345345353535",
+      "fecha": "2016-03-11",
+      "nit": 4354353
+   },
+   "model": "compras.compra",
+   "pk": 17
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cod_control": "werewrwrwrwrwr",
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "razon_social": "ewrwrw",
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "nro_factura": 324234,
+      "tipo_recargo": "Bs",
+      "total": "680.00",
+      "nro_autorizacion": "434353534535353",
+      "fecha": "2016-03-11",
+      "nit": 3423424
+   },
+   "model": "compras.compra",
+   "pk": 18
+},
+{
+   "fields": {
+      "centro_costos": "V",
+      "scf": "100.00",
+      "recargo": "0.00",
+      "cantidad": 10,
+      "descuento": "0.00",
+      "producto": null,
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "precio_unitario": "10.00",
+      "compra": 11,
+      "tipo_recargo": "Bs",
+      "codigo": "",
+      "subtotal": "100.00",
+      "detalle": "",
+      "unidad": ""
+   },
+   "model": "compras.detallecompra",
+   "pk": 4
+},
+{
+   "fields": {
+      "centro_costos": "gatito",
+      "scf": "100.00",
+      "recargo": "0.00",
+      "cantidad": 10,
+      "descuento": "0.00",
+      "producto": null,
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "precio_unitario": "10.00",
+      "compra": 12,
+      "tipo_recargo": "Bs",
+      "codigo": "",
+      "subtotal": "100.00",
+      "detalle": "",
+      "unidad": ""
+   },
+   "model": "compras.detallecompra",
+   "pk": 5
+},
+{
+   "fields": {
+      "centro_costos": "gato",
+      "scf": "24.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "producto": null,
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "precio_unitario": "24.00",
+      "compra": 13,
+      "tipo_recargo": "Bs",
+      "codigo": "werwr",
+      "subtotal": "24.00",
+      "detalle": "noseeee",
+      "unidad": "sdfsdf"
+   },
+   "model": "compras.detallecompra",
+   "pk": 6
+},
+{
+   "fields": {
+      "centro_costos": "dgdfgdg",
+      "scf": "1125.00",
+      "recargo": "0.00",
+      "cantidad": 25,
+      "descuento": "0.00",
+      "producto": null,
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "precio_unitario": "45.00",
+      "compra": 14,
+      "tipo_recargo": "Bs",
+      "codigo": "ertttt",
+      "subtotal": "1125.00",
+      "detalle": "prodic",
+      "unidad": "rgg"
+   },
+   "model": "compras.detallecompra",
+   "pk": 7
+},
+{
+   "fields": {
+      "centro_costos": "noseee",
+      "scf": "68.00",
+      "recargo": "0.00",
+      "cantidad": 34,
+      "descuento": "0.00",
+      "producto": null,
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "precio_unitario": "2.00",
+      "compra": 15,
+      "tipo_recargo": "Bs",
+      "codigo": "xxx",
+      "subtotal": "68.00",
+      "detalle": "xxx",
+      "unidad": "34"
+   },
+   "model": "compras.detallecompra",
+   "pk": 8
+},
+{
+   "fields": {
+      "centro_costos": "compra1",
+      "scf": "680.00",
+      "recargo": "0.00",
+      "cantidad": 20,
+      "descuento": "0.00",
+      "producto": null,
+      "excentos": "0.00",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "precio_unitario": "34.00",
+      "compra": 18,
+      "tipo_recargo": "Bs",
+      "codigo": "clav",
+      "subtotal": "680.00",
+      "detalle": "clavos",
+      "unidad": "kg"
+   },
+   "model": "compras.detallecompra",
+   "pk": 11
+},
+{
+   "fields": {
+      "descripcion": "otrosss",
+      "empresa": 1,
+      "cod": ""
+   },
+   "model": "compras.centrocostos",
+   "pk": 1
+},
+{
+   "fields": {
+      "descripcion": "varios222",
+      "empresa": 1,
+      "cod": ""
+   },
+   "model": "compras.centrocostos",
+   "pk": 2
+},
+{
+   "fields": {
+      "descripcion": "noseee",
+      "empresa": 1,
+      "cod": ""
+   },
+   "model": "compras.centrocostos",
+   "pk": 3
+},
+{
+   "fields": {
+      "descripcion": "dgdfgdg",
+      "empresa": 1,
+      "cod": null
+   },
+   "model": "compras.centrocostos",
+   "pk": 4
+},
+{
+   "fields": {
+      "descripcion": "compra1",
+      "empresa": 1,
+      "cod": null
+   },
+   "model": "compras.centrocostos",
+   "pk": 5
+},
+{
+   "fields": {
+      "compra": 17,
+      "monto_pago": "10.00",
+      "fecha_transaccion": "2016-03-11"
+   },
+   "model": "compras.cobrocompra",
+   "pk": 1
+},
+{
+   "fields": {
+      "compra": 17,
+      "monto_pago": "10.00",
+      "fecha_transaccion": "2016-03-11"
+   },
+   "model": "compras.cobrocompra",
+   "pk": 2
 },
 {
    "fields": {
@@ -566,85 +1325,179 @@
 },
 {
    "fields": {
-      "excentos": "0.00",
+      "empresa": 1,
+      "cantidad_dias": 0,
       "recargo": "0.00",
-      "cantidad": 1,
       "descuento": "0.00",
-      "venta": 1,
+      "fecha_vencimiento": null,
+      "fecha": "2016-03-07",
+      "excentos": "0.00",
+      "fecha_limite": "2016-03-31",
       "ice": "0.00",
       "tipo_descuento": "Bs",
-      "scf": "89.00",
-      "item": 1,
-      "precio_unitario": "89.00",
+      "codigo_control": "E3-B4-0C-C6",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr",
+      "numero_autorizacion": 32424242,
+      "nro_factura": 3,
       "tipo_recargo": "Bs",
-      "subtotal": "89.00"
+      "total": "89.00",
+      "razon_social": "sfsfsf",
+      "nit": 23424
    },
-   "model": "ventas.detalleventa",
-   "pk": 1
-},
-{
-   "fields": {
-      "excentos": "0.00",
-      "recargo": "0.00",
-      "cantidad": 1,
-      "descuento": "0.00",
-      "venta": 2,
-      "ice": "0.00",
-      "tipo_descuento": "Bs",
-      "scf": "89.00",
-      "item": 1,
-      "precio_unitario": "89.00",
-      "tipo_recargo": "Bs",
-      "subtotal": "89.00"
-   },
-   "model": "ventas.detalleventa",
-   "pk": 2
-},
-{
-   "fields": {
-      "empresa": 1,
-      "cantidad": 12,
-      "motivo_movimiento": "inicial",
-      "item": 1,
-      "precio_unitario": "89.00",
-      "fecha_transaccion": "2016-03-04",
-      "detalle": "Saldo Inicial"
-   },
-   "model": "ventas.movimiento",
-   "pk": 1
-},
-{
-   "fields": {
-      "empresa": 1,
-      "cantidad": 1,
-      "motivo_movimiento": "salida",
-      "item": 1,
-      "precio_unitario": "89.00",
-      "fecha_transaccion": "2016-03-04",
-      "detalle": "Venta a wrwrwr"
-   },
-   "model": "ventas.movimiento",
+   "model": "ventas.venta",
    "pk": 3
 },
 {
    "fields": {
       "empresa": 1,
-      "cantidad": 1,
-      "motivo_movimiento": "salida",
-      "item": 1,
-      "precio_unitario": "89.00",
-      "fecha_transaccion": "2016-03-04",
-      "detalle": "Venta a wrwrw"
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "fecha": "2016-03-07",
+      "excentos": "0.00",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "codigo_control": "7E-4C-FF-D5",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr",
+      "numero_autorizacion": 32424242,
+      "nro_factura": 1,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "razon_social": "sfsfsdf",
+      "nit": 23424
+   },
+   "model": "ventas.venta",
+   "pk": 4
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "fecha": "2016-03-09",
+      "excentos": "0.00",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "codigo_control": "F7-A0-02-A5-A0",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr",
+      "numero_autorizacion": 32424242,
+      "nro_factura": 1,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "razon_social": "werwrwr",
+      "nit": 324324
+   },
+   "model": "ventas.venta",
+   "pk": 5
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "recargo": "0.00",
+      "descuento": "0.00",
+      "fecha_vencimiento": null,
+      "fecha": "2016-03-09",
+      "excentos": "0.00",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "codigo_control": "D9-C1-D0-19",
+      "monto_pago": null,
+      "tipo_compra": "contado",
+      "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr",
+      "numero_autorizacion": 32424242,
+      "nro_factura": 1,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "razon_social": "werwer",
+      "nit": 24324
+   },
+   "model": "ventas.venta",
+   "pk": 6
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 4,
+      "motivo_movimiento": "inicial",
+      "item": 15,
+      "precio_unitario": "34.00",
+      "fecha_transaccion": "2016-03-12",
+      "detalle": "Saldo Inicial"
    },
    "model": "ventas.movimiento",
-   "pk": 4
+   "pk": 22
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 456,
+      "motivo_movimiento": "inicial",
+      "item": 16,
+      "precio_unitario": "34.00",
+      "fecha_transaccion": "2016-03-12",
+      "detalle": "Saldo Inicial"
+   },
+   "model": "ventas.movimiento",
+   "pk": 23
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 34,
+      "motivo_movimiento": "inicial",
+      "item": 18,
+      "precio_unitario": "34.00",
+      "fecha_transaccion": "2016-03-12",
+      "detalle": "Saldo Inicial"
+   },
+   "model": "ventas.movimiento",
+   "pk": 24
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 44,
+      "motivo_movimiento": "inicial",
+      "item": 19,
+      "precio_unitario": "34.00",
+      "fecha_transaccion": "2016-03-12",
+      "detalle": "Saldo Inicial"
+   },
+   "model": "ventas.movimiento",
+   "pk": 25
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 23,
+      "motivo_movimiento": "inicial",
+      "item": 20,
+      "precio_unitario": "23.00",
+      "fecha_transaccion": "2016-03-12",
+      "detalle": "Saldo Inicial"
+   },
+   "model": "ventas.movimiento",
+   "pk": 26
 },
 {
    "fields": {
       "empresa": 1,
       "fecha": "2016-03-31",
       "nro_conrelativo": 1,
-      "contador": 1,
+      "contador": 3,
       "nro_autorizacion": 32424242,
       "llave_digital": "tyry6657474ryryryryrtyryrxxxzcgrtyryr"
    },
@@ -1260,6 +2113,60 @@
 },
 {
    "fields": {
+      "codename": "add_centrocostos",
+      "name": "Can add centro costos",
+      "content_type": 21
+   },
+   "model": "auth.permission",
+   "pk": 64
+},
+{
+   "fields": {
+      "codename": "change_centrocostos",
+      "name": "Can change centro costos",
+      "content_type": 21
+   },
+   "model": "auth.permission",
+   "pk": 65
+},
+{
+   "fields": {
+      "codename": "delete_centrocostos",
+      "name": "Can delete centro costos",
+      "content_type": 21
+   },
+   "model": "auth.permission",
+   "pk": 66
+},
+{
+   "fields": {
+      "codename": "add_cobrocompra",
+      "name": "Can add cobro compra",
+      "content_type": 22
+   },
+   "model": "auth.permission",
+   "pk": 67
+},
+{
+   "fields": {
+      "codename": "change_cobrocompra",
+      "name": "Can change cobro compra",
+      "content_type": 22
+   },
+   "model": "auth.permission",
+   "pk": 68
+},
+{
+   "fields": {
+      "codename": "delete_cobrocompra",
+      "name": "Can delete cobro compra",
+      "content_type": 22
+   },
+   "model": "auth.permission",
+   "pk": 69
+},
+{
+   "fields": {
       "name": "administrador",
       "permissions": []
    },
@@ -1276,7 +2183,7 @@
       "direccion": "",
       "is_superuser": true,
       "is_staff": true,
-      "last_login": "2016-03-06T22:37:15.684Z",
+      "last_login": "2016-03-09T17:12:57.978Z",
       "avatar": "",
       "groups": [],
       "user_permissions": [],
@@ -1298,8 +2205,8 @@
       "direccion": "",
       "is_superuser": false,
       "is_staff": false,
-      "last_login": "2016-03-07T20:32:45.216Z",
-      "avatar": "",
+      "last_login": "2016-03-11T19:07:57.910Z",
+      "avatar": "users/avatar_2Cxm7ic.jpg",
       "groups": [
          1
       ],
@@ -1559,5 +2466,44 @@
    },
    "model": "inicio.rol",
    "pk": 18
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-03-09T17:14:46.284Z",
+      "object_repr": "otrosss",
+      "object_id": "1",
+      "change_message": "",
+      "user": 1,
+      "content_type": 21
+   },
+   "model": "admin.logentry",
+   "pk": 1
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-03-09T21:09:43.889Z",
+      "object_repr": "varios222",
+      "object_id": "2",
+      "change_message": "",
+      "user": 1,
+      "content_type": 21
+   },
+   "model": "admin.logentry",
+   "pk": 2
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-03-10T16:45:08.250Z",
+      "object_repr": "noseee",
+      "object_id": "3",
+      "change_message": "",
+      "user": 1,
+      "content_type": 21
+   },
+   "model": "admin.logentry",
+   "pk": 3
 }
 ]

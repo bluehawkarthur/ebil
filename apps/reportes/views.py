@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, DetailView
-from apps.compras.models import Compra, DetalleCompra
+from apps.compras.models import Compra, DetalleCompra, CobroCompra
 from apps.ventas.models import Venta, DetalleVenta, Movimiento, Cobro
 from apps.producto.models import Item
 from .htmltopdf import render_to_pdf
@@ -654,3 +654,122 @@ class ReporteCaja(TemplateView):
 		else:
 			ventas = Venta.objects.filter(empresa=self.request.user.empresa, fecha=hoy)
 			return render(request, 'reportes/ccaja.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})
+
+
+def Reportcompra(request):
+	if request.method == 'POST':
+		date1 = request.POST['date1']
+		date2 = request.POST['date2']
+		tipo = request.POST['tipo_compra']
+		nit = request.POST['nit2']
+		# monto = request.POST['monto2']
+		empresa = request.POST['empresa2']
+
+		if date1 != '' and date2 != '':
+			if tipo == 'todo':
+				if nit != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), nit=nit)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				elif empresa != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				# elif monto != '':
+				# 	compra1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+				# 	compras = DetalleCompra.objects.filter(venta=compra1)
+				else:
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2))
+					compras = DetalleCompra.objects.filter(compra=compra1)
+
+			else:
+				if nit != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				elif empresa != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				# elif monto != '':
+				# 	compra1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+				# 	compras = DetalleCompra.objects.filter(venta=compra1)
+				else:
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+			
+			total = 0
+			for compra in compra1:
+				total += compra.total
+			
+			return render(request, 'reportes/reporte_compra.html', {'compras': compras, 'total': total, 'ex':True, 'date1': date1, 'date2': date2})
+		else:
+			return render(request, 'reportes/reporte_compra.html', {'valid': True, 'ex':True, 'date1': date1, 'date2': date2})
+		
+	else:
+		datecompu = date.today()
+		total = 0
+		compra1 = Compra.objects.filter(fecha=datecompu)
+		compras = DetalleCompra.objects.filter(compra=compra1)
+		for compra in compras:
+			total += compra.cantidad * compra.precio_unitario
+
+		return render(request, 'reportes/reporte_compra.html', {'compras': compras, 'total': total, 'ex': True})
+
+
+def detalleCompra(request, pk):
+    compra = Compra.objects.filter(id=pk)
+    detalle = DetalleCompra.objects.filter(compra=compra)
+    vd = []
+    for d in detalle:
+        vd.append(d)
+
+
+    data = {
+        'nit': compra[0].nit,
+        'nro_factura': compra[0].nro_factura,
+        'razon_social': compra[0].razon_social,
+        'fecha': compra[0].fecha,
+        'tipo_compra': compra[0].tipo_compra,
+        'total': compra[0].total,
+        'detalle': vd
+        
+    }
+
+    return render_to_pdf('reportes/rep_detallecompra.html', data)
+
+
+def Createpagocobro(request):
+
+    if request.method == 'POST':
+        monto = request.POST['monto']
+        compra = request.POST['compra']
+        compra_get = Compra.objects.filter(id=compra)
+
+        crearcobro = CobroCompra(
+            compra=Compra.objects.get(id=compra),
+            monto_pago=monto,
+            fecha_transaccion=date.today(),
+        )
+        crearcobro.save()
+
+        if compra_get[0].monto_pago is None:
+            montofinal = compra_get[0].total - decimal.Decimal(monto)
+            if montofinal == 0:
+                compra_get.update(tipo_compra='contado', monto_pago=monto)
+            else:
+                compra_get.update(monto_pago=monto)
+        else:
+            monto2 = compra_get[0].monto_pago + decimal.Decimal(monto)
+            montofinal = compra_get[0].total - monto2
+            if montofinal == 0:
+                compra_get.update(tipo_compra='contado', monto_pago=monto2)
+            else:
+                compra_get.update(monto_pago=monto2)
+
+        # montofinal = venta_get[0].total - decimal.Decimal(monto)
+        # venta_get.update(monto_pago=montofinal)
+        print monto
+        data = {
+            'monto': monto,
+            'cliente': compra_get[0].razon_social,
+            'fecha': date.today(),
+        }
+
+    return render_to_pdf('reportes/reporte_pagocompra.html', data)

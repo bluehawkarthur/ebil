@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load report_filter %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,7 @@
                     <b>{{empresa.razon_social|upper}}</b> <br>
                     <b>{{empresa.direccion|upper}}</b> <br>
                     <b>TELF.: {{empresa.telefono|upper}}</b><br>
-                    <b>{{empresa.municipios|upper}} - {{empresa.departamento|upper}}</b>
+                    <b></b>
                   </td>
                   <td class="center-text">
 
@@ -56,7 +57,7 @@
                   </td>
                   <td   style="padding:2.5px; font-size: 10px;" width="200">
                     
-                    <table style="border:1px solid black; ">
+                    <table style="border:1px solid black; border-radius: 5px;">
                     <tbody>
                       <tr style="border:none;">
                         <td><b>NIT:</b></td>
@@ -93,9 +94,9 @@
               </table>
               <table style="border:1px solid black; padding: 5px; ">
                 <tr style="border:none;">
-                  <td class="text-size">
+                  <td class="text-size" width="250">
                   <br>
-                  <b>Lugar y Fecha: {{fecha}}</b><br>
+                  <b>Lugar y Fecha: {{empresa.municipios}} - {{empresa.departamento}}, {{fecha}}</b><br>
                   <b>Señor(es): {{razon_social}}</b> <br>
                   
                   </td>
@@ -159,9 +160,15 @@
               <td>{{d.scf}}</td>
             </tr>
             {% endfor %}
-            <tr style="border-botton:1px; border-right:none; border-left:none;">
+
+            {% for value in detalle|length|range:3 %}
+               <tr style="border:none; padding: 5px; ">
+               </tr>
+            {% endfor %}
+
+            <tr style="border-botton:1px;  border-left:none; padding: 0px 4px;">
               <td colspan="9" class="white">
-                
+                <br><b> Son: {% texto total %} Bolivianos</b>
               </td>
               <td ><br><b>Total:</b></td>
               <td class="" id="sum-subtotal"><br>{{total}}</td>
@@ -178,7 +185,7 @@
               <td rowspan="2" align="center"><img  src="media/codigo/QQRR.png" style="zoom: 25%;" /></td>
             </tr>
             <tr >
-              <td colspan="2" class="text-size"><div style="border:1px solid black; padding: 5px;"><b>Fecha limite de emision : 31/12/2015</b></div></td>
+              <td colspan="2" class="text-size"><div style="border:1px solid black; padding: 5px;"><b>Fecha limite de emisión : {{fecha_limite|date:'SHORT_DATE_FORMAT'}}</b></div></td>
 
             </tr>
           </table>

@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row card-panel">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      {% csrf_token %}
+      <h3 class="header2">Almacen Campos</h3>
+        
+      <table class="responsive-table ">
+        <thead>
+          <tr>
+            <th data-field=""></th>
+            <th data-field="">Usar</th>
+            <th data-field="">Requerido</th>
+            <th data-field="">tipos de campos</th>
+            <th data-field="">Caracteres</th>
+          <tr>
+        </thead>
+        <tbody>
+
+
+          <tr>
+            <td>codigo_fabrica</td>
+           <td>
+              {{form.codigo_fabr_usar}}
+              <label for="id_codigo_fabr_usar"></label>
+            </td>
+            <td>
+                {{form.codigo_fabr_reque}}
+                <label for="id_codigo_fabr_reque"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.codigo_fabricatipo|removetags:'ul li' }}</span>
+                <select name="codigo_fabricatipo" id="codigo_fabricatipo" class="validate">
+                 <option value="select">Seleccionar...</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+              <label for="emails">{{ form.codigo_fabricatipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.codigo_fabricacaractr|removetags:'ul li' }}</span>
+                {{ form.codigo_fabricacaractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+      <!--     <tr>
+            <td>descripcion</td>
+            <td>
+              {{form.descrip_usar}}
+              <label for="id_descrip_usar"></label>
+            </td>
+            <td>
+                {{form.descrip_requerido}}
+                <label for="id_descrip_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.descrip_tipo|removetags:'ul li' }}</span>
+                <select name="descrip_tipo" id="descrip_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="literal">literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+
+                </select>
+                <label for="emails">{{ form.descrip_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.descrip_caractr|removetags:'ul li' }}</span>
+                {{ form.descrip_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr> -->
+
+          <tr>
+            <td>caracteristica especial1</td>
+            <td>
+              {{form.caract_espec_usar}}
+              <label for="id_caract_espec_usar"></label>
+            </td>
+            <td>
+                {{form.caract_espec_requerid}}
+                <label for="id_caract_espec_requerid"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.caract_espectipo|removetags:'ul li' }}</span>
+                <select name="caract_espectipo" id="caract_espectipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.caract_espectipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.caract_especaractr|removetags:'ul li' }}</span>
+                {{ form.caract_especaractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+              <tr>
+            <td>caracteristica especial2</td>
+            <td>
+              {{form.carac_especial_2_usar}}
+              <label for="id_carac_especial_2_usar"></label>
+            </td>
+            <td>
+                {{form.carac_especial_2_requerido}}
+                <label for="id_carac_especial_2_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.carac_especial_2_tipo|removetags:'ul li' }}</span>
+                <select name="carac_especial_2_tipo" id="carac_especial_2_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.carac_especial_2_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.carac_especial_2_caractr|removetags:'ul li' }}</span>
+                {{ form.carac_especial_2_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>unidad_medida</td>
+            <td>
+              {{form.unidad_medid_usar}}
+              <label for="id_unidad_medid_usar"></label>
+            </td>
+            <td>
+                {{form.unidad_medid_requerido}}
+                <label for="id_unidad_medid_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.unidad_medidatipo|removetags:'ul li' }}</span>
+                <select name="unidad_medidatipo" id="unidad_medidatipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.unidad_medidatipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.unidad_medidacaractr|removetags:'ul li' }}</span>
+                {{ form.unidad_medidacaractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+          <tr>
+            <td>grupo</td>
+            <td>
+              {{form.grupo_usar}}
+              <label for="id_grupo_usar"></label>
+            </td>
+            <td>
+                {{form.grupo_requerido}}
+                <label for="id_grupo_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.grupo_tipo|removetags:'ul li' }}</span>
+                <select name="grupo_tipo" id="grupo_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.grupo_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.grupo_caractr|removetags:'ul li' }}</span>
+                {{ form.grupo_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+           <tr>
+            <td>subgrupo</td>
+            <td>
+              {{form.subgrupo_usar}}
+              <label for="id_subgrupo_usar"></label>
+            </td>
+            <td>
+                {{form.subgrupo_requerido}}
+                <label for="id_subgrupo_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.subgrupo_tipo|removetags:'ul li' }}</span>
+                <select name="subgrupo_tipo" id="subgrupo_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.subgrupo_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.subgrupo_caractr|removetags:'ul li' }}</span>
+                {{ form.subgrupo_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>imagen</td>
+            <td>
+              {{form.imagen_usar}}
+              <label for="id_imagen_usar"></label>
+            </td>
+            <td>
+                {{form.imagen_requer}}
+                <label for="id_imagen_requer"></a>
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+      <div class="row">  
+        <div class="input-field col s6">
+          <a href="/listar_alamacen_campos" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+        <div class="input-field col s6">
+          <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+            <i class="mdi-content-send right"></i>
+          </button>
+        </div> 
+      </div>
+    </form>              
+  </div>
+</section>
+{% endblock %}
+
+{# usar no usar confiraccion de  edit almace y iten producto #}
+ {% block js %}
+  <script  type="text/javascript">
+
+    $("#id_codigo_fabr_reque").change(function () {
+      //alert("fgdfjkghjkfdhgjkfdhgjkfdhgjkdfhgjk");
+      if ($("#id_codigo_fabr_usar").is(':checked') != true) {
+        $("#id_codigo_fabr_usar").prop('checked', $(this).prop("checked"));
+      }
+      
+  });
+
+      // alert("fgdfjkghjkfdhgjkfdhgjkfdhgjkdfhgjk");
+      $("#id_codigo_fabr_usar").change(function() {
+        if ((!($(this).is(':checked'))) && ($("#id_codigo_fabr_reque").is(':checked')))
+        {
+
+        // alert("usar no NI DEBRIA  REQUERIDOOOOOOOOO");
+        $("#id_codigo_fabr_reque").removeAttr("checked");
+        }    
+  });
+
+  // caracter_espcial validator
+  $("#id_caract_espec_requerid").change(function () {
+    if ($("#id_caract_espec_usar").is(':checked') != true) {
+      $("#id_caract_espec_usar").prop('checked', $(this).prop("checked"));
+    }
+  });
+
+      $("#id_caract_espec_usar").change(function() {
+        if ((!($(this).is(':checked'))) && ($("#id_caract_espec_requerid").is(':checked')))
+        {
+        $("#id_caract_espec_requerid").removeAttr("checked");
+        }    
+  }); 
+
+    // caracter_espcial2 validator
+  $("#id_carac_especial_2_requerido").change(function () {
+    if ($("#id_carac_especial_2_usar").is(':checked') != true) {
+      $("#id_carac_especial_2_usar").prop('checked', $(this).prop("checked"));
+    }
+  });
+
+      $("#id_carac_especial_2_usar").change(function() {
+        if ((!($(this).is(':checked'))) && ($("#id_carac_especial_2_requerido").is(':checked')))
+        {
+        $("#id_caract_espec_requerid").removeAttr("checked");
+        }    
+  }); 
+
+
+   // unidad medida validator
+      $("#id_unidad_medid_requerido").change(function () {
+        if ($("#id_unidad_medid_usar").is(':checked') != true) {
+          $("#id_unidad_medid_usar").prop('checked', $(this).prop("checked"));
+        }
+      });
+
+      $("#id_unidad_medid_usar").change(function() {
+        if ((!($(this).is(':checked'))) && ($("#id_unidad_medid_requerido").is(':checked')))
+        {
+        $("#id_unidad_medid_requerido").removeAttr("checked");
+        }    
+      }); 
+
+  // grupo validator
+      $("#id_grupo_requerido").change(function () {
+        if ($("#id_grupo_usar").is(':checked') != true) {
+          $("#id_grupo_usar").prop('checked', $(this).prop("checked"));
+        }
+      });
+
+      $("#id_grupo_usar").change(function() {
+        if ((!($(this).is(':checked'))) && ($("#id_grupo_requerido").is(':checked')))
+        {
+        $("#id_grupo_requerido").removeAttr("checked");
+        }    
+      }); 
+
+  // subgrupo validator
+      $("#id_subgrupo_requerido").change(function () {
+        if ($("#id_subgrupo_usar").is(':checked') != true) {
+          $("#id_subgrupo_usar").prop('checked', $(this).prop("checked"));
+        }
+      });
+
+      $("#id_subgrupo_usar").change(function() {
+        if ((!($(this).is(':checked'))) && ($("#id_subgrupo_requerido").is(':checked')))
+        {
+        $("#id_subgrupo_requerido").removeAttr("checked");
+        }    
+      });    
+   
+
+  {# usar no usar confiraccion de  edit almace select devulve #}
+  $('#codigo_itemtipo> option[value="{{form.codigo_itemtipo.value}}"]').attr('selected', 'selected'); 
+
+  $('#codigo_fabricatipo> option[value="{{form.codigo_fabricatipo.value}}"]').attr('selected', 'selected'); 
+
+  $('#descrip_tipo> option[value="{{form.descrip_tipo.value}}"]').attr('selected', 'selected'); 
+
+  $('#carac_especial_2_tipo> option[value="{{form.carac_especial_2_tipo.value}}"]').attr('selected', 'selected');
+
+  $('#caract_espectipo> option[value="{{form.caract_espectipo.value}}"]').attr('selected', 'selected');
+
+
+  $('#unidad_medidatipo> option[value="{{form.unidad_medidatipo.value}}"]').attr('selected', 'selected');  
+
+  $('#grupo_tipo> option[value="{{form.grupo_tipo.value}}"]').attr('selected', 'selected');  
+
+  $('#subgrupo_tipo> option[value="{{form.subgrupo_tipo.value}}"]').attr('selected', 'selected');  
+  </script>
+ {% endblock js %}
+
+
+

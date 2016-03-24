@@ -19,6 +19,8 @@
                           <li><a href="/empresa" class="cyan-text">Datos empresa</a></li>
                           <li><a href="/lista_datosdosificacion" class="cyan-text">Datos dosificacion</a></li>
                           <li><a href="/formato_factura" class="cyan-text">Formato factura</a></li>
+                           <li><a href="/edit_alamacen_campos" class="cyan-text">Almacenes</a></li>
+
                         </ul>
                     </li>
                     <li>
@@ -37,12 +39,12 @@
                     </li>                    
                     <li>
                         {% if almacenes_role.operar %}
-                        <a class="dropdown-menu cyan-text" href="/listar_item" data-activates="CSSdropdown">
+                        <a class="cyan-text" href="/listar_item" data-activates="CSSdropdown">
                             <i class="mdi-action-store"></i>
                             <span>Almacenes</span>
                         </a>
                         {% else %}
-                        <a class="dropdown-menu cyan-disable">
+                        <a class="cyan-disable">
                         <i class="mdi-action-store"></i>
                         <span>Almacenes</span>
                         </a>
@@ -50,12 +52,12 @@
                     </li>
                     <li>
                         {% if compras_role.operar %}
-                        <a class="dropdown-menu cyan-text" href="/compras" data-activates="UIElementsdropdown">
+                        <a class="cyan-text" href="/compras" data-activates="UIElementsdropdown">
                             <i class="mdi-action-shopping-cart"></i>
                             <span>Compras</span>
                         </a>
                         {% else %}
-                        <a class="dropdown-menu cyan-disable" data-activates="UIElementsdropdown">
+                        <a class="cyan-disable" data-activates="UIElementsdropdown">
                             <i class="mdi-action-shopping-cart"></i>
                             <span>Compras</span>
                         </a>
@@ -132,7 +134,7 @@
                    
                     <li>
                         {% if usuarios_role.operar %}
-                        <a href="/list_user" class="dropdown-menu cyan-text" href="#!" data-activates="Usersdropdown">
+                        <a href="/list_user" class=" cyan-text" href="#!" data-activates="Usersdropdown">
                             <i class="mdi-action-account-circle"></i>
                             <span>Usuarios</span>
                         </a>

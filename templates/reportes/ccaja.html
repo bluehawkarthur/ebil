@@ -30,12 +30,29 @@
   <!--start container-->
   <div class="container">
     <div id="invoice">
+      <table style="border:1px solid black;">
+              
+                <tr style="border:none;">
+                  <td class="center-text text-size" >
+                  <br>
+                    <b>{{empresa.razon_social|upper}}</b> <br>
+                    <b>{{empresa.direccion|upper}}</b> <br>
+                    <b>Telf.: {{empresa.telefono|upper}}</b>
+                  </td>
+                  <td class="center-text">
+                     <b style="font-size: 20px;">CIERRE DE CAJA</b> <br>
+                    
+                  </td>
+                  <td class="center-text text-size">
+                    <b>{{fecha}}</b><br>
+                    
+                  </td>
+                  
+                </tr>
+              
+              </table>
       <table style="border:1px solid black; padding: 5px;">
-        <tr style="border:none;">
-          <td class="text-size center-text" colspan="2">
-          <b style="font-size: 20px;">CIERRE DE CAJA</b>
-          </td>
-        </tr>
+     
 
         <tr>
           <td><b style="font-size: 15px;">Saldo inicial:</b></td><td class='i'>{{cajai}}</td>
@@ -45,7 +62,17 @@
           <td><b style="font-size: 15px;">Ventas al contado:</b>
             <table id='tablein'>
               {% for i in ventas %}
-                <tr class='caja'><td class='text-size'>{{i.razon_social}}</td><td class='i'>{{i.total}}</td></tr>
+                <tr class='caja'><td class='text-size'>
+                {{i.razon_social}}
+                {% if i.tipo_movimiento == 'proforma' %}
+                  s/g proforma Nro. {{i.nro_nota}} 
+                {% else %}
+                  s/g factura Nro. {{i.nro_factura}} 
+                {% endif %}
+                </td>
+                <td class='i'>
+                {{i.total}}
+                </td></tr>
               {% endfor %}
             </table>
           </td>
@@ -56,7 +83,16 @@
           <td><b style="font-size: 15px;">Cobros realizados:</b>
              <table id='tablein'>
               {% for i in cobros %}
-                <tr class='caja'><td class='text-size'>{{i.venta.razon_social}}</td><td class='i'>{{i.monto_pago}}</td></tr>
+                <tr class='caja'><td class='text-size'>
+                {{i.venta.razon_social}} 
+                {% if i.venta.tipo_movimiento == 'proforma' %}
+                  s/g proforma Nro. {{i.venta.nro_nota}} 
+                {% else %}
+                  s/g factura Nro. {{i.venta.nro_factura}} 
+                {% endif %}
+                con
+                recibo Nro. {{i.nro}}
+                </td><td class='i'>{{i.monto_pago}}</td></tr>
               {% endfor %}
             </table>
           </td>
@@ -71,6 +107,25 @@
           <td><b style="font-size: 15px;">SALDO FINAL CAJA:</b></td><td class='i'><b>{{total}}</b></td>
         </tr>
       </table>
+      <h3>Usuario: {{user.username}}</h3>
+      <table style="padding: 20px;" class="text-size">
+          
+          <tbody>
+            <tr style="border-botton:1px; border-right:none; border-left:none;">
+              
+              <td ><br>
+              ------------------------------------
+                <b>ENTREGUE CONFORME</b>
+              </td>
+              <td class="" id="sum-subtotal"></td>
+              <td ><br>
+              -------------------------------
+                <b>RECIBI CONFORME</b>
+              </td>
+              
+            </tr>
+          </tbody>
+          </table>
 
       
     </div>

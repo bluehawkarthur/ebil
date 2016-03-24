@@ -9,11 +9,12 @@ class ItemManager(models.Manager):
     def get_by_natural_key(self, descripcion, precio_unitario):
         return self.get(codigo_item=codigo_item, descripcion=descripcion, precio_unitario=precio_unitario, unidad_medida=unidad_medida)
 
+
 class Item(models.Model):
 	objects = ItemManager()
 
 	codigo_item = models.CharField(max_length=100)
-	codigo_fabrica = models.CharField(max_length=100)
+	codigo_fabrica = models.CharField(max_length=100, blank=True, null=True)
 	almacen = models.IntegerField()
 	grupo = models.CharField(max_length=100)
 	subgrupo = models.CharField(max_length=100)

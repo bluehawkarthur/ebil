@@ -1,4 +1,5 @@
 # views.py
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response as render, redirect
 from django.template import RequestContext as ctx
 from django.forms.models import inlineformset_factory
@@ -57,121 +58,227 @@ def ventaCrear(request):
 
         try:
             proceso = json.loads(request.POST.get('proceso'))
+
             if len(proceso['producto']) <= 0:
                 msg = 'No se ha seleccionado ningun producto'
                 raise Exception(msg)
-
+            print 'movimientossssssss'
+            print proceso['movimiento']
             total = 0
             # calculo total de compras
             for k in proceso['producto']:
                 total += decimal.Decimal(k['sdf'])
 
-            venta_data = Venta.objects.filter(empresa=request.user.empresa).last()
+            if proceso['movimiento'] == 'facturar':
+                venta_data = Venta.objects.filter(empresa=request.user.empresa).exclude(nro_factura__isnull=True).last()
 
-            dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+                dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
 
-            print dosificacion
-            if dosificacion !=  None:
-                if dosificacion.fecha >= datetime.date.today():
-                    nro_init2 = int(dosificacion.nro_conrelativo)
-                    contador = dosificacion.contador
+                print dosificacion
+                if dosificacion !=  None:
+                    print 'facturaaaaaaaaa'
+                    if dosificacion.fecha >= datetime.date.today():
+                        nro_init2 = int(dosificacion.nro_conrelativo)
+                        contador = dosificacion.contador
 
-                    nro_init = int(dosificacion.nro_conrelativo) - 1
-                    if venta_data and (venta_data.nro_factura-contador)==nro_init2:
-                        contador = contador + 1
-                        dos = DatosDosificacion.objects.filter(id=dosificacion.pk)
-                        dos.update(contador=contador)
-                        nro = venta_data.nro_factura
-                        if nro is None:
+                        nro_init = int(dosificacion.nro_conrelativo) - 1
+                        if venta_data and (venta_data.nro_factura-contador)==nro_init2:
+                            contador = contador + 1
+                            dos = DatosDosificacion.objects.filter(id=dosificacion.pk)
+                            dos.update(contador=contador)
+                            nro = venta_data.nro_factura
+                            if nro is None:
+                                nro = nro_init
+                        else:
                             nro = nro_init
-                    else:
-                        nro = nro_init
 
-                    fecha_venta = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d").strftime("%Y-%m-%d")
-                    cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, nro + 1, proceso['nit'], fecha_venta, total, request.user.empresa.nit, total)
+                        fecha_venta = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d").strftime("%Y-%m-%d")
+                        cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, nro + 1, proceso['nit'], fecha_venta, total, request.user.empresa.nit, total)
 
-                    print 'el cogigo en venta', cod_control
-                    
-                    if proceso['tipo_compra'] == 'credito':
-                        date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
-                        end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
-                        today = datetime.date.today()
+                        print 'el cogigo en venta', cod_control
                         
-                        print 'tiempo de fecha vencimiento'
-                        print (today-datetime.date(2016, 1, 12)).days
-                    else:
-                        end_date = None
+                        if proceso['tipo_compra'] == 'credito':
+                            date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
+                            end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
+                            today = datetime.date.today()
+                            
+                            print 'tiempo de fecha vencimiento'
+                            print (today-datetime.date(2016, 1, 12)).days
+                        else:
+                            end_date = None
 
-                    crearVenta = Venta(
-                        nit=proceso['nit'],
-                        nro_factura=nro + 1,
-                        razon_social=proceso['razon'],
-                        fecha=proceso['fecha'],
-                        tipo_compra=proceso['tipo_compra'],
-                        cantidad_dias=proceso['dias'],
-                        total=total,
-                        descuento=proceso['descuento'],
-                        recargo=proceso['recargo'],
-                        ice=proceso['ice'],
-                        excentos=proceso['excentos'],
-                        tipo_descuento=proceso['tipo_descuento'],
-                        tipo_recargo=proceso['tipo_recargo'],
-                        fecha_vencimiento=end_date,
-                        empresa=request.user.empresa,
-                        numero_autorizacion=dosificacion.nro_autorizacion,
-                        llave_digital=dosificacion.llave_digital,
-                        codigo_control=cod_control,
-                        fecha_limite=dosificacion.fecha,
-                    )
-                    
-                    crearVenta.save()
-
-                    for k in proceso['producto']:
-                     
-                        item = Item.objects.filter(id=k['pk'])
-                        cantidad_total = item[0].cantidad - int(k['cantidad'])
-                        
-                        item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
-
-                        crearDetalle = DetalleVenta(
-                            venta=crearVenta,
-                            item=Item.objects.get(id=k['pk']),
-                            cantidad=int(k['cantidad']),
-                            precio_unitario=item[0].precio_unitario,
-                            subtotal=decimal.Decimal(k['subtotal']),
-                            descuento=decimal.Decimal(k['descuentos']),
-                            recargo=decimal.Decimal(k['recargos']),
-                            ice=decimal.Decimal(k['ice']),
-                            excentos=decimal.Decimal(k['excentos']),
-                            scf=decimal.Decimal(k['sdf']),
-                            tipo_descuento=k['tipo_descuento'],
-                            tipo_recargo=k['tipo_recargo'],
-
-                        )
-
-                        detalle = '%s a %s' % ('Venta', proceso['razon'])
-
-                        crearMovimiento = Movimiento(
-                            cantidad=int(k['cantidad']),
-                            precio_unitario=item[0].precio_unitario,
-                            detalle=detalle,
-                            fecha_transaccion=proceso['fecha'],
-                            motivo_movimiento='salida',
-                            item=Item.objects.get(id=k['pk']),
+                        crearVenta = Venta(
+                            nit=proceso['nit'],
+                            nro_factura=nro + 1,
+                            razon_social=proceso['razon'],
+                            fecha=proceso['fecha'],
+                            tipo_compra=proceso['tipo_compra'],
+                            cantidad_dias=proceso['dias'],
+                            total=total,
+                            descuento=proceso['descuento'],
+                            recargo=proceso['recargo'],
+                            ice=proceso['ice'],
+                            excentos=proceso['excentos'],
+                            tipo_descuento=proceso['tipo_descuento'],
+                            tipo_recargo=proceso['tipo_recargo'],
+                            fecha_vencimiento=end_date,
                             empresa=request.user.empresa,
+                            numero_autorizacion=dosificacion.nro_autorizacion,
+                            llave_digital=dosificacion.llave_digital,
+                            codigo_control=cod_control,
+                            fecha_limite=dosificacion.fecha,
+                            tipo_movimiento = proceso['movimiento'],
                         )
+                        
+                        crearVenta.save()
 
-                        crearDetalle.save()
-                        crearMovimiento.save()
+                        for k in proceso['producto']:
+                         
+                            item = Item.objects.filter(id=k['pk'])
+                            cantidad_total = item[0].cantidad - int(k['cantidad'])
+                            
+                            item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
 
-                    return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
+                            crearDetalle = DetalleVenta(
+                                venta=crearVenta,
+                                item=Item.objects.get(id=k['pk']),
+                                cantidad=int(k['cantidad']),
+                                precio_unitario=item[0].precio_unitario,
+                                subtotal=decimal.Decimal(k['subtotal']),
+                                descuento=decimal.Decimal(k['descuentos']),
+                                recargo=decimal.Decimal(k['recargos']),
+                                ice=decimal.Decimal(k['ice']),
+                                excentos=decimal.Decimal(k['excentos']),
+                                scf=decimal.Decimal(k['sdf']),
+                                tipo_descuento=k['tipo_descuento'],
+                                tipo_recargo=k['tipo_recargo'],
 
-                    # messages.success(
-                    #     request, 'La compra se ha realizado satisfactoriamente')
+                            )
+
+                            detalle = '%s a %s s/g factura Nro. %s' % ('Venta', proceso['razon'], nro + 1)
+
+                            crearMovimiento = Movimiento(
+                                cantidad=int(k['cantidad']),
+                                precio_unitario=item[0].precio_unitario,
+                                detalle=detalle,
+                                fecha_transaccion=proceso['fecha'],
+                                motivo_movimiento='salida',
+                                item=Item.objects.get(id=k['pk']),
+                                empresa=request.user.empresa,
+                            )
+
+                            crearDetalle.save()
+                            crearMovimiento.save()
+
+                        return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
+
+                        # messages.success(
+                        #     request, 'La compra se ha realizado satisfactoriamente')
+                    else:
+                        messages.error(request, 'La fecha limite de emision de la factura a caducado')
                 else:
-                    messages.error(request, 'La fecha limite de emision de la factura a caducado')
-            else:
-                    messages.error(request, 'Registre sus dosificaciones para que pueda realizar sus facturaciones')
+                        messages.error(request, 'Registre sus dosificaciones para que pueda realizar sus facturaciones')
+
+            elif proceso['movimiento'] == 'baja':
+                for k in proceso['producto']:
+                    item = Item.objects.filter(id=k['pk'])
+                    cantidad_total = item[0].cantidad - int(k['cantidad'])
+                    print cantidad_total
+                    item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
+                    crearMovimiento = Movimiento(
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        detalle='Baja',
+                        fecha_transaccion=proceso['fecha'],
+                        motivo_movimiento='salida',
+                        item=Item.objects.get(id=k['pk']),
+                        empresa=request.user.empresa,
+                    )
+                    crearMovimiento.save()
+                return HttpResponseRedirect(reverse('registrarventas'))
+
+            elif proceso['movimiento'] == 'proforma':
+
+                venta_data = Venta.objects.filter(empresa=request.user.empresa).exclude(nro_nota__isnull=True).last()
+
+                if venta_data:
+                    nro = venta_data.nro_nota
+                    if nro is None:
+                        nro = 0
+                else:
+                    nro = 0
+                
+                if proceso['tipo_compra'] == 'credito':
+                    date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
+                    end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))
+                    today = datetime.date.today()
+
+                else:
+                    end_date = None
+
+                crearVenta = Venta(
+                    nit=proceso['nit'],
+                    razon_social=proceso['razon'],
+                    fecha=proceso['fecha'],
+                    tipo_compra=proceso['tipo_compra'],
+                    cantidad_dias=proceso['dias'],
+                    total=total,
+                    descuento=proceso['descuento'],
+                    recargo=proceso['recargo'],
+                    ice=proceso['ice'],
+                    excentos=proceso['excentos'],
+                    tipo_descuento=proceso['tipo_descuento'],
+                    tipo_recargo=proceso['tipo_recargo'],
+                    fecha_vencimiento=end_date,
+                    empresa=request.user.empresa,
+                    tipo_movimiento = proceso['movimiento'],
+                    nro_nota = nro+1,
+                )
+
+                crearVenta.save()
+
+                for k in proceso['producto']:
+
+                    item = Item.objects.filter(id=k['pk'])
+                    cantidad_total = item[0].cantidad - int(k['cantidad'])
+
+                    item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
+
+                    crearDetalle = DetalleVenta(
+                        venta=crearVenta,
+                        item=Item.objects.get(id=k['pk']),
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        subtotal=decimal.Decimal(k['subtotal']),
+                        descuento=decimal.Decimal(k['descuentos']),
+                        recargo=decimal.Decimal(k['recargos']),
+                        ice=decimal.Decimal(k['ice']),
+                        excentos=decimal.Decimal(k['excentos']),
+                        scf=decimal.Decimal(k['sdf']),
+                        tipo_descuento=k['tipo_descuento'],
+                        tipo_recargo=k['tipo_recargo'],
+
+                    )
+
+                    detalle = '%s a %s s/g nota Nro. %s' % ('Venta', proceso['razon'],nro+1)
+
+                    crearMovimiento = Movimiento(
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        detalle=detalle,
+                        fecha_transaccion=proceso['fecha'],
+                        motivo_movimiento='salida',
+                        item=Item.objects.get(id=k['pk']),
+                        empresa=request.user.empresa,
+                    )
+
+                    crearDetalle.save()
+                    crearMovimiento.save()
+
+                return HttpResponseRedirect(reverse('detalleventanota', args=(crearVenta.pk,)))
+
+                # messages.success(
+                #     request, 'La compra se ha realizado satisfactoriamente')
 
         except Exception, e:
             try:
@@ -280,6 +387,38 @@ def detalleVenta(request, pk):
         elif formato.tamanio == '1/2oficio':
             return render_to_pdf('reportes/rep_ventamediosemi.html', data)
 
+
+def detalleVentaNota(request, pk):
+    venta = Venta.objects.filter(id=pk)
+    detalle = DetalleVenta.objects.filter(venta=venta)
+
+    vd = []
+    scf = 0
+    for d in detalle:
+        scf = scf + d.scf
+        vd.append(d)
+
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+    
+    data = {
+        'nit': venta[0].nit,
+        'nro_nota': venta[0].nro_nota,
+        'razon_social': venta[0].razon_social,
+        'fecha': venta[0].fecha,
+        'tipo_compra': venta[0].tipo_compra,
+        'codigo_control': venta[0].codigo_control,
+        'total': venta[0].total,
+        'detalle': vd,
+        'formato': formato,
+        'numero_autorizacion': venta[0].numero_autorizacion,
+        'fecha_limite': venta[0].fecha_limite,
+        'empresa': request.user.get_empresa()
+
+    }
+
+    return render_to_pdf('reportes/rep_detalleventanota.html', data)
 
 # def detalleVentarollo(request, pk):
 #     print pk

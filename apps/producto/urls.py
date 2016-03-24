@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 	url(r'^delete_item/(?P<id>\d+)$', 'apps.producto.views.eliminar', name='delete'),
 
     url(r'^producto_import/', 'apps.producto.views.import_data', name="import_producto"),
+    url(r'^configalmacen/', 'apps.producto.views.configalmacen', name="configalmacen"),
 
 )
 

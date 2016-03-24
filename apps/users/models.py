@@ -15,6 +15,10 @@ class Personajuridica(models.Model):
     telefono3 = models.IntegerField(null=True, blank=True)
     departamento = models.CharField(max_length=100)
     municipios = models.CharField(max_length=100)
+    logo = ProcessedImageField(upload_to='logo',
+                                           processors=[ResizeToFill(300, 300)],
+                                           format='JPEG',
+                                           options={'quality': 60}, null=True, blank=True)
 
     def __unicode__(self):
         return self.razon_social

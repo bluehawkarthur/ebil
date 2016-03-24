@@ -1,0 +1,139 @@
+
+
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+     
+      <div class="card-panel">
+        <h3 class="header2">Mi perfil</h3>
+          <fieldset>
+            <legend>Datos personales</legend>
+            <div class="row">
+              <div class=" col s6 ">
+              <div class="input-field has-error">
+              
+                <input disabled id="id_nombre" maxlength="30" name="nombre" value="{{usere.nombre}}" type="text">
+                <label for="emails">Nombre</label>
+                </div>
+                <div class="input-field has-error">
+                
+                <input id="id_p_apellido" disabled maxlength="30" name="p_apellido" value="{{usere.p_apellido}}" type="text">
+                <label for="emails">Primer apellido</label>
+                </div>
+                <div class="input-field has-error">
+               
+                <input id="id_s_apellido" disabled maxlength="30" name="s_apellido" value="{{usere.s_apellido}}" type="text">
+                <label for="emails">Segundo apellido</label>
+                </div>
+              </div>
+              <div class="input-field col s6 "> 
+               
+                  <span style="color: #9E9EB0;">Foto</span>
+                  
+
+               
+                <!-- <div id="im"></div> -->
+                <div class="file-path-wrapper">
+                  {% if usere.avatar %}
+                      <img id="image_upload_preview" style="width:120px" src="{{usere.avatar.url }}" alt="your image" />
+                  {% else %}
+                      <img id="image_upload_preview" style="width:120px" src="{% static "images/user.png"%}" alt="your image" />
+                  {% endif %}
+                  
+                </div>
+              </div>
+            </div>
+            </fieldset>
+
+            <fieldset>
+            <legend>Datos de usuario</legend>
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <input disabled id="id_username" maxlength="30" name="username" value="{{usere.username}}" type="text">
+
+                <label for="emails">Username</label>
+              </div>
+            </div>
+
+            <div class="row">
+               <div class="input-field col s6 has-error">
+                
+                <input disabled id="id_password" value="{{usere.password}}" name="password" type="text">
+                <label for="email">Contraseña</label>
+              </div>
+
+              <div class="input-field col s6 has-error">
+                <!-- <a href="/editar_user/{{usere.pk}}/password" class="btn orange waves-effect waves-light right"><i class="mdi-action-lock-outline left"></i>Cambiar contraseña</a>
+          -->
+              </div>
+
+             
+            </div> 
+
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                
+                {% block js %}
+                <script>
+                  $('#id_empresa option:selected').removeAttr("selected");
+                  $('#id_rol option:selected').removeAttr("selected");
+                  {% for group in usere.groups.all %}
+                      
+                  
+                  $('#id_rol option[value="{{group.name}}"]').attr("selected","selected");
+                  {% endfor %}
+                  $('#id_empresa option[value="{{usere.empresa.pk}}"]').attr("selected","selected");
+                  $('#id_rol').material_select();
+                  $('#id_empresa').material_select();
+
+                </script>
+                {% endblock js %}
+                <select disabled id="id_rol" name="rol" class="initialized">
+                  <option value="">-- seleccionar --</option>
+                  <option value="administrador">Administrador</option>
+                  <option value="operador">Operador</option>
+                </select>
+           
+                <label for="emails">Rol</label>
+              </div>
+              {% if user.is_superuser %}
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ user_form.errors.empresa|removetags:'ul li' }}</span>
+                <label for="emails">Rol</label>
+              </div>
+              {% else %}
+              <input name="empresa" type="hidden" value="{{user.empresa.pk}}">
+              {% endif %}
+            </div>
+        </fieldset>
+                  
+        <div class="row">  
+        <div class="input-field col s6">
+          <a href="/inicio" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+          <div class="input-field col s6">
+            
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+
+
+ 

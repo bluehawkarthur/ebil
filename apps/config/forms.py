@@ -12,6 +12,7 @@ class PersonajuridicaForm(forms.Form):
     telefono3 = forms.IntegerField(required=False)
     departamento = forms.CharField(max_length=100)
     municipios = forms.CharField(max_length=100)
+    logo = forms.ImageField(required=False, label="Logo")
 
 
 class EmpresaFormedit(forms.ModelForm):
@@ -23,10 +24,11 @@ class EmpresaFormedit(forms.ModelForm):
     telefono3 = forms.CharField(required=False)
     departamento = forms.CharField(max_length=100)
     municipios = forms.CharField(max_length=100)
+    logo = forms.ImageField(required=False, label="Logo")
 
     class Meta:
         model = Personajuridica
-        fields = ('razon_social', 'nit', 'direccion', 'telefono', 'departamento', 'municipios')
+        fields = ('razon_social', 'nit', 'direccion', 'telefono', 'departamento', 'municipios', 'logo')
 
 
 class DatosDosificacionForm(forms.Form):

@@ -78,6 +78,15 @@ def compraCrear(request):
             else:
                 end_date = None
 
+            compra_data = Compra.objects.filter(empresa=request.user.empresa).exclude(nro_nota__isnull=True).last()
+
+            if compra_data:
+                nro = compra_data.nro_nota
+                if nro is None:
+                    nro = 0
+            else:
+                nro = 0
+
             print total
             crearCompra = Compra(
                 nit=proceso['nit'],
@@ -97,6 +106,7 @@ def compraCrear(request):
                 tipo_recargo=proceso['tipo_recargo'],
                 empresa=request.user.empresa,
                 fecha_vencimiento=end_date,
+                nro_nota=nro + 1,
 
             )
             crearCompra.save()
@@ -106,7 +116,7 @@ def compraCrear(request):
                     item = Item.objects.filter(id=k['pk'])
                     cantidad_total = item[0].cantidad + int(k['cantidad'])
                     today = date.today()
-                    item.update(cantidad=cantidad_total, precio_unitario=decimal.Decimal(k['precio_unitario']), fecha_transaccion=today)
+                    item.update(cantidad=cantidad_total, fecha_transaccion=today)
 
                     crearDetalle = DetalleCompra(
                         compra=crearCompra,
@@ -128,7 +138,7 @@ def compraCrear(request):
 
                     )
 
-                    detalle = '%s a %s' % ('Compra', proceso['razon'])
+                    detalle = '%s a %s s/g factura Nro. %s' % ('Compra', proceso['razon'], proceso['nro_factura'])
 
                     crearMovimiento = Movimiento(
                         cantidad=int(k['cantidad']),
@@ -139,7 +149,6 @@ def compraCrear(request):
                         item=Item.objects.get(id=k['pk']),
                         empresa=request.user.empresa,
                     )
-
 
                     crearDetalle.save()
                     crearMovimiento.save()
@@ -224,7 +233,6 @@ def detalleCompra(request, pk):
     print pk
     compra = Compra.objects.filter(id=pk)
     detalle = DetalleCompra.objects.filter(compra=compra)
-    
 
     vd = []
     for d in detalle:
@@ -242,8 +250,12 @@ def detalleCompra(request, pk):
         'tipo_compra': compra[0].tipo_compra,
         'cantidad_dias': compra[0].cantidad_dias,
         'total': compra[0].total,
-        'detalle': vd
-        
+        'detalle': vd,
+        'empresa': request.user.get_empresa(),
+        'dias': compra[0].cantidad_dias,
+        'nro_nota': compra[0].nro_nota,
+        'user': request.user,
+
     }
     messages.success(request, 'La compra se ha realizado satisfactoriamente')
     print compra

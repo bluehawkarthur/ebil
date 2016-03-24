@@ -23,10 +23,12 @@ class Venta(models.Model):
     monto_pago = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     fecha_vencimiento = models.DateField(null=True, blank=True)
     empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
-    numero_autorizacion = models.BigIntegerField()
-    llave_digital = models.CharField(max_length=200)
-    codigo_control = models.CharField(max_length=255)
+    numero_autorizacion = models.BigIntegerField(null=True, blank=True)
+    llave_digital = models.CharField(max_length=200, null=True, blank=True)
+    codigo_control = models.CharField(max_length=255, null=True, blank=True)
     fecha_limite = models.DateField(null=True, blank=True)
+    tipo_movimiento = models.CharField(max_length=100, null=True, blank=True)
+    nro_nota = models.BigIntegerField(null=True, blank=True)
     # categoria = models.CharField(max_length=50)
     # movimiento = models.CharField(max_length=100)
 
@@ -68,9 +70,10 @@ class Movimiento(models.Model):
 
 class Cobro(models.Model):
     venta = models.ForeignKey(Venta)
-    monto_pago = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    monto_pago = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     fecha_transaccion = models.DateField(null=True, blank=True)
     empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
+    nro = models.BigIntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return self.venta.razon_social

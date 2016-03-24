@@ -15,21 +15,40 @@
         <div class="card-panel">
           <h4 class="header2">Empresa</h4>
           <div class="row">
-            <form class="col s12" method="post">
+            <form class="col s12" method="post" enctype='multipart/form-data'>
               {% csrf_token %}
             
               <div class="row">
-              	<div class="input-field col s6 has-error">
-                  <span class="help-block">{{ form.errors.razon_social|removetags:'ul li' }}</span>
-                  {{ form.razon_social|add_error_class:"invalid" }}
-                  <label for="emails">{{ form.razon_social.label }}</label>
+              	<div class="col s6">
+              	  <div class="input-field has-error">
+	                  <span class="help-block">{{ form.errors.razon_social|removetags:'ul li' }}</span>
+	                  {{ form.razon_social|add_error_class:"invalid" }}
+	                  <label for="emails">{{ form.razon_social.label }}</label>
+                  </div>
+                   <div class="input-field has-error">
+					<span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
+	              	{{ form.nit|add_error_class:"invalid" }}
+	                  <label for="email">{{ form.nit.label }}</label>
+                   </div>
               	</div>
 
-              	<div class="input-field col s6 has-error">
-                  <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
-              	{{ form.nit|add_error_class:"invalid" }}
-                  <label for="email">{{ form.nit.label }}</label>
-              	</div>
+				<div class="file-field input-field col s6 has-error"> 
+                <div class="btn btn-file">
+                  <span>{{ form.logo.label }}</span>
+                  {{ form.logo|add_error_class:"invalid" }}  
+
+                </div>
+
+                <!-- <div id="im"></div> -->
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                  <img id="image_upload_preview" style="width:120px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzIwMHgyMDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTNhNWIwOGJjMyB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1M2E1YjA4YmMzIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijc0LjA2MjUiIHk9IjEwNC41Ij4yMDB4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="your image" />
+
+                  <span class="help-block">{{ form.errors.logo|removetags:'ul li' }}</span>
+
+                  
+                </div>
+              </div>
 
               </div>
               <div class="row">

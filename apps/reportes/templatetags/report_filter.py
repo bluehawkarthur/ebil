@@ -47,8 +47,25 @@ register.simple_tag(resta)
 
 def texto(num, *args, **kwargs):
 
-	text = to_card(int(num))
+	num1 = str(num)
+
+	num2 = num1.split('.')
 	
-	return text.upper()
+	text = to_card(int(num))
+	text_final = '%s %s/%s' % (text, num2[1], '100')
+	
+	return text_final.upper()
 
 register.simple_tag(texto)
+
+
+@register.filter(name='range')
+def _range(_min, args=None):
+    _max, _step = None, None
+    if args:
+        if not isinstance(args, int):
+            _max, _step = map(int, args.split(','))
+        else:
+            _max = args
+    args = filter(None, (_min - _max, _max, _step))
+    return range(*args)

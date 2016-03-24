@@ -25,13 +25,32 @@ Ebil
 							<input id="id_razon_social" {% if form.errors.razon_social %} class="invalid" {%endif%} maxlength="30" name="razon_social" value="{{empresa.razon_social}}" type="text">
 							<label for="emails">{{ form.razon_social.label }}</label>
 						</div>
-					</div>
-					<div class="col s6"> 
 						<div class="input-field has-error">
 							<span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
 							<input id="id_nit" {% if form.errors.nit %} class="invalid" {%endif%} maxlength="30" name="nit" value="{{empresa.nit}}" type="number">
 							<label for="emails">{{ form.nit.label }}</label>
 						</div>
+					</div>
+					<div class="col s6 file-field input-field"> 
+						<div class="btn btn-file">
+                  <span>{{ form.logo.label }}</span>
+                  <input id="id_logo" name="logo" type="file">  
+
+                </div>
+
+                <!-- <div id="im"></div> -->
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                  {% if empresa.logo %}
+                     <img id="image_upload_preview" style="width:120px" src="{{empresa.logo.url }}" alt="your image" />
+                  {% else %}
+                  <img id="image_upload_preview" style="width:120px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzIwMHgyMDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTNhNWIwOGJjMyB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1M2E1YjA4YmMzIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijc0LjA2MjUiIHk9IjEwNC41Ij4yMDB4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="your image" />
+                  {% endif %}
+
+                  <span class="help-block">{{ form.errors.logo|removetags:'ul li' }}</span>
+
+                  
+                </div>
 
 					</div>
 				</div>

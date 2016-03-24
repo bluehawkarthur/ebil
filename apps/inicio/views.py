@@ -164,7 +164,7 @@ class ListarUsuario(PaginationMixin, ListView):
                 object_list = self.model.objects.all().order_by('pk')
         else:
             if (username):
-                object_list = self.model.objects.filter(username__icontains = username).order_by('pk')
+                object_list = self.model.objects.filter(username__icontains = username, empresa=self.request.user.empresa.pk).order_by('pk')
             else:
                 object_list = self.model.objects.filter(empresa=self.request.user.empresa.pk).order_by('pk')
                 print 'llego'
@@ -268,3 +268,9 @@ def change_password(request, pk):
         form = reset_form()
     content = RequestContext(request, {'form': form, 'user_data': user})
     return render(request, 'inicio/reset_password.html', content,)
+
+
+def perfil(request):
+    user = get_object_or_404(User, pk=request.user.pk)
+
+    return render(request, 'inicio/perfil.html', {'usere': user})

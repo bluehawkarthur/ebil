@@ -45,3 +45,14 @@ body,
 .reporte{
 	display: none;
 }
+
+.kardex{
+    /* border: none; */
+    border: solid 1px;
+    border-radius: none;
+}
+
+.color-th{
+    background-color: transparent !important;
+    color: black !important;
+}

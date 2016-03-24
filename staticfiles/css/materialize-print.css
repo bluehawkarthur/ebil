@@ -45,3 +45,7 @@ body,
 .reporte{
 	display: none;
 }
+.color-th{
+    background-color: none;
+    color: black;
+}

@@ -6,7 +6,7 @@ from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
 from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm
-from .models import DatosDosificacion, Formatofactura
+from .models import DatosDosificacion, Formatofactura, AlmacenesCampos
 from apps.cliente.models import Cliente
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
@@ -25,7 +25,7 @@ class Configuraciones(TemplateView):
 
 def Createpersojuridica(request):
     if request.method == 'POST':
-        form = PersonajuridicaForm(request.POST)
+        form = PersonajuridicaForm(request.POST, request.FILES)
         if form.is_valid():
             personajurid = Personajuridica(
                 razon_social=form.cleaned_data['razon_social'],
@@ -35,7 +35,8 @@ def Createpersojuridica(request):
                 telefono2=form.cleaned_data['telefono2'],
                 telefono3=form.cleaned_data['telefono3'],
                 departamento=form.cleaned_data['departamento'],
-                municipios=form.cleaned_data['municipios'])
+                municipios=form.cleaned_data['municipios'],
+                logo=form.cleaned_data['logo'])
             personajurid.save()
             formatofact = Formatofactura(
                 formato='general',
@@ -47,48 +48,37 @@ def Createpersojuridica(request):
                 frases_pie='Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.',
                 empresa=personajurid
             )
-    #         clienteconfig = Cliente(
-    #             codigo_usar=True
-    #             codigo_requerido=True
-				# codigo_tipo='alfa_numerico'
-				# codigo_caractr=50
-    #             razonsocal_usar=True
-    #             razonsocal_requerido=True
-    #             razonsocal_tipo='alfa_numerico'
-    #             razonsocal_caractr=100
-    #             nit_usar=True
-    #             nit_requerido=True
-    #             nit_tipo='numerico'
-    #             nit_caractr=20
-    #             direccion_usar=True
-    #             direccion_requerido=True
-    #             direccion_tipo='alfa_numerico'
-    #             direccion_caractr=50
-    #             telefonos_usar=True
-    #             telefonos_requerido=True
-    #             telefonos_tipo='numerico'
-    #             telefonos_caractr=20
-    #             contacto_usar=True
-    #             contacto_requerido=True
-    #             contacto_tipo='alfa_numerico'
-    #             contacto_caractr=50
-    #             rubro_usar=True
-    #             rubro_requerido=True
-    #             rubro_tipo='alfa_numerico'
-    #             rubro_caractr=50
-    #             categoria_usar=True
-    #             categoria_requerido=True
-    #             categoria_tipo='alfa_numerico'
-    #             categoria_caractr=50
-    #             ubicaciongeo_usar=True
-    #             ubicaciongeo_requerido=True
-    #             ubicaciongeo_tipo='alfa_numerico'
-    #             ubicaciongeo_caractr=50
-    #             empresa=personajurid
-    #         )
-
-    #         clienteconfig.save()
             formatofact.save()
+            campo_item = AlmacenesCampos(
+                codigo_fabr_usar=True,
+                codigo_fabr_reque=False,
+                codigo_fabricatipo='',
+                codigo_fabricacaractr=20,
+                caract_espec_usar=True,
+                caract_espec_requerid=False,
+                caract_espectipo='',
+                caract_especaractr=20,
+                unidad_medid_usar=True,
+                unidad_medid_requerido=False,
+                unidad_medidatipo='',
+                unidad_medidacaractr=15,
+                imagen_usar=True,
+                imagen_requer=False,
+                grupo_usar=True,
+                grupo_requerido=False,
+                grupo_tipo='',
+                grupo_caractr=20,
+                subgrupo_usar=True,
+                subgrupo_requerido=False,
+                subgrupo_tipo='',
+                subgrupo_caractr=20,
+                carac_especial_2_usar=True,
+                carac_especial_2_requerido=False,
+                carac_especial_2_tipo='',
+                carac_especial_2_caractr=20,
+                empresa=personajurid
+            )
+            campo_item.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
             # render_to_response('config/createpersojuridica.html')
     else:
@@ -103,7 +93,7 @@ def Empresa(request):
 
     if request.method == "POST":
 
-        form = EmpresaFormedit(request.POST, instance=empresa)
+        form = EmpresaFormedit(request.POST, request.FILES, instance=empresa)
         if form.is_valid():
             user = form.save(commit=False)
             # user.empresa = form.cleaned_data['empresa']
@@ -154,7 +144,7 @@ class EditPersonajuridica(UpdateView):
     template_name = 'config/edit_Personajuridica.html'
     model = Personajuridica
     fields = ['razon_social', 'nit', 'direccion', 'telefono',
-              'telefono2', 'telefono3', 'departamento', 'municipios']
+              'telefono2', 'telefono3', 'departamento', 'municipios', 'logo']
     success_url = reverse_lazy('listarPersonajuridica')
 
 
@@ -323,3 +313,16 @@ def import_base(request):
             'form': form,
         },
         context_instance=RequestContext(request))
+
+class EditAlmacenesCampos(UpdateView):
+    template_name = 'config/edit_alamacen_campos.html'
+    model = AlmacenesCampos
+    fields = ['codigo_fabr_usar', 'codigo_fabr_reque', 'codigo_fabricatipo', 'codigo_fabricacaractr', 
+    'caract_espec_usar', 'caract_espec_requerid', 'caract_espectipo', 'caract_especaractr', 
+    'unidad_medid_usar', 'unidad_medid_requerido', 'unidad_medidatipo', 'unidad_medidacaractr', 'imagen_usar', 'imagen_requer', 'grupo_usar','grupo_requerido',
+    'grupo_tipo', 'grupo_caractr', 'subgrupo_usar', 'subgrupo_requerido', 'subgrupo_tipo', 'subgrupo_caractr', 'carac_especial_2_usar',
+    'carac_especial_2_requerido', 'carac_especial_2_tipo', 'carac_especial_2_caractr']
+    success_url = reverse_lazy('inicio')
+
+    def get_object(self):
+        return AlmacenesCampos.objects.get(empresa=self.request.user.empresa)

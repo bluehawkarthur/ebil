@@ -27,37 +27,37 @@
 	
 
    
-    	<table class='table'>
+    	<table  class=" bordered" >
     		<thead>
           <tr>
-            <th colspan="3"></th>
-            <th colspan="3">Fisico</th>
-            <th colspan="3">Valuado</th>
+            <th colspan="3" class="kardex color-th"></th>
+            <th colspan="3" class="kardex color-th">Fisico</th>
+            <th colspan="3" class="kardex color-th">Valuado</th>
           </tr>
           <tr>
-            <th>Fecha</th>
-      			<th>Detalle</th>
-            <th>P/U</th>
-            <th>Ingreso</th>
-      			<th>Salida</th>
-            <th>Saldo</th>
-            <th>Ingreso</th>
-            <th>Salida</th>
-            <th>Saldo</th>
+            <th class="kardex color-th">Fecha</th>
+      			<th class="kardex color-th">Detalle</th>
+            <th class="kardex color-th">P/U</th>
+            <th class="kardex color-th">Ingreso</th>
+      			<th class="kardex color-th">Salida</th>
+            <th class="kardex color-th">Saldo</th>
+            <th class="kardex color-th">Ingreso</th>
+            <th class="kardex color-th">Salida</th>
+            <th class="kardex color-th">Saldo</th>
           </tr>
     		</thead>
     		<tbody>
     		{%  for it in kardex %}
-          <tr>
-              <td>{{it.fecha}}</td>
-              <td>{{it.detalle}}</td>
-              <td>{{it.pu}}</td>
-              <td>{{it.ingreso}}</td>
-              <td>{{it.salida}}</td>
-              <td>{{it.saldo}}</td>
-              <td>{{it.ingresov}}</td>
-              <td>{{it.salidav}}</td>
-              <td>{{it.saldov}}</td>
+          <tr role="row">
+              <td class="kardex">{{it.fecha}}</td>
+              <td class="kardex">{{it.detalle}}</td>
+              <td class="kardex">{{it.pu}}</td>
+              <td class="kardex">{{it.ingreso}}</td>
+              <td class="kardex">{{it.salida}}</td>
+              <td class="kardex">{{it.saldo}}</td>
+              <td class="kardex">{{it.ingresov}}</td>
+              <td class="kardex">{{it.salidav}}</td>
+              <td class="kardex">{{it.saldov}}</td>
              
           </tr>
                 

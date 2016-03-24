@@ -36,54 +36,75 @@ import decimal
 from django.db import IntegrityError
 
 import xlsxwriter
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from apps.config.models import AlmacenesCampos
+from django.http import HttpResponse
+import json
+from django.core import serializers
+
+# personalize de configuracions de almacees y producto 
+def configalmacen(request):
+    config = AlmacenesCampos.objects.filter(empresa=request.user.empresa)
+    data = serializers.serialize(
+          'json', config, fields=('codigo_fabr_usar', 'codigo_fabr_reque', 'codigo_fabricatipo', 'codigo_fabricacaractr', 
+    'caract_espec_usar', 'caract_espec_requerid', 'caract_espectipo', 'caract_especaractr', 
+    'unidad_medid_usar', 'unidad_medid_requerido', 'unidad_medidatipo', 'unidad_medidacaractr', 'imagen_usar', 'imagen_requer', 'grupo_usar','grupo_requerido',
+    'grupo_tipo', 'grupo_caractr', 'subgrupo_usar', 'subgrupo_requerido', 'subgrupo_tipo', 'subgrupo_caractr', 'carac_especial_2_usar',
+    'carac_especial_2_requerido', 'carac_especial_2_tipo', 'carac_especial_2_caractr'))
+    return HttpResponse(data, content_type="application/json")
 
 
 class CrearItem(FormView):
-	template_name = 'producto/crear_item.html'
-	form_class = ItemForm
-	success_url = reverse_lazy('listar_item')
+    template_name = 'producto/crear_item.html'
+    form_class = ItemForm
+    success_url = reverse_lazy('listar_item')
 
-	# personalize choices for user authenticate
-	def get_form(self, form_class):
-		form = form_class(**self.get_form_kwargs())
-		form.fields['proveedor'].queryset = Proveedor.objects.filter(
-		    empresa=self.request.user.empresa).all()
-		return form
+    # personalize choices for user authenticate
+    def get_form(self, form_class):
+        form = form_class(**self.get_form_kwargs())
+        form.fields['proveedor'].queryset = Proveedor.objects.filter(
+            empresa=self.request.user.empresa).all()
+        return form
 
-	def form_valid(self, form):
-		item = Item()
-		item.codigo_item = form.cleaned_data['codigo_item']
-		item.codigo_fabrica = form.cleaned_data['codigo_fabrica']
-		item.almacen = form.cleaned_data['almacen']
-		item.grupo = form.cleaned_data['grupo']
-		item.subgrupo = form.cleaned_data['subgrupo']
-		item.descripcion = form.cleaned_data['descripcion']
-		item.carac_especial_1 = form.cleaned_data['carac_especial_1']
-		item.carac_especial_2 = form.cleaned_data['carac_especial_2']
-		item.cantidad = form.cleaned_data['cantidad']
-		item.saldo_min = form.cleaned_data['saldo_min']
-		item.proveedor = form.cleaned_data['proveedor']
-		item.imagen = form.cleaned_data['imagen']
-		item.unidad_medida = form.cleaned_data['unidad_medida']
-		item.costo_unitario = form.cleaned_data['costo_unitario']
-		item.precio_unitario = form.cleaned_data['precio_unitario']
-		item.empresa = self.request.user.empresa
-		today = date.today()
-		movimiento = Movimiento()
-		movimiento.cantidad = form.cleaned_data['cantidad']
-		movimiento.precio_unitario = form.cleaned_data['precio_unitario']
-		movimiento.detalle = 'Saldo Inicial'
-		movimiento.fecha_transaccion = today.strftime('%Y-%m-%d')
-		movimiento.motivo_movimiento = 'inicial'
-		movimiento.empresa = self.request.user.empresa
-		try:
-			item.save()
-		except IntegrityError:
-			messages.error(self.request, "error CODIGO DUPLICADO")
-			return self.form_invalid(form)
-		movimiento.item = item
-		movimiento.save()
-		return super(CrearItem, self).form_valid(form)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CrearItem, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        item = Item()
+        item.codigo_item = form.cleaned_data['codigo_item']
+        item.codigo_fabrica = form.cleaned_data['codigo_fabrica']
+        item.almacen = form.cleaned_data['almacen']
+        item.grupo = form.cleaned_data['grupo']
+        item.subgrupo = form.cleaned_data['subgrupo']
+        item.descripcion = form.cleaned_data['descripcion']
+        item.carac_especial_1 = form.cleaned_data['carac_especial_1']
+        item.carac_especial_2 = form.cleaned_data['carac_especial_2']
+        item.cantidad = form.cleaned_data['cantidad']
+        item.saldo_min = form.cleaned_data['saldo_min']
+        item.proveedor = form.cleaned_data['proveedor']
+        item.imagen = form.cleaned_data['imagen']
+        item.unidad_medida = form.cleaned_data['unidad_medida']
+        item.costo_unitario = form.cleaned_data['costo_unitario']
+        item.precio_unitario = form.cleaned_data['precio_unitario']
+        item.empresa = self.request.user.empresa
+        today = date.today()
+        movimiento = Movimiento()
+        movimiento.cantidad = form.cleaned_data['cantidad']
+        movimiento.precio_unitario = form.cleaned_data['precio_unitario']
+        movimiento.detalle = 'Saldo Inicial'
+        movimiento.fecha_transaccion = today.strftime('%Y-%m-%d')
+        movimiento.motivo_movimiento = 'inicial'
+        movimiento.empresa = self.request.user.empresa
+        try:
+            item.save()
+        except IntegrityError:
+            messages.error(self.request, "error CODIGO DUPLICADO")
+            return self.form_invalid(form)
+        movimiento.item = item
+        movimiento.save()
+        return super(CrearItem, self).form_valid(form)
 
 
 
@@ -134,6 +155,10 @@ class ListarItem(PaginationMixin, ListView):
         else:
             object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('pk')
         return object_list
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ListarItem, self).dispatch(*args, **kwargs)
 
 
 class DetalleItem(DetailView):

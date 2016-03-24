@@ -2359,3 +2359,14 @@ span.help-block-file {
     text-decoration: none;
     color: rgb(0, 0, 0);
 }
+
+.kardex{
+    /* border: none; */
+    border: solid 1px;
+    border-radius: none;
+}
+
+.color-th{
+    background-color: #00608B;
+    color: white;
+}

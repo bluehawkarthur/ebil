@@ -33,7 +33,7 @@ import decimal
 from .htmltopdf import render_to_pdf
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models import Q
-from apps.config.models import DatosDosificacion
+from apps.config.models import DatosDosificacion, Formatofactura
 from apps.ventas.numero_autorizacion import codigoControl
 
 
@@ -211,21 +211,19 @@ def ReportVendetalle(request):
 
 
 def detalleVenta(request, pk):
-    print pk
     venta = Venta.objects.filter(id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
-    
-    
+
     vd = []
     scf = 0
     for d in detalle:
         scf = scf + d.scf
         vd.append(d)
 
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
     # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
     # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
-    cod_control = codigoControl(venta[0].llave_digital, venta[0].numero_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
-    print 'sssssssssssssss',cod_control
+    
     data = {
         'nit': venta[0].nit,
         'nro_factura': venta[0].nro_factura,
@@ -234,12 +232,57 @@ def detalleVenta(request, pk):
         'tipo_compra': venta[0].tipo_compra,
         'codigo_control': venta[0].codigo_control,
         'total': venta[0].total,
-        'detalle': vd
-        
+        'detalle': vd,
+        'formato': formato,
+        'numero_autorizacion': venta[0].numero_autorizacion,
+        'fecha_limite': venta[0].fecha_limite,
+        'empresa': request.user.get_empresa()
+
     }
 
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    print 'el formato'
+    print formato
 
-    return render_to_pdf('reportes/rep_detalleventa.html', data)
+    if formato.impresion == 'Vacia':
+        if formato.tamanio == 'rollo':
+            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+        elif formato.tamanio == 'carta':
+            return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+        elif formato.tamanio == 'oficio':
+            return render_to_pdf('reportes/rep_ventaoficio.html', data)
+
+        elif formato.tamanio == '1/2oficio':
+            return render_to_pdf('reportes/rep_ventamedio.html', data)
+
+    elif formato.impresion == 'Completa':
+        if formato.tamanio == 'rollo':
+            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+        elif formato.tamanio == 'carta':
+            return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+
+        elif formato.tamanio == 'oficio':
+            return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+
+        elif formato.tamanio == '1/2oficio':
+            return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+
+    elif formato.impresion == 'Semi-completa':
+        if formato.tamanio == 'rollo':
+            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+        elif formato.tamanio == 'carta':
+            return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+
+        elif formato.tamanio == 'oficio':
+            return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+
+        elif formato.tamanio == '1/2oficio':
+            return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+
 
 
 def report_mesVenta(request):
@@ -535,7 +578,7 @@ def KardexAlmacen(request, pk):
 
 
 def promedios(request, pk, date1, anio):
-    movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('fecha_transaccion')
+    movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('id')
     producto = Item.objects.get(id=pk)
     movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, motivo_movimiento='inicial')
     datosfinal = []
@@ -591,12 +634,22 @@ def Createpago(request):
     if request.method == 'POST':
         monto = request.POST['monto']
         venta = request.POST['venta']
+
+        cobro_data = Cobro.objects.filter(empresa=request.user.empresa).exclude(nro__isnull=True).last()
+        if cobro_data:
+            nro1 = cobro_data.nro
+            if nro1 is None:
+                nro1 = 0
+        else:
+            nro1 = 0
+
         venta_get = Venta.objects.filter(empresa=request.user.empresa, id=venta)
         crearcobro = Cobro(
             venta=Venta.objects.get(id=venta),
             monto_pago=monto,
             fecha_transaccion=date.today(),
             empresa=request.user.empresa,
+            nro=nro1 + 1,
         )
         crearcobro.save()
 
@@ -614,13 +667,24 @@ def Createpago(request):
             else:
                 venta_get.update(monto_pago=monto2)
 
+        nro = 0
+        if venta_get[0].tipo_movimiento == 'proforma':
+        	nro = '%s %s' % ('PROFORMA N°', venta_get[0].nro_nota)
+        else:
+        	nro = '%s %s' % ('FACTURA N°', venta_get[0].nro_factura)
+
         # montofinal = venta_get[0].total - decimal.Decimal(monto)
         # venta_get.update(monto_pago=montofinal)
-        print monto
+     
+        montobase = Cobro.objects.get(id=crearcobro.id)
         data = {
-            'monto': monto,
+            'monto': montobase.monto_pago,
             'cliente': venta_get[0].razon_social,
             'fecha': date.today(),
+            'empresa': request.user.get_empresa(),
+            'nro': nro,
+            'nro_recibo': montobase.nro,
+            'user': request.user,
         }
 
     return render_to_pdf('reportes/reporte_pago.html', data)
@@ -650,7 +714,7 @@ class ReporteCaja(TemplateView):
 			print total
 
 
-			return render_to_pdf('reportes/ccaja.html', {'sub': sub, 'cajai': cajai, 'gastos': gastos, 'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})
+			return render_to_pdf('reportes/ccaja.html', {'sub': sub, 'cajai': cajai, 'gastos': gastos, 'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros, 'user': request.user, 'empresa': request.user.get_empresa(), 'fecha':date.today()})
 		else:
 			ventas = Venta.objects.filter(empresa=self.request.user.empresa, fecha=hoy)
 			return render(request, 'reportes/ccaja.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

@@ -33,13 +33,16 @@
                 <tr style="border:none;">
                   <td class="center-text text-size" >
                   <br>
-                    <b>EVEREST</b> <br>
-                    <b>CALLE ESTEBAN ARCE</b> <br>
-                    <b>Telf.: 4556605</b>
+                    <b>{{empresa.razon_social|upper}}</b> <br>
+                    <b>{{empresa.direccion|upper}}</b> <br>
+                    <b>Telf.: {{empresa.telefono|upper}}</b>
                   </td>
                   <td class="center-text">
                     <b style="font-size: 20px;">NOTA DE COMPRA</b> <br>
-                    <b>{{tipo_compra|upper}}</b>
+                    <b>{{tipo_compra|upper}}</b><br>
+                    {% if dias %}
+                    <b>DIAS: {{dias}}</b>
+                    {% endif %}
                   </td>
                   <td class="center-text text-size">
                     <b>{{fecha}}</b>
@@ -49,12 +52,16 @@
               
               </table>
               <table style="border:1px solid black; padding: 5px; ">
-                <tr>
+                <tr style="border:none;">
                   <td class="text-size">
                   <br>
-                  Nit: {{nit}} <br>
+                  NIT: {{nit}} <br>
                   Razon social: {{razon_social}} <br>
                   Nro factura: {{nro_factura}}
+                  </td>
+                  <td></td>
+                  <td class="text-size center-text">
+                    <b>Numero: {{nro_nota}}</b> 
                   </td>
                   
 
@@ -120,6 +127,7 @@
           </tbody>
           </table>
                 </div>
+                <h3>Usuario: {{user.username}}</h3>
                 
               </div>
             </div>

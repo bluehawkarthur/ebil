@@ -18,16 +18,16 @@
               <form id="encabezado">
                 <div class="col s12 m6 l4">
                 <div class="input-field col s7 has-error">
-                  <input id="add_nit" name="add_nit" type="number">
+                  <input id="add_nit" name="add_nit" type="number" class="EntTab">
                   <label>Nit</label>
                 </div>
                 <div class="input-field col s7 has-error">
-                  <input id="add_razon"  name="add_razon" type="text">
+                  <input id="add_razon"  name="add_razon" type="text" class="EntTab">
                   <label>Razon social</label>
                 </div>
       
                 <div class="input-field col s7 has-error">
-                  <input id="add_fecha"  name="add_fecha" type="text" class="datepicker">
+                  <input id="add_fecha"  name="add_fecha" type="text" class="datepicker EntTab">
                   <label>Fecha</label>
                 </div>
               
@@ -105,6 +105,14 @@
                   <div class="input-field texto-center" id="input-credito">
                     <input id="dias" maxlength="10" name="dias" type="text">
                     <label>Dias</label>
+                  </div>
+                  <div class="input-field ">
+                    <select id="movimiento" name="movimiento" >
+                      <option value="facturar">Facturar</option>
+                      <option value="baja">Baja</option>
+                      <option value="proforma">Proforma</option>
+                    </select>
+                    <label>Movimiento</label>
                   </div>
                   
                 </div>

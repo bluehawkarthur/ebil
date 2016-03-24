@@ -24,6 +24,7 @@ class Compra(models.Model):
     empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
     monto_pago = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     fecha_vencimiento = models.DateField(null=True, blank=True)
+    nro_nota = models.BigIntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return U" %s- %s" % (self.nit, self.nro_factura)

@@ -6,7 +6,7 @@ from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
 from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm
-from .models import DatosDosificacion, Formatofactura, AlmacenesCampos
+from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos
 from apps.cliente.models import Cliente
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
@@ -79,6 +79,99 @@ def Createpersojuridica(request):
                 empresa=personajurid
             )
             campo_item.save()
+            campo_proveedor = ProveedoresCampos(
+                direccion_usar=True,
+                direccion_requerido=False,
+                direccion_tipo='',
+                direccion_caractr=20,
+                telefonos1_usar=True,
+                telefonos1_requerido=False,
+                telefonos1_tipo='',
+                telefonos1_caractr=7,
+                telefonos2_usar=True,
+                telefonos2_requerido=False,
+                telefonos2_tipo='',
+                telefonos2_caractr=7,
+                telefonos3_usar=True,
+                telefonos3_requerido=False,
+                telefonos3_tipo='',
+                telefonos3_caractr=7,
+                contacto_usar=True,
+                contacto_requerido=False,
+                contacto_tipo='',
+                contacto_caractr=20,
+                rubro_usar=True,
+                rubro_requerido=False,
+                rubro_tipo='',
+                rubro_caractr=15,
+                ubicacion_geo_usar=True,
+                ubicacion_geo_requerido=False,
+                ubicacion_geo_tipo='',
+                ubicacion_geo_caractr=15,
+                fechas_usar=True,
+                fechas_requerido=False,
+                fechas2_usar=True,
+                fechas2_requerido=False,
+                textos_usar=True,
+                textos_requerido=False,
+                textos_tipo='',
+                textos_caractr=15,
+                textos2_usar=True,
+                textos2_requerido=False,
+                textos2_tipo='',
+                textos2_caractr=15,
+                empresa=personajurid
+            )
+            campo_proveedor.save()
+
+            campo_cliente = ClienteCampos(
+                direccion_usar=True,
+                direccion_requerido=False,
+                direccion_tipo='',
+                direccion_caractr=15,
+                telefono1_usar=True,
+                telefono1_requerido=False,
+                telefono1_tipo='',
+                telefono1_caractr=7,
+                telefono2_usar=True,
+                telefono2_requerido=False,
+                telefono2_tipo='',
+                telefono2_caractr=7,
+                telefono3_usar=True,
+                telefono3_requerido=False,
+                telefono3_tipo='',
+                telefono3_caractr=7,
+                contacto_usar=True,
+                contacto_requerido=False,
+                contacto_tipo='',
+                contacto_caractr=15,
+                rubro_usar=True,
+                rubro_requerido=False,
+                rubro_tipo='',
+                rubro_caractr=15,
+                categoria_usar=True,
+                categoria_requerido=False,
+                categoria_tipo='',
+                categoria_caractr=15,
+                ubicaciongeo_usar=True,
+                ubicaciongeo_requerido=False,
+                ubicaciongeo_tipo='',
+                ubicaciongeo_caractr=15,
+                fecha_usar=True,
+                fecha_requerido=False,
+                fecha2_usar=True,
+                fecha2_requerido=False,
+                texto_usar=True,
+                texto_requerido=False,
+                texto_tipo='',
+                texto_caractr=15,
+                texto2_usar=True,
+                texto2_requerido=False,
+                texto2_tipo='',
+                texto2_caractr=15,
+                empresa=personajurid
+            )
+            campo_cliente.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
             # render_to_response('config/createpersojuridica.html')
     else:
@@ -314,6 +407,7 @@ def import_base(request):
         },
         context_instance=RequestContext(request))
 
+
 class EditAlmacenesCampos(UpdateView):
     template_name = 'config/edit_alamacen_campos.html'
     model = AlmacenesCampos
@@ -326,3 +420,44 @@ class EditAlmacenesCampos(UpdateView):
 
     def get_object(self):
         return AlmacenesCampos.objects.get(empresa=self.request.user.empresa)
+
+
+class EditProveedoresCampos(UpdateView):
+    template_name = 'config/edit_proveedcamps.html'
+    model = ProveedoresCampos
+    fields = ['direccion_usar', 'direccion_requerido', 'direccion_tipo', 'direccion_caractr', 
+    'telefonos1_usar', 'telefonos1_requerido', 'telefonos1_tipo', 'telefonos1_caractr', 'telefonos2_usar', 'telefonos2_requerido', 'telefonos2_tipo', 'telefonos2_caractr',
+    'telefonos3_usar', 'telefonos3_requerido', 'telefonos3_tipo', 'telefonos3_caractr', 'contacto_usar', 'contacto_requerido', 'contacto_tipo', 'contacto_caractr', 
+    'rubro_usar', 'rubro_requerido', 'rubro_tipo', 'rubro_caractr', 'ubicacion_geo_usar', 'ubicacion_geo_requerido', 'ubicacion_geo_tipo', 'ubicacion_geo_caractr', 
+    'fechas_usar', 'fechas_requerido', 'fechas2_usar', 'fechas2_requerido', 'textos_usar', 'textos_requerido', 'textos_tipo', 'textos_caractr',
+    'textos2_usar', 'textos2_requerido', 'textos2_tipo', 'textos2_caractr']
+    success_url = reverse_lazy('inicio')
+
+    def get_object(self):
+        return ProveedoresCampos.objects.get(empresa=self.request.user.empresa)
+
+
+class EditClienteCampos(UpdateView):
+    template_name = 'config/edit_clientcamp.html'
+    model = ClienteCampos
+    fields = ['direccion_usar', 'direccion_requerido','direccion_tipo', 'direccion_caractr', 
+    'telefono1_usar', 'telefono1_requerido', 'telefono1_tipo', 'telefono1_caractr', 'telefono2_usar', 'telefono2_requerido', 'telefono2_tipo', 'telefono2_caractr', 
+    'telefono3_usar', 'telefono3_requerido', 'telefono3_tipo', 'telefono3_caractr', 'contacto_usar', 'contacto_requerido', 'contacto_tipo', 'contacto_caractr', 
+    'rubro_usar', 'rubro_requerido', 'rubro_tipo', 'rubro_caractr', 'categoria_usar', 'categoria_requerido', 'categoria_tipo', 'categoria_caractr', 
+    'ubicaciongeo_usar', 'ubicaciongeo_requerido', 'ubicaciongeo_tipo', 'ubicaciongeo_caractr', 'fecha_usar', 'fecha_requerido', 'fecha2_usar', 'fecha2_requerido',
+    'texto_usar', 'texto_requerido', 'texto_tipo', 'texto_caractr', 'texto2_usar', 'texto2_requerido', 'texto2_tipo', 'texto2_caractr']
+    success_url = reverse_lazy('inicio')
+
+    def get_object(self):
+        return ClienteCampos.objects.get(empresa=self.request.user.empresa)
+
+
+class EditFacturaCampos(UpdateView):
+    template_name = 'config/edit_factCamp.html'
+    model = FacturaCampos
+    fields = ['descuento_usar', 'descuento_requerido', 'recargo_usar', 'recargo_requerido',
+    'ice_usar', 'ice_requerido', 'exentos_usar', 'exentos_requerido', 'tipos_venta_usar', 'tipos_venta_requerido']
+    success_url = reverse_lazy('inicio')
+
+    def get_object(self):
+        return FacturaCampos.objects.get(empresa=self.request.user.empresa)

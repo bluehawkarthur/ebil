@@ -32,6 +32,25 @@ IMPORT_FILE_TYPES = ['.xls', '.xlsx', ]
 from django import forms
 from django.template import RequestContext
 
+# personalize de configuracions de cliente y ciente campos  validacion
+from apps.config.models import ClienteCampos
+from django.http import HttpResponse
+import json
+from django.core import serializers
+
+
+# personalize de configuracions de cliente y ciente campos 
+def configclient(request):
+    config = ClienteCampos.objects.filter(empresa=request.user.empresa)
+    data = serializers.serialize(
+        'json', config, fields=('direccion_usar', 'direccion_requerido','direccion_tipo', 'direccion_caractr', 
+  'telefono1_usar', 'telefono1_requerido', 'telefono1_tipo', 'telefono1_caractr', 'telefono2_usar', 'telefono2_requerido', 'telefono2_tipo', 'telefono2_caractr', 
+  'telefono3_usar', 'telefono3_requerido', 'telefono3_tipo', 'telefono3_caractr', 'contacto_usar', 'contacto_requerido', 'contacto_tipo', 'contacto_caractr', 
+  'rubro_usar', 'rubro_requerido', 'rubro_tipo', 'rubro_caractr', 'categoria_usar', 'categoria_requerido', 'categoria_tipo', 'categoria_caractr', 
+  'ubicaciongeo_usar', 'ubicaciongeo_requerido', 'ubicaciongeo_tipo', 'ubicaciongeo_caractr', 'fecha_usar', 'fecha_requerido', 'fecha2_usar', 'fecha2_requerido',
+  'texto_usar', 'texto_requerido', 'texto_tipo', 'texto_caractr', 'texto2_usar', 'texto2_requerido', 'texto2_tipo', 'texto2_caractr'))
+    return HttpResponse(data, content_type="application/json")
+
 
 # Create your views here.
 class CrearCliente(FormView):

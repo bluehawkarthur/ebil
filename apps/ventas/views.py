@@ -17,7 +17,21 @@ import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 import datetime
 from .numero_autorizacion import codigoControl
-from apps.config.models import DatosDosificacion, Formatofactura
+from apps.config.models import DatosDosificacion, Formatofactura, FacturaCampos
+
+from django.http import HttpResponse
+import json
+from django.core import serializers
+
+# personalize de configuracions de almacees y producto 
+def configfactura(request):
+    config = FacturaCampos.objects.filter(empresa=request.user.empresa)
+    data = serializers.serialize(
+          'json', config, fields=('descuento_usar', 'descuento_requerido', 'recargo_usar', 'recargo_requerido', 
+    'ice_usar', 'ice_requerido', 'exentos_usar', 'exentos_requerido', 
+    'tipos_venta_usar', 'tipos_venta_requerido'))
+    return HttpResponse(data, content_type="application/json")
+ 
 
 
 def buscarProducto(request):
@@ -73,7 +87,14 @@ def ventaCrear(request):
                 venta_data = Venta.objects.filter(empresa=request.user.empresa).exclude(nro_factura__isnull=True).last()
 
                 dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
-
+                cliente = Cliente.objects.filter(nit=proceso['nit'])
+                if not cliente:
+                    cli = Cliente(
+                        razonsocial=proceso['razon'],
+                        nit=proceso['nit'],
+                        empresa=request.user.empresa,
+                    )
+                    cli.save()
                 print dosificacion
                 if dosificacion !=  None:
                     print 'facturaaaaaaaaa'
@@ -207,7 +228,16 @@ def ventaCrear(request):
                         nro = 0
                 else:
                     nro = 0
-                
+
+                cliente = Cliente.objects.filter(nit=proceso['nit'])
+                if not cliente:
+                    cli = Cliente(
+                        razonsocial=proceso['razon'],
+                        nit=proceso['nit'],
+                        empresa=request.user.empresa,
+                    )
+                    cli.save()
+
                 if proceso['tipo_compra'] == 'credito':
                     date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
                     end_date = date_1 + datetime.timedelta(days=int(proceso['dias']))

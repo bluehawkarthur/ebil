@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^detalle_ventanota/(?P<pk>\d+)$', 'apps.ventas.views.detalleVentaNota', name='detalleventanota'),
     # url(r'^detalle_ventarollo/(?P<pk>\d+)$', 'apps.ventas.views.detalleVentarollo', name='detalleventarollo'),
     url(r'^migrate/$', 'apps.ventas.views.migrate'),
+    url(r'^configfactura/', 'apps.ventas.views.configfactura', name="configfactura"),
 ]

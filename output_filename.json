@@ -185,6 +185,30 @@
 },
 {
    "fields": {
+      "model": "proveedorescampos",
+      "app_label": "config"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 24
+},
+{
+   "fields": {
+      "model": "facturacampos",
+      "app_label": "config"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 25
+},
+{
+   "fields": {
+      "expire_date": "2016-04-13T18:27:21.502Z",
+      "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
+   },
+   "model": "sessions.session",
+   "pk": "2401g4857acw3e492f535p73v558ndl6"
+},
+{
+   "fields": {
       "expire_date": "2016-04-01T21:21:21.007Z",
       "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
    },
@@ -209,11 +233,35 @@
 },
 {
    "fields": {
+      "expire_date": "2016-04-13T18:56:51.856Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "c9dph1uz9p0j9pmt01al60zhnc83pupo"
+},
+{
+   "fields": {
       "expire_date": "2016-03-21T18:41:40.341Z",
       "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
    },
    "model": "sessions.session",
    "pk": "d9bjk8ir1b2e8zz6ap95i87b361niw2z"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-08T14:22:21.425Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "dpnibowx5z2iab1gav8dgd688bsrlyhw"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-12T14:49:43.236Z",
+      "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
+   },
+   "model": "sessions.session",
+   "pk": "fkgfeecmhh9f0p2k43d4xkogymxcema9"
 },
 {
    "fields": {
@@ -246,6 +294,22 @@
    },
    "model": "sessions.session",
    "pk": "ibaxa0hnbnqyw5lpnga576fwyxv8xud1"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-08T20:28:04.176Z",
+      "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
+   },
+   "model": "sessions.session",
+   "pk": "iszd7ntstejaxzczq5vaat1lpsg5c9jd"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-12T13:59:35.401Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "iz23u29lhlfgde6drlxlp21kl3gp5syt"
 },
 {
    "fields": {
@@ -457,6 +521,36 @@
    },
    "model": "users.personajuridica",
    "pk": 7
+},
+{
+   "fields": {
+      "telefono3": null,
+      "telefono2": null,
+      "municipios": "Aiquile",
+      "razon_social": "empresa333",
+      "departamento": "Cochabamba",
+      "direccion": "dgdg",
+      "logo": "",
+      "telefono": 345454545,
+      "nit": 24234324
+   },
+   "model": "users.personajuridica",
+   "pk": 8
+},
+{
+   "fields": {
+      "telefono3": 4567567,
+      "telefono2": 465757,
+      "municipios": "Arani",
+      "razon_social": "emsa srl",
+      "departamento": "Cochabamba",
+      "direccion": "wwerwer",
+      "logo": "",
+      "telefono": 44424242,
+      "nit": 23432432
+   },
+   "model": "users.personajuridica",
+   "pk": 9
 },
 {
    "fields": {
@@ -779,7 +873,7 @@
    "fields": {
       "empresa": 1,
       "proveedor": 2,
-      "cantidad": 75,
+      "cantidad": 71,
       "almacen": 1,
       "saldo_min": 5,
       "precio_unitario": "89.00",
@@ -791,7 +885,7 @@
       "descripcion": "producto3",
       "costo_unitario": "34.00",
       "grupo": "g1",
-      "fecha_transaccion": "2016-03-23",
+      "fecha_transaccion": "2016-03-25",
       "codigo_fabrica": "aa",
       "imagen": "ggg"
    },
@@ -1119,6 +1213,160 @@
    },
    "model": "producto.item",
    "pk": 6744
+},
+{
+   "fields": {
+      "categoria": "fghgfh",
+      "empresa": 1,
+      "contacto": "hhfhfh",
+      "textos2": "dffgdg",
+      "fecha": "2016-03-25",
+      "textos": "ggdgd",
+      "direccion": "ghghghghghg",
+      "razonsocial": "wdwewd",
+      "rubro": "hgfghfgh",
+      "telefonos3": "",
+      "telefonos2": "4546545",
+      "telefonos1": "4546456",
+      "fecha2": "2016-03-25",
+      "ubucaciongeo": "fhfhfh",
+      "codigo": "123",
+      "nit": 1234
+   },
+   "model": "cliente.cliente",
+   "pk": 1
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "don gato",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 4688999
+   },
+   "model": "cliente.cliente",
+   "pk": 3
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "jugooo",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 5644747
+   },
+   "model": "cliente.cliente",
+   "pk": 4
+},
+{
+   "fields": {
+      "categoria": "",
+      "empresa": 1,
+      "contacto": "",
+      "textos2": "",
+      "fecha": null,
+      "textos": "",
+      "direccion": "",
+      "razonsocial": "werwer",
+      "rubro": "",
+      "telefonos3": "",
+      "telefonos2": "",
+      "telefonos1": "",
+      "fecha2": null,
+      "ubucaciongeo": "",
+      "codigo": "ssdff",
+      "nit": 324324
+   },
+   "model": "cliente.cliente",
+   "pk": 5
+},
+{
+   "fields": {
+      "categoria": "",
+      "empresa": 1,
+      "contacto": "",
+      "textos2": "",
+      "fecha": null,
+      "textos": "",
+      "direccion": "",
+      "razonsocial": "sdsdfs",
+      "rubro": "",
+      "telefonos3": "",
+      "telefonos2": "",
+      "telefonos1": "",
+      "fecha2": null,
+      "ubucaciongeo": "",
+      "codigo": "erwrw",
+      "nit": 234242
+   },
+   "model": "cliente.cliente",
+   "pk": 6
+},
+{
+   "fields": {
+      "categoria": "",
+      "empresa": 1,
+      "contacto": "",
+      "textos2": "",
+      "fecha": null,
+      "textos": "",
+      "direccion": "",
+      "razonsocial": "asdasd",
+      "rubro": "",
+      "telefonos3": "",
+      "telefonos2": "",
+      "telefonos1": "",
+      "fecha2": null,
+      "ubucaciongeo": "",
+      "codigo": "asdasd",
+      "nit": 3424234
+   },
+   "model": "cliente.cliente",
+   "pk": 7
+},
+{
+   "fields": {
+      "categoria": "",
+      "empresa": 1,
+      "contacto": "",
+      "textos2": "",
+      "fecha": null,
+      "textos": "",
+      "direccion": "",
+      "razonsocial": "sdfsdf",
+      "rubro": "",
+      "telefonos3": "",
+      "telefonos2": "",
+      "telefonos1": "",
+      "fecha2": null,
+      "ubucaciongeo": "",
+      "codigo": "sdfsdf",
+      "nit": 324324234
+   },
+   "model": "cliente.cliente",
+   "pk": 8
 },
 {
    "fields": {
@@ -3543,6 +3791,118 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-25",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "59-C8-FD-36",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 27,
+      "nit": 4688999,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "don gato"
+   },
+   "model": "ventas.venta",
+   "pk": 52
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-25",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "51-DE-24-55",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 28,
+      "nit": 4688999,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "don gato"
+   },
+   "model": "ventas.venta",
+   "pk": 53
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": null,
+      "descuento": "0.00",
+      "fecha": "2016-03-25",
+      "fecha_limite": null,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "proforma",
+      "recargo": "0.00",
+      "codigo_control": null,
+      "numero_autorizacion": null,
+      "nro_factura": null,
+      "nit": 4688999,
+      "excentos": "0.00",
+      "nro_nota": 13,
+      "tipo_compra": "contado",
+      "razon_social": "don gato"
+   },
+   "model": "ventas.venta",
+   "pk": 54
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": null,
+      "descuento": "0.00",
+      "fecha": "2016-03-25",
+      "fecha_limite": null,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "proforma",
+      "recargo": "0.00",
+      "codigo_control": null,
+      "numero_autorizacion": null,
+      "nro_factura": null,
+      "nit": 5644747,
+      "excentos": "0.00",
+      "nro_nota": 14,
+      "tipo_compra": "contado",
+      "razon_social": "jugooo"
+   },
+   "model": "ventas.venta",
+   "pk": 55
+},
+{
+   "fields": {
       "excentos": "0.00",
       "recargo": "0.00",
       "cantidad": 1,
@@ -4353,6 +4713,78 @@
 },
 {
    "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 52,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 53
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 53,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 54
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 54,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 55
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 55,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 56
+},
+{
+   "fields": {
       "empresa": 1,
       "cantidad": 12,
       "motivo_movimiento": "inicial",
@@ -5146,6 +5578,58 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-25",
+      "detalle": "Venta a don gato s/g factura Nro. 27"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6796
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-25",
+      "detalle": "Venta a don gato s/g factura Nro. 28"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6797
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-25",
+      "detalle": "Venta a don gato s/g nota Nro. 13"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6798
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-25",
+      "detalle": "Venta a jugooo s/g nota Nro. 14"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6799
+},
+{
+   "fields": {
       "monto_pago": "10.00",
       "fecha_transaccion": "2016-03-18",
       "venta": 31,
@@ -5855,7 +6339,7 @@
       "empresa": 1,
       "fecha": "2016-03-31",
       "nro_conrelativo": 1,
-      "contador": 25,
+      "contador": 27,
       "nro_autorizacion": 24234424,
       "llave_digital": "tertertet353dgdgdg"
    },
@@ -5934,6 +6418,136 @@
 },
 {
    "fields": {
+      "empresa": 8,
+      "tamanio": "oficio",
+      "frases_titulo": "Factura",
+      "formato": "general",
+      "facturacion": "normal",
+      "frases_pie": "Ley N\u00b0 453: Si se te ha vulnerado alg\u00fan derecho puedes exigir la reposici\u00f3n o restauraci\u00f3n.",
+      "impresion": "vacia",
+      "frases_subtitulo": "Derecho a Credito Fiscal"
+   },
+   "model": "config.formatofactura",
+   "pk": 8
+},
+{
+   "fields": {
+      "empresa": 9,
+      "tamanio": "oficio",
+      "frases_titulo": "Factura",
+      "formato": "general",
+      "facturacion": "normal",
+      "frases_pie": "Ley N\u00b0 453: Si se te ha vulnerado alg\u00fan derecho puedes exigir la reposici\u00f3n o restauraci\u00f3n.",
+      "impresion": "vacia",
+      "frases_subtitulo": "Derecho a Credito Fiscal"
+   },
+   "model": "config.formatofactura",
+   "pk": 9
+},
+{
+   "fields": {
+      "empresa": 1,
+      "fecha2_usar": true,
+      "direccion_usar": false,
+      "contacto_tipo": "select",
+      "contacto_caractr": 15,
+      "telefono3_requerido": false,
+      "telefono2_usar": false,
+      "ubicaciongeo_usar": false,
+      "telefono3_usar": false,
+      "ubicaciongeo_caractr": 15,
+      "telefono3_tipo": "select",
+      "fecha_requerido": false,
+      "fecha2_requerido": true,
+      "telefono2_tipo": "select",
+      "texto2_usar": false,
+      "ubicaciongeo_requerido": false,
+      "direccion_requerido": false,
+      "texto_usar": false,
+      "rubro_usar": false,
+      "categoria_usar": false,
+      "texto_tipo": "literal",
+      "texto_requerido": false,
+      "categoria_requerido": false,
+      "texto2_tipo": "literal",
+      "rubro_tipo": "literal",
+      "texto2_caractr": 5,
+      "direccion_tipo": "literal",
+      "telefono3_caractr": 7,
+      "rubro_requerido": false,
+      "telefono1_tipo": "select",
+      "telefono2_requerido": false,
+      "texto_caractr": 5,
+      "texto2_requerido": false,
+      "contacto_requerido": false,
+      "contacto_usar": false,
+      "rubro_caractr": 15,
+      "ubicaciongeo_tipo": "literal",
+      "telefono1_caractr": 7,
+      "telefono1_requerido": false,
+      "telefono2_caractr": 7,
+      "categoria_tipo": "literal",
+      "telefono1_usar": false,
+      "categoria_caractr": 15,
+      "direccion_caractr": 20,
+      "fecha_usar": false
+   },
+   "model": "config.clientecampos",
+   "pk": 1
+},
+{
+   "fields": {
+      "empresa": 9,
+      "fecha2_usar": true,
+      "direccion_usar": true,
+      "contacto_tipo": "",
+      "contacto_caractr": 15,
+      "telefono3_requerido": false,
+      "telefono2_usar": true,
+      "ubicaciongeo_usar": true,
+      "telefono3_usar": true,
+      "ubicaciongeo_caractr": 15,
+      "telefono3_tipo": "",
+      "fecha_requerido": false,
+      "fecha2_requerido": false,
+      "telefono2_tipo": "",
+      "texto2_usar": true,
+      "ubicaciongeo_requerido": false,
+      "direccion_requerido": false,
+      "texto_usar": true,
+      "rubro_usar": true,
+      "categoria_usar": true,
+      "texto_tipo": "",
+      "texto_requerido": false,
+      "categoria_requerido": false,
+      "texto2_tipo": "",
+      "rubro_tipo": "",
+      "texto2_caractr": 15,
+      "direccion_tipo": "",
+      "telefono3_caractr": 7,
+      "rubro_requerido": false,
+      "telefono1_tipo": "",
+      "telefono2_requerido": false,
+      "texto_caractr": 15,
+      "texto2_requerido": false,
+      "contacto_requerido": false,
+      "contacto_usar": true,
+      "rubro_caractr": 15,
+      "ubicaciongeo_tipo": "",
+      "telefono1_caractr": 7,
+      "telefono1_requerido": false,
+      "telefono2_caractr": 7,
+      "categoria_tipo": "",
+      "telefono1_usar": true,
+      "categoria_caractr": 15,
+      "direccion_caractr": 15,
+      "fecha_usar": true
+   },
+   "model": "config.clientecampos",
+   "pk": 2
+},
+{
+   "fields": {
       "grupo_tipo": "select",
       "carac_especial_2_usar": false,
       "unidad_medid_requerido": false,
@@ -5997,6 +6611,230 @@
    },
    "model": "config.almacenescampos",
    "pk": 4
+},
+{
+   "fields": {
+      "grupo_tipo": "",
+      "carac_especial_2_usar": true,
+      "unidad_medid_requerido": false,
+      "empresa": 8,
+      "codigo_fabr_usar": true,
+      "unidad_medidatipo": "",
+      "caract_espec_usar": true,
+      "codigo_fabricatipo": "",
+      "grupo_usar": true,
+      "grupo_requerido": false,
+      "subgrupo_usar": true,
+      "carac_especial_2_requerido": false,
+      "imagen_requer": false,
+      "caract_especaractr": 20,
+      "codigo_fabr_reque": false,
+      "subgrupo_requerido": false,
+      "grupo_caractr": 20,
+      "unidad_medid_usar": true,
+      "imagen_usar": true,
+      "caract_espec_requerid": false,
+      "carac_especial_2_caractr": 20,
+      "subgrupo_caractr": 20,
+      "subgrupo_tipo": "",
+      "caract_espectipo": "",
+      "unidad_medidacaractr": 15,
+      "carac_especial_2_tipo": "",
+      "codigo_fabricacaractr": 20
+   },
+   "model": "config.almacenescampos",
+   "pk": 5
+},
+{
+   "fields": {
+      "grupo_tipo": "",
+      "carac_especial_2_usar": true,
+      "unidad_medid_requerido": false,
+      "empresa": 9,
+      "codigo_fabr_usar": true,
+      "unidad_medidatipo": "",
+      "caract_espec_usar": true,
+      "codigo_fabricatipo": "",
+      "grupo_usar": true,
+      "grupo_requerido": false,
+      "subgrupo_usar": true,
+      "carac_especial_2_requerido": false,
+      "imagen_requer": false,
+      "caract_especaractr": 20,
+      "codigo_fabr_reque": false,
+      "subgrupo_requerido": false,
+      "grupo_caractr": 20,
+      "unidad_medid_usar": true,
+      "imagen_usar": true,
+      "caract_espec_requerid": false,
+      "carac_especial_2_caractr": 20,
+      "subgrupo_caractr": 20,
+      "subgrupo_tipo": "",
+      "caract_espectipo": "",
+      "unidad_medidacaractr": 15,
+      "carac_especial_2_tipo": "",
+      "codigo_fabricacaractr": 20
+   },
+   "model": "config.almacenescampos",
+   "pk": 6
+},
+{
+   "fields": {
+      "textos2_tipo": "literal",
+      "empresa": 1,
+      "direccion_usar": false,
+      "contacto_tipo": "select",
+      "contacto_caractr": 20,
+      "textos_caractr": 20,
+      "textos2_caractr": 20,
+      "direccion_requerido": false,
+      "rubro_usar": true,
+      "ubicacion_geo_requerido": false,
+      "telefonos2_tipo": "select",
+      "telefonos3_tipo": "select",
+      "fechas2_requerido": false,
+      "textos_tipo": "literal",
+      "ubicacion_geo_usar": true,
+      "fechas_usar": true,
+      "telefonos3_usar": false,
+      "telefonos2_usar": false,
+      "direccion_tipo": "alfa_numerico",
+      "fechas2_usar": true,
+      "telefonos1_requerido": false,
+      "rubro_requerido": false,
+      "telefonos1_tipo": "select",
+      "ubicacion_geo_caractr": 20,
+      "telefonos1_caractr": 7,
+      "telefonos2_requerido": false,
+      "textos2_requerido": true,
+      "contacto_requerido": false,
+      "fechas_requerido": false,
+      "telefonos3_requerido": false,
+      "textos_requerido": false,
+      "telefonos3_caractr": 7,
+      "contacto_usar": true,
+      "textos2_usar": true,
+      "textos_usar": true,
+      "rubro_caractr": 20,
+      "telefonos2_caractr": 7,
+      "rubro_tipo": "literal",
+      "ubicacion_geo_tipo": "literal",
+      "telefonos1_usar": false,
+      "direccion_caractr": 20
+   },
+   "model": "config.proveedorescampos",
+   "pk": 1
+},
+{
+   "fields": {
+      "textos2_tipo": "",
+      "empresa": 8,
+      "direccion_usar": true,
+      "contacto_tipo": "",
+      "contacto_caractr": 20,
+      "textos_caractr": 15,
+      "textos2_caractr": 15,
+      "direccion_requerido": false,
+      "rubro_usar": true,
+      "ubicacion_geo_requerido": false,
+      "telefonos2_tipo": "",
+      "telefonos3_tipo": "",
+      "fechas2_requerido": false,
+      "textos_tipo": "",
+      "ubicacion_geo_usar": true,
+      "fechas_usar": true,
+      "telefonos3_usar": true,
+      "telefonos2_usar": true,
+      "direccion_tipo": "",
+      "fechas2_usar": true,
+      "telefonos1_requerido": false,
+      "rubro_requerido": false,
+      "telefonos1_tipo": "",
+      "ubicacion_geo_caractr": 15,
+      "telefonos1_caractr": 7,
+      "telefonos2_requerido": false,
+      "textos2_requerido": false,
+      "contacto_requerido": false,
+      "fechas_requerido": false,
+      "telefonos3_requerido": false,
+      "textos_requerido": false,
+      "telefonos3_caractr": 7,
+      "contacto_usar": true,
+      "textos2_usar": true,
+      "textos_usar": true,
+      "rubro_caractr": 15,
+      "telefonos2_caractr": 7,
+      "rubro_tipo": "",
+      "ubicacion_geo_tipo": "",
+      "telefonos1_usar": true,
+      "direccion_caractr": 20
+   },
+   "model": "config.proveedorescampos",
+   "pk": 2
+},
+{
+   "fields": {
+      "textos2_tipo": "",
+      "empresa": 9,
+      "direccion_usar": true,
+      "contacto_tipo": "",
+      "contacto_caractr": 20,
+      "textos_caractr": 15,
+      "textos2_caractr": 15,
+      "direccion_requerido": false,
+      "rubro_usar": true,
+      "ubicacion_geo_requerido": false,
+      "telefonos2_tipo": "",
+      "telefonos3_tipo": "",
+      "fechas2_requerido": false,
+      "textos_tipo": "",
+      "ubicacion_geo_usar": true,
+      "fechas_usar": true,
+      "telefonos3_usar": true,
+      "telefonos2_usar": true,
+      "direccion_tipo": "",
+      "fechas2_usar": true,
+      "telefonos1_requerido": false,
+      "rubro_requerido": false,
+      "telefonos1_tipo": "",
+      "ubicacion_geo_caractr": 15,
+      "telefonos1_caractr": 7,
+      "telefonos2_requerido": false,
+      "textos2_requerido": false,
+      "contacto_requerido": false,
+      "fechas_requerido": false,
+      "telefonos3_requerido": false,
+      "textos_requerido": false,
+      "telefonos3_caractr": 7,
+      "contacto_usar": true,
+      "textos2_usar": true,
+      "textos_usar": true,
+      "rubro_caractr": 15,
+      "telefonos2_caractr": 7,
+      "rubro_tipo": "",
+      "ubicacion_geo_tipo": "",
+      "telefonos1_usar": true,
+      "direccion_caractr": 20
+   },
+   "model": "config.proveedorescampos",
+   "pk": 3
+},
+{
+   "fields": {
+      "tipos_venta_requerido": false,
+      "empresa": 1,
+      "exentos_usar": true,
+      "ice_requerido": false,
+      "recargo_usar": true,
+      "descuento_usar": true,
+      "tipos_venta_usar": true,
+      "exentos_requerido": false,
+      "descuento_requerido": true,
+      "recargo_requerido": false,
+      "ice_usar": true
+   },
+   "model": "config.facturacampos",
+   "pk": 1
 },
 {
    "fields": {
@@ -6648,6 +7486,60 @@
 },
 {
    "fields": {
+      "codename": "add_proveedorescampos",
+      "name": "Can add proveedores campos",
+      "content_type": 24
+   },
+   "model": "auth.permission",
+   "pk": 73
+},
+{
+   "fields": {
+      "codename": "change_proveedorescampos",
+      "name": "Can change proveedores campos",
+      "content_type": 24
+   },
+   "model": "auth.permission",
+   "pk": 74
+},
+{
+   "fields": {
+      "codename": "delete_proveedorescampos",
+      "name": "Can delete proveedores campos",
+      "content_type": 24
+   },
+   "model": "auth.permission",
+   "pk": 75
+},
+{
+   "fields": {
+      "codename": "add_facturacampos",
+      "name": "Can add factura campos",
+      "content_type": 25
+   },
+   "model": "auth.permission",
+   "pk": 76
+},
+{
+   "fields": {
+      "codename": "change_facturacampos",
+      "name": "Can change factura campos",
+      "content_type": 25
+   },
+   "model": "auth.permission",
+   "pk": 77
+},
+{
+   "fields": {
+      "codename": "delete_facturacampos",
+      "name": "Can delete factura campos",
+      "content_type": 25
+   },
+   "model": "auth.permission",
+   "pk": 78
+},
+{
+   "fields": {
       "name": "administrador",
       "permissions": []
    },
@@ -6664,7 +7556,7 @@
       "direccion": "",
       "is_superuser": true,
       "is_staff": true,
-      "last_login": "2016-03-24T20:04:00.309Z",
+      "last_login": "2016-03-30T18:27:21.472Z",
       "avatar": "",
       "groups": [],
       "user_permissions": [],
@@ -6686,7 +7578,7 @@
       "direccion": "",
       "is_superuser": false,
       "is_staff": false,
-      "last_login": "2016-03-24T14:34:25.238Z",
+      "last_login": "2016-03-30T18:56:51.843Z",
       "avatar": "users/avatar_2Cxm7ic.jpg",
       "groups": [
          1
@@ -94307,5 +95199,44 @@
    },
    "model": "admin.logentry",
    "pk": 6720
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-03-25T20:31:47.411Z",
+      "object_repr": "ProveedoresCampos object",
+      "object_id": "1",
+      "change_message": "",
+      "user": 1,
+      "content_type": 24
+   },
+   "model": "admin.logentry",
+   "pk": 6721
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-03-29T14:51:50.539Z",
+      "object_repr": "ClienteCampos object",
+      "object_id": "1",
+      "change_message": "",
+      "user": 1,
+      "content_type": 20
+   },
+   "model": "admin.logentry",
+   "pk": 6722
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-03-30T18:59:59.516Z",
+      "object_repr": "FacturaCampos object",
+      "object_id": "1",
+      "change_message": "",
+      "user": 1,
+      "content_type": 25
+   },
+   "model": "admin.logentry",
+   "pk": 6723
 }
 ]

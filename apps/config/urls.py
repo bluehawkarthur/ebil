@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from .views import ListarPersonajuridica, EditPersonajuridica, DetallePersonajuridica, DeletePersonajuridica, Configuraciones, ListarDatosDosificacion, DetalleDatosDosificacion, EditDatosDosificacion, EditAlmacenesCampos
+from .views import ListarPersonajuridica, EditPersonajuridica, DetallePersonajuridica, DeletePersonajuridica, Configuraciones, ListarDatosDosificacion, DetalleDatosDosificacion, EditDatosDosificacion, EditAlmacenesCampos, EditProveedoresCampos, EditClienteCampos, EditFacturaCampos
 
 # import debug_toolbar
 urlpatterns = [
@@ -21,5 +21,8 @@ urlpatterns = [
     url(r'^copia_base/', 'apps.config.views.copiaBase', name='copia_base'),
     url(r'^base_import/', 'apps.config.views.import_base', name="base_import"),
     url(r'^edit_alamacen_campos/$', EditAlmacenesCampos.as_view(), name='edit_alamacen_campos'),
+    url(r'^edit_proveedcamps/$', EditProveedoresCampos.as_view(), name='edit_proveedcamps'),
+    url(r'^edit_clientcamp/$', EditClienteCampos.as_view(), name='edit_clientcamp'),
+    url(r'^edit_factCamp/$', EditFacturaCampos.as_view(), name='edit_factCamp'),
 
 ]

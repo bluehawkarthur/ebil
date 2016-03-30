@@ -21,7 +21,22 @@ if PY2:
 else:
     import pyexcel.ext.ods3
 
+from django.http import HttpResponse
+import json
+from apps.config.models import ProveedoresCampos
+from django.core import serializers
 
+
+def configproveedorcampos(request):
+    config = ProveedoresCampos.objects.filter(empresa=request.user.empresa)
+    data = serializers.serialize(
+        'json', config, fields=('direccion_usar', 'direccion_requerido', 'direccion_tipo', 'direccion_caractr',
+	'telefonos1_usar', 'telefonos1_requerido', 'telefonos1_tipo', 'telefonos1_caractr', 'telefonos2_usar', 'telefonos2_requerido', 'telefonos2_tipo', 'telefonos2_caractr',
+	'telefonos3_usar', 'telefonos3_requerido', 'telefonos3_tipo', 'telefonos3_caractr', 'contacto_usar', 'contacto_requerido', 'contacto_tipo', 'contacto_caractr', 
+	'rubro_usar', 'rubro_requerido', 'rubro_tipo', 'rubro_caractr', 'ubicacion_geo_usar', 'ubicacion_geo_requerido', 'ubicacion_geo_tipo', 'ubicacion_geo_caractr', 
+	'fechas_usar', 'fechas_requerido', 'fechas2_usar', 'fechas2_requerido', 'textos_usar', 'textos_requerido', 'textos_tipo', 'textos_caractr',
+	'textos2_usar', 'textos2_requerido', 'textos2_tipo', 'textos2_caractr'))
+    return HttpResponse(data, content_type="application/json")
 
 
 # Create your views here.

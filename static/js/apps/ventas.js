@@ -1,3 +1,85 @@
+$.ajax({
+      url: '/configfactura/',
+      dataType: 'json',
+      type: 'GET',
+      success: function(datos) {
+
+
+      if (datos[0].fields.descuento_usar == false) {
+        // $( "#id_codigo_fabrica" ).prop( "disabled", true );
+        $( ".input-descuento" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_descuentoc" ).removeClass( "invalid" )
+
+      }
+
+      if (datos[0].fields.descuento_requerido == false) {
+        $("#add_descuentoc").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_descuentoc" ).removeClass( "invalid" )
+      }else{
+        $("#add_descuentoc").prop("required", true);
+      }
+
+      if (datos[0].fields.recargo_usar == false) {
+        // $( "#id_codigo_fabrica" ).prop( "disabled", true );
+        $( ".input-recargo" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_recargoc" ).removeClass( "invalid" )
+
+      }
+
+      if (datos[0].fields.recargo_requerido == false) {
+        $("#add_recargoc").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_recargoc" ).removeClass( "invalid" )
+      }else{
+        $("#add_recargoc").prop("required", true);
+      }
+
+      if (datos[0].fields.ice_usar == false) {
+        // $( "#id_codigo_fabrica" ).prop( "disabled", true );
+        $( ".input-ice" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_icec" ).removeClass( "invalid" )
+
+      }
+
+      if (datos[0].fields.ice_requerido == false) {
+        $("#add_icec").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_icec" ).removeClass( "invalid" )
+      }else{
+        $("#add_icec").prop("required", true);
+      }
+
+     if (datos[0].fields.exentos_usar == false) {
+      // $( "#id_codigo_fabrica" ).prop( "disabled", true );
+      $( ".input-excento" ).css( "display", 'none' );
+      $("#help_cod .help-block").prop("hidden", true);
+      $( "#add_exentosc" ).removeClass( "invalid" )
+
+      }
+
+      if (datos[0].fields.exentos_requerido == false) {
+        $("#add_exentosc").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#add_exentosc" ).removeClass( "invalid" )
+      }else{
+        $("#add_exentosc").prop("required", true);
+      }
+
+      if (datos[0].fields.tipos_venta_usar == false) {
+      // $( "#id_codigo_fabrica" ).prop( "disabled", true );
+      $( ".input-tipo" ).css( "display", 'none' );
+      $("#help_cod .help-block").prop("hidden", true);
+      $( "#add_exentosc" ).removeClass( "invalid" )
+
+      }
+
+      } //success
+});
+
 var fullDate = new Date();
 var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : (fullDate.getMonth()+1);
 

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row card-panel">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      {% csrf_token %}
+      <h3 class="header2">Factura Campos</h3>
+        
+      <table class="responsive-table ">
+        <thead>
+          <tr>
+            <th data-field=""></th>
+            <th data-field="">Usar</th>
+            <th data-field="">Requerido</th>
+          <tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>descuento</td>
+            <td>
+              {{form.descuento_usar}}
+              <label for="id_descuento_usar"></label>
+            </td>
+            <td>
+                {{form.descuento_requerido}}
+                <label for="id_descuento_requerido"></a>
+            </td>
+            
+          </tr>
+
+          <tr>
+            <td>recargo</td>
+           <td>
+              {{form.recargo_usar}}
+              <label for="id_recargo_usar"></label>
+            </td>
+            <td>
+                {{form.recargo_requerido}}
+                <label for="id_recargo_requerido"></a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>ice</td>
+            <td>
+              {{form.ice_usar}}
+              <label for="id_ice_usar"></label>
+            </td>
+            <td>
+                {{form.ice_requerido}}
+                <label for="id_ice_requerido"></a>
+            </td>
+            
+          </tr>
+
+          <tr>
+            <td>exentos</td>
+            <td>
+              {{form.exentos_usar}}
+              <label for="id_exentos_usar"></label>
+            </td>
+            <td>
+                {{form.exentos_requerido}}
+                <label for="id_exentos_requerido"></a>
+            </td>
+        
+          </tr>
+
+          <tr>
+            <td>tipos_venta</td>
+            <td>
+              {{form.tipos_venta_usar}}
+              <label for="id_tipos_venta_usar"></label>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table> 
+      <div class="row">  
+        <div class="input-field col s6">
+          <a href="/listar_factCamp" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+        <div class="input-field col s6">
+          <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+            <i class="mdi-content-send right"></i>
+          </button>
+        </div> 
+      </div>
+    </form>              
+  </div>
+</section>
+{% endblock %}
+
+{% block js %}
+            
+<script>
+  $('#descuento_tipo> option[value="{{form.descuento_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#recargo_tipo> option[value="{{form.recargo_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#ice_tipo> option[value="{{form.ice_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#exentos_tipo> option[value="{{form.exentos_tipo.value}}"]').attr('selected', 'selected'); 
+</script>
+{% endblock js %}

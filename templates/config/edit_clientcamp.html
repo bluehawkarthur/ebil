@@ -1,0 +1,499 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row card-panel">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      {% csrf_token %}
+      <h3 class="header2">Edit Cliente Campos</h3>
+      <table class="responsive-table ">
+        <thead>
+          <tr>
+            <th data-field=""></th>
+            <th data-field="">Usar</th>
+            <th data-field="">Requerido</th>
+            <th data-field="">tipos de campos</th>
+            <th data-field="">Caracteres</th>
+          <tr>
+        </thead>
+        <tbody>
+
+
+          <tr>
+            <td>direccion</td>
+            <td>
+              {{form.direccion_usar}}
+              <label for="id_direccion_usar"></label>
+            </td>
+            <td>
+                {{form.direccion_requerido}}
+                <label for="id_direccion_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.direccion_tipo|removetags:'ul li' }}</span>
+                <select name="direccion_tipo" id="direccion_tipo" class="validate">
+                 <option value="select">Seleccionar</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.direccion_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.direccion_caractr|removetags:'ul li' }}</span>
+                {{ form.direccion_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>telefonos1</td>
+            <td>
+              {{form.telefono1_usar}}
+              <label for="id_telefono1_usar"></label>
+            </td>
+            <td>
+                {{form.telefono1_requerido}}
+                <label for="id_telefono1_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.telefono1_tipo|removetags:'ul li' }}</span>
+                <select name="telefono1_tipo" id="telefono1_tipo" class="validate">
+                 <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                </select>
+                <label for="emails">{{ form.telefono1_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.telefono1_caractr|removetags:'ul li' }}</span>
+                {{ form.telefono1_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>telefonos2</td>
+            <td>
+              {{form.telefono2_usar}}
+              <label for="id_telefono2_usar"></label>
+            </td>
+            <td>
+                {{form.telefono2_requerido}}
+                <label for="id_telefono2_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.telefono2_tipo|removetags:'ul li' }}</span>
+                <select name="telefono2_tipo" id="telefono2_tipo" class="validate">
+                 <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                </select>
+                <label for="emails">{{ form.telefono2_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.telefono2_caractr|removetags:'ul li' }}</span>
+                {{ form.telefono2_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>telefonos3</td>
+            <td>
+              {{form.telefono3_usar}}
+              <label for="id_telefono3_usar"></label>
+            </td>
+            <td>
+                {{form.telefono3_requerido}}
+                <label for="id_telefono3_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.telefono3_tipo|removetags:'ul li' }}</span>
+                <select name="telefono3_tipo" id="telefono3_tipo" class="validate">
+                 <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                </select>
+                <label for="emails">{{ form.telefono3_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.telefono3_caractr|removetags:'ul li' }}</span>
+                {{ form.telefono3_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>contacto</td>
+            <td>
+              {{form.contacto_usar}}
+              <label for="id_contacto_usar"></label>
+            </td>
+            <td>
+                {{form.contacto_requerido}}
+                <label for="id_contacto_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.contacto_tipo|removetags:'ul li' }}</span>
+                <select name="contacto_tipo" id="contacto_tipo" class="validate">
+                <option value="select">Seleccionar</option>
+                   <option value="numerico">Numerico</option>
+                </select>
+                <label for="emails">{{ form.contacto_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.contacto_caractr|removetags:'ul li' }}</span>
+                {{ form.contacto_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>rubro</td>
+            <td>
+              {{form.rubro_usar}}
+              <label for="id_rubro_usar"></label>
+            </td>
+            <td>
+                {{form.rubro_requerido}}
+                <label for="id_rubro_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.rubro_tipo|removetags:'ul li' }}</span>
+                <select name="rubro_tipo" id="rubro_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                  <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.rubro_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.rubro_caractr|removetags:'ul li' }}</span>
+                {{ form.rubro_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>categoria</td>
+            <td>
+              {{form.categoria_usar}}
+              <label for="id_categoria_usar"></label>
+            </td>
+            <td>
+                {{form.categoria_requerido}}
+                <label for="id_categoria_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.categoria_tipo|removetags:'ul li' }}</span>
+                <select name="categoria_tipo" id="categoria_tipo" class="validate">
+                 <option value="select">Seleccionar</option>
+                   <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>
+                </select>
+                <label for="emails">{{ form.categoria_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.categoria_caractr|removetags:'ul li' }}</span>
+                {{ form.categoria_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>ubicaciongeo</td>
+            <td>
+              {{form.ubicaciongeo_usar}}
+              <label for="id_ubicaciongeo_usar"></label>
+            </td>
+            <td>
+                {{form.ubicaciongeo_requerido}}
+                <label for="id_ubicaciongeo_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.ubicaciongeo_tipo|removetags:'ul li' }}</span>
+                <select name="ubicaciongeo_tipo" id="ubicaciongeo_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                   <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>>
+                </select>
+                <label for="emails">{{ form.ubicaciongeo_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.ubicaciongeo_caractr|removetags:'ul li' }}</span>
+                {{ form.ubicaciongeo_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr> 
+
+          <tr>
+            <td>fecha</td>
+            <td>
+              {{form.fecha_usar}}
+              <label for="id_fecha_usar"></label>
+            </td>
+            <td>
+                {{form.fecha_requerido}}
+                <label for="id_fecha_requerido"></a>
+            </td>
+          </tr> 
+
+          <tr>
+            <td>fecha2</td>
+            <td>
+              {{form.fecha2_usar}}
+              <label for="id_fecha2_usar"></label>
+            </td>
+            <td>
+                {{form.fecha2_requerido}}
+                <label for="id_fecha2_requerido"></a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>textos</td>
+            <td>
+              {{form.texto_usar}}
+              <label for="id_texto_usar"></label>
+            </td>
+            <td>
+                {{form.texto_requerido}}
+                <label for="id_texto_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.texto_tipo|removetags:'ul li' }}</span>
+                <select name="texto_tipo" id="texto_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                   <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>>
+                </select>
+                <label for="emails">{{ form.texto_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.texto_caractr|removetags:'ul li' }}</span>
+                {{ form.texto_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr> 
+
+          <tr>
+            <td>textos2</td>
+            <td>
+              {{form.texto2_usar}}
+              <label for="id_texto2_usar"></label>
+            </td>
+            <td>
+                {{form.texto2_requerido}}
+                <label for="id_texto2_requerido"></a>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.texto2_tipo|removetags:'ul li' }}</span>
+                <select name="texto2_tipo" id="texto2_tipo" class="validate">
+                  <option value="select">Seleccionar</option>
+                   <option value="numerico">Numerico</option>
+                  <option value="literal">Literal</option>
+                  <option value="alfa_numerico">Alfa Numerico</option>>
+                </select>
+                <label for="emails">{{ form.texto2_tipo.label }}</label>
+            </td>
+            <td>
+              <span class="help-block">{{ form.errors.texto2_caractr|removetags:'ul li' }}</span>
+                {{ form.texto2_caractr|add_error_class:"invalid" }}
+            </td>
+          </tr> 
+
+        </tbody>
+      </table> 
+      <div class="row">  
+        <div class="input-field col s6">
+          <a href="/listar_alamacen_campos" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+        <div class="input-field col s6">
+          <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+            <i class="mdi-content-send right"></i>
+          </button>
+        </div> 
+      </div>
+    </form>              
+  </div>
+</section>
+{% endblock %}
+
+{% block js %}
+  <script  type="text/javascript">
+    // direccion validator
+    $("#id_direccion_requerido").change(function () {
+      if ($("#id_direccion_usar").is(':checked') != true) {
+    $("#id_direccion_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_direccion_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_direccion_requerido").is(':checked')))
+      {
+    $("#id_direccion_requerido").removeAttr("checked");
+      }    
+    }); 
+    // telefono1 validator
+    $("#id_telefono1_requerido").change(function () {
+      if ($("#id_telefono1_usar").is(':checked') != true) {
+    $("#id_telefono1_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_telefono1_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_telefono1_requerido").is(':checked')))
+      {
+    $("#id_telefono1_requerido").removeAttr("checked");
+      }    
+    })
+    // telefono2 validator
+    $("#id_telefono2_requerido").change(function () {
+      if ($("#id_telefono2_usar").is(':checked') != true) {
+    $("#id_telefono2_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_telefono2_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_telefono2_requerido").is(':checked')))
+      {
+    $("#id_telefono2_requerido").removeAttr("checked");
+      }    
+    })
+    // telefono3 validator
+    $("#id_telefono3_requerido").change(function () {
+      if ($("#id_telefono3_usar").is(':checked') != true) {
+    $("#id_telefono3_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_telefono3_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_telefono3_requerido").is(':checked')))
+      {
+    $("#id_telefono3_requerido").removeAttr("checked");
+      }    
+    })
+    // contacto validator
+    $("#id_contacto_requerido").change(function () {
+      if ($("#id_contacto_usar").is(':checked') != true) {
+    $("#id_contacto_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_contacto_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_contacto_requerido").is(':checked')))
+      {
+    $("#id_contacto_requerido").removeAttr("checked");
+      }    
+    })
+    // rubro validator
+    $("#id_rubro_requerido").change(function () {
+      if ($("#id_rubro_usar").is(':checked') != true) {
+    $("#id_rubro_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_rubro_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_rubro_requerido").is(':checked')))
+      {
+    $("#id_rubro_requerido").removeAttr("checked");
+      }    
+    })
+     // categoria validator
+    $("#id_categoria_requerido").change(function () {
+      if ($("#id_categoria_usar").is(':checked') != true) {
+    $("#id_categoria_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_categoria_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_categoria_requerido").is(':checked')))
+      {
+    $("#id_categoria_requerido").removeAttr("checked");
+      }    
+    })
+      // ubicaciongeo validator
+    $("#id_ubicaciongeo_requerido").change(function () {
+      if ($("#id_ubicaciongeo_usar").is(':checked') != true) {
+    $("#id_ubicaciongeo_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_ubicaciongeo_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_ubicaciongeo_requerido").is(':checked')))
+      {
+    $("#id_ubicaciongeo_requerido").removeAttr("checked");
+      }    
+    })
+    // fecha validator
+    $("#id_fecha_requerido").change(function () {
+      if ($("#id_fecha_usar").is(':checked') != true) {
+    $("#id_fecha_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_fecha_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_fecha_requerido").is(':checked')))
+      {
+    $("#id_fecha_requerido").removeAttr("checked");
+      }    
+    })
+    // fecha2 validator
+    $("#id_fecha2_requerido").change(function () {
+      if ($("#id_fecha2_usar").is(':checked') != true) {
+    $("#id_fecha2_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_fecha2_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_fecha2_requerido").is(':checked')))
+      {
+    $("#id_fecha2_requerido").removeAttr("checked");
+      }    
+    })
+    // texto validator
+    $("#id_texto_requerido").change(function () {
+      if ($("#id_texto_usar").is(':checked') != true) {
+    $("#id_texto_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_texto_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_texto_requerido").is(':checked')))
+      {
+    $("#id_texto_requerido").removeAttr("checked");
+      }    
+    })
+     // texto2 validator
+    $("#id_texto2_requerido").change(function () {
+      if ($("#id_texto2_usar").is(':checked') != true) {
+    $("#id_texto2_usar").prop('checked', $(this).prop("checked"));
+      }
+    });
+
+    $("#id_texto2_usar").change(function() {
+      if ((!($(this).is(':checked'))) && ($("#id_texto2_requerido").is(':checked')))
+      {
+    $("#id_texto2_requerido").removeAttr("checked");
+      }    
+    })
+
+
+  $('#codigo_tipo> option[value="{{form.codigo_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#razonsocal_tipo> option[value="{{form.razonsocal_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#nit_tipo> option[value="{{form.nit_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#direccion_tipo> option[value="{{form.direccion_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#telefono1_tipo> option[value="{{form.telefono1_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#telefono2_tipo> option[value="{{form.telefono2_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#telefono3_tipo> option[value="{{form.telefono3_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#contacto_tipo> option[value="{{form.contacto_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#rubro_tipo> option[value="{{form.rubro_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#categoria_tipo> option[value="{{form.categoria_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#ubicaciongeo_tipo> option[value="{{form.ubicaciongeo_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#texto_tipo> option[value="{{form.texto_tipo.value}}"]').attr('selected', 'selected'); 
+  $('#texto2_tipo> option[value="{{form.texto2_tipo.value}}"]').attr('selected', 'selected'); 
+
+  </script>
+ {% endblock js %}
+
+

@@ -155,11 +155,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
-]
-
 # ======== configure for user roles ===========
 ROLEPERMISSIONS_MODULE = 'apps.inicio.roles'
 

@@ -201,6 +201,14 @@
 },
 {
    "fields": {
+      "model": "sucursal",
+      "app_label": "config"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 26
+},
+{
+   "fields": {
       "expire_date": "2016-04-13T18:27:21.502Z",
       "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
    },
@@ -382,6 +390,14 @@
    },
    "model": "sessions.session",
    "pk": "p0n9w20tiifr4te3nbf3covauv8uzjam"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-14T14:14:10.876Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "p68xglpijnj547yvui6ic2g94wyrr2aj"
 },
 {
    "fields": {
@@ -873,7 +889,7 @@
    "fields": {
       "empresa": 1,
       "proveedor": 2,
-      "cantidad": 71,
+      "cantidad": 70,
       "almacen": 1,
       "saldo_min": 5,
       "precio_unitario": "89.00",
@@ -885,7 +901,7 @@
       "descripcion": "producto3",
       "costo_unitario": "34.00",
       "grupo": "g1",
-      "fecha_transaccion": "2016-03-25",
+      "fecha_transaccion": "2016-03-30",
       "codigo_fabrica": "aa",
       "imagen": "ggg"
    },
@@ -3903,6 +3919,34 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-30",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "5F-39-80-AF",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 29,
+      "nit": 324324,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "wer"
+   },
+   "model": "ventas.venta",
+   "pk": 56
+},
+{
+   "fields": {
       "excentos": "0.00",
       "recargo": "0.00",
       "cantidad": 1,
@@ -4785,6 +4829,24 @@
 },
 {
    "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 56,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 57
+},
+{
+   "fields": {
       "empresa": 1,
       "cantidad": 12,
       "motivo_movimiento": "inicial",
@@ -5630,6 +5692,19 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-30",
+      "detalle": "Venta a wer s/g factura Nro. 29"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6800
+},
+{
+   "fields": {
       "monto_pago": "10.00",
       "fecha_transaccion": "2016-03-18",
       "venta": 31,
@@ -6339,7 +6414,7 @@
       "empresa": 1,
       "fecha": "2016-03-31",
       "nro_conrelativo": 1,
-      "contador": 27,
+      "contador": 28,
       "nro_autorizacion": 24234424,
       "llave_digital": "tertertet353dgdgdg"
    },
@@ -6829,7 +6904,7 @@
       "descuento_usar": true,
       "tipos_venta_usar": true,
       "exentos_requerido": false,
-      "descuento_requerido": true,
+      "descuento_requerido": false,
       "recargo_requerido": false,
       "ice_usar": true
    },
@@ -7540,6 +7615,33 @@
 },
 {
    "fields": {
+      "codename": "add_sucursal",
+      "name": "Can add sucursal",
+      "content_type": 26
+   },
+   "model": "auth.permission",
+   "pk": 79
+},
+{
+   "fields": {
+      "codename": "change_sucursal",
+      "name": "Can change sucursal",
+      "content_type": 26
+   },
+   "model": "auth.permission",
+   "pk": 80
+},
+{
+   "fields": {
+      "codename": "delete_sucursal",
+      "name": "Can delete sucursal",
+      "content_type": 26
+   },
+   "model": "auth.permission",
+   "pk": 81
+},
+{
+   "fields": {
       "name": "administrador",
       "permissions": []
    },
@@ -7578,7 +7680,7 @@
       "direccion": "",
       "is_superuser": false,
       "is_staff": false,
-      "last_login": "2016-03-30T18:56:51.843Z",
+      "last_login": "2016-03-31T14:14:10.842Z",
       "avatar": "users/avatar_2Cxm7ic.jpg",
       "groups": [
          1

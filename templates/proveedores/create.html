@@ -30,8 +30,6 @@
                         <label for="email">{{ form.razon_social.label }}</label>
                         </div>
 
-                    </div>
-                    <div class="row">
                         <div class="input-field col s6 has-error input-nit">
                         <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
                         {{ form.nit|add_error_class:"invalid" }}
@@ -43,8 +41,7 @@
                         <label for="">{{ form.direccion.label }}</label>
                         
                         </div>
-                    </div>
-                    <div class="row">
+        
                         <div class="input-field col s6 has-error input-telefono1">
                         <span class="help-block">{{ form.errors.telefono1|removetags:'ul li' }}</span>
                         {{ form.telefono1|add_error_class:"invalid" }}
@@ -57,8 +54,7 @@
                         <label for="">{{ form.telefono2.label }}</label>
                         
                         </div>
-                    </div>
-                    <div class="row">
+                    
                         <div class="input-field col s6 has-error input-telefono3">
                         <span class="help-block">{{ form.errors.telefono3|removetags:'ul li' }}</span>
                         {{ form.telefono3|add_error_class:"invalid" }}
@@ -69,10 +65,7 @@
                         {{ form.contactos|add_error_class:"invalid" }}
                         <label for="">{{ form.contactos.label }}</label>    
                         </div>
-                    </div>
-
-
-                    <div class="row">
+                   
                         <div class="input-field col s6 has-error input-rubro">
                         <span class="help-block">{{ form.errors.rubro|removetags:'ul li' }}</span>
                         {{ form.rubro|add_error_class:"invalid" }}
@@ -83,8 +76,7 @@
                         {{ form.ubicacion_geo|add_error_class:"invalid" }}
                         <label for="">{{ form.ubicacion_geo.label }}</label>
                         </div>
-                    </div>
-                    <div class="row">
+                  
                         <div class="input-field col s6 has-error input-fecha1">
                         <span class="help-block">{{ form.errors.fecha1|removetags:'ul li' }}</span>
                         {{ form.fecha1|add_class:"datepicker"|add_error_class:"invalid"}}
@@ -95,8 +87,7 @@
                         {{ form.fecha2|add_class:"datepicker"|add_error_class:"invalid" }}
                         <label for="">{{ form.fecha2.label }}</label>
                         </div>
-                    </div>
-                    <div class="row">
+                    
                         <div class="input-field col s6 has-error input-texto1">
                         <span class="help-block">{{ form.errors.texto1|removetags:'ul li' }}</span>
                         {{ form.texto1|add_error_class:"invalid" }}

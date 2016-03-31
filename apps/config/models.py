@@ -160,3 +160,19 @@ class FacturaCampos(models.Model):
 	tipos_venta_usar = models.BooleanField()
 	tipos_venta_requerido = models.BooleanField()
 	empresa = models.ForeignKey(Personajuridica, null=True)
+
+
+class Sucursal(models.Model):
+	nombre_sucursal = models.CharField(max_length=100)
+	nro_sucursal = models.BigIntegerField()
+	direccion = models.CharField(max_length=100)
+	telefono1 = models.IntegerField()
+	telefono2 = models.IntegerField(null=True)
+	telefono3 = models.IntegerField(null=True)
+	departamento = models.CharField(max_length=100)
+	municipios = models.CharField(max_length=100)
+	empresa = models.ForeignKey(Personajuridica, null=True)
+
+
+	def __unicode__(self):
+		return self.nombre_sucursal

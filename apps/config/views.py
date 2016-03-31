@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
-from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm
-from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos
+from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm, SucursalForm
+from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos, Sucursal
 from apps.cliente.models import Cliente
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
@@ -461,3 +461,26 @@ class EditFacturaCampos(UpdateView):
 
     def get_object(self):
         return FacturaCampos.objects.get(empresa=self.request.user.empresa)
+
+
+def CreateSucursal(request):
+    if request.method == 'POST':
+        form = SucursalForm(request.POST)
+        if form.is_valid():
+            sucursal = Sucursal(
+                nombre_sucursal=form.cleaned_data['nombre_sucursal'],
+                nro_sucursal=form.cleaned_data['nro_sucursal'],
+                direccion=form.cleaned_data['direccion'],
+                telefono1=form.cleaned_data['telefono1'],
+                telefono2=form.cleaned_data['telefono2'],
+                telefono3=form.cleaned_data['telefono3'],
+                departamento=form.cleaned_data['departamento'],
+                municipios=form.cleaned_data['municipios'],
+                empresa=request.user.empresa)
+            sucursal.save()
+            return HttpResponseRedirect(reverse_lazy('inicio'))
+            # return render_to_response('config/crearSucursal.html')
+    else:
+        form = SucursalForm()
+    variables = RequestContext(request, {'form': form})
+    return render_to_response('config/crearSucursal.html', variables)

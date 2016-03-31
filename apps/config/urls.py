@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^edit_proveedcamps/$', EditProveedoresCampos.as_view(), name='edit_proveedcamps'),
     url(r'^edit_clientcamp/$', EditClienteCampos.as_view(), name='edit_clientcamp'),
     url(r'^edit_factCamp/$', EditFacturaCampos.as_view(), name='edit_factCamp'),
+    url(r'^crearSucursal/$', 'apps.config.views.CreateSucursal', name='crearSucursal'),
 
 ]

@@ -50,3 +50,14 @@ class FormatofacturaForm(forms.ModelForm):
     class Meta:
         model = Formatofactura
         fields = ('formato', 'impresion', 'facturacion', 'tamanio', 'frases_titulo', 'frases_subtitulo', 'frases_pie')
+
+
+class SucursalForm(forms.Form):
+    nombre_sucursal = forms.CharField(max_length=100)
+    nro_sucursal = forms.CharField(max_length=100)
+    direccion = forms.CharField(max_length=100)
+    telefono1 = forms.IntegerField()
+    telefono2 = forms.IntegerField(required=False)
+    telefono3 = forms.IntegerField(required=False)
+    departamento = forms.CharField(max_length=100)
+    municipios = forms.CharField(max_length=100)

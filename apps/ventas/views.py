@@ -191,8 +191,11 @@ def ventaCrear(request):
                             crearDetalle.save()
                             crearMovimiento.save()
 
-                        return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
-
+                        return render('ventas/venta.html', {'form': form, 'popup': True, 'pk': crearVenta.pk }, context_instance=ctx(request))
+                        # return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
+                        # return HttpResponse('<script type="text/javascript">opener.popup("/detalle_venta/%s");</script>' % \
+                        	# (crearVenta.pk))
+                        # return HttpResponse('<script type="text/javascript">opener.popup("/detalle_venta/%s");opener.location.href = "/";</script>' % (crearVenta.pk))
                         # messages.success(
                         #     request, 'La compra se ha realizado satisfactoriamente')
                     else:

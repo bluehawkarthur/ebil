@@ -217,6 +217,14 @@
 },
 {
    "fields": {
+      "expire_date": "2016-04-19T19:37:20.311Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "8d1xf3lzbfs2f8x33d830vnnmanybujo"
+},
+{
+   "fields": {
       "expire_date": "2016-04-01T21:21:21.007Z",
       "session_data": "M2NmNmU5OGNlMGEwMDNjM2ZkNmY5YzA1MmQwZmIwY2EyODIxMzY4MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmMWI1MTU3YzhlNzQ4ZjY1NWI2OTQ5MDQ3N2RkMGE5YzcyN2IzZDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0="
    },
@@ -262,6 +270,14 @@
    },
    "model": "sessions.session",
    "pk": "dpnibowx5z2iab1gav8dgd688bsrlyhw"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-16T13:41:25.095Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "f9l3vmp8b14w5n4vqshk97yesith8bwq"
 },
 {
    "fields": {
@@ -401,6 +417,14 @@
 },
 {
    "fields": {
+      "expire_date": "2016-04-15T14:20:17.788Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "t78ml6x7t5nof0lj28k6r57wycg6bkva"
+},
+{
+   "fields": {
       "expire_date": "2016-03-31T15:56:31.995Z",
       "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
    },
@@ -430,6 +454,30 @@
    },
    "model": "sessions.session",
    "pk": "tz6vzcpakyvqulk90sputs2ykljby5of"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-15T18:13:15.396Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "vay2sa0vnxhr7d515iiwdx66awwejj1d"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-19T14:56:30.412Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "w9thai3izgytscg4w1h3vcxan4c92cef"
+},
+{
+   "fields": {
+      "expire_date": "2016-04-20T14:10:28.369Z",
+      "session_data": "OTY0MjA5MWEwMjFlZDhmMWYyNDNmYTdhOTg5MWM5OTU3YzFmMDEzNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjliZmZkYTViNWJlZDRkMjdlN2ZmZTI1ZjA2ZDYzMDVlMzc4ZjMxY2MiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0="
+   },
+   "model": "sessions.session",
+   "pk": "wdiw9vam71zjjktxybzjnxo37ifcsnjq"
 },
 {
    "fields": {
@@ -865,6 +913,27 @@
 {
    "fields": {
       "empresa": 1,
+      "contactos": "rtytry",
+      "telefono1": 7777,
+      "ubicacion_geo": "ryry",
+      "telefono3": 4646,
+      "telefono2": 45645,
+      "razon_social": "jojoj",
+      "texto2": "ryry",
+      "direccion": "wrwr",
+      "texto1": "ryry",
+      "rubro": "rtyry",
+      "fecha2": "2016-04-01",
+      "fecha1": "2016-04-01",
+      "codigo": "werwr",
+      "nit": "3423424"
+   },
+   "model": "proveedores.proveedor",
+   "pk": 15
+},
+{
+   "fields": {
+      "empresa": 1,
       "proveedor": 1,
       "cantidad": 1,
       "almacen": 1,
@@ -889,7 +958,7 @@
    "fields": {
       "empresa": 1,
       "proveedor": 2,
-      "cantidad": 70,
+      "cantidad": 19,
       "almacen": 1,
       "saldo_min": 5,
       "precio_unitario": "89.00",
@@ -901,7 +970,7 @@
       "descripcion": "producto3",
       "costo_unitario": "34.00",
       "grupo": "g1",
-      "fecha_transaccion": "2016-03-30",
+      "fecha_transaccion": "2016-04-02",
       "codigo_fabrica": "aa",
       "imagen": "ggg"
    },
@@ -1383,6 +1452,600 @@
    },
    "model": "cliente.cliente",
    "pk": 8
+},
+{
+   "fields": {
+      "categoria": "ertet",
+      "empresa": 1,
+      "contacto": "ereterter",
+      "textos2": "fghgf",
+      "fecha": "2016-04-01",
+      "textos": "ghfgh",
+      "direccion": "",
+      "razonsocial": "ertet",
+      "rubro": "tert",
+      "telefonos3": "",
+      "telefonos2": "",
+      "telefonos1": "",
+      "fecha2": "2016-04-01",
+      "ubucaciongeo": "etert",
+      "codigo": "23422442",
+      "nit": 3424234234
+   },
+   "model": "cliente.cliente",
+   "pk": 9
+},
+{
+   "fields": {
+      "categoria": "sfsf",
+      "empresa": 1,
+      "contacto": "ssfsfsf",
+      "textos2": "sdfsd",
+      "fecha": "2016-03-31",
+      "textos": "fsdfs",
+      "direccion": "",
+      "razonsocial": "swrwerwr",
+      "rubro": "sdfsf",
+      "telefonos3": "",
+      "telefonos2": "",
+      "telefonos1": "",
+      "fecha2": "2016-03-31",
+      "ubucaciongeo": "sfsf",
+      "codigo": "werwer",
+      "nit": 23432423
+   },
+   "model": "cliente.cliente",
+   "pk": 10
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "wrwrwrwr",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 2424
+   },
+   "model": "cliente.cliente",
+   "pk": 11
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "erterte",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 35345345
+   },
+   "model": "cliente.cliente",
+   "pk": 12
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "werewrr",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 4434
+   },
+   "model": "cliente.cliente",
+   "pk": 13
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "sdfsfsfsf",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 333355
+   },
+   "model": "cliente.cliente",
+   "pk": 14
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "ertetet",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 45456
+   },
+   "model": "cliente.cliente",
+   "pk": 15
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "ryryryryryry",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 66788
+   },
+   "model": "cliente.cliente",
+   "pk": 16
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "dhdhdhdh",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 44556777555
+   },
+   "model": "cliente.cliente",
+   "pk": 17
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "ertertertertertet",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 345353
+   },
+   "model": "cliente.cliente",
+   "pk": 18
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "rtyryryrtyyy",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 456464
+   },
+   "model": "cliente.cliente",
+   "pk": 19
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "ghghghg",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 556566
+   },
+   "model": "cliente.cliente",
+   "pk": 20
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "rtrtrtr",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 445555
+   },
+   "model": "cliente.cliente",
+   "pk": 21
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "gfhfghfh",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 54545
+   },
+   "model": "cliente.cliente",
+   "pk": 22
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "dggdg",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 34453453
+   },
+   "model": "cliente.cliente",
+   "pk": 23
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "werwrwr",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 342424
+   },
+   "model": "cliente.cliente",
+   "pk": 24
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "weewrwer",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 2334324
+   },
+   "model": "cliente.cliente",
+   "pk": 25
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "dggdgdg",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 44556677
+   },
+   "model": "cliente.cliente",
+   "pk": 26
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "rwerwer",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 234324
+   },
+   "model": "cliente.cliente",
+   "pk": 27
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "rtrtrt",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 4454545
+   },
+   "model": "cliente.cliente",
+   "pk": 28
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "fgfgfgggg",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 78906
+   },
+   "model": "cliente.cliente",
+   "pk": 29
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "gogoggog",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 98474
+   },
+   "model": "cliente.cliente",
+   "pk": 30
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "guruuuuuu",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 90590
+   },
+   "model": "cliente.cliente",
+   "pk": 31
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "ewrewrewrwer",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 10129292222
+   },
+   "model": "cliente.cliente",
+   "pk": 32
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "werwerwr",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 23424
+   },
+   "model": "cliente.cliente",
+   "pk": 33
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "empresarrrrrr",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 67282
+   },
+   "model": "cliente.cliente",
+   "pk": 34
+},
+{
+   "fields": {
+      "categoria": null,
+      "empresa": 1,
+      "contacto": null,
+      "textos2": null,
+      "fecha": null,
+      "textos": null,
+      "direccion": null,
+      "razonsocial": "rtetet",
+      "rubro": null,
+      "telefonos3": null,
+      "telefonos2": null,
+      "telefonos1": null,
+      "fecha2": null,
+      "ubucaciongeo": null,
+      "codigo": null,
+      "nit": 4343434
+   },
+   "model": "cliente.cliente",
+   "pk": 35
 },
 {
    "fields": {
@@ -3947,6 +4610,1434 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "33-35-6E-1F",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 2424,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "wrwrwrwr"
+   },
+   "model": "ventas.venta",
+   "pk": 57
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "17-DA-12-9A",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 324324,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "werwerwrwerw"
+   },
+   "model": "ventas.venta",
+   "pk": 58
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "1D-DA-E1-49",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 333355,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "sdfsfsfsf"
+   },
+   "model": "ventas.venta",
+   "pk": 59
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "92-D5-1A-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 66788,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "ryryryryryry"
+   },
+   "model": "ventas.venta",
+   "pk": 60
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "11-27-AA-B2",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 345353,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "ertertertertertet"
+   },
+   "model": "ventas.venta",
+   "pk": 61
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "E6-B3-E0-42",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 556566,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "ghghghg"
+   },
+   "model": "ventas.venta",
+   "pk": 62
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "CE-04-72-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 63
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "CE-04-72-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 64
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "82-1C-53-21",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 445555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "rtrtrtr"
+   },
+   "model": "ventas.venta",
+   "pk": 65
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "CE-04-72-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 66
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "CE-04-72-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 67
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "78-ED-5A-32-D4",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 34453453,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dggdg"
+   },
+   "model": "ventas.venta",
+   "pk": 68
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "AA-F5-47-89-67",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 2334324,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "weewrwer"
+   },
+   "model": "ventas.venta",
+   "pk": 69
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "09-E1-B6-4E",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 234324,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "rwerwer"
+   },
+   "model": "ventas.venta",
+   "pk": 70
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "CE-04-72-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 71
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "tertertet353dgdgdg",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-03-31",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "CE-04-72-C7",
+      "numero_autorizacion": 24234424,
+      "nro_factura": 1,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 72
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "64-B8-B6-EF",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 100,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 73
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "85-F7-81-65",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 101,
+      "nit": 45454,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dgdgdg"
+   },
+   "model": "ventas.venta",
+   "pk": 74
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "97-23-31-FA",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 102,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 75
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "33-4F-94-E2-18",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 103,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 76
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "B6-A2-C1-D1",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 104,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 77
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "AF-C3-03-56",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 105,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 78
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "3F-C7-4D-61",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 106,
+      "nit": 322423,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "werwer"
+   },
+   "model": "ventas.venta",
+   "pk": 79
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "DB-E1-12-20-BA",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 107,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 80
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "43-CC-FC-C5",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 108,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 81
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "D3-7E-30-4F",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 109,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 82
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "1B-4A-AA-D2",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 110,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 83
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "AB-5E-55-81",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 111,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 84
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "C3-48-0A-07",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 112,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 85
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "DB-E3-1A-34",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 113,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 86
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "0D-A7-31-59-F3",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 114,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 87
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "0C-BD-87-8E",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 115,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 88
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "A9-F7-1E-55",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 116,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 89
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "0C-E2-78-D8-38",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 117,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 90
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-03-31",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "E6-FE-26-40",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 118,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 91
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "63-91-9F-D4",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 119,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 92
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "E4-F5-61-72-32",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 120,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 93
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "DD-0A-65-F5",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 121,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 94
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "E7-80-14-58",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 122,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 95
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "A8-27-16-DB",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 123,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 96
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "63-C4-74-6B",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 124,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 97
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "55-14-B8-F3",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 125,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 98
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "2F-A2-4A-5F",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 126,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 99
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "2B-64-57-FB",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 127,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 100
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "E7-9C-27-DB",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 128,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 101
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "EA-58-6B-12-7C",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 129,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 102
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "1A-42-52-81-52",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 130,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 103
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "26-E2-07-8F",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 131,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 104
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "0C-CD-F5-83",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 132,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 105
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "42-F7-AA-AD",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 133,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 106
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad_dias": 0,
+      "fecha_vencimiento": null,
+      "tipo_recargo": "Bs",
+      "total": "89.00",
+      "llave_digital": "3535353ergdgdgd",
+      "descuento": "0.00",
+      "fecha": "2016-04-02",
+      "fecha_limite": "2016-04-30",
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "monto_pago": null,
+      "tipo_movimiento": "facturar",
+      "recargo": "0.00",
+      "codigo_control": "42-25-01-BC",
+      "numero_autorizacion": 345353535,
+      "nro_factura": 134,
+      "nit": 44556777555,
+      "excentos": "0.00",
+      "nro_nota": null,
+      "tipo_compra": "contado",
+      "razon_social": "dhdhdhdh"
+   },
+   "model": "ventas.venta",
+   "pk": 107
+},
+{
+   "fields": {
       "excentos": "0.00",
       "recargo": "0.00",
       "cantidad": 1,
@@ -4847,6 +6938,924 @@
 },
 {
    "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 57,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 58
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 58,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 59
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 59,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 60
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 60,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 61
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 61,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 62
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 62,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 63
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 63,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 64
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 64,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 65
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 65,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 66
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 66,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 67
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 67,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 68
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 68,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 69
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 69,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 70
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 70,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 71
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 71,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 72
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 72,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 73
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 73,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 74
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 74,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 75
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 75,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 76
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 76,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 77
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 77,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 78
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 78,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 79
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 79,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 80
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 80,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 81
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 81,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 82
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 82,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 83
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 83,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 84
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 84,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 85
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 85,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 86
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 86,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 87
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 87,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 88
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 88,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 89
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 89,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 90
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 90,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 91
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 91,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 92
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 92,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 93
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 93,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 94
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 94,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 95
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 95,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 96
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 96,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 97
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 97,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 98
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 98,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 99
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 99,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 100
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 100,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 101
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 101,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 102
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 102,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 103
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 103,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 104
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 104,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 105
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 105,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 106
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 106,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 107
+},
+{
+   "fields": {
+      "excentos": "0.00",
+      "recargo": "0.00",
+      "cantidad": 1,
+      "descuento": "0.00",
+      "venta": 107,
+      "ice": "0.00",
+      "tipo_descuento": "Bs",
+      "scf": "89.00",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "tipo_recargo": "Bs",
+      "subtotal": "89.00"
+   },
+   "model": "ventas.detalleventa",
+   "pk": 108
+},
+{
+   "fields": {
       "empresa": 1,
       "cantidad": 12,
       "motivo_movimiento": "inicial",
@@ -5705,6 +8714,669 @@
 },
 {
    "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a wrwrwrwr s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6801
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a werwerwrwerw s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6802
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a sdfsfsfsf s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6803
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a ryryryryryry s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6804
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a ertertertertertet s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6805
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a ghghghg s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6806
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6807
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6808
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a rtrtrtr s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6809
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6810
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6811
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dggdg s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6812
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a weewrwer s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6813
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a rwerwer s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6814
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6815
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 1"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6816
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 100"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6817
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dgdgdg s/g factura Nro. 101"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6818
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 102"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6819
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 103"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6820
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 104"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6821
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 105"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6822
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a werwer s/g factura Nro. 106"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6823
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 107"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6824
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 108"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6825
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 109"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6826
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 110"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6827
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 111"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6828
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 112"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6829
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 113"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6830
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 114"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6831
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 115"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6832
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 116"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6833
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 117"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6834
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-03-31",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 118"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6835
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 119"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6836
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 120"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6837
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 121"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6838
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 122"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6839
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 123"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6840
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 124"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6841
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 125"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6842
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 126"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6843
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 127"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6844
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 128"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6845
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 129"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6846
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 130"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6847
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 131"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6848
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 132"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6849
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 133"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6850
+},
+{
+   "fields": {
+      "empresa": 1,
+      "cantidad": 1,
+      "motivo_movimiento": "salida",
+      "item": 6730,
+      "precio_unitario": "89.00",
+      "fecha_transaccion": "2016-04-02",
+      "detalle": "Venta a dhdhdhdh s/g factura Nro. 134"
+   },
+   "model": "ventas.movimiento",
+   "pk": 6851
+},
+{
+   "fields": {
       "monto_pago": "10.00",
       "fecha_transaccion": "2016-03-18",
       "venta": 31,
@@ -6414,7 +10086,7 @@
       "empresa": 1,
       "fecha": "2016-03-31",
       "nro_conrelativo": 1,
-      "contador": 28,
+      "contador": 29,
       "nro_autorizacion": 24234424,
       "llave_digital": "tertertet353dgdgdg"
    },
@@ -6424,7 +10096,19 @@
 {
    "fields": {
       "empresa": 1,
-      "tamanio": "rollo",
+      "fecha": "2016-04-30",
+      "nro_conrelativo": 100,
+      "contador": 34,
+      "nro_autorizacion": 345353535,
+      "llave_digital": "3535353ergdgdgd"
+   },
+   "model": "config.datosdosificacion",
+   "pk": 4
+},
+{
+   "fields": {
+      "empresa": 1,
+      "tamanio": "carta",
       "frases_titulo": "Factura",
       "formato": "general",
       "facturacion": "Normal",
@@ -6528,19 +10212,19 @@
       "contacto_caractr": 15,
       "telefono3_requerido": false,
       "telefono2_usar": false,
-      "ubicaciongeo_usar": false,
+      "ubicaciongeo_usar": true,
       "telefono3_usar": false,
       "ubicaciongeo_caractr": 15,
       "telefono3_tipo": "select",
       "fecha_requerido": false,
-      "fecha2_requerido": true,
+      "fecha2_requerido": false,
       "telefono2_tipo": "select",
-      "texto2_usar": false,
+      "texto2_usar": true,
       "ubicaciongeo_requerido": false,
       "direccion_requerido": false,
-      "texto_usar": false,
-      "rubro_usar": false,
-      "categoria_usar": false,
+      "texto_usar": true,
+      "rubro_usar": true,
+      "categoria_usar": true,
       "texto_tipo": "literal",
       "texto_requerido": false,
       "categoria_requerido": false,
@@ -6555,7 +10239,7 @@
       "texto_caractr": 5,
       "texto2_requerido": false,
       "contacto_requerido": false,
-      "contacto_usar": false,
+      "contacto_usar": true,
       "rubro_caractr": 15,
       "ubicaciongeo_tipo": "literal",
       "telefono1_caractr": 7,
@@ -6565,7 +10249,7 @@
       "telefono1_usar": false,
       "categoria_caractr": 15,
       "direccion_caractr": 20,
-      "fecha_usar": false
+      "fecha_usar": true
    },
    "model": "config.clientecampos",
    "pk": 1
@@ -6757,7 +10441,7 @@
    "fields": {
       "textos2_tipo": "literal",
       "empresa": 1,
-      "direccion_usar": false,
+      "direccion_usar": true,
       "contacto_tipo": "select",
       "contacto_caractr": 20,
       "textos_caractr": 20,
@@ -6771,8 +10455,8 @@
       "textos_tipo": "literal",
       "ubicacion_geo_usar": true,
       "fechas_usar": true,
-      "telefonos3_usar": false,
-      "telefonos2_usar": false,
+      "telefonos3_usar": true,
+      "telefonos2_usar": true,
       "direccion_tipo": "alfa_numerico",
       "fechas2_usar": true,
       "telefonos1_requerido": false,
@@ -6794,7 +10478,7 @@
       "telefonos2_caractr": 7,
       "rubro_tipo": "literal",
       "ubicacion_geo_tipo": "literal",
-      "telefonos1_usar": false,
+      "telefonos1_usar": true,
       "direccion_caractr": 20
    },
    "model": "config.proveedorescampos",
@@ -6909,6 +10593,21 @@
       "ice_usar": true
    },
    "model": "config.facturacampos",
+   "pk": 1
+},
+{
+   "fields": {
+      "empresa": 1,
+      "telefono1": 234324,
+      "telefono3": 234234,
+      "telefono2": 234234,
+      "nombre_sucursal": "zxczxcz",
+      "nro_sucursal": 1,
+      "departamento": "Chuquisaca",
+      "direccion": "dfsdfsdf",
+      "municipios": "Camargo"
+   },
+   "model": "config.sucursal",
    "pk": 1
 },
 {
@@ -7658,7 +11357,7 @@
       "direccion": "",
       "is_superuser": true,
       "is_staff": true,
-      "last_login": "2016-03-30T18:27:21.472Z",
+      "last_login": "2016-04-01T16:01:11.169Z",
       "avatar": "",
       "groups": [],
       "user_permissions": [],
@@ -7680,7 +11379,7 @@
       "direccion": "",
       "is_superuser": false,
       "is_staff": false,
-      "last_login": "2016-03-31T14:14:10.842Z",
+      "last_login": "2016-04-06T14:10:28.335Z",
       "avatar": "users/avatar_2Cxm7ic.jpg",
       "groups": [
          1
@@ -95340,5 +99039,18 @@
    },
    "model": "admin.logentry",
    "pk": 6723
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2016-04-01T16:02:07.147Z",
+      "object_repr": "jojoj",
+      "object_id": "15",
+      "change_message": "",
+      "user": 1,
+      "content_type": 9
+   },
+   "model": "admin.logentry",
+   "pk": 6724
 }
 ]

@@ -496,7 +496,7 @@ def libro_ventas(request):
 
         try:
         	# obteniendo datos del modelo venta
-	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
+	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1, tipo_movimiento='facturar').order_by('fecha')
 	    	total = 0
 	        for venta in ventas:
 				total += venta.total

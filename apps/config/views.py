@@ -172,6 +172,20 @@ def Createpersojuridica(request):
                 empresa=personajurid
             )
             campo_cliente.save()
+            campo_factura = FacturaCampos(
+                descuento_usar=True,
+                descuento_requerido=False,
+                recargo_usar=True,
+                recargo_requerido=False,
+                ice_usar=True,
+                ice_requerido=False,
+                exentos_usar=True,
+                exentos_requerido=False,
+                tipos_venta_usar=True,
+                tipos_venta_requerido=False,
+                empresa=mpersonajurid
+            )
+            campo_factura.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
             # render_to_response('config/createpersojuridica.html')
     else:

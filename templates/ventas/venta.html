@@ -259,7 +259,7 @@
              <div class="invoice-footer">
               <div class="row">
                 <div class="input-field col s12 m6 l6">
-                <form action="/ventas/" method="post" id="post_form" onsubmit="onEnviar()" target="_self">
+                <form action="/ventas/" method="post" id="post_form" onsubmit="onEnviar()" >
                         {% csrf_token %}
                         <input id="proceso" name="proceso" type="hidden" />
                         <div class="row">
@@ -294,5 +294,18 @@
 {% block js %}
   {% load staticfiles %}
   <script src="{% static "js/apps/ventas.js"%}"></script>
+  <script>
+    function popup(url, pk){
+        win=window.open(url,pk,
+                'height=500,width=800,resizable=yes,scrollbars=yes');
+        win.focus();
+        
+        return false;
+      }
+    {% if popup %}
+      popup("/detalle_venta/"+{{pk}}, {{pk}});
+    {% endif %}
+                
+  </script>
   
 {% endblock js %}

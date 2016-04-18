@@ -40,14 +40,6 @@ class Index(View):
 
     def get(self, request, *args, **kwargs):
 
-        #========= comamdo para hacer copias de seguridad de la base de datos ======
-        # ==========================================================================
-        output = open('output_filename.json','w')
-        call_command('dumpdata',format='json',indent=3,stdout=output)
-        output.close()
-        # ==========================================================================
-        # para restaurar la base de datos modificar el codigo
-        #        loaddata
 
         if not request.user.is_authenticated():
             return HttpResponseRedirect(reverse_lazy('login'))

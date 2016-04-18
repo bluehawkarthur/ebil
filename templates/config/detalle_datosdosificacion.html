@@ -17,7 +17,21 @@ Ebil
         <div class="row">
           {% csrf_token %} 
 
+          <div class="row">
+          <div class="input-field col s6 has-error">
+            <div class="input-field col s6 has-error">
+              <input disabled type="text" value="{{DatosDosificacion.sucursal}}">
+              <label for="emails">Sucursal</label>
+            </div>
+          </div>
 
+          <div class="input-field col s6 has-error">
+           <div class="input-field col s6 has-error">
+             <input disabled type="text" value="{{DatosDosificacion.actividad}}">
+             <label for="emails">Actividad</label>
+           </div>
+         </div>
+       </div>
          <div class="row">
           <div class="input-field col s6 has-error">
             <div class="input-field col s6 has-error">

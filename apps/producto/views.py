@@ -100,7 +100,7 @@ class CrearItem(FormView):
         try:
             item.save()
         except IntegrityError:
-            messages.error(self.request, "error CODIGO DUPLICADO")
+            messages.error(self.request, "error CODIGO ITEM DUPLICADO")
             return self.form_invalid(form)
         movimiento.item = item
         movimiento.save()
@@ -273,6 +273,9 @@ def import_data(request):
                 errores = []
                 for r in range(1, sheet.nrows):
 
+                    if  Item.objects.filter(codigo_item=sheet.cell(r, 0).value, empresa=request.user.empresa):
+                        errores.append('* el codigo_item "%s" ya existe' % (sheet.cell(r, 0).value))
+
                     if sheet.cell_type(r, 8) != xlrd.XL_CELL_NUMBER:
                         errores.append('* cantidad "%s" tiene que ser numerico' % (sheet.cell(r, 8).value))
 
@@ -282,7 +285,7 @@ def import_data(request):
                     if sheet.cell_type(r, 11) != xlrd.XL_CELL_TEXT:
                         errores.append('* imagen "%s" tiene que ser texto' % (sheet.cell(r, 11).value))
 
-                    if not Proveedor.objects.filter(codigo=sheet.cell(r, 10).value):
+                    if not Proveedor.objects.filter(codigo=sheet.cell(r, 10).value, empresa=request.user.empresa):
                         errores.append('* el proveedor "%s" no existe en la base de datos' % (sheet.cell(r, 10).value))
 
                     if sheet.cell_type(r, 13) != xlrd.XL_CELL_NUMBER:

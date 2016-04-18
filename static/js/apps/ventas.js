@@ -406,6 +406,7 @@ function agregarDetalle(){
 
 
         function onEnviar(){
+
             proceso.nit = $('#add_nit').val();
             proceso.razon = $('#add_razon').val();
             proceso.fecha = $('#add_fecha').val();
@@ -418,6 +419,7 @@ function agregarDetalle(){
             proceso.tipo_descuento = $('input[name="tipo_descuentoc"]:checked').val();
             proceso.tipo_recargo = $('input[name="tipo_recargoc"]:checked').val();
             proceso.movimiento  = $('#movimiento').val();
+            proceso.sucursal = $('#add_sucursal').val();
 
 
             var tipo_c= 'contado';

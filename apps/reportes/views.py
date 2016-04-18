@@ -439,13 +439,14 @@ def libro_compras(request):
         	
 	    	compras = Compra.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
 	    	total = 0
+	    	empresa = request.user.get_empresa()
 	        for compra in compras:
 				total += compra.total
 
 	        if 'excel' in request.POST:
 	            response = HttpResponse(content_type='application/vnd.ms-excel')
 	            response['Content-Disposition'] = 'attachment; filename=Reporte_compras.xlsx'
-	            xlsx_data = WriteToCompras(compras, mes, total, town)
+	            xlsx_data = WriteToCompras(compras, mes, total, empresa, town)
 	            response.write(xlsx_data)
 	            return response
 
@@ -457,7 +458,7 @@ def libro_compras(request):
 	                'attachement; filename={0}.pdf'.format(filename)
 	            buffer = BytesIO()
 	            report = PdfCompras(buffer, 'A4')
-	            pdf = report.report(compras, 'LIBRO DE COMPRAS', total, mes)
+	            pdf = report.report(compras, 'LIBRO DE COMPRAS ESTANDAR', total, mes, empresa)
 	            response.write(pdf)
 	            return response
 

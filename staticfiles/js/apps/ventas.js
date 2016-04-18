@@ -14,7 +14,7 @@ $.ajax({
       }
 
       if (datos[0].fields.descuento_requerido == false) {
-        $("#add_descuentoc").val("");
+        // $("#add_descuentoc").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#add_descuentoc" ).removeClass( "invalid" )
       }else{
@@ -30,7 +30,7 @@ $.ajax({
       }
 
       if (datos[0].fields.recargo_requerido == false) {
-        $("#add_recargoc").val("");
+        // $("#add_recargoc").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#add_recargoc" ).removeClass( "invalid" )
       }else{
@@ -46,7 +46,7 @@ $.ajax({
       }
 
       if (datos[0].fields.ice_requerido == false) {
-        $("#add_icec").val("");
+        // $("#add_icec").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#add_icec" ).removeClass( "invalid" )
       }else{
@@ -62,7 +62,7 @@ $.ajax({
       }
 
       if (datos[0].fields.exentos_requerido == false) {
-        $("#add_exentosc").val("");
+        // $("#add_exentosc").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#add_exentosc" ).removeClass( "invalid" )
       }else{
@@ -219,7 +219,7 @@ function agregarDetalle(){
   console.log('----datosss array ------------');
     if ($( "#stock_add" ).val() > 0){
       // para abrir en una nueva ventana 
-      $("#post_form").prop("target", '_blank');
+      // $("#post_form").prop("target", '_blank');
 
       console.log($( "#stock_add" ).val());
       // var cant = $( "#add_cantidad" ).val();
@@ -406,6 +406,7 @@ function agregarDetalle(){
 
 
         function onEnviar(){
+
             proceso.nit = $('#add_nit').val();
             proceso.razon = $('#add_razon').val();
             proceso.fecha = $('#add_fecha').val();
@@ -418,6 +419,7 @@ function agregarDetalle(){
             proceso.tipo_descuento = $('input[name="tipo_descuentoc"]:checked').val();
             proceso.tipo_recargo = $('input[name="tipo_recargoc"]:checked').val();
             proceso.movimiento  = $('#movimiento').val();
+            proceso.sucursal = $('#add_sucursal').val();
 
 
             var tipo_c= 'contado';

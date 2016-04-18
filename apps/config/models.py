@@ -2,6 +2,29 @@ from django.db import models
 from apps.users.models import Personajuridica
 
 
+class Sucursal(models.Model):
+	nombre_sucursal = models.CharField(max_length=100)
+	nro_sucursal = models.BigIntegerField()
+	direccion = models.CharField(max_length=100)
+	telefono1 = models.IntegerField()
+	telefono2 = models.IntegerField(null=True)
+	telefono3 = models.IntegerField(null=True)
+	departamento = models.CharField(max_length=100)
+	municipios = models.CharField(max_length=100)
+	empresa = models.ForeignKey(Personajuridica, null=True)
+
+	def __unicode__(self):
+		return self.nombre_sucursal
+
+
+class Actividad(models.Model):
+	actividad = models.CharField(max_length=100)
+	empresa = models.OneToOneField(Personajuridica, null=True, blank=True)
+
+	def __unicode__(self):
+		return self.actividad
+
+
 class DatosDosificacion(models.Model):
 
 	nro_conrelativo = models.BigIntegerField()
@@ -10,6 +33,8 @@ class DatosDosificacion(models.Model):
 	llave_digital = models.CharField(max_length=200)
 	empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 	contador = models.IntegerField()
+	sucursal = models.ForeignKey(Sucursal, null=True, blank=True)
+	actividad = models.ForeignKey(Actividad, null=True, blank=True)
 
 
 class Formatofactura(models.Model):
@@ -160,19 +185,3 @@ class FacturaCampos(models.Model):
 	tipos_venta_usar = models.BooleanField()
 	tipos_venta_requerido = models.BooleanField()
 	empresa = models.ForeignKey(Personajuridica, null=True)
-
-
-class Sucursal(models.Model):
-	nombre_sucursal = models.CharField(max_length=100)
-	nro_sucursal = models.BigIntegerField()
-	direccion = models.CharField(max_length=100)
-	telefono1 = models.IntegerField()
-	telefono2 = models.IntegerField(null=True)
-	telefono3 = models.IntegerField(null=True)
-	departamento = models.CharField(max_length=100)
-	municipios = models.CharField(max_length=100)
-	empresa = models.ForeignKey(Personajuridica, null=True)
-
-
-	def __unicode__(self):
-		return self.nombre_sucursal

@@ -174,21 +174,6 @@ class PdfVentas:
 
                 tabla1 = tabla1 + 23
 
-            if 42 // tabla1 == 0 and 42 % tabla1 - 23 == 42 - 23:
-
-                table_data.append(['', '', '', '', '', '', Paragraph('Subtotal', styles['TableHeader']), totales, ice_subtotal, excento_subtotal, neto_subtotal, descuento_subtotal, df_subtotal, cf_subtotal])
-       
-                totales = weather_history[i].total
-                cf_subtotal = cf
-                neto_subtotal = neto
-                ice_subtotal = weather_history[i].ice
-                excento_subtotal = weather_history[i].excentos
-                descuento_subtotal = weather_history[i].descuento
-                df_subtotal = df
-
-                tabla1 = tabla1 + 23
-
-
 
 
             cf_total = cf_total + cf
@@ -212,7 +197,6 @@ class PdfVentas:
                  weather_history[i].codigo_control,
             ])
 
-        print 42 % 63
         table_data.append(['', '', '', '', '', '', Paragraph('Total', styles['TableHeader']), total, ice_total, excento_total , neto_total, descuento_total, df_total, cf_total])
         # create table
         wh_table = Table(table_data, colWidths=(30, 50, 40, 60, 36, 50, 80, 45, 55, 61, 45, 62, 52, 45, 55), repeatRows = 1)

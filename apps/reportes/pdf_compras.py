@@ -53,7 +53,7 @@ class PdfCompras:
 
 
 
-    def report(self, weather_history, title, total, mes):
+    def report(self, weather_history, title, total, mes, empresa):
         # set some characteristics for pdf document
         doc = SimpleDocTemplate(
             self.buffer,
@@ -67,7 +67,7 @@ class PdfCompras:
         styles = getSampleStyleSheet()
         # add custom paragraph style
         styles.add(ParagraphStyle(
-            name="TableHeader", fontSize=8, alignment=TA_CENTER,
+            name="TableHeader", fontSize=7, alignment=TA_CENTER,
             fontName="FreeSansBold"))
 
         styles.add(ParagraphStyle(
@@ -97,25 +97,30 @@ class PdfCompras:
         # table header
         table_data.append([
             Paragraph('Nro', styles['TableHeader']),
-            Paragraph('Fecha', styles['TableHeader']),
-            Paragraph('Nit', styles['TableHeader']),
-            Paragraph('Nombre Razon Social', styles['TableHeader']),
-            Paragraph('Factura', styles['TableHeader']),
-            Paragraph('No Autorizacion', styles['TableHeader']),
+            Paragraph('Fecha de la Factura', styles['TableHeader']),
+            Paragraph('NIT Proveedor', styles['TableHeader']),
+            Paragraph('Nombre o Razon Social', styles['TableHeader']),
+            Paragraph('N° de la Factura', styles['TableHeader']),
+            Paragraph('N° de Autorizacion', styles['TableHeader']),
+            Paragraph('Importe Total de la Compra', styles['TableHeader']),
+            Paragraph('Importe No Sujeto a Credito Fiscal', styles['TableHeader']),
+            Paragraph('Subtotal', styles['TableHeader']),
+            Paragraph('Descuentos Bonificaciones y Rebajas', styles['TableHeader']),
+            Paragraph('Importe Base para Credito Fiscal', styles['TableHeader']),
+            Paragraph('Credito Fiscal I.V.A.', styles['TableHeader']),
             Paragraph('Codigo de Control', styles['TableHeader']),
-            Paragraph('Total factura', styles['TableHeader']),
-            Paragraph('ICE', styles['TableHeader']),
-            Paragraph('Excentos', styles['TableHeader']),
-            Paragraph('Neto', styles['TableHeader']),
-            Paragraph('Credito Fiscal', styles['TableHeader']),
+            Paragraph('Tipo de Compra', styles['TableHeader']),
             ])
 
         date_month = '%s %s' % ('PERIODO', mes)
+
+        dato_empresa = '%s %s' % ('Nombre o Razon Social:', empresa.razon_social)
+        dato_nit = '%s %s' % ('NIT:', empresa.nit)
         # data.append(Paragraph('Nombre o Razon Social: EVEREST', styles['Justify']))
         # data.append(Paragraph('CASA MATRIZ', styles['Justify']))
 
-        table_data2.append([Paragraph('Nombre o Razon Social: EVEREST2', styles['Title3']), '', Paragraph('NIT.: 1021325022', styles['Title3'])])
-        table_data2.append([Paragraph('CASA MATRIZ', styles['Title3']), '', Paragraph('CALLE ESTEBAN ARCE', styles['Title3'])])
+        table_data2.append([Paragraph(dato_empresa, styles['Title3']), '', Paragraph(dato_nit, styles['Title3'])])
+        # table_data2.append([Paragraph('CASA MATRIZ', styles['Title3']), '', Paragraph('CALLE ESTEBAN ARCE', styles['Title3'])])
 
         data.append(Spacer(1, 12))
 
@@ -128,48 +133,68 @@ class PdfCompras:
 
         neto_subtotal = 0
         cf_subtotal = 0
+        noscf_subtotal = 0
+        descuento_subtotal = 0
+        importe_base_subtotal = 0
+        noscf_total = 0
+        descuento_total = 0
+        importe_base_total = 0
 
         for i in range(0, num):
             count = count + 1
             neto = weather_history[i].total - weather_history[i].ice - weather_history[i].excentos
-            cf = neto * 13 / 100
+            importe_base = neto - weather_history[i].descuento
+            cf = importe_base * 13 / 100
+            noscf = weather_history[i].ice + weather_history[i].excentos
 
             if i < tabla1:
                 totales = totales + weather_history[i].total
                 cf_subtotal = cf_subtotal + cf
                 neto_subtotal = neto_subtotal + neto
+                noscf_subtotal = noscf_subtotal + noscf
+                descuento_subtotal = descuento_subtotal + weather_history[i].descuento
+                importe_base_subtotal = importe_base_subtotal + importe_base
 
             if i == tabla1:
 
-                table_data.append(['', '', '', '', '', '', Paragraph('Subtotal', styles['TableHeader']), totales, '-', '-', neto_subtotal, cf_subtotal])
+                table_data.append(['', '', '', '', '', Paragraph('Subtotal', styles['TableHeader']), totales, noscf_subtotal, neto_subtotal, descuento_subtotal, importe_base_subtotal, cf_subtotal])
        
                 totales = weather_history[i].total
                 cf_subtotal = cf
                 neto_subtotal = neto
+                noscf_subtotal = noscf
+                descuento_subtotal = weather_history[i].descuento
+                importe_base_subtotal = importe_base
 
                 tabla1 = tabla1 + 23
 
             cf_total = cf_total + cf
             neto_total = neto_total + neto
+            noscf_total = noscf_total + noscf
+            descuento_total = descuento_total + weather_history[i].descuento
+            importe_base_total = importe_base_total + importe_base
+
             # add a row to table
             table_data.append([
                 count,
                 weather_history[i].fecha,
                 weather_history[i].nit,
-                Paragraph(weather_history[i].razon_social, styles['Justify']),
+                weather_history[i].razon_social,
                 weather_history[i].nro_factura,
                 weather_history[i].nro_autorizacion,
-                weather_history[i].cod_control,
                 u"{0}".format(weather_history[i].total),
-                weather_history[i].ice,
-                weather_history[i].excentos,
+                noscf,
                 neto,
+                weather_history[i].descuento,
+                importe_base,
                 cf,
+                weather_history[i].cod_control,
+                1,
             ])
 
-        table_data.append(['', '', '', '', '', '', Paragraph('Total', styles['TableHeader']), total, '-', '-', neto_total, cf_total])
+        table_data.append(['', '', '', '', '', Paragraph('Total', styles['TableHeader']), total, noscf_total, neto_total, descuento_total, importe_base_total, cf_total])
         # create table
-        wh_table = Table(table_data, colWidths=[doc.width / 12.0] * 7, repeatRows = 1)
+        wh_table = Table(table_data, colWidths=(30, 50, 50, 80, 40, 60, 60, 60, 45, 65, 61, 45, 62, 40), repeatRows = 1)
 
         wh_table2 = Table(table_data2, colWidths=[doc.width / 2.5] * 7)
         wh_table2.hAlign = 'LEFT'
@@ -179,7 +204,7 @@ class PdfCompras:
             [('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
              ('BOX', (0, 0), (-1, -1), 0.5, colors.black),
              ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-             ('FONTSIZE', (0, 0), (-1, -1), 8),
+             ('FONTSIZE', (0, 0), (-1, -1), 7),
              ('BACKGROUND', (0, 0), (-1, 0), colors.gray)]))
 
         wh_table2.setStyle(TableStyle(

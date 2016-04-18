@@ -1,6 +1,6 @@
 from django import forms
 from apps.users.models import Personajuridica
-from .models import Formatofactura
+from .models import Formatofactura, Sucursal, Actividad
 
 
 class PersonajuridicaForm(forms.Form):
@@ -36,6 +36,8 @@ class DatosDosificacionForm(forms.Form):
     fecha = forms.DateField(label="Fecha limite de emision")
     nro_autorizacion = forms.IntegerField()
     llave_digital = forms.CharField()
+    sucursal = forms.ModelChoiceField(queryset='', empty_label='seleccione')
+    actividad = forms.ModelChoiceField(queryset='', empty_label='seleccione')
 
 
 class FormatofacturaForm(forms.ModelForm):

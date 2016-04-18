@@ -13,14 +13,14 @@ class ItemManager(models.Manager):
 class Item(models.Model):
 	objects = ItemManager()
 
-	codigo_item = models.CharField(max_length=100)
+	codigo_item = models.CharField(max_length=100, unique=True)
 	codigo_fabrica = models.CharField(max_length=100, blank=True, null=True)
 	almacen = models.IntegerField()
-	grupo = models.CharField(max_length=100)
-	subgrupo = models.CharField(max_length=100)
+	grupo = models.CharField(max_length=100, blank=True, null=True)
+	subgrupo = models.CharField(max_length=100, blank=True, null=True)
 	descripcion = models.CharField(max_length=200)
-	carac_especial_1 = models.CharField(max_length=100)
-	carac_especial_2 = models.CharField(max_length=100)
+	carac_especial_1 = models.CharField(max_length=100, blank=True, null=True)
+	carac_especial_2 = models.CharField(max_length=100, blank=True, null=True)
 	cantidad = models.IntegerField()
 	saldo_min = models.IntegerField()
 	proveedor = models.ForeignKey(Proveedor, related_name='proveedor', blank=True, null=True) #Relacion a la tabla de proveedores

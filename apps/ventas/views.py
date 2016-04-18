@@ -17,7 +17,7 @@ import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 import datetime
 from .numero_autorizacion import codigoControl
-from apps.config.models import DatosDosificacion, Formatofactura, FacturaCampos
+from apps.config.models import DatosDosificacion, Formatofactura, FacturaCampos, Sucursal
 
 from django.http import HttpResponse
 import json
@@ -67,6 +67,7 @@ def ventaCrear(request):
 
 
     form = None
+    sucursal = Sucursal.objects.filter(empresa=request.user.empresa).order_by('pk')
     if request.method == 'POST':
         sid = transaction.savepoint()
 
@@ -76,17 +77,19 @@ def ventaCrear(request):
             if len(proceso['producto']) <= 0:
                 msg = 'No se ha seleccionado ningun producto'
                 raise Exception(msg)
-            print 'movimientossssssss'
-            print proceso['movimiento']
+            print 'sucursalessssss'
+            print proceso['sucursal']
             total = 0
+            
             # calculo total de compras
             for k in proceso['producto']:
                 total += decimal.Decimal(k['sdf'])
 
             if proceso['movimiento'] == 'facturar':
-                venta_data = Venta.objects.filter(empresa=request.user.empresa).exclude(nro_factura__isnull=True).last()
-
-                dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+                venta_data = Venta.objects.filter(empresa=request.user.empresa, tipo_movimiento='facturar').exclude(nro_factura__isnull=True).last()
+                print 'numerooo de facturaaaaaaa'
+                print venta_data.nro_factura
+                dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa, sucursal=proceso['sucursal']).last()
                 cliente = Cliente.objects.filter(nit=proceso['nit'])
                 if not cliente:
                     cli = Cliente(
@@ -148,7 +151,9 @@ def ventaCrear(request):
                             llave_digital=dosificacion.llave_digital,
                             codigo_control=cod_control,
                             fecha_limite=dosificacion.fecha,
-                            tipo_movimiento = proceso['movimiento'],
+                            tipo_movimiento=proceso['movimiento'],
+                            sucursal=Sucursal.objects.get(id=proceso['sucursal']),
+                            actividad=dosificacion.actividad,
                         )
                         
                         crearVenta.save()
@@ -191,7 +196,7 @@ def ventaCrear(request):
                             crearDetalle.save()
                             crearMovimiento.save()
 
-                        return render('ventas/venta.html', {'form': form, 'popup': True, 'pk': crearVenta.pk }, context_instance=ctx(request))
+                        return render('ventas/venta.html', {'form': form, 'popup': True, 'pk': crearVenta.pk, 'sucursal': sucursal, 'url': '/detalle_venta/' }, context_instance=ctx(request))
                         # return HttpResponseRedirect(reverse('detalleventa', args=(crearVenta.pk,)))
                         # return HttpResponse('<script type="text/javascript">opener.popup("/detalle_venta/%s");</script>' % \
                         	# (crearVenta.pk))
@@ -264,8 +269,9 @@ def ventaCrear(request):
                     tipo_recargo=proceso['tipo_recargo'],
                     fecha_vencimiento=end_date,
                     empresa=request.user.empresa,
-                    tipo_movimiento = proceso['movimiento'],
-                    nro_nota = nro+1,
+                    tipo_movimiento=proceso['movimiento'],
+                    nro_nota=nro+1,
+                    sucursal=Sucursal.objects.get(id=proceso['sucursal']),
                 )
 
                 crearVenta.save()
@@ -308,7 +314,8 @@ def ventaCrear(request):
                     crearDetalle.save()
                     crearMovimiento.save()
 
-                return HttpResponseRedirect(reverse('detalleventanota', args=(crearVenta.pk,)))
+                # return HttpResponseRedirect(reverse('detalleventanota', args=(crearVenta.pk,)))
+                return render('ventas/venta.html', {'form': form, 'popup': True, 'pk': crearVenta.pk, 'sucursal': sucursal, 'url': '/detalle_ventanota/'}, context_instance=ctx(request))
 
                 # messages.success(
                 #     request, 'La compra se ha realizado satisfactoriamente')
@@ -320,7 +327,7 @@ def ventaCrear(request):
                 pass
             messages.error(request, e)
 
-    return render('ventas/venta.html', {'form': form}, context_instance=ctx(request))
+    return render('ventas/venta.html', {'form': form, 'sucursal': sucursal}, context_instance=ctx(request))
 
 # def detalleVenta(request, pk):
 #     print pk

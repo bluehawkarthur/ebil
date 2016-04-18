@@ -17,6 +17,13 @@
               <div class="row section">
               <form id="encabezado">
                 <div class="col s12 m6 l4">
+                <div class="input-field col s7">
+                  <select name="add_sucursal" id="add_sucursal">
+                    {% for s in sucursal %}
+                    <option value="{{ s.pk }}">{{ s.nombre_sucursal }}</option>
+                    {% endfor %}
+                </select>
+                </div>
                 <div class="input-field col s7 has-error">
                   <input id="add_nit" name="add_nit" type="number" class="EntTab">
                   <label>Nit</label>
@@ -113,6 +120,11 @@
                       <option value="facturar">Facturar</option>
                       <option value="baja">Baja</option>
                       <option value="proforma">Proforma</option>
+                      {% for s in sucursal %}
+                        {% if not s.nombre_sucursal == 'Casa matriz'%}
+                        <option value="{{ s.nombre_sucursal }}">{{ s.nombre_sucursal }}</option>
+                        {% endif %}
+                      {% endfor %}
                     </select>
                     <label>Movimiento</label>
                   </div>
@@ -303,7 +315,7 @@
         return false;
       }
     {% if popup %}
-      popup("/detalle_venta/"+{{pk}}, {{pk}});
+      popup("{{url}}"+{{pk}}, {{pk}});
     {% endif %}
                 
   </script>

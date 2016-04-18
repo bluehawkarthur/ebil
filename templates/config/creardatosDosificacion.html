@@ -16,7 +16,20 @@
         <div class="row">
           <form class="col s12" method="post">
             {% csrf_token %}
+            
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.sucursal|removetags:'ul li' }}</span>
+                {{ form.sucursal|add_error_class:"invalid" }}
+                <label for="emails">{{ form.sucursal.label }}</label>
+              </div>
 
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.actividad|removetags:'ul li' }}</span>
+              {{ form.actividad|add_error_class:"invalid"}}
+              <label for="">{{ form.actividad.label }}</label>
+              </div>
+            </div>
             <div class="row">
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.nro_conrelativo|removetags:'ul li' }}</span>

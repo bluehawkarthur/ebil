@@ -2,6 +2,7 @@ from django.db import models
 import decimal
 from apps.producto.models import Item
 from apps.users.models import Personajuridica
+from apps.config.models import Sucursal
 
 
 # Create your models here.
@@ -29,6 +30,8 @@ class Venta(models.Model):
     fecha_limite = models.DateField(null=True, blank=True)
     tipo_movimiento = models.CharField(max_length=100, null=True, blank=True)
     nro_nota = models.BigIntegerField(null=True, blank=True)
+    sucursal = models.ForeignKey(Sucursal, null=True, blank=True)
+    actividad = models.CharField(max_length=200, null=True, blank=True)
     # categoria = models.CharField(max_length=50)
     # movimiento = models.CharField(max_length=100)
 

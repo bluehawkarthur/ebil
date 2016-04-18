@@ -544,6 +544,41 @@ Ebil
 			                  });
 			              }
 
+			              function departamentos(parent) {
+	                            switch(parent){ //using switch compare selected option and populate child
+	                              case 'Beni':
+	                                municipo(Beni);
+	                                break;
+	                              case 'Chuquisaca':
+	                                municipo(Chuquisaca);
+	                                break;              
+	                              case 'Cochabamba':
+	                                municipo(Cochabamba);
+	                                break;  
+	                              case 'La Paz':
+	                                municipo(La_Paz);
+	                                break;
+	                                case 'Oruro':
+	                                municipo(Oruro);
+	                                break;
+	                                case 'Pando':
+	                                municipo(Pando);
+	                                break;
+	                                case 'Potosi':
+	                                municipo(Potosi);
+	                                break;
+	                                case 'Santa Cruz':
+	                                municipo(Santa_Cruz);
+	                                break;  
+	                                case 'Tarija':
+	                                municipo(Tarija);
+	                                break;
+	                            default: //default child option is blank
+	                                $("#child_selection").html('');  
+	                                break;
+                          		}
+                            }
+
 			               function municipo(array_list){
 			                   //reset child options
 			                   $("#child_selection").html(""); 
@@ -561,7 +596,9 @@ Ebil
 			                  });
 			              }
 
-			              municipo({{empresa.departamento}});
+
+
+			              departamentos('{{empresa.departamento}}');
 
 			              $('#parent_selection option:selected').removeAttr("selected");
 

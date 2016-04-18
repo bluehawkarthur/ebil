@@ -22,6 +22,7 @@
           <tr>
             
             <th data-field="">nro_conrelativo</th>
+            <th data-field="">sucursal</th>
             <th data-field="">fecha</th>
             <th data-field="">nro_autorizacion</th>
             <th data-field="">llave_digital</th>
@@ -32,6 +33,7 @@
           {% for dosific in DatosDosificacion %}
           <tr>
             <td>{{ dosific.nro_conrelativo }}</td>
+            <td>{{ dosific.sucursal }}</td>
             <td>{{ dosific.fecha }}</td>
             <td>{{ dosific.nro_autorizacion }}</td>
             <td>{{ dosific.llave_digital }}</td>

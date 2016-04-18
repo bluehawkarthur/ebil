@@ -6,7 +6,7 @@ from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
 from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm, SucursalForm
-from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos, Sucursal
+from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos, Sucursal, Actividad
 from apps.cliente.models import Cliente
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
@@ -206,7 +206,7 @@ def Empresa(request):
             # user.empresa = form.cleaned_data['empresa']
             user.save()
             messages.success(request, "Los datos se guardaron correctamente")
-            return HttpResponseRedirect(reverse_lazy('index'))
+            return HttpResponseRedirect(reverse_lazy('inicio'))
 
     return render(request, 'config/empresa.html', {'form': form, 'empresa': empresa})
 
@@ -270,6 +270,10 @@ def DeletePersonajuridica(request, personajuridica):
 def CrearDatosDosificacion(request):
     if request.method == 'POST':
         form = DatosDosificacionForm(request.POST)
+        form.fields['sucursal'].queryset = Sucursal.objects.filter(
+            empresa=request.user.empresa).order_by('id')
+        form.fields['actividad'].queryset = Actividad.objects.filter(
+            empresa=request.user.empresa)
         if form.is_valid():
             datosdosificacion = DatosDosificacion(
                 nro_conrelativo=form.cleaned_data['nro_conrelativo'],
@@ -277,6 +281,8 @@ def CrearDatosDosificacion(request):
                 nro_autorizacion=form.cleaned_data['nro_autorizacion'],
                 llave_digital=form.cleaned_data['llave_digital'],
                 empresa=request.user.empresa,
+                sucursal=form.cleaned_data['sucursal'],
+                actividad=form.cleaned_data['actividad'],
                 contador=0)
 
             datosdosificacion.save()
@@ -284,6 +290,10 @@ def CrearDatosDosificacion(request):
             # return render_to_response('config/creardatosDosificacion.html')
     else:
         form = DatosDosificacionForm()
+        form.fields['sucursal'].queryset = Sucursal.objects.filter(
+            empresa=request.user.empresa).order_by('id')
+        form.fields['actividad'].queryset = Actividad.objects.filter(
+            empresa=request.user.empresa)
     variables = RequestContext(request, {'form': form})
     return render_to_response('config/creardatosDosificacion.html', variables)
 
@@ -315,8 +325,17 @@ class DetalleDatosDosificacion(DetailView):
 class EditDatosDosificacion(UpdateView):
     template_name = 'config/edit_datosdosificacion.html'
     model = DatosDosificacion
-    fields = ['nro_conrelativo', 'fecha', 'nro_autorizacion', 'llave_digital']
+    fields = ['nro_conrelativo', 'fecha', 'nro_autorizacion', 'llave_digital', 'sucursal', 'actividad']
     success_url = reverse_lazy('lista_datosdosificacion')
+
+    def get_form(self):
+        form = super(EditDatosDosificacion, self).get_form()
+
+        form.fields['sucursal'].queryset = Sucursal.objects.filter(
+            empresa=self.request.user.empresa)
+        form.fields['actividad'].queryset = Actividad.objects.filter(
+            empresa=self.request.user.empresa)
+        return form
 
 
 def DeleteDatosDosificacion(request, datosdosificacion):

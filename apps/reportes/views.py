@@ -129,30 +129,30 @@ def Reporteventa(request):
 		if date1 != '' and date2 != '':
 			if tipo == 'todo':
 				if nit != '':
-					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), nit=nit)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), nit=nit).exclude(tipo_movimiento='baja')
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), razon_social=empresa)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), razon_social=empresa).exclude(tipo_movimiento='baja')
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				# elif monto != '':
 				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
 				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2))
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2)).exclude(tipo_movimiento='baja')
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 
 			else:
 				if nit != '':
-					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, nit=nit).exclude(tipo_movimiento='baja')
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa).exclude(tipo_movimiento='baja')
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				# elif monto != '':
 				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
 				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo).exclude(tipo_movimiento='baja')
 					ventas = DetalleVenta.objects.filter(venta=ventas1)
 			
 			total = 0
@@ -166,7 +166,7 @@ def Reporteventa(request):
 	else:
 		datecompu = date.today()
 		total = 0
-		ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha=datecompu)
+		ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha=datecompu).exclude(tipo_movimiento='baja')
 		ventas = DetalleVenta.objects.filter(venta=ventas1)
 		for venta in ventas:
 			total += venta.cantidad * venta.precio_unitario
@@ -227,6 +227,7 @@ def detalleVenta(request, pk):
     data = {
         'nit': venta[0].nit,
         'nro_factura': venta[0].nro_factura,
+        'nro_nota': venta[0].nro_nota,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
@@ -244,44 +245,48 @@ def detalleVenta(request, pk):
     print 'el formato'
     print formato
 
-    if formato.impresion == 'Vacia':
-        if formato.tamanio == 'rollo':
-            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+    if venta[0].tipo_movimiento == 'facturar':
+	    if formato.impresion == 'Vacia':
+	        if formato.tamanio == 'rollo':
+	            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
-        elif formato.tamanio == 'carta':
-            return render_to_pdf('reportes/rep_detalleventa.html', data)
+	        elif formato.tamanio == 'carta':
+	            return render_to_pdf('reportes/rep_detalleventa.html', data)
 
-        elif formato.tamanio == 'oficio':
-            return render_to_pdf('reportes/rep_ventaoficio.html', data)
+	        elif formato.tamanio == 'oficio':
+	            return render_to_pdf('reportes/rep_ventaoficio.html', data)
 
-        elif formato.tamanio == '1/2oficio':
-            return render_to_pdf('reportes/rep_ventamedio.html', data)
+	        elif formato.tamanio == '1/2oficio':
+	            return render_to_pdf('reportes/rep_ventamedio.html', data)
 
-    elif formato.impresion == 'Completa':
-        if formato.tamanio == 'rollo':
-            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+	    elif formato.impresion == 'Completa':
+	        if formato.tamanio == 'rollo':
+	            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
-        elif formato.tamanio == 'carta':
-            return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+	        elif formato.tamanio == 'carta':
+	            return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
 
-        elif formato.tamanio == 'oficio':
-            return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+	        elif formato.tamanio == 'oficio':
+	            return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
 
-        elif formato.tamanio == '1/2oficio':
-            return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+	        elif formato.tamanio == '1/2oficio':
+	            return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
 
-    elif formato.impresion == 'Semi-completa':
-        if formato.tamanio == 'rollo':
-            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+	    elif formato.impresion == 'Semi-completa':
+	        if formato.tamanio == 'rollo':
+	            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
-        elif formato.tamanio == 'carta':
-            return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+	        elif formato.tamanio == 'carta':
+	            return render_to_pdf('reportes/rep_detalleventasemi.html', data)
 
-        elif formato.tamanio == 'oficio':
-            return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+	        elif formato.tamanio == 'oficio':
+	            return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
 
-        elif formato.tamanio == '1/2oficio':
-            return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+	        elif formato.tamanio == '1/2oficio':
+	            return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+    
+    elif venta[0].tipo_movimiento == 'proforma':
+        return render_to_pdf('reportes/rep_detalleventanota.html', data)
 
 
 
@@ -300,7 +305,7 @@ def report_mesVenta(request):
 
         try:
         	# obteniendo datos del modelo venta 
-	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
+	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1).exclude(tipo_movimiento='baja')
 	    	total = 0
 	        for venta in ventas:
 				total += venta.total
@@ -792,8 +797,11 @@ def detalleCompra(request, pk):
         'fecha': compra[0].fecha,
         'tipo_compra': compra[0].tipo_compra,
         'total': compra[0].total,
-        'detalle': vd
-        
+        'detalle': vd,
+        'empresa': request.user.get_empresa(),
+        'dias': compra[0].cantidad_dias,
+        'nro_nota': compra[0].nro_nota,
+        'user': request.user,
     }
 
     return render_to_pdf('reportes/rep_detallecompra.html', data)
@@ -830,8 +838,9 @@ def Createpagocobro(request):
         # montofinal = venta_get[0].total - decimal.Decimal(monto)
         # venta_get.update(monto_pago=montofinal)
         print monto
+        montobase = CobroCompra.objects.get(id=crearcobro.id)
         data = {
-            'monto': monto,
+            'monto': montobase.monto_pago,
             'cliente': compra_get[0].razon_social,
             'fecha': date.today(),
         }

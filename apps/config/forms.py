@@ -63,3 +63,7 @@ class SucursalForm(forms.Form):
     telefono3 = forms.IntegerField(required=False)
     departamento = forms.CharField(max_length=100)
     municipios = forms.CharField(max_length=100)
+
+
+class ActividadForm(forms.Form):
+    actividad = forms.CharField(max_length=100, required=True)

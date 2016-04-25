@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from .views import ListarPersonajuridica, EditPersonajuridica, DetallePersonajuridica, DeletePersonajuridica, Configuraciones, ListarDatosDosificacion, DetalleDatosDosificacion, EditDatosDosificacion, EditAlmacenesCampos, EditProveedoresCampos, EditClienteCampos, EditFacturaCampos
+from .views import ListarPersonajuridica, EditPersonajuridica, DetallePersonajuridica, DeletePersonajuridica, Configuraciones, ListarDatosDosificacion, DetalleDatosDosificacion, EditDatosDosificacion, EditAlmacenesCampos, EditProveedoresCampos, EditClienteCampos, EditFacturaCampos, ListarSucursal, EditSucursal, DetalleSucursal, ListarActividad, EditActividad, DetalleActividad
 
 # import debug_toolbar
 urlpatterns = [
@@ -25,5 +25,15 @@ urlpatterns = [
     url(r'^edit_clientcamp/$', EditClienteCampos.as_view(), name='edit_clientcamp'),
     url(r'^edit_factCamp/$', EditFacturaCampos.as_view(), name='edit_factCamp'),
     url(r'^crearSucursal/$', 'apps.config.views.CreateSucursal', name='crearSucursal'),
+    url(r'^listarSucursal/', ListarSucursal.as_view(), name='listarSucursal'),
+    url(r'^edit_sucursal/(?P<pk>\d+)$', EditSucursal.as_view(), name='edit_sucursal'),
+    url(r'^delete_sucursal/(?P<sucursal>\d+)$', 'apps.config.views.DeleteSucursal', name='sucursal_delete'),
+    url(r'^detalle_sucursal/(?P<pk>\d+)$', DetalleSucursal.as_view(), name='detalle_sucursal'),
+    url(r'^crear_actividad/$', 'apps.config.views.CrearActividad', name='crear_actividad'),
+    url(r'^listar_actividad/', ListarActividad.as_view(), name='listar_actividad'),
+    url(r'^delete_activadad/(?P<actividad>\d+)$', 'apps.config.views.DeleteActividad', name='actividad_delete'),
+    url(r'^edit_actividad/(?P<pk>\d+)$', EditActividad.as_view(), name='edit_actividad'),
+    url(r'^detalle_actividad/(?P<pk>\d+)$', DetalleActividad.as_view(), name='detalle_actividad'),
+    url(r'^validador', 'apps.config.views.import_validador', name="validador"),
 
 ]

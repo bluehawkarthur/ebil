@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
-from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm, SucursalForm
+from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm, SucursalForm, ActividadForm
 from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos, Sucursal, Actividad
 from apps.cliente.models import Cliente
 from pure_pagination.mixins import PaginationMixin
@@ -16,7 +16,11 @@ from datetime import date
 from ebil.settings import MEDIA_ROOT
 from django import forms
 import os
-IMPORT_FILE_TYPES = ['.json', ]
+import xlrd
+import datetime
+from .numero_autorizacion import codigoControl
+
+IMPORT_FILE_TYPES = ['.json', '.xls', '.xlsx', ]
 
 
 class Configuraciones(TemplateView):
@@ -183,7 +187,7 @@ def Createpersojuridica(request):
                 exentos_requerido=False,
                 tipos_venta_usar=True,
                 tipos_venta_requerido=False,
-                empresa=mpersonajurid
+                empresa=personajurid
             )
             campo_factura.save()
             return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
@@ -517,3 +521,170 @@ def CreateSucursal(request):
         form = SucursalForm()
     variables = RequestContext(request, {'form': form})
     return render_to_response('config/crearSucursal.html', variables)
+
+
+class ListarSucursal(PaginationMixin, ListView):
+    template_name = 'config/listarSucursal.html'
+    paginate_by = 5
+    model = Sucursal
+    context_object_name = 'sucursal'
+
+    def get_queryset(self):
+
+        object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('-pk')
+        return object_list
+
+
+class EditSucursal(UpdateView):
+    template_name = 'config/edit_sucursal.html'
+    model = Sucursal
+    fields = ['nombre_sucursal', 'nro_sucursal', 'direccion', 'telefono1', 'telefono2', 'telefono3', 'departamento', 'municipios']
+    success_url = reverse_lazy('listarSucursal')
+
+
+def DeleteSucursal(request, sucursal):
+    e = Sucursal.objects.get(id= sucursal)
+    e.delete()
+    print e
+    return HttpResponseRedirect(reverse_lazy('listarSucursal'))
+
+
+class DetalleSucursal(DetailView):
+    template_name = 'config/detalle_sucursal.html'
+    model = Sucursal
+    context_object_name = 'sucursal'
+
+def CrearActividad(request):
+    if request.method == 'POST':
+        form = ActividadForm(request.POST)
+
+        if form.is_valid():
+            actividad = Actividad(
+            	actividad=form.cleaned_data['actividad'],
+            	empresa=request.user.empresa)
+            actividad.save()
+            return HttpResponseRedirect(reverse_lazy('listar_actividad'))
+        else:
+            variables = RequestContext(request, {'form': form})
+            return render_to_response('config/crear_actividad.html', variables)
+            # return render_to_response('config/crearactividad.html')
+    else:
+        form = ActividadForm()
+        print form
+        variables = RequestContext(request, {'form': form})
+        return render_to_response('config/crear_actividad.html', variables)
+
+
+class ListarActividad(PaginationMixin, ListView):
+	template_name = 'config/listar_actividad.html'
+	paginate_by = 5
+	model = Actividad
+	context_object_name = 'Actividad'
+
+	def get_queryset(self):
+		object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('-pk')
+		return object_list
+
+def DeleteActividad(request, actividad):
+	e = Actividad.objects.get(id= actividad)
+	e.delete()
+	return HttpResponseRedirect(reverse_lazy('listar_actividad'))
+
+
+class EditActividad(UpdateView):
+	template_name = 'config/edit_actividad.html'
+	model = Actividad
+	fields = ['actividad',]
+	success_url = reverse_lazy('listar_actividad')
+
+
+class DetalleActividad(DetailView):
+	template_name = 'config/detalle_actividad.html'
+	model = Actividad
+	context_object_name = 'Actividad'
+
+
+def import_validador(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST,
+                              request.FILES)
+
+        today = date.today()
+
+        if form.is_valid():
+
+            datos = request.FILES['file']
+
+            filename = datos._name
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+
+            for chunk in datos.chunks():
+                fd.write(chunk)
+            fd.close()
+
+            rute = '%s/%s' % (MEDIA_ROOT, datos)
+            book = xlrd.open_workbook(rute)
+            sheet = book.sheet_by_name('Sheet1')
+
+            # try:
+            errores = []
+            for r in range(1, sheet.nrows):
+
+                if sheet.cell_type(r, 0) != xlrd.XL_CELL_NUMBER:
+                    errores.append('* NRO. AUTORIZACION "%s" tiene que ser numerico' % (sheet.cell(r, 0).value))
+
+                if sheet.cell_type(r, 1) != xlrd.XL_CELL_NUMBER:
+                    errores.append('* NRO. FACTURA "%s" tiene que ser numerico' % (sheet.cell(r, 1).value))
+
+                if sheet.cell_type(r, 2) != xlrd.XL_CELL_NUMBER:
+                    errores.append('* NIT/CI "%s" tiene que ser numerico' % (sheet.cell(r, 2).value))
+
+
+                if sheet.cell_type(r, 4) != xlrd.XL_CELL_NUMBER:
+                    errores.append('* MONTO "%s" tiene que ser numerico' % (sheet.cell(r, 4).value))
+
+                if sheet.cell_type(r, 5) != xlrd.XL_CELL_TEXT:
+                    errores.append('* LLAVE "%s" tiene que ser texto' % (sheet.cell(r, 5).value))
+            print 'codigosssssssss-----------------------'
+            for s in range(1, sheet.nrows):
+
+                if errores:
+                    for err in errores:
+                        messages.error(request, err)
+                        # messages.error(request, ', '.join([str(x) for x in errores]))
+                    return render_to_response(
+                    'config/upload_validador.html',
+                    {
+                        'form': form,
+                    },
+                    context_instance=RequestContext(request))
+                else:
+                    fecha_venta = datetime.datetime.strptime(sheet.cell(s, 3).value, "%Y/%m/%d").strftime("%Y-%m-%d")
+                    cod_control = codigoControl(sheet.cell(s, 5).value, sheet.cell(s, 0).value, sheet.cell(s, 1).value, sheet.cell(s, 2).value, fecha_venta, sheet.cell(s, 4).value)
+
+                    print 'el codigo en venta', cod_control
+                    return render_to_response(
+                        'config/upload_validador.html',
+                        {
+                            'form': form,
+                            'generado': True
+                        },
+                        context_instance=RequestContext(request))
+
+            messages.success(request, "Los datos se importaron correctamente")
+
+
+                # return HttpResponseRedirect(reverse_lazy('listar_item'))
+
+            # except Exception, e:
+            #     messages.error(request, e)
+
+
+    else:
+        form = UploadFileForm()
+    return render_to_response(
+        'config/upload_validador.html',
+        {
+            'form': form,
+        },
+        context_instance=RequestContext(request))

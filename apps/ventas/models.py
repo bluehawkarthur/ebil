@@ -32,6 +32,7 @@ class Venta(models.Model):
     nro_nota = models.BigIntegerField(null=True, blank=True)
     sucursal = models.ForeignKey(Sucursal, null=True, blank=True)
     actividad = models.CharField(max_length=200, null=True, blank=True)
+    nro_baja = models.BigIntegerField(null=True, blank=True)
     # categoria = models.CharField(max_length=50)
     # movimiento = models.CharField(max_length=100)
 

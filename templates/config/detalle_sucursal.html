@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Detalla Sucursal</h3>
+        <div class="row">
+          {% csrf_token %} 
+
+          <div class="row">
+            <div class="input-field col s6 has-error">
+              <div class="input-field col s6 has-error">
+              <input disabled type="text" value="{{sucursal.nombre_sucursal}}">
+                <label for="emails">nombre_sucursal</label>
+              </div>
+            </div>
+
+            <div class="input-field col s6 has-error">
+             <div class="input-field col s6 has-error">
+             <input disabled type="text" value="{{sucursal.nro_sucursal}}">
+              <label for="emails">nro_sucursal</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{sucursal.direccion}}">
+              <label for="emails">direccion</label>
+            </div>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{sucursal.telefono2}}">
+            <label for="emails">telefono2</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="input-field col s6 has-error">
+            <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{sucursal.telefono3}}">
+              <label for="emails">telefono3</label>
+            </div>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{sucursal.departamento}}">
+            <label for="emails">departamento</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="input-field col s6 has-error">
+            <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{sucursal.municipios}}">
+              <label for="emails">municipios</label>
+            </div>
+          </div>
+      </div>
+
+  </div>
+<div class="row">                   
+  <div class="col s12 m6 l6 center-align">
+    <a href="/listarSucursal" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+    <p>
+    </p>
+  </div>
+</div>
+</div>
+
+</div>
+</form>
+</div>
+</section>
+{% endblock %}
+

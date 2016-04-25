@@ -209,11 +209,58 @@ def ventaCrear(request):
                         messages.error(request, 'Registre sus dosificaciones para que pueda realizar sus facturaciones')
 
             elif proceso['movimiento'] == 'baja':
+
+                venta_data = Venta.objects.filter(empresa=request.user.empresa).exclude(nro_baja__isnull=True).last()
+
+                if venta_data:
+                    nro = venta_data.nro_baja
+                    if nro is None:
+                        nro = 0
+                else:
+                    nro = 0
+
+                crearVenta = Venta(
+                    nit=0,
+                    razon_social='baja',
+                    total=total,
+                    fecha=proceso['fecha'],
+                    tipo_compra=proceso['tipo_compra'],
+                    cantidad_dias=proceso['dias'],
+                    descuento=proceso['descuento'],
+                    recargo=proceso['recargo'],
+                    ice=proceso['ice'],
+                    excentos=proceso['excentos'],
+                    tipo_descuento=proceso['tipo_descuento'],
+                    tipo_recargo=proceso['tipo_recargo'],
+                    empresa=request.user.empresa,
+                    tipo_movimiento=proceso['movimiento'],
+                    sucursal=Sucursal.objects.get(id=proceso['sucursal']),
+                    nro_baja=nro+1,
+                )
+                crearVenta.save()
+
                 for k in proceso['producto']:
                     item = Item.objects.filter(id=k['pk'])
                     cantidad_total = item[0].cantidad - int(k['cantidad'])
                     print cantidad_total
                     item.update(cantidad=cantidad_total, fecha_transaccion=proceso['fecha'])
+
+                    crearDetalle = DetalleVenta(
+                        venta=crearVenta,
+                        item=Item.objects.get(id=k['pk']),
+                        cantidad=int(k['cantidad']),
+                        precio_unitario=item[0].precio_unitario,
+                        subtotal=decimal.Decimal(k['subtotal']),
+                        descuento=decimal.Decimal(k['descuentos']),
+                        recargo=decimal.Decimal(k['recargos']),
+                        ice=decimal.Decimal(k['ice']),
+                        excentos=decimal.Decimal(k['excentos']),
+                        scf=decimal.Decimal(k['sdf']),
+                        tipo_descuento=k['tipo_descuento'],
+                        tipo_recargo=k['tipo_recargo'],
+
+                    )
+
                     crearMovimiento = Movimiento(
                         cantidad=int(k['cantidad']),
                         precio_unitario=item[0].precio_unitario,
@@ -223,8 +270,9 @@ def ventaCrear(request):
                         item=Item.objects.get(id=k['pk']),
                         empresa=request.user.empresa,
                     )
+                    crearDetalle.save()
                     crearMovimiento.save()
-                return HttpResponseRedirect(reverse('registrarventas'))
+                return render('ventas/venta.html', {'form': form, 'popup': True, 'pk': crearVenta.pk, 'sucursal': sucursal, 'url': '/detalle_ventabaja/'}, context_instance=ctx(request))
 
             elif proceso['movimiento'] == 'proforma':
 
@@ -459,6 +507,37 @@ def detalleVentaNota(request, pk):
     }
 
     return render_to_pdf('reportes/rep_detalleventanota.html', data)
+
+
+def detalleVentaBaja(request, pk):
+    venta = Venta.objects.filter(id=pk)
+    detalle = DetalleVenta.objects.filter(venta=venta)
+
+    vd = []
+    scf = 0
+    for d in detalle:
+        scf = scf + d.scf
+        vd.append(d)
+
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+    
+    data = {
+        'nit': venta[0].nit,
+        'nro_baja': venta[0].nro_baja,
+        'razon_social': venta[0].razon_social,
+        'fecha': venta[0].fecha,
+        'tipo_compra': venta[0].tipo_compra,
+        'total': venta[0].total,
+        'detalle': vd,
+        'formato': formato,
+        'fecha_limite': venta[0].fecha_limite,
+        'empresa': request.user.get_empresa()
+
+    }
+
+    return render_to_pdf('reportes/rep_detalleventabaja.html', data)
 
 # def detalleVentarollo(request, pk):
 #     print pk

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+<h1>Delete Bancarizacion</h1>
+<p>Are you sure you want to delete the bancarizacion {{ bancarizacion }}?</p>
+<form action="{% url "bancarizacion-delete" pk=bancarizacion.id %}" method="POST">
+{% csrf_token %}
+<input type="submit" value="Yes, delete." />
+<a href="{% url "Categoria-list" %}">No, cancel.</a>
+</form>
+
+{% endblock content %}
+

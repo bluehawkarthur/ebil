@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Detalla Bancarizacion</h3>
+        <div class="row">
+          {% csrf_token %} 
+
+          <div class="row">
+            <div class="input-field col s6 has-error">
+              <input disabled type="text" value="{{bancarizacion.compra_fecha}}">
+              <label for="emails">Compra fecha</label>
+            </div>
+
+            <div class="input-field col s6 has-error">
+             <input disabled type="text" value="{{bancarizacion.venta_fecha}}">
+              <label for="emails">Venta Fecha</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.modal_transacc}}">
+              <label for="emails">Modal transaccion</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.nro_d_cta_doc_de_pago}}">
+            <label for="emails">nro de cta de documento pago</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.fecha_fact_due_fec_doc}}">
+              <label for="emails">fecha_fact_due_fec_doc</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.monto_pagado_en_doc_d_pago}}">
+            <label for="emails">monto_pagado_en_doc_d_pago</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.tipo_transaccion}}">
+              <label for="emails">tipo_transaccion</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.monto_acumulado}}">
+            <label for="emails">monto_acumulado</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.nro_d_fact_due_nro_doc}}">
+              <label for="emails">nro_d_fact_due_nro_doc</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.nit_entidad_financiera}}">
+            <label for="emails">nit_entidad_financiera</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.monto_fact_monto_doc}}">
+              <label for="emails">monto_fact_monto_doc</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.nit_entidad_financiera}}">
+            <label for="emails">nit_entidad_financiera</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.monto_fact_monto_doc}}">
+              <label for="emails">monto_fact_monto_doc</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.nro_d_docment_pago}}">
+            <label for="emails">nro_d_docment_pago</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.nro_d_autoriza_de_fect}}">
+              <label for="emails">nro_d_autoriza_de_fect</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.tipo_d_documet}}">
+            <label for="emails">tipo_d_documet</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.nit_ci_cliente}}">
+              <label for="emails">nit_ci_cliente</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancarizacion.fecha_d_document_pago}}">
+            <label for="emails">fecha_d_document_pago</label>
+        </div>
+      </div>
+       <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancarizacion.razon_social_cliente}}">
+              <label for="emails">razon_social_cliente</label>
+          </div>
+      </div>
+
+
+  </div>
+<div class="row">                   
+  <div class="col s12 m6 l6 center-align">
+    <a href="/listar_Bancarizacion" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+    <p>
+    </p>
+  </div>
+</div>
+</div>
+
+</div>
+</form>
+</div>
+</section>
+{% endblock %}
+

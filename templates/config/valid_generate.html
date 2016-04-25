@@ -1,0 +1,46 @@
+
+
+
+{% extends "base.html" %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+<section id="content">
+  <div class="row">
+
+  	<form class="col s12 m12 l8 offset-l2" action="" enctype="multipart/form-data"  method="post">
+  		<div class="card-panel">
+        {% csrf_token %}
+		<h4 class="header2">Importar datos en excel</h4>
+        <div class="input-field col s12 has-error"> 
+	      
+				<!-- Target -->
+		<input id="foo" value="https://github.com/zenorocha/clipboard.js.git">
+
+		<!-- Trigger -->
+		<button class="btn" data-clipboard-target="#foo">
+		    <img src="assets/clippy.svg" alt="Copy to clipboard">
+		</button>
+	    </div>
+
+        <div class="row">  
+	        <div class="input-field col s6">
+	          <a href="/listar_item" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+	        </div>                 
+	      <div class="input-field col s6">
+	        
+
+	        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+	          <i class="mdi-content-send right"></i>
+	        </button>
+	      </div> 
+        </div>
+        </div>
+    </form>
+
+  </div>
+</section>
+{% endblock content %}
+

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+
+{% block content %}
+
+<section id="content">
+  <div id="chart-dashboard">  
+    <div class="container">
+        <div class="row">
+          <div class="col s12 m2">
+            <p>
+                <a href="/crear_actividad/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+              
+            </p>
+          </div>
+        </div>
+
+        <table class="responsive-table hoverable">
+          <thead>
+            <tr>
+              <th data-field="">actividad</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for acti in Actividad %}
+            <tr>
+              <td>{{ acti.actividad }}</td>
+              
+             <td>
+
+                <a href="/detalle_actividad/{{ acti.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
+
+                <a href="/edit_actividad/{{ acti.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+                
+
+                <a href="#modal{{acti.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+
+                <div id="modal{{acti.id}}" class="modal teal">
+                  <div class="modal-content">
+                    <p class="img-dashboard">Esta seguro que quiere eliminar "{{acti.actividad1}}"</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+                    <a href="/delete_activadad/{{acti.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      
+        {% include "_pagination.html" %}
+      
+    </div>
+  </div>
+</section>
+{% endblock content %}

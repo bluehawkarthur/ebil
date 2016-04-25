@@ -19,7 +19,7 @@ class Sucursal(models.Model):
 
 class Actividad(models.Model):
 	actividad = models.CharField(max_length=100)
-	empresa = models.OneToOneField(Personajuridica, null=True, blank=True)
+	empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.actividad

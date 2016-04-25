@@ -1,0 +1,4 @@
+|compra_fecha|venta_fecha|modal_transacc|nro_d_cta_doc_de_pago|fecha_fact_due_fec_doc|monto_pagado_en_doc_d_pago|tipo_transaccion|monto_acumulado|nro_d_fact_due_nro_doc|nit_entidad_financiera|monto_fact_monto_doc|nro_d_docment_pago|nro_d_autoriza_de_fect|tipo_d_documet|nit_ci_cliente|fecha_d_document_pago|razon_social_cliente|
+{% for ban in bancarizacion %}
+|{{ban.compra_fecha}}|{{ban.venta_fecha}}|{{ban.modal_transacc}}|{{ban.nro_d_cta_doc_de_pago}}|{{ban.fecha_fact_due_fec_doc}}|{{ban.monto_pagado_en_doc_d_pago}}|{{ban.tipo_transaccion}}|{{ban.monto_acumulado}}|{{ban.nro_d_fact_due_nro_doc}}|{{ban.nit_entidad_financiera}}|{{ban.monto_fact_monto_doc}}|{{ban.nro_d_docment_pago}}|{{ban.nro_d_autoriza_de_fect}}|{{ban.tipo_d_documet}}|{{ban.nit_ci_cliente}}|{{ban.fecha_d_document_pago}}|{{ban.razon_social_cliente}}|
+{% endfor %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Ebil
+{% endblock titulo %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Actividad</h3>
+          {% csrf_token %} 
+            <div class="row">
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.actividad|removetags:'ul li' }}</span>
+                {{ form.actividad|add_error_class:"invalid" }}
+                <label for="emails">{{ form.actividad.label }}</label>
+              </div>
+
+            </div>
+
+                
+        <div class="row">  
+        <div class="input-field col s6">
+          <a href="/listar_actividad" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+          <div class="input-field col s6">
+            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+              <i class="mdi-content-send right"></i>
+            </button>
+          </div> 
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+ {% endblock %}
+
+
+ 

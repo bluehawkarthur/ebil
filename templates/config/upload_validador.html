@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+<section id="content">
+  <div class="row">
+
+  	<form class="col s12 m12 l8 offset-l2" action="" enctype="multipart/form-data"  method="post">
+  		<div class="card-panel">
+        {% csrf_token %}
+		<h4 class="header2">Importar datos en excel</h4>
+        <div class="file-field input-field col s12 has-error"> 
+	        <div class="btn btn-file">
+
+	          <span>{{ form.file.label }}</span>
+	          {{ form.file|add_error_class:"invalid" }}  
+				
+	        </div>
+
+	        <!-- <div id="im"></div> -->
+	        <div class="file-path-wrapper">
+	          <input class="file-path validate" type="text" placeholder="Por favor, sube un archivo .xls">
+	          <span class="help-block-file">
+	          {{ form.errors.file|removetags:'ul li' }}
+	          {{ form.non_field_errors|removetags:'ul li'}}
+
+	          </span>
+
+	        </div>
+	      </div>
+
+        <div class="row">  
+	        <div class="input-field col s6">
+	          <a href="/listar_item" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+	        </div>                 
+	      <div class="input-field col s6">
+	        
+
+	        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+	          <i class="mdi-content-send right"></i>
+	        </button>
+	      </div> 
+        </div>
+        </div>
+    </form>
+
+    {% if generado %}
+    <div class="col s12 m12 l8 offset-l2" >
+  		<div class="card-panel">
+		<h4 class="header2">Importar datos en excel</h4>
+        <div class="row">  
+        <div class="input-field col s12 has-error"> 
+	      
+				<!-- Target -->
+		<input id="foo" value="https://github.com/zenorocha/clipboard.js.git">
+
+		<!-- Trigger -->
+		<button class="btn tooltipped" id="tooltip" data-clipboard-action="cut" data-clipboard-target="#foo">
+		    <img src="assets/clippy.svg" alt="Copy to clipboard">
+		</button>
+	    </div>
+
+	                         
+	      
+        </div>
+        </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock content %}
+
+{% block js %}
+  {% load staticfiles %}
+  <script src="{% static "js/clipboard.js"%}"></script>
+  <script>
+    var clipboard = new Clipboard('.btn');
+    var anchorElement = $('#tooltip');
+    clipboard.on('success', function(e) {
+        console.log(e);
+        // anchorElement.attr('data-tooltip', 'New tooltip value');
+        // anchorElement.tooltip();
+        $("#tooltip").trigger("mouseenter.tooltip");
+
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+    </script>
+  
+{% endblock js %}
+

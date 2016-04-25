@@ -22,7 +22,9 @@
                            <li><a href="/edit_alamacen_campos" class="cyan-text">Almacenes</a></li>
                            <li><a href="/edit_proveedcamps" class="cyan-text">Proveedores</a></li>
                            <li><a href="/edit_clientcamp" class="cyan-text">Clientes</a></li>
-                            <li><a href="/edit_factCamp" class="cyan-text">Factura</a></li>
+                           <li><a href="/edit_factCamp" class="cyan-text">Factura</a></li>
+                           <li><a href="/listarSucursal" class="cyan-text">Sucursales</a></li>
+                           <li><a href="/listar_actividad" class="cyan-text">Actividades</a></li>
 
                         </ul>
                     </li>
@@ -94,14 +96,14 @@
                     </li>
                     <li>
                         {% if bancarizacion_role.operar %}
-                        <a class="dropdown-menu cyan-text" href="#!" data-activates="Tablesdropdown">
+                        <a class=" cyan-text" href="/listar_Bancarizacion" >
                             <i class="mdi-action-account-balance-wallet"></i>
-                            <span>Bancarizacion<i class="mdi-navigation-arrow-drop-down right"></i></span>
+                            <span>Bancarizacion</span>
                         </a>
                         {% else %}
-                        <a class="cyan-disable" href="#!" data-activates="Tablesdropdown">
+                        <a class="cyan-disable" href="#!">
                             <i class="mdi-action-account-balance-wallet"></i>
-                            <span>Bancarizacion<i class="mdi-navigation-arrow-drop-down right"></i></span>
+                            <span>Bancarizacion</span>
                         </a>
                         {% endif %}
                         <ul id="Tablesdropdown" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">

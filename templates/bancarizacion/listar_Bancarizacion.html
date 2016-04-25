@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+<section id="content">
+<div id="chart-dashboard">  
+
+<div class="container">
+<div class="row">
+    <h3 class="header2">Bancarizacions</h3>
+  <div class="col s12 m2">
+
+    <p>
+      <a href="/crear_bancar/" class="btn waves-effect teal waves-light"><i class="mdi-content-add left"></i>Agregar</a>
+    </p>
+  </div>
+  <div class="col s12 m2">
+    <p>
+      <a href="/libro_bancar/" class="btn waves-effect light-green waves-light"><i class="mdi-file-file-upload left"></i>importar excel</a>
+
+    </p>
+  </div>
+</div>
+
+
+<div class="row">
+<div class="col s12 m8 l12">
+<table class="responsive-table">
+  <thead>
+    <tr>
+        <th data-field="name">compra_fecha</th>
+        <th data-field="name">venta_fecha</th>
+        <th data-field="price">modal_transacc</th>
+        <th data-field="total">nro_d_cta_doc_de_pago</th>
+        <th data-field="status">fecha_fact_due_fec_doc</th>
+        <th data-field="status">Acciones</th>
+      
+    </tr>
+  </thead>
+    <tbody>
+    {% for bancari in object_list %}
+    <tr>
+      <td>{{ bancari.compra_fecha }}</td>
+      <td>{{ bancari.venta_fecha }}</td>
+      <td>{{ bancari.modal_transacc }}</td>
+      <td>{{ bancari.nro_d_cta_doc_de_pago }}</td>
+      <td>{{ bancari.fecha_fact_due_fec_doc }}</td>
+      <td>
+        <a href="/detalle_bancarizacion/{{ bancari.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
+
+        <a href="/edit_bancarizacion/{{ bancari.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+
+        <a href="#modal{{bancari.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>
+        
+        <div id="modal{{bancari.id}}" class="modal teal">
+          <div class="modal-content">
+            <p class="img-dashboard">Esta seguro que quiere eliminar "{{bancari.compra_fecha}}"</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+            <a href="/delete_bancarizacion/{{bancari.id}}" class="waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+   <div class="input-field col s12 m6 l6">
+      <a class="btn btn-floating-action btn-primary cyan print" href="javascript:void(0);" onclick="javascript:window.print();" id="print"><i class="mdi-action-print left"></i> imprimir</a>
+    </div>
+</div>
+{% include "_pagination.html" %}
+</div>
+</div>
+</section>
+{% endblock content %}

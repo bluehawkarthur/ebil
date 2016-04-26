@@ -10,8 +10,10 @@
   	<form class="col s12 m12 l8 offset-l2" action="" enctype="multipart/form-data"  method="post">
   		<div class="card-panel">
         {% csrf_token %}
-		<h4 class="header2">Importar datos en excel</h4>
+		<h4 class="header2">Validacion de codigo de control</h4>
+		<a href="{{ MEDIA_URL }}ejemplos/validador_prueba.xls">Descargar ejemplo</a>
         <div class="file-field input-field col s12 has-error"> 
+
 	        <div class="btn btn-file">
 
 	          <span>{{ form.file.label }}</span>
@@ -33,12 +35,12 @@
 
         <div class="row">  
 	        <div class="input-field col s6">
-	          <a href="/listar_item" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+	          
 	        </div>                 
 	      <div class="input-field col s6">
 	        
 
-	        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
+	        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Generar
 	          <i class="mdi-content-send right"></i>
 	        </button>
 	      </div> 
@@ -49,22 +51,59 @@
     {% if generado %}
     <div class="col s12 m12 l8 offset-l2" >
   		<div class="card-panel">
-		<h4 class="header2">Importar datos en excel</h4>
-        <div class="row">  
-        <div class="input-field col s12 has-error"> 
-	      
-				<!-- Target -->
-		<input id="foo" value="https://github.com/zenorocha/clipboard.js.git">
+		<h4 class="header2">Codigo de control generado</h4>
+        {% for c in codigos%} 
+	        <div class="row">
+	        <div class="input-field col s1 has-error">
+	        <label for="">{{ forloop.counter }}</label>
+	        </div> 
+	        <div class="input-field col s6 has-error"> 
+		      
+					<!-- Target -->
+			<input type="text" id="c{{ forloop.counter }}" value="{{c}}">
 
-		<!-- Trigger -->
-		<button class="btn tooltipped" id="tooltip" data-clipboard-action="cut" data-clipboard-target="#foo">
-		    <img src="assets/clippy.svg" alt="Copy to clipboard">
-		</button>
-	    </div>
+			<!-- Trigger -->
+			
+		    </div>
+		    <div class="input-field col s4 has-error">
+		    <button class="btn yellow darken-4" id="b{{ forloop.counter }}" data-clipboard-target="#c{{ forloop.counter }}">
+				Copiar
+				<i class="mdi-action-assignment-return left"></i>
+			    <!-- <img src="assets/clippy.svg" alt="Copy to clipboard"> -->
+			</button>
+		    </div> 
+		                         
+		      
+	        </div>
+	        {% block js %}
+			  
+			  <script>
+			    var clipboard = new Clipboard('#b{{ forloop.counter }}');
 
-	                         
-	      
-        </div>
+			    clipboard.on('success', function(e) {
+			        console.log(e);
+			        // anchorElement.attr('data-tooltip', 'New tooltip value');
+			        // anchorElement.tooltip();
+			        // e.clearSelection();
+				     $("#b{{ forloop.counter }}").removeClass("yellow darken-4").addClass( "light-green" );
+				     $("#b{{ forloop.counter }}").html('Copiado <i class="mdi-action-assignment left"></i>');
+				    window.setTimeout(function() {
+				    	$("#b{{ forloop.counter }}").removeClass("light-green").addClass( "yellow darken-4" );
+				        $("#b{{ forloop.counter }}").html('Copiar <i class="mdi-action-assignment-return left"></i>');
+
+				    }, 2000);
+
+			    });
+
+			    clipboard.on('error', function(e) {
+			        console.log(e);
+			    });
+			    </script>
+			  
+			{% endblock js %}
+
+		{% endfor %}
+		
         </div>
     </div>
     {% endif %}
@@ -73,24 +112,5 @@
 </section>
 {% endblock content %}
 
-{% block js %}
-  {% load staticfiles %}
-  <script src="{% static "js/clipboard.js"%}"></script>
-  <script>
-    var clipboard = new Clipboard('.btn');
-    var anchorElement = $('#tooltip');
-    clipboard.on('success', function(e) {
-        console.log(e);
-        // anchorElement.attr('data-tooltip', 'New tooltip value');
-        // anchorElement.tooltip();
-        $("#tooltip").trigger("mouseenter.tooltip");
 
-    });
-
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-    </script>
-  
-{% endblock js %}
 

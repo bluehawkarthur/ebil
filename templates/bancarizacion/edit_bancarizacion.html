@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col s12 m12 l8 offset-l2" id="encabezado" method="POST" enctype='multipart/form-data'>
       <div class="card-panel">
-        <h4 class="header2">Bancarizavion</h4>
+         <h3 class="header2">Bancarizacion Compras</h3>
         <div class="row">
           <form class="col s12" method="post">
             {% csrf_token %}
@@ -23,111 +23,132 @@
                 {{ form.compra_fecha|add_class:"datepicker"|add_error_class:"invalid"}}
                 <label for="">{{ form.compra_fecha.label }}</label>
               </div>
-
-              <div class="input-field col s6 has-error input-venta_fecha">
-                <span class="help-block">{{ form.errors.venta_fecha|removetags:'ul li' }}</span>
-                {{ form.venta_fecha|add_class:"datepicker"|add_error_class:"invalid"}}
-                <label for="">{{ form.venta_fecha.label }}</label>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.modalidad_d_la_transaccion|removetags:'ul li' }}</span>
+                  <select name="modalidad_d_la_transaccion" id="" class="validate">
+                    <option value="selecc">selecc</option>
+                    <option value="contado">Contado</option>
+                    <option value="crédito">Crédito</option>
+                  </select>
+                <label for="emails">{{ form.modalidad_d_la_transaccion.label }}</label>
               </div>
             </div>
 
             <div class="row">
-              <div class="input-field col s6 has-error input-modal_transacc">
-                <span class="help-block">{{ form.errors.modal_transacc|removetags:'ul li' }}</span>
-              {{ form.modal_transacc|add_error_class:"invalid" }}
-                <label for="email">{{ form.modal_transacc.label }}</label>
+              <div class="input-field col s6 has-erro input-nro_de_cta_doc_de_pago">
+                <span class="help-block">{{ form.errors.nro_de_cta_doc_de_pago|removetags:'ul li' }}</span>
+              {{ form.nro_de_cta_doc_de_pago|add_error_class:"invalid" }}
+                <label for="">{{ form.nro_de_cta_doc_de_pago.label }}</label>
               </div>
-              <div class="input-field col s6 has-erro input-nro_d_cta_doc_de_pago">
-                <span class="help-block">{{ form.errors.nro_d_cta_doc_de_pago|removetags:'ul li' }}</span>
-              {{ form.nro_d_cta_doc_de_pago|add_error_class:"invalid" }}
-                <label for="">{{ form.nro_d_cta_doc_de_pago.label }}</label>
-                
+              <div class="input-field col s6 has-error input-fecha_fact_dui_fecha_doc">
+                <span class="help-block">{{ form.errors.fecha_fact_dui_fecha_doc|removetags:'ul li' }}</span>
+                {{ form.fecha_fact_dui_fecha_doc|add_class:"datepicker"|add_error_class:"invalid"}}
+                <label for="">{{ form.fecha_fact_dui_fecha_doc.label }}</label>
               </div>
             </div>
-            <div class="row">
-              <div class="input-field col s6 has-error input-fecha_fact_due_fec_doc">
-                <span class="help-block">{{ form.errors.fecha_fact_due_fec_doc|removetags:'ul li' }}</span>
-                {{ form.fecha_fact_due_fec_doc|add_class:"datepicker"|add_error_class:"invalid"}}
-                <label for="">{{ form.fecha_fact_due_fec_doc.label }}</label>
-              </div>
 
+            <div class="row">
               <div class="input-field col s6 has-error input-monto_pagado_en_doc_d_pago">
                 <span class="help-block">{{ form.errors.monto_pagado_en_doc_d_pago|removetags:'ul li' }}</span>
-              {{ form.monto_pagado_en_doc_d_pago|add_error_class:"invalid" }}
-                <label for="">{{ form.monto_pagado_en_doc_d_pago.label }}</label>
+                {{ form.monto_pagado_en_doc_d_pago|add_error_class:"invalid" }}
+                <label for="">{{ form.monto_pagado_en_doc_d_pago.label }}</label>  
+              </div>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.tipo_transaccion|removetags:'ul li' }}</span>
+                  <select name="tipo_transaccion" id="" class="validate">
+                    <option value="selecc">selecc</option>
+                    <option value="ventas">Ventas</option>
+                    <option value="exportaciones">Exportaciones</option>
+                    <option value="otros">Otros</option>
+                  </select>
+                <label for="emails">{{ form.tipo_transaccion.label }}</label>
               </div>
             </div>
+
             <div class="row">
-              <div class="input-field col s6 has-error input-tipo_transaccion">
-                <span class="help-block">{{ form.errors.tipo_transaccion|removetags:'ul li' }}</span>
-                {{ form.tipo_transaccion|add_error_class:"invalid" }}
-                <label for="">{{ form.tipo_transaccion.label }}</label>
-              </div>
               <div class="input-field col s6 has-error input-monto_acumulado">
                 <span class="help-block">{{ form.errors.monto_acumulado|removetags:'ul li' }}</span>
                 {{ form.monto_acumulado|add_error_class:"invalid" }}
-                <label for="">{{ form.monto_acumulado.label }}</label>  
+                <label for="">{{ form.monto_acumulado.label }}</label>
               </div>
-            </div>
-
-
-            <div class="row">
-              <div class="input-field col s6 has-error input-nro_d_fact_due_nro_doc">
-                <span class="help-block">{{ form.errors.nro_d_fact_due_nro_doc|removetags:'ul li' }}</span>
-                {{ form.nro_d_fact_due_nro_doc|add_error_class:"invalid" }}
-                <label for="">{{ form.nro_d_fact_due_nro_doc.label }}</label>
-              </div>
-              <div class="input-field col s6 has-error input-nit_entidad_financiera">
-                <span class="help-block">{{ form.errors.nit_entidad_financiera|removetags:'ul li' }}</span>
-                {{ form.nit_entidad_financiera|add_error_class:"invalid" }}
-                <label for="">{{ form.nit_entidad_financiera.label }}</label>
+              <div class="input-field col s6 has-error input-nit_proveedor">
+                <span class="help-block">{{ form.errors.nit_proveedor|removetags:'ul li' }}</span>
+                {{ form.nit_proveedor|add_error_class:"invalid" }}
+                <label for="">{{ form.nit_proveedor.label }}</label>
               </div>
             </div>
 
             <div class="row">
-              <div class="input-field col s6 has-error input-monto_fact_monto_doc">
-                <span class="help-block">{{ form.errors.monto_fact_monto_doc|removetags:'ul li' }}</span>
-                {{ form.monto_fact_monto_doc|add_error_class:"invalid" }}
-                <label for="">{{ form.monto_fact_monto_doc.label }}</label>
-              </div>
 
-              <div class="input-field col s6 has-error input-nro_d_docment_pago">
-                <span class="help-block">{{ form.errors.nro_d_docment_pago|removetags:'ul li' }}</span>
-                {{ form.nro_d_docment_pago|add_error_class:"invalid" }}
-                <label for="">{{ form.nro_d_docment_pago.label }}</label>
+              <div class="input-field col s6 has-error input-nit_entidad_inanciera">
+                <span class="help-block">{{ form.errors.nit_entidad_inanciera|removetags:'ul li' }}</span>
+                {{ form.nit_entidad_inanciera|add_error_class:"invalid" }}
+                <label for="">{{ form.nit_entidad_inanciera.label }}</label>
               </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6 has-error input-nro_d_autoriza_de_fect">
-                <span class="help-block">{{ form.errors.nro_d_autoriza_de_fect|removetags:'ul li' }}</span>
-                {{ form.nro_d_autoriza_de_fect|add_error_class:"invalid" }}
-                <label for="">{{ form.nro_d_autoriza_de_fect.label }}</label>
-              </div>
-              <div class="input-field col s6 has-error input-tipo_d_documet">
-                <span class="help-block">{{ form.errors.tipo_d_documet|removetags:'ul li' }}</span>
-                {{ form.tipo_d_documet|add_error_class:"invalid" }}
-                <label for="">{{ form.tipo_d_documet.label }}</label>
+              <div class="input-field col s6 has-error input-razon_social_proveedor">
+                <span class="help-block">{{ form.errors.razon_social_proveedor|removetags:'ul li' }}</span>
+                {{ form.razon_social_proveedor|add_error_class:"invalid" }}
+                <label for="">{{ form.razon_social_proveedor.label }}</label>
               </div>
             </div>
 
             <div class="row">
-              <div class="input-field col s6 has-error input-nit_ci_cliente">
-                <span class="help-block">{{ form.errors.nit_ci_cliente|removetags:'ul li' }}</span>
-                {{ form.nit_ci_cliente|add_error_class:"invalid" }}
-                <label for="">{{ form.nit_ci_cliente.label }}</label>
+              <div class="input-field col s6 has-error input-nro_d_documento_de_pago">
+                <span class="help-block">{{ form.errors.nro_d_documento_de_pago|removetags:'ul li' }}</span>
+                {{ form.nro_d_documento_de_pago|add_error_class:"invalid" }}
+                <label for="">{{ form.nro_d_documento_de_pago.label }}</label>
               </div>
-
-              <div class="input-field col s6 has-error input-fecha_d_document_pago">
-                <span class="help-block">{{ form.errors.fecha_d_document_pago|removetags:'ul li' }}</span>
-                {{ form.fecha_d_document_pago|add_class:"datepicker"|add_error_class:"invalid"}}
-                <label for="">{{ form.fecha_d_document_pago.label }}</label>
+              <div class="input-field col s6 has-error input-nro_d_fact_dui_nro_doc">
+                <span class="help-block">{{ form.errors.nro_d_fact_dui_nro_doc|removetags:'ul li' }}</span>
+                {{ form.nro_d_fact_dui_nro_doc|add_error_class:"invalid" }}
+                <label for="">{{ form.nro_d_fact_dui_nro_doc.label }}</label>
               </div>
             </div>
+
             <div class="row">
-              <div class="input-field col s6 has-error input-razon_social_cliente">
-                <span class="help-block">{{ form.errors.razon_social_cliente|removetags:'ul li' }}</span>
-                {{ form.razon_social_cliente|add_error_class:"invalid" }}
-                <label for="">{{ form.razon_social_cliente.label }}</label>
+              <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.tipo_de_doc_d_pago|removetags:'ul li' }}</span>
+                  <select name="tipo_de_doc_d_pago" id="" class="validate">
+                    <option value="selecc">selecc</option>
+                    <option value="cheque-de-cualquier-naturaleza">Cheque de cualquier naturaleza</option>
+                    <option value="orden-de-transferencia">Orden de Transferencia</option>
+                    <option value="ordenes-de-transferencia-electrónica-de-fondos">Ordenes de transferencia electrónica de fondos</option>
+                    <option value="transferencia-detfondos">Transferencia de fondos</option>
+                    <option value="tarjeta-de-débito">Tarjeta de Débito</option>
+                    <option value="tarjeta-de-crédito">Tarjeta de Crédito</option>
+                    <option value="tarjeta-prepagada">Tarjeta Prepagada</option>
+                    <option value="depósito-en-cuenta">Depósito en cuenta.</option>
+                    <option value="cartas-de-crédito">Cartas de Crédito</option>
+                    <option value="otros">Otros</option>
+                  </select>
+                <label for="emails">{{ form.tipo_de_doc_d_pago.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error input-tipo_de_documento">
+                <span class="help-block">{{ form.errors.tipo_de_documento|removetags:'ul li' }}</span>
+                {{ form.tipo_de_documento|add_error_class:"invalid" }}
+                <label for="">{{ form.tipo_de_documento.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="input-field col s6 has-error input-monto_fact_monto_dui_monto_doc">
+                <span class="help-block">{{ form.errors.monto_fact_monto_dui_monto_doc|removetags:'ul li' }}</span>
+                {{ form.monto_fact_monto_dui_monto_doc|add_error_class:"invalid" }}
+                <label for="">{{ form.monto_fact_monto_dui_monto_doc.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error input-fecha_d_documento_d_pago">
+                <span class="help-block">{{ form.errors.fecha_d_documento_d_pago|removetags:'ul li' }}</span>
+                {{ form.fecha_d_documento_d_pago|add_class:"datepicker"|add_error_class:"invalid"}}
+                <label for="">{{ form.fecha_d_documento_d_pago.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6 has-error input-nro_de_aut_fact_dui_documento">
+                <span class="help-block">{{ form.errors.nro_de_aut_fact_dui_documento|removetags:'ul li' }}</span>
+                {{ form.nro_de_aut_fact_dui_documento|add_error_class:"invalid" }}
+                <label for="">{{ form.nro_de_aut_fact_dui_documento.label }}</label>
               </div>
             </div>
 

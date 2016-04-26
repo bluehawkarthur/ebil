@@ -1,4 +1,5 @@
 from django.contrib import admin
-from .models import Bancarizacion
+from .models import BancarizacionCompras, BancarizacionVentas
 # Register your models here.
-admin.site.register(Bancarizacion)
+admin.site.register(BancarizacionCompras)
+admin.site.register(BancarizacionVentas)

@@ -646,6 +646,7 @@ def import_validador(request):
                 if sheet.cell_type(r, 5) != xlrd.XL_CELL_TEXT:
                     errores.append('* LLAVE "%s" tiene que ser texto' % (sheet.cell(r, 5).value))
             print 'codigosssssssss-----------------------'
+            cod_c = []
             for s in range(1, sheet.nrows):
 
                 if errores:
@@ -661,15 +662,17 @@ def import_validador(request):
                 else:
                     fecha_venta = datetime.datetime.strptime(sheet.cell(s, 3).value, "%Y/%m/%d").strftime("%Y-%m-%d")
                     cod_control = codigoControl(sheet.cell(s, 5).value, sheet.cell(s, 0).value, sheet.cell(s, 1).value, sheet.cell(s, 2).value, fecha_venta, sheet.cell(s, 4).value)
-
+                    cod_c.append(cod_control)
                     print 'el codigo en venta', cod_control
-                    return render_to_response(
-                        'config/upload_validador.html',
-                        {
-                            'form': form,
-                            'generado': True
-                        },
-                        context_instance=RequestContext(request))
+            os.unlink(rute)
+            return render_to_response(
+                'config/upload_validador.html',
+                {
+                    'form': form,
+                    'generado': True,
+                    'codigos': cod_c
+                },
+                context_instance=RequestContext(request))
 
             messages.success(request, "Los datos se importaron correctamente")
 

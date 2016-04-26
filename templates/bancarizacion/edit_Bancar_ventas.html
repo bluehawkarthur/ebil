@@ -12,16 +12,16 @@
   <div class="row">
     <div class="col s12 m12 l8 offset-l2" id="encabezado" method="POST" enctype='multipart/form-data'>
       <div class="card-panel">
-         <h3 class="header2">Bancarizacion Compras</h3>
+        <h3 class="header2">Bancarizacion Ventas</h3>
         <div class="row">
           <form class="col s12" method="post">
             {% csrf_token %}
-          
+
             <div class="row">
-              <div class="input-field col s6 has-error input-compra_fecha">
-                <span class="help-block">{{ form.errors.compra_fecha|removetags:'ul li' }}</span>
-                {{ form.compra_fecha|add_class:"datepicker"|add_error_class:"invalid"}}
-                <label for="">{{ form.compra_fecha.label }}</label>
+              <div class="input-field col s6 has-error input-venta_fecha">
+                <span class="help-block">{{ form.errors.venta_fecha|removetags:'ul li' }}</span>
+                {{ form.venta_fecha|add_class:"datepicker"|add_error_class:"invalid"}}
+                <label for="">{{ form.venta_fecha.label }}</label>
               </div>
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.modalidad_d_la_transaccion|removetags:'ul li' }}</span>
@@ -57,9 +57,11 @@
                 <span class="help-block">{{ form.errors.tipo_transaccion|removetags:'ul li' }}</span>
                   <select name="tipo_transaccion" id="" class="validate">
                     <option value="selecc">selecc</option>
-                    <option value="ventas">Ventas</option>
-                    <option value="exportaciones">Exportaciones</option>
-                    <option value="otros">Otros</option>
+                    <option value="compra-con-factura">Compra con factura</option>
+                    <option value="declaración-única-de-importación-(DUI) ">Declaración única de importación (DUI) </option>
+                    <option value="servicios-desde-el-exterior">Servicios desde el exterior </option>
+                    <option value="retenciones">Retenciones</option>
+                    <option value="otros-egresos">Otros egresos</option>
                   </select>
                 <label for="emails">{{ form.tipo_transaccion.label }}</label>
               </div>
@@ -71,24 +73,24 @@
                 {{ form.monto_acumulado|add_error_class:"invalid" }}
                 <label for="">{{ form.monto_acumulado.label }}</label>
               </div>
-              <div class="input-field col s6 has-error input-nit_proveedor">
-                <span class="help-block">{{ form.errors.nit_proveedor|removetags:'ul li' }}</span>
-                {{ form.nit_proveedor|add_error_class:"invalid" }}
-                <label for="">{{ form.nit_proveedor.label }}</label>
+              <div class="input-field col s6 has-error input-nro_d_fact_dui_nro_doc">
+                <span class="help-block">{{ form.errors.nro_d_fact_dui_nro_doc|removetags:'ul li' }}</span>
+                {{ form.nro_d_fact_dui_nro_doc|add_error_class:"invalid" }}
+                <label for="">{{ form.nro_d_fact_dui_nro_doc.label }}</label>
               </div>
             </div>
 
             <div class="row">
-
               <div class="input-field col s6 has-error input-nit_entidad_inanciera">
                 <span class="help-block">{{ form.errors.nit_entidad_inanciera|removetags:'ul li' }}</span>
                 {{ form.nit_entidad_inanciera|add_error_class:"invalid" }}
                 <label for="">{{ form.nit_entidad_inanciera.label }}</label>
               </div>
-              <div class="input-field col s6 has-error input-razon_social_proveedor">
-                <span class="help-block">{{ form.errors.razon_social_proveedor|removetags:'ul li' }}</span>
-                {{ form.razon_social_proveedor|add_error_class:"invalid" }}
-                <label for="">{{ form.razon_social_proveedor.label }}</label>
+
+              <div class="input-field col s6 has-error input-monto_fact_monto_doc">
+                <span class="help-block">{{ form.errors.monto_fact_monto_doc|removetags:'ul li' }}</span>
+                {{ form.monto_fact_monto_doc|add_error_class:"invalid" }}
+                <label for="">{{ form.monto_fact_monto_doc.label }}</label>
               </div>
             </div>
 
@@ -98,6 +100,31 @@
                 {{ form.nro_d_documento_de_pago|add_error_class:"invalid" }}
                 <label for="">{{ form.nro_d_documento_de_pago.label }}</label>
               </div>
+              <div class="input-field col s6 has-error input-nro_de_auturizacion_d_fact">
+                <span class="help-block">{{ form.errors.nro_de_auturizacion_d_fact|removetags:'ul li' }}</span>
+                {{ form.nro_de_auturizacion_d_fact|add_error_class:"invalid" }}
+                <label for="">{{ form.nro_de_auturizacion_d_fact.label }}</label>
+              </div>
+            </div>
+
+            <div class="row">
+               <div class="input-field col s6 has-error">
+                <span class="help-block">{{ form.errors.tipo_de_doc_d_pago|removetags:'ul li' }}</span>
+                  <select name="tipo_de_doc_d_pago" id="" class="validate">
+                    <option value="selecc">selecc</option>
+                    <option value="cheque-de-cualquier-naturaleza">Cheque de cualquier naturaleza</option>
+                    <option value="orden-de-Transferencia">Orden de Transferencia</option>
+                    <option value="ordenes-de-transferencia-electrónica-de-fondos">Ordenes de transferencia electrónica de fondos</option>
+                    <option value="transferencia-de-fondos">Transferencia de fondos</option>
+                    <option value="tarjeta-de-débito">Tarjeta de Débito</option>
+                    <option value="tarjeta-de-crédito">Tarjeta de Crédito</option>
+                    <option value="parjeta-prepagada">Tarjeta Prepagada</option>
+                    <option value="depósito-en-cuenta">Depósito en cuenta</option>
+                    <option value="cartas-de-crédito">Cartas de Crédito</option>
+                    <option value="otros">Otros</option>
+                  </select>
+                <label for="emails">{{ form.tipo_de_doc_d_pago.label }}</label>
+              </div>
               <div class="input-field col s6 has-error input-nro_d_fact_dui_nro_doc">
                 <span class="help-block">{{ form.errors.nro_d_fact_dui_nro_doc|removetags:'ul li' }}</span>
                 {{ form.nro_d_fact_dui_nro_doc|add_error_class:"invalid" }}
@@ -106,55 +133,34 @@
             </div>
 
             <div class="row">
-              <div class="input-field col s6 has-error">
-                <span class="help-block">{{ form.errors.tipo_de_doc_d_pago|removetags:'ul li' }}</span>
-                  <select name="tipo_de_doc_d_pago" id="" class="validate">
-                    <option value="selecc">selecc</option>
-                    <option value="cheque-de-cualquier-naturaleza">Cheque de cualquier naturaleza</option>
-                    <option value="orden-de-transferencia">Orden de Transferencia</option>
-                    <option value="ordenes-de-transferencia-electrónica-de-fondos">Ordenes de transferencia electrónica de fondos</option>
-                    <option value="transferencia-detfondos">Transferencia de fondos</option>
-                    <option value="tarjeta-de-débito">Tarjeta de Débito</option>
-                    <option value="tarjeta-de-crédito">Tarjeta de Crédito</option>
-                    <option value="tarjeta-prepagada">Tarjeta Prepagada</option>
-                    <option value="depósito-en-cuenta">Depósito en cuenta.</option>
-                    <option value="cartas-de-crédito">Cartas de Crédito</option>
-                    <option value="otros">Otros</option>
-                  </select>
-                <label for="emails">{{ form.tipo_de_doc_d_pago.label }}</label>
-              </div>
               <div class="input-field col s6 has-error input-tipo_de_documento">
                 <span class="help-block">{{ form.errors.tipo_de_documento|removetags:'ul li' }}</span>
                 {{ form.tipo_de_documento|add_error_class:"invalid" }}
                 <label for="">{{ form.tipo_de_documento.label }}</label>
               </div>
+              <div class="input-field col s6 has-error input-nit_ci_d_cliente">
+                <span class="help-block">{{ form.errors.nit_ci_d_cliente|removetags:'ul li' }}</span>
+                {{ form.nit_ci_d_cliente|add_error_class:"invalid" }}
+                <label for="">{{ form.nit_ci_d_cliente.label }}</label>
+              </div>
             </div>
 
             <div class="row">
-
-              <div class="input-field col s6 has-error input-monto_fact_monto_dui_monto_doc">
-                <span class="help-block">{{ form.errors.monto_fact_monto_dui_monto_doc|removetags:'ul li' }}</span>
-                {{ form.monto_fact_monto_dui_monto_doc|add_error_class:"invalid" }}
-                <label for="">{{ form.monto_fact_monto_dui_monto_doc.label }}</label>
-              </div>
               <div class="input-field col s6 has-error input-fecha_d_documento_d_pago">
                 <span class="help-block">{{ form.errors.fecha_d_documento_d_pago|removetags:'ul li' }}</span>
                 {{ form.fecha_d_documento_d_pago|add_class:"datepicker"|add_error_class:"invalid"}}
                 <label for="">{{ form.fecha_d_documento_d_pago.label }}</label>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s6 has-error input-nro_de_aut_fact_dui_documento">
-                <span class="help-block">{{ form.errors.nro_de_aut_fact_dui_documento|removetags:'ul li' }}</span>
-                {{ form.nro_de_aut_fact_dui_documento|add_error_class:"invalid" }}
-                <label for="">{{ form.nro_de_aut_fact_dui_documento.label }}</label>
+              <div class="input-field col s6 has-error input-razon_social_cliente">
+                <span class="help-block">{{ form.errors.razon_social_cliente|removetags:'ul li' }}</span>
+                {{ form.razon_social_cliente|add_error_class:"invalid" }}
+                <label for="">{{ form.razon_social_cliente.label }}</label>
               </div>
             </div>
 
             <div class="row">  
             <div class="input-field col s6">
-              <a href="/listar_Bancarizacion" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+              <a href="/listar_Bancar_ventas" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
             </div>                 
               <div class="input-field col s6">
                 <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar

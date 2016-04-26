@@ -16,7 +16,7 @@
                               <div class="col s12 m3 l3">
                                 <div class="card">
                                     <div class="card-move-up green waves-effect waves-block waves-light cuadro-lateral">
-                                        {% if bancarizacion_role.operar %}
+                                        {% if configuracion_role.operar %}
                                         <a href="/config" class="linka">
                                         <div class="centrar">
                                             <i class="mdi-action-settings Large img-dashboard"></i>
@@ -238,9 +238,11 @@
                                 <div class="card">
                                     <div class="card-content green white-text cuadro-top waves-effect waves-block waves-light">
                                         {% if bancarizacion_role.operar %}
+                                        <a href="/listar_Bancar_ventas" class="linka">
                                         <div class="centrar2">
                                         <i class="mdi-action-account-balance-wallet Large"></i>
                                         </div>
+                                        </a>
                                         {% else %}
                                         <div class="centrar2">
                                         <i class="mdi-action-account-balance-wallet Large linka-disable"></i>

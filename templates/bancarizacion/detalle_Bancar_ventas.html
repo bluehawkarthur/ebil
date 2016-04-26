@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ebil
+{% endblock titulo %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section id="content">
+  <div class="row">
+    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+      <div class="card-panel">
+        <h3 class="header2">Detalla Bancarizacion Ventas</h3>
+        <div class="row">
+          {% csrf_token %} 
+
+          <div class="row">
+            <div class="input-field col s6 has-error">
+              <input disabled type="text" value="{{bancar_venat.venta_fecha}}">
+              <label for="emails">venta_fecha</label>
+            </div>
+            <div class="input-field col s6 has-error">
+             <input disabled type="text" value="{{bancar_venat.modalidad_d_la_transaccion}}">
+              <label for="emails">modalidad_d_la_transaccion</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.nro_de_cta_doc_de_pago}}">
+              <label for="emails">nro_de_cta_doc_de_pago</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancar_venat.fecha_fact_dui_fecha_doc}}">
+            <label for="emails">fecha_fact_dui_fecha_doc</label>
+        </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.monto_pagado_en_doc_d_pago}}">
+            <label for="emails">monto_pagado_en_doc_d_pago</label>
+          </div>
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.tipo_transaccion}}">
+            <label for="emails">tipo_transaccion</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.monto_acumulado}}">
+            <label for="emails">monto_acumulado</label>
+          </div>
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.nro_d_fact_dui_nro_doc}}">
+            <label for="emails">nro_d_fact_dui_nro_doc</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.nit_entidad_inanciera}}">
+            <label for="emails">nit_entidad_inanciera</label>
+          </div>
+
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.monto_fact_monto_doc}}">
+            <label for="emails">monto_fact_monto_doc</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.nro_d_documento_de_pago}}">
+              <label for="emails">nro_d_documento_de_pago</label>
+          </div>
+          <div class="input-field col s6 has-error">
+           <input disabled type="text" value="{{bancar_venat.nro_de_auturizacion_d_fact}}">
+            <label for="emails">nro_de_auturizacion_d_fact</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.tipo_de_doc_d_pago}}">
+              <label for="emails">tipo_de_doc_d_pago</label>
+          </div>
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.tipo_de_documento}}">
+              <label for="emails">tipo_de_documento</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.nit_ci_d_cliente}}">
+            <label for="emails">nit_ci_d_cliente</label>
+          </div>
+            <div class="input-field col s6 has-error">
+              <input disabled type="text" value="{{bancar_venat.fecha_d_documento_d_pago}}">
+                <label for="emails">fecha_d_documento_d_pago</label>
+            </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 has-error">
+            <input disabled type="text" value="{{bancar_venat.razon_social_cliente}}">
+            <label for="emails">razon_social_cliente</label>
+          </div>
+        </div>
+
+    <div class="row">                   
+      <div class="col s12 m6 l6 center-align">
+        <a href="/listar_Bancar_ventas" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        <p>
+        </p>
+      </div>
+    </div>
+</div>
+
+</div>
+</form>
+</div>
+</section>
+{% endblock %}
+

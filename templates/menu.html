@@ -25,6 +25,7 @@
                            <li><a href="/edit_factCamp" class="cyan-text">Factura</a></li>
                            <li><a href="/listarSucursal" class="cyan-text">Sucursales</a></li>
                            <li><a href="/listar_actividad" class="cyan-text">Actividades</a></li>
+                           <li><a href="/validador" class="cyan-text">Validador</a></li>
 
                         </ul>
                     </li>
@@ -96,19 +97,19 @@
                     </li>
                     <li>
                         {% if bancarizacion_role.operar %}
-                        <a class=" cyan-text" href="/listar_Bancarizacion" >
+                        <a class="dropdown-menu cyan-text" href="#!" data-activates="Tablesdropdown" >
                             <i class="mdi-action-account-balance-wallet"></i>
-                            <span>Bancarizacion</span>
+                            <span>Bancarizacion<i class="mdi-navigation-arrow-drop-down right"></i></span>
                         </a>
                         {% else %}
                         <a class="cyan-disable" href="#!">
                             <i class="mdi-action-account-balance-wallet"></i>
-                            <span>Bancarizacion</span>
+                            <span>Bancarizacion<i class="mdi-navigation-arrow-drop-down right"></i></span>
                         </a>
                         {% endif %}
                         <ul id="Tablesdropdown" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">
-                          <li><a href="table-basic.html" class="cyan-text">Basic Tables</a></li>
-                          <li><a href="table-data.html" class="cyan-text">Data Tables</a></li>
+                          <li><a href="/listar_Bancar_ventas" class="cyan-text">Bancarizacion Ventas</a></li>
+                          <li><a href="/listar_Bancarizacion" class="cyan-text">Bancarizacion compras</a></li>
                         </ul>
                     </li>
                     

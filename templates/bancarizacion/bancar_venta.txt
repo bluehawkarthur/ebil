@@ -1,0 +1,7 @@
+|venta_fecha||modalidad_d_la_transaccion||nro_de_cta_doc_de_pago||fecha_fact_dui_fecha_doc||monto_pagado_en_doc_d_pago|
+|tipo_transaccion||monto_acumulado||nro_d_fact_dui_nro_doc||nit_entidad_inanciera||monto_fact_monto_doc||nro_d_documento_de_pago||nro_de_auturizacion_d_fact||tipo_de_doc_d_pago||tipo_de_documento||nit_ci_d_cliente||fecha_d_documento_d_pago|
+|razon_social_cliente|
+{% for banVent in bancarizacion %}
+|{{banVent.venta_fecha}}||{{banVent.modalidad_d_la_transaccion}}||{{banVent.nro_de_cta_doc_de_pago}}||{{banVent.fecha_fact_dui_fecha_doc}}||{{banVent.monto_pagado_en_doc_d_pago}}||{{banVent.tipo_transaccion}}||{{banVent.monto_acumulado}}||{{banVent.nro_d_fact_dui_nro_doc}}||{{banVent.nit_entidad_inanciera}}||{{banVent.monto_fact_monto_doc}}||{{banVent.nro_d_documento_de_pago}}||{{banVent.nro_de_auturizacion_d_fact}}||{{banVent.tipo_de_doc_d_pago}}|
+|{{banVent.tipo_de_documento}}||{{banVent.nit_ci_d_cliente}}||{{banVent.fecha_d_documento_d_pago}}||{{banVent.razon_social_cliente}}|
+{% endfor %}

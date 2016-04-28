@@ -260,7 +260,7 @@
              <div class="invoice-footer">
               <div class="row">
                 <div class="input-field col s12 m6 l6">
-                <form action="/compras/" method="post" target="_self" id="post_form"  onsubmit="onEnviar()">
+                <form action="/compras/" method="post" id="post_form"  onsubmit="onEnviar()">
                         {% csrf_token %}
                         <input id="proceso" name="proceso" type="hidden" />
                         <input id="nose" name="nose" type="hidden" value="holaaaaa" />
@@ -289,5 +289,19 @@
 {% block js %}
   {% load staticfiles %}
   <script src="{% static "js/apps/compras.js"%}"></script>
+
+  <script>
+    function popup(url, pk){
+        win=window.open(url,pk,
+                'height=500,width=800,resizable=yes,scrollbars=yes');
+        win.focus();
+        
+        return false;
+      }
+    {% if popup %}
+      popup("{{url}}"+{{pk}}, {{pk}});
+    {% endif %}
+                
+  </script>
 
 {% endblock js %}

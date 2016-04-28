@@ -176,10 +176,7 @@ $('input').on('blur keyup', function() {
 
 $("#encabezado").validate({
     rules: {
-        add_nit: {
-            required: true,
-            minlength: 4
-        },
+        
         add_razon: {
             required: true,
            
@@ -201,6 +198,35 @@ $("#movimiento").change(function(){
       if (dato == 'baja'){
         $("#add_nit").attr('disabled', 'disabled');
         $("#add_razon").attr('disabled', 'disabled');
+        $("#add_nit").prop('required', false);
+        $("#add_nit").removeClass('invalid');
+        if ($("#encabezado").valid() && proceso.producto.length > 0) {
+            $('#save').prop('disabled', false);  
+        } else {
+            $('#save').prop('disabled', 'disabled');
+        }
+
+      }else if (dato == 'proforma'){
+        // validar el nittttttt
+        $("#add_nit").prop('required', false);
+        $('#add_nit').prop('disabled', false); 
+        $('#add_razon').prop('disabled', false);
+        if ($("#encabezado").valid() && proceso.producto.length > 0) {
+            $('#save').prop('disabled', false);  
+        } else {
+            $('#save').prop('disabled', 'disabled');
+        }
+      }else if (dato == 'facturar'){
+        // validar el nittttttt
+        $("#add_nit").attr('required', 'required');
+        $('#add_nit').prop('disabled', false); 
+        $('#add_razon').prop('disabled', false);
+        if ($("#encabezado").valid() && proceso.producto.length > 0) {
+            $('#save').prop('disabled', false);  
+        } else {
+            $('#save').prop('disabled', 'disabled');
+        }
+
       }else{
         $('#add_nit').prop('disabled', false); 
         $('#add_razon').prop('disabled', false);
@@ -542,6 +568,7 @@ function agregarDetalle(){
                   pk: pn.pk,
                   codigo_item: pn.fields.codigo_item,
                   stock: pn.fields.cantidad,
+                  saldo_min: pn.fields.saldo_min,
                   unidad_medida: pn.fields.unidad_medida,
                   descripcion: pn.fields.descripcion,
                   costo_unitario: pn.costo_unitario,
@@ -576,12 +603,14 @@ function agregarDetalle(){
             $( "#add_detalle" ).val( ui.item.descripcion );
 
             $( "#add_unidad" ).val( ui.item.unidad_medida );
+
             var stock = ui.item.stock;
-            var minimo = 10/100*ui.item.stock;
+            // var minimo = 10/100*ui.item.stock;
             $( "#stock" ).html( ui.item.stock);
             $("#stock_add").val(ui.item.stock);
 
             var pro = ui.item.stock/100;
+            var minimo = ui.item.saldo_min/100;
             var color= "";
             if(pro==0){
               color= "red";
@@ -589,11 +618,11 @@ function agregarDetalle(){
             
             }
 
-            if(pro>0 && pro<0.3){
+            if(pro>0 && 0<minimo){
               color= "red";
 
             }
-            if(pro>0.3 && pro<0.7 ){
+            if(pro>minimo && pro<0.7 ){
               color="orange";
             }
             if(pro>0.7 && pro<900){

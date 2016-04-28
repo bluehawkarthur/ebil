@@ -601,13 +601,14 @@ def promedios(request, pk, date1, anio):
         item = Item.objects.filter(id=pk)
         if m.motivo_movimiento == 'salida':
             saldo = saldo - m.cantidad
-            salidav = m.precio_unitario * m.cantidad
+            saldo_iva = m.precio_unitario / 100 * 87
+            salidav = saldo_iva * m.cantidad
             saldov = saldov - salidav
 
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
-                'pu': m.precio_unitario,
+                'pu': saldo_iva,
                 'ingreso': 0,
                 'salida': m.cantidad,
                 'saldo': abs(saldo),
@@ -616,7 +617,7 @@ def promedios(request, pk, date1, anio):
                 'saldov': abs(saldov),
             })
 
-        else:
+        elif m.motivo_movimiento == 'inicial':
             saldo = saldo + m.cantidad
             ingresov = m.precio_unitario * m.cantidad
             saldov = saldov + ingresov
@@ -624,6 +625,23 @@ def promedios(request, pk, date1, anio):
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
                 'pu': m.precio_unitario,
+                'ingreso': m.cantidad,
+                'salida': 0,
+                'saldo': saldo,
+                'ingresov': ingresov,
+                'salidav': 0,
+                'saldov': saldov,
+            })
+
+        else:
+            saldo = saldo + m.cantidad
+            saldo_iva = m.precio_unitario / 100 * 87
+            ingresov = saldo_iva * m.cantidad
+            saldov = saldov + ingresov
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': saldo_iva,
                 'ingreso': m.cantidad,
                 'salida': 0,
                 'saldo': saldo,

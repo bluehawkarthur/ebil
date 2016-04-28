@@ -39,11 +39,11 @@ def buscarProducto(request):
     descripcion = Item.objects.filter(descripcion__icontains=idProducto, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(
-        'json', descripcion, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
+        'json', descripcion, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida', 'saldo_min'))
     else:
         producto = Item.objects.filter(codigo_item__contains=idProducto, empresa=request.user.empresa)
         data = serializers.serialize(
-            'json', producto, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida'))
+            'json', producto, fields=('pk', 'codigo_item', 'codigo_fabrica', 'descripcion', 'cantidad', 'precio_unitario', 'unidad_medida', 'saldo_min'))
     return HttpResponse(data, content_type='application/json')
 
 
@@ -87,8 +87,6 @@ def ventaCrear(request):
 
             if proceso['movimiento'] == 'facturar':
                 venta_data = Venta.objects.filter(empresa=request.user.empresa, tipo_movimiento='facturar').exclude(nro_factura__isnull=True).last()
-                print 'numerooo de facturaaaaaaa'
-                print venta_data.nro_factura
                 dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa, sucursal=proceso['sucursal']).last()
                 cliente = Cliente.objects.filter(nit=proceso['nit'])
                 if not cliente:
@@ -99,7 +97,7 @@ def ventaCrear(request):
                     )
                     cli.save()
                 print dosificacion
-                if dosificacion !=  None:
+                if dosificacion != None:
                     print 'facturaaaaaaaaa'
                     if dosificacion.fecha >= datetime.date.today():
                         nro_init2 = int(dosificacion.nro_conrelativo)
@@ -285,14 +283,18 @@ def ventaCrear(request):
                 else:
                     nro = 0
 
-                cliente = Cliente.objects.filter(nit=proceso['nit'])
-                if not cliente:
-                    cli = Cliente(
-                        razonsocial=proceso['razon'],
-                        nit=proceso['nit'],
-                        empresa=request.user.empresa,
-                    )
-                    cli.save()
+                if proceso['nit']:
+                    cliente = Cliente.objects.filter(nit=proceso['nit'])
+                    nitget = proceso['nit']
+                    if not cliente:
+                        cli = Cliente(
+                            razonsocial=proceso['razon'],
+                            nit=proceso['nit'],
+                            empresa=request.user.empresa,
+                        )
+                        cli.save()
+                else:
+                    nitget = 0
 
                 if proceso['tipo_compra'] == 'credito':
                     date_1 = datetime.datetime.strptime(proceso['fecha'], "%Y-%m-%d")
@@ -303,7 +305,7 @@ def ventaCrear(request):
                     end_date = None
 
                 crearVenta = Venta(
-                    nit=proceso['nit'],
+                    nit=nitget,
                     razon_social=proceso['razon'],
                     fecha=proceso['fecha'],
                     tipo_compra=proceso['tipo_compra'],

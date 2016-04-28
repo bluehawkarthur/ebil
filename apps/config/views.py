@@ -44,7 +44,7 @@ def Createpersojuridica(request):
             personajurid.save()
             formatofact = Formatofactura(
                 formato='general',
-                impresion='vacia',
+                impresion='Vacia',
                 facturacion='normal',
                 tamanio='oficio',
                 frases_titulo='Factura',

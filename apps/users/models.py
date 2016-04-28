@@ -10,9 +10,9 @@ class Personajuridica(models.Model):
     razon_social = models.CharField(max_length=100)
     nit = models.BigIntegerField()
     direccion = models.CharField(max_length=100)
-    telefono = models.IntegerField()
-    telefono2 = models.IntegerField(null=True, blank=True)
-    telefono3 = models.IntegerField(null=True, blank=True)
+    telefono = models.BigIntegerField()
+    telefono2 = models.BigIntegerField(null=True, blank=True)
+    telefono3 = models.BigIntegerField(null=True, blank=True)
     departamento = models.CharField(max_length=100)
     municipios = models.CharField(max_length=100)
     logo = ProcessedImageField(upload_to='logo',

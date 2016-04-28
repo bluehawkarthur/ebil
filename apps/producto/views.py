@@ -319,7 +319,7 @@ def import_data(request):
                             carac_especial_2=sheet.cell(s, 7).value,
                             cantidad=sheet.cell(s, 8).value,
                             saldo_min=sheet.cell(s, 9).value,
-                            proveedor=Proveedor.objects.get(codigo=sheet.cell(s, 10).value),
+                            proveedor=Proveedor.objects.get(codigo=sheet.cell(s, 10).value, empresa=request.user.empresa),
                             imagen=sheet.cell(s, 11).value,
                             unidad_medida=sheet.cell(s, 12).value,
                             costo_unitario=decimal.Decimal(sheet.cell(s, 13).value),

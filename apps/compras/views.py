@@ -186,7 +186,8 @@ def compraCrear(request):
 
                     crearDetalle.save()
 
-            return HttpResponseRedirect(reverse('detallecompra', args=(crearCompra.pk,)))
+            # return HttpResponseRedirect(reverse('detallecompra', args=(crearCompra.pk,)))
+            return render('compras/compra.html', {'form': form, 'costos': centro_costos, 'popup': True, 'pk': crearCompra.pk, 'url': '/detalle_compra/' }, context_instance=ctx(request))
 
 
         except Exception, e:

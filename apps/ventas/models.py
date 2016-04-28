@@ -9,7 +9,7 @@ from apps.config.models import Sucursal
 class Venta(models.Model):
     # nro_factura = models.IntegerField()
     fecha = models.DateField()
-    nit = models.BigIntegerField()
+    nit = models.BigIntegerField(null=True, blank=True)
     nro_factura = models.BigIntegerField(null=True, blank=True)
     razon_social = models.CharField(max_length=100)
     tipo_compra = models.CharField(max_length=100)

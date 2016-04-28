@@ -13,7 +13,7 @@ class ItemManager(models.Manager):
 class Item(models.Model):
 	objects = ItemManager()
 
-	codigo_item = models.CharField(max_length=100, unique=True)
+	codigo_item = models.CharField(max_length=100)
 	codigo_fabrica = models.CharField(max_length=100, blank=True, null=True)
 	almacen = models.IntegerField()
 	grupo = models.CharField(max_length=100, blank=True, null=True)
@@ -31,8 +31,8 @@ class Item(models.Model):
 	empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 	fecha_transaccion = models.DateField(null=True, blank=True)
 
-	# class Meta:
-	# 	unique_together = ('codigo_item', 'carac_especial_1', 'carac_especial_2', 'cantidad',)
+	class Meta:
+		unique_together = ('codigo_item', 'empresa',)
 	
 	def natural_key(self):
 		return (self.codigo_item, self.descripcion, self.precio_unitario, self.unidad_medida)

@@ -105,30 +105,30 @@ LOGIN_URL = '/login/'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 # ------------------base de datos local --------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ebil1',
-        'USER': 'root',
-        'PASSWORD': '1',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        # 'CONN_MAX_AGE': 600,
-    }
-}
-
-# ========== Database for produccion ==============================
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dd8fn02nku5hv3',
-#         'USER':'jfhmrhqtxvmfry',
-#         'PASSWORD': 'cJDWllEf9ZkLFsmhB8mb7uxLCO',
-#         'HOST': 'ec2-54-83-29-133.compute-1.amazonaws.com',
+#         'NAME': 'ebil1',
+#         'USER': 'root',
+#         'PASSWORD': '1',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
-        
+#         # 'CONN_MAX_AGE': 600,
 #     }
 # }
+
+# ========== Database for produccion ==============================
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dd8fn02nku5hv3',
+        'USER':'jfhmrhqtxvmfry',
+        'PASSWORD': 'cJDWllEf9ZkLFsmhB8mb7uxLCO',
+        'HOST': 'ec2-54-83-29-133.compute-1.amazonaws.com',
+        'PORT': '5432',
+        
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

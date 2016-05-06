@@ -138,6 +138,7 @@ class ListarItem(PaginationMixin, ListView):
             q_objects.append(Q(carac_especial_2__icontains=item))
 
         query = reduce(operator.or_, q_objects)
+        print query
 
         # query = reduce(operator.and_, (Q(descripcion__icontains=item) for item in q))
         r = self.model.objects.filter(query)

@@ -105,17 +105,17 @@ LOGIN_URL = '/login/'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 # ------------------base de datos local --------------------------
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ebil1',
-#         'USER': 'root',
-#         'PASSWORD': '1',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#         # 'CONN_MAX_AGE': 600,
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ebil1',
+        'USER': 'root',
+        'PASSWORD': '1',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        # 'CONN_MAX_AGE': 600,
+    }
+}
 
 # ========== Database for produccion ==============================
 # DATABASES = {
@@ -132,17 +132,17 @@ LOGIN_URL = '/login/'
 
 # ===== base de datos de 9 dolares ======
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd68th1r1ljja95',
-        'USER': 'ugukfeqsfunvay',
-        'PASSWORD': 'MFD4RHZfr14q87-7kLFo52eOhD',
-        'HOST': 'ec2-50-19-251-199.compute-1.amazonaws.com',
-        'PORT': '5432',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd68th1r1ljja95',
+#         'USER': 'ugukfeqsfunvay',
+#         'PASSWORD': 'MFD4RHZfr14q87-7kLFo52eOhD',
+#         'HOST': 'ec2-50-19-251-199.compute-1.amazonaws.com',
+#         'PORT': '5432',
         
-    }
-}
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

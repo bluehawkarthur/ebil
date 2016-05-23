@@ -60,10 +60,12 @@ class CentroCostos(models.Model):
     def __unicode__(self):
         return u'%s' % self.descripcion
 
+
 class CobroCompra(models.Model):
     compra = models.ForeignKey(Compra)
     monto_pago = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     fecha_transaccion = models.DateField(null=True, blank=True)
+    empresa = models.ForeignKey(Personajuridica, null=True, blank=True)
 
     def __unicode__(self):
         return self.compra.razon_social

@@ -17,6 +17,7 @@ from .models import Rol
 from django.conf import settings
 from apps.users.models import User
 from django.core.management import call_command
+from apps.cliente.models import Cliente
 # Create your views here.
 
 
@@ -25,6 +26,27 @@ class Inicio(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        # import psycopg2
+        # import sys
+
+
+        # con = None
+
+        # try:
+
+        #     con = psycopg2.connect(database='ebil1', user='root', password='1',port='5432')
+        #     cur = con.cursor()
+        #     cur.execute('SELECT * FROM inicio_rol')
+        #     f = open('test.sql', 'w')
+        #     for row in cur:
+        #       f.write("insert into inicio_rol values (" + str(row) + ");")
+        # except psycopg2.DatabaseError, e:
+        #     print 'Error %s' % e
+        #     sys.exit(1)
+        # finally:
+        #     if con:
+        #         con.close()
+
         return super(Inicio, self).dispatch(*args, **kwargs)
 
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Module: num2word_ES.py
 Requires: num2word_EU.py
@@ -55,8 +56,8 @@ class Num2Word_ES(Num2Word_EU):
                              (80, "ochenta"), (70, "setenta"), (60, "sesenta"),
                              (50,"cincuenta"), (40,"cuarenta")]
         self.low_numwords = ["vientinueve", "vientiocho", "vientisiete",
-                             "vientis\xE8is", "vienticinco", "vienticuatro",
-                             "vientitr\xE8s", "vientid\xF2s", "vientiuno",
+                             "vientiseis", "vienticinco", "vienticuatro",
+                             "vientitreis", "vientidos", "vientiuno",
                              "viente", "diecinueve", "dieciocho", "diecisiete",
                              "dieciseis", "quince", "catorce", "trece", "doce",
                              "once", "diez", "nueve", "ocho", "siete", "seis",
@@ -67,10 +68,10 @@ class Num2Word_ES(Num2Word_EU):
                       4  : "cuart",
                       5  : "quint",
                       6  : "sext",
-                      7  : "s\xE8ptim",
+                      7  : "septim",
                       8  : "octav",
                       9  : "noven",
-                      10 : "d\xE8cim" }
+                      10 : "decim" }
 
 
     def merge(self, curr, next):

@@ -1,7 +1,7 @@
 import sys
 import stdnum
 from stdnum import verhoeff
-import base64
+# import base64
 import math
 import qrcode
 from qrcode import *
@@ -56,14 +56,22 @@ def encrypt(data, key):
     return hex_data
 
 
-def verhoeff(lista):
-    li2 = []
-    for i in lista:
-        num1 = stdnum.verhoeff.calc_check_digit(i)
-        num1 += stdnum.verhoeff.calc_check_digit(int(str(i) + num1))
-        i = int(str(i) + num1)
-        li2.append(i)
-    return li2  # Datos mas dos digitos de verhoeff
+# def verhoeff(lista):
+#     li2 = []
+#     for i in lista:
+#         num1 = stdnum.verhoeff.calc_check_digit(i)
+#         num1 += stdnum.verhoeff.calc_check_digit(int(str(i) + num1))
+#         i = int(str(i) + num1)
+#         li2.append(i)
+#     return li2  # Datos mas dos digitos de verhoeff
+
+# ===== nuevo verhoeff =======================
+def addVerhoeffDigit(value, max):
+    valor = str(value)
+    for i in range(0, max):
+        val = stdnum.verhoeff.calc_check_digit(valor)
+        valor += str(val)
+    return valor
 
 
 def sumatorias(r):
@@ -123,7 +131,7 @@ def codigoControl(llave_dosificacion, num_autorizacion, num_de_factura, nit_ci, 
 
     llave_dosificacion = llave_dosificacion
     # print llave_dosificacion
-    num_autorizacion = num_autorizacion
+    num_autorizacion = int(num_autorizacion)
     num_de_factura = num_de_factura
     # 1829881
     nit_ci = nit_ci
@@ -135,25 +143,49 @@ def codigoControl(llave_dosificacion, num_autorizacion, num_de_factura, nit_ci, 
 
     # 13227.51
     monto_transaccion = int(round(monto_transaccion))
-    li = [num_de_factura, int(nit_ci), fecha_transaccion2, monto_transaccion]
-    li2 = verhoeff(li)
-    suma_verhoeff = 0
-    for ii in li2:
-        suma_verhoeff = suma_verhoeff + ii
-    cinco_dig = []
-    cinco_dig_str = []
 
-    num1 = suma_verhoeff
-    for iii in range(0, 5):
-        num = stdnum.verhoeff.calc_check_digit(num1)
-        cinco_dig.append(int(num))
-        cinco_dig_str.append(num)
-        num1 = (int(str(num1) + num))
-    x = "".join(cinco_dig_str)
+    # ========== codigo modificado ========================
+    # ========== PASO 1 =============
+    nitci = addVerhoeffDigit(int(nit_ci), 2)
+    numfact = addVerhoeffDigit(int(num_de_factura), 2)
+    transactionAmount = addVerhoeffDigit(monto_transaccion, 2)
+    dateOfTransaction = addVerhoeffDigit(fecha_transaccion2, 2)
+    sumOfVariables = int(numfact) + int(nitci) + int(dateOfTransaction) + int(transactionAmount)
+    print 'la suma total es'
+    print sumOfVariables
+    print 'la suma d e5 es'
+    sumafive = addVerhoeffDigit(sumOfVariables, 5)
 
+    # ========== PASO 2 =============
+    print sumafive
+    print '---------------'
+    sumafivestr = str(sumafive)
+    fiveDigitsVerhoeff = sumafivestr[len(sumafivestr) - 5:]
+    print 'digitos 5'
+    print fiveDigitsVerhoeff
+    fiveDigits = " ".join(fiveDigitsVerhoeff)
+    numbers = fiveDigits.split()
+    # ======================================================
+    # li = [num_de_factura, int(nit_ci), fecha_transaccion2, monto_transaccion]
+    # li2 = verhoeff(li)
+    # suma_verhoeff = 0
+    # for ii in li2:
+    #     suma_verhoeff = suma_verhoeff + ii
+    # cinco_dig = []
+    # cinco_dig_str = []
+
+    # num1 = suma_verhoeff
+    # for iii in range(0, 5):
+    #     num = stdnum.verhoeff.calc_check_digit(num1)
+    #     cinco_dig.append(int(num))
+    #     cinco_dig_str.append(num)
+    #     num1 = (int(str(num1) + num))
+    # x = "".join(cinco_dig_str)
+
+    print numbers
     sumarUno = []
-    for i in cinco_dig:
-        sumarUno.append(i + 1)
+    for i in numbers:
+        sumarUno.append(int(i) + 1)
     i0 = 0
     i1 = sumarUno[0]
     i2 = i1 + sumarUno[1]
@@ -168,14 +200,16 @@ def codigoControl(llave_dosificacion, num_autorizacion, num_de_factura, nit_ci, 
     cad4 = llave_dosificacion[i4:i5]
 
     # CADENAS PARA ENTRADA DE AllegedRC4
+    # === se modificoooo ======
     a1 = str(num_autorizacion) + cad0
-    a2 = str(li2[0]) + cad1
-    a3 = str(li2[1]) + cad2
-    a4 = str(li2[2]) + cad3
-    a5 = str(li2[3]) + cad4
+    a2 = str(numfact) + cad1
+    a3 = str(nitci) + cad2
+    a4 = str(dateOfTransaction) + cad3
+    a5 = str(transactionAmount) + cad4
+
 
     param1_a = a1 + a2 + a3 + a4 + a5
-    param2_a = llave_dosificacion + x
+    param2_a = llave_dosificacion + fiveDigitsVerhoeff
 
     r = encrypt(param1_a, param2_a)
     # retorna lista de las sumatorias, el primer es total de todo
@@ -190,7 +224,7 @@ def codigoControl(llave_dosificacion, num_autorizacion, num_de_factura, nit_ci, 
 
     y = base64(total_st)
 
-    alle = encrypt(y, llave_dosificacion + x)
+    alle = encrypt(y, llave_dosificacion + fiveDigitsVerhoeff)
     i = 0
     cod_control1 = ''
     while i < len(alle):

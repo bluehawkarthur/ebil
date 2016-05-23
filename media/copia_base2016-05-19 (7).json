@@ -1,0 +1,215 @@
+[
+{
+  "fields": {
+    "categoria": null,
+    "empresa": 12,
+    "contacto": null,
+    "textos2": null,
+    "fecha": null,
+    "textos": null,
+    "direccion": null,
+    "razonsocial": "werwerwr",
+    "rubro": null,
+    "telefonos3": null,
+    "telefonos2": null,
+    "telefonos1": null,
+    "fecha2": null,
+    "ubucaciongeo": null,
+    "codigo": null,
+    "nit": 32242342
+  },
+  "model": "cliente.cliente",
+  "pk": 42
+},
+{
+  "fields": {
+    "categoria": null,
+    "empresa": 12,
+    "contacto": null,
+    "textos2": null,
+    "fecha": null,
+    "textos": null,
+    "direccion": null,
+    "razonsocial": "wrwrwwrwr",
+    "rubro": null,
+    "telefonos3": null,
+    "telefonos2": null,
+    "telefonos1": null,
+    "fecha2": null,
+    "ubucaciongeo": null,
+    "codigo": null,
+    "nit": 2342342
+  },
+  "model": "cliente.cliente",
+  "pk": 41
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "errerere",
+    "telefono1": 45644446,
+    "ubicacion_geo": "jhjhh",
+    "telefono3": 131313,
+    "telefono2": 123113,
+    "razon_social": "pedro",
+    "texto2": "jhjh",
+    "direccion": "hkjhj",
+    "texto1": "jhjhjhj",
+    "rubro": "hjhjh",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p1",
+    "nit": "qwqww"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 23
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "erer",
+    "telefono1": 343434,
+    "ubicacion_geo": "ererrrreer",
+    "telefono3": 2424,
+    "telefono2": 234234,
+    "razon_social": "jose",
+    "texto2": "ererer",
+    "direccion": "wewe",
+    "texto1": "uuuuuu",
+    "rubro": "dfdhdh",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p3",
+    "nit": "uyyyuyuyy"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 24
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "erererree",
+    "telefono1": 343434,
+    "ubicacion_geo": "erererre",
+    "telefono3": null,
+    "telefono2": null,
+    "razon_social": "juan",
+    "texto2": "ererer",
+    "direccion": "wewe",
+    "texto1": "ttttttt",
+    "rubro": "hdhdh",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p32",
+    "nit": "ewewe"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 25
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "ererere",
+    "telefono1": 343434,
+    "ubicacion_geo": "yyyyyy",
+    "telefono3": null,
+    "telefono2": null,
+    "razon_social": "ramon",
+    "texto2": "ererer",
+    "direccion": "weewe",
+    "texto1": "rterrere",
+    "rubro": "dhdhd",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p42",
+    "nit": "wewew"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 26
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "erereerer",
+    "telefono1": 343434,
+    "ubicacion_geo": "uuuuuuu",
+    "telefono3": null,
+    "telefono2": null,
+    "razon_social": "nose",
+    "texto2": "ererewew",
+    "direccion": "wewe",
+    "texto1": "ererreerr",
+    "rubro": "dhdhdhdh",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p52",
+    "nit": "wewew"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 27
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "ererere",
+    "telefono1": 343434,
+    "ubicacion_geo": "uuuuuuu",
+    "telefono3": null,
+    "telefono2": null,
+    "razon_social": "nancy",
+    "texto2": "qqqq",
+    "direccion": "wewe",
+    "texto1": "rerer",
+    "rubro": "w",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p62",
+    "nit": "wewew"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 28
+},
+{
+  "fields": {
+    "empresa": 12,
+    "contactos": "ererr",
+    "telefono1": 343434,
+    "ubicacion_geo": "uuuuuuu",
+    "telefono3": null,
+    "telefono2": null,
+    "razon_social": "anita",
+    "texto2": "rtetete",
+    "direccion": "rtrtrtrtrt",
+    "texto1": "rerer",
+    "rubro": "eeeeeeee",
+    "fecha2": "2015-09-23",
+    "fecha1": "2015-09-23",
+    "codigo": "p72",
+    "nit": "wewew"
+  },
+  "model": "proveedores.proveedor",
+  "pk": 29
+},
+{
+  "fields": {
+    "empresa": 12,
+    "proveedor": 24,
+    "cantidad": 12,
+    "almacen": 1,
+    "saldo_min": 5,
+    "precio_unitario": "89.00",
+    "unidad_medida": "qqq",
+    "carac_especial_2": "qqq",
+    "subgrupo": "sss",
+    "codigo_item": "P2-70",
+    "carac_especial_1": "aaa",
+    "descripcion": "producto3",
+    "costo_unitario": "34.00",
+    "grupo": "g1",
+    "fecha_transaccion": "2016-04-27",
+    "codigo_fabrica": "aa",
+    "imagen": "ggg"
+  },
+  "model": "producto.item"
+}
+]

@@ -51,6 +51,20 @@ class Formatofactura(models.Model):
 		return self.empresa.razon_social
 
 
+class Formatodetalle(models.Model):
+	impresion = models.CharField(max_length=100)
+	facturacion = models.CharField(max_length=100)
+	tamanio = models.CharField(max_length=100)
+	frases_titulo = models.CharField(max_length=100)
+	frases_subtitulo = models.CharField(max_length=100)
+	frases_pie = models.CharField(max_length=200)
+	formatofact = models.ForeignKey(Formatofactura, null=True, blank=True)
+	sucursal = models.ForeignKey(Sucursal, null=True, blank=True)
+
+	def __unicode__(self):
+		return self.formatofact.formato
+
+
 class ClienteCampos(models.Model):
 	direccion_usar = models.BooleanField()
 	direccion_requerido = models.BooleanField()

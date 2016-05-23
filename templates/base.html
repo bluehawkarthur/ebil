@@ -91,16 +91,17 @@
                         </a><ul id="Tablesdropdown2" class="dropdown-content dropdown-horizontal-list" style="position: absolute; top: 64px; left: 509.296875px; opacity: 1; display: none;">
                          <li><a href="/perfil" class="cyan-text"><i class="mdi-action-face-unlock left"></i> Perfil</a>
                               </li>
-                                {% if user.is_superuser %}
+                              {% if user.is_superuser %}
                               <li><a href="/listarPersonajuridica" class="cyan-text"><i class="mdi-social-location-city left"></i> Manejo de empresas</a>
                               </li>
                               <li><a href="/list_user" class="cyan-text"><i class="mdi-social-person left"></i> Manejo de usuarios</a>
                               </li>
+                              {% endif %}
                               <li><a href="/copia_base" class="cyan-text"><i class="mdi-content-inbox left"></i> Crear Backup</a>
                               </li>
                               <li><a href="/base_import" class="cyan-text"><i class="mdi-file-file-upload left"></i> Cargar Backup</a>
                               </li>
-                              {% endif %}
+                              
                               
                               <li class="divider"></li>
                              

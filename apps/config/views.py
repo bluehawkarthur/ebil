@@ -5,9 +5,10 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.template import loader, Context
 from django.core.urlresolvers import reverse_lazy
 from apps.users.models import Personajuridica
-from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm, SucursalForm, ActividadForm
-from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos, Sucursal, Actividad
+from .forms import PersonajuridicaForm, EmpresaFormedit, DatosDosificacionForm, FormatofacturaForm, SucursalForm, ActividadForm, FormatoForm
+from .models import DatosDosificacion, Formatofactura, AlmacenesCampos, ProveedoresCampos, ClienteCampos, FacturaCampos, Sucursal, Actividad, Formatodetalle
 from apps.cliente.models import Cliente
+from apps.proveedores.models import Proveedor
 from pure_pagination.mixins import PaginationMixin
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
 from django.contrib import messages
@@ -19,6 +20,12 @@ import os
 import xlrd
 import datetime
 from .numero_autorizacion import codigoControl
+from itertools import chain
+from django.core import serializers
+from apps.bancarizacion.models import BancarizacionCompras, BancarizacionVentas
+from apps.producto.models import Item
+from apps.compras.models import Compra, DetalleCompra, CentroCostos, CobroCompra
+from apps.ventas.models import Venta, DetalleVenta, Movimiento, Cobro
 
 IMPORT_FILE_TYPES = ['.json', '.xls', '.xlsx', ]
 
@@ -215,23 +222,53 @@ def Empresa(request):
     return render(request, 'config/empresa.html', {'form': form, 'empresa': empresa})
 
 
+# def Formatfactura(request):
+#     formato = get_object_or_404(Formatofactura, empresa=request.user.empresa.pk)
+
+#     form = FormatofacturaForm()
+
+#     if request.method == "POST":
+
+#         form = FormatofacturaForm(request.POST, instance=formato)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             # user.empresa = form.cleaned_data['empresa']
+#             user.save()
+#             messages.success(request, "Los datos se guardaron correctamente")
+#             return HttpResponseRedirect(reverse_lazy('index'))
+
+#     return render(request, 'config/formato.html', {'form': form, 'formato': formato})
+
+
 def Formatfactura(request):
-    formato = get_object_or_404(
-        Formatofactura, empresa=request.user.empresa.pk)
+    formato = get_object_or_404(Formatofactura, empresa=request.user.empresa.pk)
 
     form = FormatofacturaForm()
 
     if request.method == "POST":
 
         form = FormatofacturaForm(request.POST, instance=formato)
-        if form.is_valid():
-            user = form.save(commit=False)
-            # user.empresa = form.cleaned_data['empresa']
-            user.save()
-            messages.success(request, "Los datos se guardaron correctamente")
-            return HttpResponseRedirect(reverse_lazy('index'))
+        formset = FormatoForm(request.POST, queryset=Formatodetalle.objects.filter(formatofact=formato.pk))
+        
+        if form:
+            if form.is_valid():
+                user = form.save(commit=False)
+                # user.empresa = form.cleaned_data['empresa']
+                user.save()
 
-    return render(request, 'config/formato.html', {'form': form, 'formato': formato})
+        if formset:
+            if formset.is_valid():
+                for formdet in formset.forms:
+                    detalle = formdet.save(commit=False)
+
+                    detalle.save()
+
+        messages.success(request, "Los datos se guardaron correctamente")
+        return HttpResponseRedirect(reverse_lazy('index'))
+    else:
+        formset = FormatoForm(queryset=Formatodetalle.objects.filter(formatofact=formato.pk).order_by('pk'))
+
+    return render(request, 'config/formato.html', {'form': form, 'formato': formato, 'formset': formset})
 
 
 class ListarPersonajuridica(PaginationMixin, ListView):
@@ -368,12 +405,17 @@ def CrearFormatofactura(request):
         form = FormatofacturaForm()
     variables = RequestContext(request, {'form': form})
     return render_to_response('config/crearFormatofactura.html', variables)
-
+    
 
 def copiaBase(request):
     template_name = "config/copia_base.html"
-
+    empresas = Personajuridica.objects.all()
     if request.method == 'POST':
+
+        if request.user.is_superuser:
+            empresa = request.POST.get('empresa')
+        else:
+            empresa = request.user.empresa.pk
 
         if 'copia' in request.POST:
             response = HttpResponse(content_type='text/plain; charset=utf-8')
@@ -383,16 +425,52 @@ def copiaBase(request):
                 'attachement; filename={0}.json'.format(filename)
 
             # response['Content-Disposition'] = 'attachment; filename="copia_base.json"'
-            output = open('templates/config/output_filename.json', 'w')
-            call_command('dumpdata', format='json', indent=3, stdout=output)
+            # output = open('templates/config/output_filename.json', 'w')
+            # call_command('dumpdata', format='json', indent=3, stdout=output)
+            # output.close()
+            # t = loader.get_template('config/output_filename.json')
+
+            # response.write(t.render())
+
+            # return response
+
+            empresadb = Personajuridica.objects.filter(pk=empresa)
+
+            sucursales = Sucursal.objects.filter(empresa=empresa)
+            actividades = Actividad.objects.filter(empresa=empresa)
+            dosificacion = DatosDosificacion.objects.filter(empresa=empresa)
+            formato_factura = Formatofactura.objects.filter(empresa=empresa)
+            formato_det = Formatodetalle.objects.filter(formatofact__empresa=empresa)
+
+            almacenes_camp = AlmacenesCampos.objects.filter(empresa=empresa)
+            proveedores_camp = ProveedoresCampos.objects.filter(empresa=empresa)
+            clientes_camp = ClienteCampos.objects.filter(empresa=empresa)
+            factura_camp = FacturaCampos.objects.filter(empresa=empresa)
+            clientes = Cliente.objects.filter(empresa=empresa)
+            proveedores = Proveedor.objects.filter(empresa=empresa)
+            bancarizacion_compras = BancarizacionCompras.objects.filter(empresa=empresa)
+            bancarizacion_ventas = BancarizacionVentas.objects.filter(empresa=empresa)
+            productos = Item.objects.filter(empresa=empresa)
+            compras = Compra.objects.filter(empresa=empresa)
+            compras_detalle = DetalleCompra.objects.filter(compra__empresa=empresa)
+            centro_costos = CentroCostos.objects.filter(empresa=empresa)
+            cobro_compra = CobroCompra.objects.filter(empresa=empresa)
+            ventas = Venta.objects.filter(empresa=empresa)
+            ventas_detalle = DetalleVenta.objects.filter(venta__empresa=empresa)
+            movimentos = Movimiento.objects.filter(empresa=empresa)
+            cobros = Cobro.objects.filter(empresa=empresa)
+
+            combined = list(chain(empresadb, sucursales, actividades, dosificacion, formato_factura, formato_det, almacenes_camp, proveedores_camp, clientes_camp, factura_camp, clientes, proveedores, bancarizacion_compras, bancarizacion_ventas, productos, compras, compras_detalle, centro_costos, cobro_compra, ventas, ventas_detalle, movimentos, cobros))
+
+            data = serializers.serialize("json", combined, indent=2)
+            output = open('templates/config/output_filenamed.json', 'w')
+            output.write(data)
             output.close()
-            t = loader.get_template('config/output_filename.json')
-
+            t = loader.get_template('config/output_filenamed.json')
             response.write(t.render())
-
             return response
-
-    return render(request, template_name)
+    # return render(request, template_name)
+    return render_to_response(template_name, {'empresas': empresas}, context_instance=RequestContext(request))
 
 
 class UploadFileForm(forms.Form):
@@ -515,6 +593,16 @@ def CreateSucursal(request):
                 municipios=form.cleaned_data['municipios'],
                 empresa=request.user.empresa)
             sucursal.save()
+            formato_facturadet = Formatodetalle(
+                impresion='Vacia',
+                facturacion='normal',
+                tamanio='oficio',
+                frases_titulo='Factura',
+                frases_subtitulo='Derecho a Credito Fiscal',
+                frases_pie='Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.',
+                formatofact=Formatofactura.objects.get(empresa=request.user.empresa.pk),
+                sucursal=sucursal)
+            formato_facturadet.save()
             return HttpResponseRedirect(reverse_lazy('inicio'))
             # return render_to_response('config/crearSucursal.html')
     else:

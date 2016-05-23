@@ -16,7 +16,7 @@ class Personajuridica(models.Model):
     departamento = models.CharField(max_length=100)
     municipios = models.CharField(max_length=100)
     logo = ProcessedImageField(upload_to='logo',
-                                           processors=[ResizeToFill(300, 300)],
+                                           processors=[],
                                            format='JPEG',
                                            options={'quality': 60}, null=True, blank=True)
 

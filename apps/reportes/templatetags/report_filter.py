@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 from apps.reportes.num2word.num2word_ES import to_card, to_ord, to_ordnum
 

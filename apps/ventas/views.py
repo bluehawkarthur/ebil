@@ -17,7 +17,7 @@ import decimal
 from apps.reportes.htmltopdf import render_to_pdf
 import datetime
 from .numero_autorizacion import codigoControl
-from apps.config.models import DatosDosificacion, Formatofactura, FacturaCampos, Sucursal
+from apps.config.models import DatosDosificacion, Formatofactura, FacturaCampos, Sucursal, Formatodetalle
 
 from django.http import HttpResponse
 import json
@@ -417,7 +417,24 @@ def detalleVenta(request, pk):
     formato = Formatofactura.objects.get(empresa=request.user.empresa)
     # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
     # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
-    
+    datos_campo = FacturaCampos.objects.get(empresa=request.user.empresa)
+    campo_descuento = 1
+    campo_recargo = 1
+    campo_ice = 1
+    campo_exentos = 1
+
+    if datos_campo.descuento_usar:
+        campo_descuento = 0
+    if datos_campo.recargo_usar:
+        campo_recargo = 0
+    if datos_campo.ice_usar:
+        campo_ice = 0
+    if datos_campo.exentos_usar:
+        campo_exentos = 0
+
+    sumas = campo_descuento + campo_recargo + campo_ice + campo_exentos
+    total_campos = 9 - sumas
+            
     data = {
         'nit': venta[0].nit,
         'nro_factura': venta[0].nro_factura,
@@ -430,6 +447,10 @@ def detalleVenta(request, pk):
         'formato': formato,
         'numero_autorizacion': venta[0].numero_autorizacion,
         'fecha_limite': venta[0].fecha_limite,
+        'sucursal': venta[0].sucursal,
+        'actividad': venta[0].actividad,
+        'factura_campos': datos_campo,
+        'total_campos': total_campos,
         'empresa': request.user.get_empresa()
 
     }
@@ -438,44 +459,87 @@ def detalleVenta(request, pk):
     print 'el formato'
     print formato
 
-    if formato.impresion == 'Vacia':
-        if formato.tamanio == 'rollo':
-            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+    if formato.formato == 'general':
+        if formato.impresion == 'Vacia':
+            if formato.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
-        elif formato.tamanio == 'carta':
-            return render_to_pdf('reportes/rep_detalleventa.html', data)
+            elif formato.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventa.html', data)
 
-        elif formato.tamanio == 'oficio':
-            return render_to_pdf('reportes/rep_ventaoficio.html', data)
+            elif formato.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficio.html', data)
 
-        elif formato.tamanio == '1/2oficio':
-            return render_to_pdf('reportes/rep_ventamedio.html', data)
+            elif formato.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamedio.html', data)
 
-    elif formato.impresion == 'Completa':
-        if formato.tamanio == 'rollo':
-            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+        elif formato.impresion == 'Completa':
+            if formato.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
-        elif formato.tamanio == 'carta':
-            return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+            elif formato.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
 
-        elif formato.tamanio == 'oficio':
-            return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+            elif formato.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
 
-        elif formato.tamanio == '1/2oficio':
-            return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+            elif formato.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
 
-    elif formato.impresion == 'Semi-completa':
-        if formato.tamanio == 'rollo':
-            return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+        elif formato.impresion == 'Semi-completa':
+            if formato.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
 
-        elif formato.tamanio == 'carta':
-            return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+            elif formato.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventasemi.html', data)
 
-        elif formato.tamanio == 'oficio':
-            return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+            elif formato.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
 
-        elif formato.tamanio == '1/2oficio':
-            return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+            elif formato.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+    else:
+        formato_detalle = Formatodetalle.objects.get(formatofact=formato.pk, sucursal=venta[0].sucursal)
+        
+        if formato_detalle.impresion == 'Vacia':
+            if formato_detalle.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato_detalle.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+            elif formato_detalle.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficio.html', data)
+
+            elif formato_detalle.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamedio.html', data)
+
+        elif formato_detalle.impresion == 'Completa':
+            if formato_detalle.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato_detalle.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+
+            elif formato_detalle.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+
+            elif formato_detalle.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+
+        elif formato_detalle.impresion == 'Semi-completa':
+            if formato_detalle.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato_detalle.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+
+            elif formato_detalle.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+
+            elif formato_detalle.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+
 
 
 def detalleVentaNota(request, pk):

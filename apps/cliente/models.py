@@ -24,5 +24,5 @@ class Cliente(models.Model):
 		unique_together = ('codigo', 'nit',)
 
 	def __unicode__(self):
-		return self.contacto
+		return self.razonsocial
 

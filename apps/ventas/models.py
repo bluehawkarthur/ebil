@@ -60,7 +60,7 @@ class DetalleVenta(models.Model):
 
 class Movimiento(models.Model):
     cantidad = models.IntegerField()
-    precio_unitario = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     detalle = models.CharField(max_length=100)
     fecha_transaccion = models.DateField()
     motivo_movimiento = models.CharField(max_length=100)

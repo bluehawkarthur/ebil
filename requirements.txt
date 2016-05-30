@@ -29,3 +29,4 @@ git+https://github.com/bluehawkarthur/python_stdnum.git
 qrcode==5.2.2
 git+git://github.com/ojii/pymaging.git#egg=pymaging
 git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
+django-preventconcurrentlogins==0.7

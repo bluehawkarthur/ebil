@@ -557,7 +557,7 @@ function agregarDetalle(){
             $.ajax({
               url: "/buscar_item2/",
               dataType: "json",
-              data: {'id':request.term},
+              data: {'id':request.term, 'sucur': 'lleguueeeeeeee'},
               success: function( data ) {
                console.log(data);
                response($.map(data, function (pn) {

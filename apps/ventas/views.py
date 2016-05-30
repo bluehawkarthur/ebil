@@ -36,6 +36,7 @@ def configfactura(request):
 
 def buscarProducto(request):
     idProducto = request.GET['id']
+    print request.GET['sucur']
     descripcion = Item.objects.filter(descripcion__icontains=idProducto, empresa=request.user.empresa)
     if descripcion:
         data = serializers.serialize(

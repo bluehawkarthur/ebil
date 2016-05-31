@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from .views import RepCompras, buscarProducto, RepVentas, Reporteventa, ReportVendetalle, ReporteCaja
+from .views import RepCompras, buscarProducto, RepVentas, Reporteventa, ReportVendetalle, ReporteCaja, NotasNoComtables
 
 urlpatterns = [
     url(r'^rep_compras/', RepCompras.as_view(), name='rep_compras'),
@@ -23,5 +23,6 @@ urlpatterns = [
     # url(r'^pdf/$', 'apps.reportes.views.pdf'),
     # url(r'^pdf2/$', 'apps.reportes.views.generar_pdf'),
     url(r'^caja/$', ReporteCaja.as_view(), name='rep_caja'),
+    url(r'^notsnocontabls/', NotasNoComtables.as_view(), name='notsnocontabls'),
 
 ]

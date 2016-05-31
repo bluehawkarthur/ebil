@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, DetailView
-from apps.compras.models import Compra, DetalleCompra, CobroCompra
+from apps.compras.models import Compra, DetalleCompra, CobroCompra, CentroCostos
 from apps.ventas.models import Venta, DetalleVenta, Movimiento, Cobro
 from apps.producto.models import Item
 from .htmltopdf import render_to_pdf
@@ -924,3 +924,98 @@ def Createpagocobro(request):
         }
 
     return render_to_pdf('reportes/reporte_pagocompra.html', data)
+
+
+class NotasNoComtables(TemplateView):
+	template_name = 'reportes/notsnocontabls.html'
+	success_url = reverse_lazy('rep_caja')
+
+	def post(self, request, *args, **kwargs):
+		mes = request.POST['mes']
+		anio = request.POST['anio']
+		gastos = request.POST['gastos']
+
+		
+		if mes != '':
+			ventas = Venta.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
+			total = 0
+			for i in ventas:
+				total = total + i.total
+			# ===== el 87 % de todas las ventas ========
+			totalventas = total*87/100
+			
+			# ====== ventas al contado ===========
+			ventas_contado= Venta.objects.filter(fecha__year=anio, fecha__month=mes, tipo_compra='contado', empresa=request.user.empresa)
+			total_contado = 0
+			for i in ventas_contado:
+				total_contado = total_contado + i.total
+
+			totalventas_contad = total_contado*87/100
+
+			# ======= ventas al credito ==============
+			ventas_credito = Venta.objects.filter(fecha__year=anio, fecha__month=mes, tipo_compra='credito', empresa=request.user.empresa)
+			total_credito = 0
+			for i in ventas_credito:
+				total_credito = total_credito + i.total
+
+			totalventas_credito = total_credito*87/100
+
+			# ======= costo de las ventas de los items ==============
+			detalle_ventas = DetalleVenta.objects.filter(venta__fecha__year=anio, venta__fecha__month=mes, venta__empresa=request.user.empresa)
+			costo_venta = 0
+			for i in detalle_ventas:
+				costo_venta = costo_venta + i.item.costo_unitario
+			
+			utilidad = totalventas - costo_venta
+
+			# compras = Compra.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
+			# ======= centro costos y sus totales ============
+			total_compra = 0
+
+			from itertools import groupby
+			from operator import itemgetter
+
+			centros = DetalleCompra.objects.filter(compra__empresa=request.user.empresa, compra__fecha__year=anio, compra__fecha__month=mes).order_by('centro_costos')
+			# totales_det = [c.scf for c in centros]
+			# ==== crear arrays para el total y el centro de costos para luego agruparlo ====
+			totales_det = []
+			totales_cen = []
+			for c in centros:
+				if c.centro_costos != 'A':
+					totales_det.append(c.scf)
+					totales_cen.append(c.centro_costos)
+					total_compra = total_compra + c.scf
+
+			# totales_cen = [c.centro_costos for c in centros]
+
+			detalles_gasto = []
+			# ======= agrupando centro de costos con sus totales ================
+			for k, g in groupby(zip(totales_cen, totales_det), itemgetter(0)):
+				# === condicion para cambiar de texto de V a varios ======
+			    if k == 'V':
+                	       k = 'Varios'
+
+			    gastos_det = '{}: {}'.format(k, sum(list(list(zip(*g))[1]))*87/100)
+			    detalles_gasto.append(gastos_det)
+			    # print('{}: {}'.format(k, list(list(zip(*g))[1])))
+			otros_gastos = '{}: {}'.format('Otros Gastos', decimal.Decimal(gastos)*87/100)
+			detalles_gasto.append(otros_gastos)
+
+			# for c in compras:
+			# 	det = DetalleCompra.objects.filter(compra=c.pk)
+			# 	if det[0].centro_costos != 'A':
+			# 		total_compra = total_compra + c.total
+			# 		# print det[0].centro_costos
+					
+			total_compra = total_compra + decimal.Decimal(gastos)
+			total_gastos = total_compra * 87 / 100
+
+			utilidad_periodo = totalventas - costo_venta - total_gastos
+
+
+			
+
+			return render_to_pdf('reportes/notasnocpdf.html', {'totalventas': totalventas, 'totalventas_contad': totalventas_contad, 'total_credito': totalventas_credito, 'costo_venta': costo_venta, 'utilidad': utilidad, 'total_gastos': total_gastos, 'gastos_det': detalles_gasto, 'utilidad_periodo': utilidad_periodo})
+		else:
+			ventas = Venta.objects.filter(fecha=hoy)
+			return render(request, 'reportes/notasnocpdf.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

@@ -3,8 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, DetailView
-from apps.compras.models import Compra, DetalleCompra
-from apps.ventas.models import Venta, DetalleVenta, Movimiento
+from apps.compras.models import Compra, DetalleCompra, CobroCompra, CentroCostos
+from apps.ventas.models import Venta, DetalleVenta, Movimiento, Cobro
 from apps.producto.models import Item
 from .htmltopdf import render_to_pdf
 from io import BytesIO
@@ -29,7 +29,12 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpRespons
 from datetime import date
 from django.template import loader, Context
 from django.contrib import messages
-from itertools import chain
+import decimal
+from .htmltopdf import render_to_pdf
+from django.core.urlresolvers import reverse_lazy, reverse
+from django.db.models import Q
+from apps.config.models import DatosDosificacion, Formatofactura, FacturaCampos, Formatodetalle
+from apps.ventas.numero_autorizacion import codigoControl
 
 
 class RepCompras(TemplateView):
@@ -118,44 +123,55 @@ def Reporteventa(request):
 		date2 = request.POST['date2']
 		tipo = request.POST['tipo_venta']
 		nit = request.POST['nit2']
-		monto = request.POST['monto2']
+		# monto = request.POST['monto2']
 		empresa = request.POST['empresa2']
-		
 
-		if date1 != '':
+		if date1 != '' and date2 != '':
 			if tipo == 'todo':
 				if nit != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), nit=nit)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), nit=nit).exclude(tipo_movimiento='baja')
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), razon_social=empresa)
-				elif monto != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), razon_social=empresa).exclude(tipo_movimiento='baja')
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
+				# elif monto != '':
+				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas = Venta.objects.filter(fecha__range=(date1, date2))
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2)).exclude(tipo_movimiento='baja')
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
+
 			else:
 				if nit != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, nit=nit).exclude(tipo_movimiento='baja')
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 				elif empresa != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa)
-				elif monto != '':
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa).exclude(tipo_movimiento='baja')
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
+				# elif monto != '':
+				# 	ventas1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+				# 	ventas = DetalleVenta.objects.filter(venta=ventas1)
 				else:
-					ventas = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo)
+					ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha__range=(date1, date2), tipo_compra=tipo).exclude(tipo_movimiento='baja')
+					ventas = DetalleVenta.objects.filter(venta=ventas1)
 			
 			total = 0
-			for venta in ventas:
+			for venta in ventas1:
 				total += venta.total
 			
-			return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True, 'date1': date1, 'date2': date2})
+			return render(request, 'reportes/reporte_venta.html', {'ventas': ventas, 'total': total, 'ex':True, 'date1': date1, 'date2': date2})
+		else:
+			return render(request, 'reportes/reporte_venta.html', {'valid': True, 'ex':True, 'date1': date1, 'date2': date2})
 		
 	else:
 		datecompu = date.today()
 		total = 0
-		ventas = Venta.objects.filter(fecha=datecompu)
+		ventas1 = Venta.objects.filter(empresa=request.user.empresa, fecha=datecompu).exclude(tipo_movimiento='baja')
+		ventas = DetalleVenta.objects.filter(venta=ventas1)
 		for venta in ventas:
-			total += venta.total
+			total += venta.cantidad * venta.precio_unitario
 
-		return render(request, 'reportes/reporte_venta.html', {'ventas':ventas, 'total':total, 'ex':True})
+		return render(request, 'reportes/reporte_venta.html', {'ventas': ventas, 'total': total, 'ex': True})
 # class ReportVendetalle(DetailView):
 # 	template_name = 'reportes/detalle_ventas.html'
 # 	model = DetalleVenta
@@ -195,27 +211,142 @@ def ReportVendetalle(request):
 
 
 def detalleVenta(request, pk):
-    print pk
     venta = Venta.objects.filter(id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
-    
+
     vd = []
+    scf = 0
     for d in detalle:
+        scf = scf + d.scf
         vd.append(d)
 
-    print vd
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    # dosificacion = DatosDosificacion.objects.filter(empresa=request.user.empresa).last()
+    # cod_control = codigoControl(dosificacion.llave_digital, dosificacion.nro_autorizacion, venta[0].nro_factura, venta[0].nit, venta[0].fecha, venta[0].total, request.user.empresa.nit,scf)
+    datos_campo = FacturaCampos.objects.get(empresa=request.user.empresa)
+    campo_descuento = 1
+    campo_recargo = 1
+    campo_ice = 1
+    campo_exentos = 1
+
+    if datos_campo.descuento_usar:
+        campo_descuento = 0
+    if datos_campo.recargo_usar:
+        campo_recargo = 0
+    if datos_campo.ice_usar:
+        campo_ice = 0
+    if datos_campo.exentos_usar:
+        campo_exentos = 0
+
+    sumas = campo_descuento + campo_recargo + campo_ice + campo_exentos
+    total_campos = 9 - sumas
 
     data = {
         'nit': venta[0].nit,
+        'nro_factura': venta[0].nro_factura,
+        'nro_nota': venta[0].nro_nota,
         'razon_social': venta[0].razon_social,
         'fecha': venta[0].fecha,
         'tipo_compra': venta[0].tipo_compra,
+        'codigo_control': venta[0].codigo_control,
         'total': venta[0].total,
-        'detalle': vd
-        
+        'detalle': vd,
+        'formato': formato,
+        'numero_autorizacion': venta[0].numero_autorizacion,
+        'fecha_limite': venta[0].fecha_limite,
+        'sucursal': venta[0].sucursal,
+        'actividad': venta[0].actividad,
+        'factura_campos': datos_campo,
+        'total_campos': total_campos,
+        'empresa': request.user.get_empresa()
+
     }
 
-    return render_to_pdf('reportes/rep_detalleventa.html', data)
+    formato = Formatofactura.objects.get(empresa=request.user.empresa)
+    print 'el formato'
+    print formato
+
+    if formato.formato == 'general':
+        if formato.impresion == 'Vacia':
+            if formato.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+            elif formato.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficio.html', data)
+
+            elif formato.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamedio.html', data)
+
+        elif formato.impresion == 'Completa':
+            if formato.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+
+            elif formato.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+
+            elif formato.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+
+        elif formato.impresion == 'Semi-completa':
+            if formato.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+
+            elif formato.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+
+            elif formato.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+    else:
+        formato_detalle = Formatodetalle.objects.get(formatofact=formato.pk, sucursal=venta[0].sucursal)
+        
+        if formato_detalle.impresion == 'Vacia':
+            if formato_detalle.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato_detalle.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventa.html', data)
+
+            elif formato_detalle.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficio.html', data)
+
+            elif formato_detalle.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamedio.html', data)
+
+        elif formato_detalle.impresion == 'Completa':
+            if formato_detalle.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato_detalle.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventacompleta.html', data)
+
+            elif formato_detalle.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiocompleta.html', data)
+
+            elif formato_detalle.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediocompleta.html', data)
+
+        elif formato_detalle.impresion == 'Semi-completa':
+            if formato_detalle.tamanio == 'rollo':
+                return render_to_pdf('reportes/rep_detalleventarollo.html', data)
+
+            elif formato_detalle.tamanio == 'carta':
+                return render_to_pdf('reportes/rep_detalleventasemi.html', data)
+
+            elif formato_detalle.tamanio == 'oficio':
+                return render_to_pdf('reportes/rep_ventaoficiosemi.html', data)
+
+            elif formato_detalle.tamanio == '1/2oficio':
+                return render_to_pdf('reportes/rep_ventamediosemi.html', data)
+
 
 
 def report_mesVenta(request):
@@ -233,7 +364,7 @@ def report_mesVenta(request):
 
         try:
         	# obteniendo datos del modelo venta 
-	    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
+	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1).exclude(tipo_movimiento='baja')
 	    	total = 0
 	        for venta in ventas:
 				total += venta.total
@@ -286,7 +417,7 @@ def report_almacenes(request):
 
         # try:
         	# obteniendo datos del modelo venta 
-	    	items = Item.objects.all()
+	    	items = Item.objects.filter(empresa=request.user.empresa)
 	    	# datos = []
 	     #    for it in items:
 	        
@@ -368,49 +499,50 @@ def libro_compras(request):
         d = date(int(anio),int(date1),1).strftime('%B')
         mes = _(d)
 
-        # try:
-        	# obteniendo datos del modelo venta 
-    	compras = Compra.objects.filter(fecha__year=anio, fecha__month=date1)
-    	total = 0
-        for compra in compras:
-			total += compra.total
+        try:
+        	
+	    	compras = Compra.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1)
+	    	total = 0
+	    	empresa = request.user.get_empresa()
+	        for compra in compras:
+				total += compra.total
 
-        if 'excel' in request.POST:
-            response = HttpResponse(content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=Reporte_compras.xlsx'
-            xlsx_data = WriteToCompras(compras, mes, total, town)
-            response.write(xlsx_data)
-            return response
+	        if 'excel' in request.POST:
+	            response = HttpResponse(content_type='application/vnd.ms-excel')
+	            response['Content-Disposition'] = 'attachment; filename=Reporte_compras.xlsx'
+	            xlsx_data = WriteToCompras(compras, mes, total, empresa, town)
+	            response.write(xlsx_data)
+	            return response
 
-        if 'pdf' in request.POST:
-            response = HttpResponse(content_type='application/pdf')
-            today = date.today()
-            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
-            response['Content-Disposition'] =\
-                'attachement; filename={0}.pdf'.format(filename)
-            buffer = BytesIO()
-            report = PdfCompras(buffer, 'A4')
-            pdf = report.report(compras, 'LIBRO DE COMPRAS', total, mes)
-            response.write(pdf)
-            return response
+	        if 'pdf' in request.POST:
+	            response = HttpResponse(content_type='application/pdf')
+	            today = date.today()
+	            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+	            response['Content-Disposition'] =\
+	                'attachement; filename={0}.pdf'.format(filename)
+	            buffer = BytesIO()
+	            report = PdfCompras(buffer, 'A4')
+	            pdf = report.report(compras, 'LIBRO DE COMPRAS ESTANDAR', total, mes, empresa)
+	            response.write(pdf)
+	            return response
 
-        if 'txt' in request.POST:
-            response = HttpResponse(content_type='text/plain; charset=utf-8')
-            response['Content-Disposition'] = 'attachment; filename="libro_compras.txt"'
-            t = loader.get_template('reportes/lib_compras.txt')
-            c = Context({'compras' : compras, })
+	        if 'txt' in request.POST:
+	            response = HttpResponse(content_type='text/plain; charset=utf-8')
+	            response['Content-Disposition'] = 'attachment; filename="libro_compras.txt"'
+	            t = loader.get_template('reportes/lib_compras.txt')
+	            c = Context({'compras' : compras, })
 
-            response.write(t.render(c))
-            return response
+	            response.write(t.render(c))
+	            return response
 
-    	context = {
-	        'town': town,
-	        'compras': compras,
-	    }
+	    	context = {
+		        'town': town,
+		        'compras': compras,
+		    }
 
-        return render(request, template_name, context)
-        # except Exception, e:
-        #     messages.error(request, 'No existen ventas')
+	        return render(request, template_name, context)
+        except Exception, e:
+            messages.error(request, 'No existen compras')
 
     return render(request, template_name)
 
@@ -427,73 +559,69 @@ def libro_ventas(request):
         d = date(int(anio), int(date1), 1).strftime('%B')
         mes = _(d)
 
-        # try:
-        	# obteniendo datos del modelo venta 
-    	ventas = Venta.objects.filter(fecha__year=anio, fecha__month=date1)
-    	total = 0
-        for venta in ventas:
-			total += venta.total
+        try:
+        	# obteniendo datos del modelo venta
+	    	ventas = Venta.objects.filter(empresa=request.user.empresa, fecha__year=anio, fecha__month=date1, tipo_movimiento='facturar').order_by('fecha')
+	    	total = 0
+	        for venta in ventas:
+				total += venta.total
 
-        if 'excel' in request.POST:
-            response = HttpResponse(content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=libro_ventas.xlsx'
-            xlsx_data = WriteToVentas(ventas, mes, total, town)
-            response.write(xlsx_data)
-            return response
+	        if 'excel' in request.POST:
+	            response = HttpResponse(content_type='application/vnd.ms-excel')
+	            response['Content-Disposition'] = 'attachment; filename=libro_ventas.xlsx'
+	            xlsx_data = WriteToVentas(ventas, mes, total, town)
+	            response.write(xlsx_data)
+	            return response
 
-        if 'pdf' in request.POST:
-            response = HttpResponse(content_type='application/pdf')
-            today = date.today()
-            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
-            response['Content-Disposition'] =\
-                'attachement; filename={0}.pdf'.format(filename)
-            buffer = BytesIO()
-            report = PdfVentas(buffer, 'A4')
-            pdf = report.report(ventas, 'LIBRO DE VENTAS', total, mes)
-            response.write(pdf)
-            return response
+	        if 'pdf' in request.POST:
+	            response = HttpResponse(content_type='application/pdf')
+	            today = date.today()
+	            filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+	            response['Content-Disposition'] =\
+	                'attachement; filename={0}.pdf'.format(filename)
+	            buffer = BytesIO()
+	            report = PdfVentas(buffer, 'A4')
+	            pdf = report.report(ventas, 'LIBRO DE VENTAS', total, mes)
+	            response.write(pdf)
+	            return response
 
-        if 'txt' in request.POST:
-            response = HttpResponse(content_type='text/plain; charset=utf-8')
-            response['Content-Disposition'] = 'attachment; filename="libro_ventas.txt"'
-            t = loader.get_template('reportes/lib_ventas.txt')
-            c = Context({'ventas': ventas, })
+	        if 'txt' in request.POST:
+	            response = HttpResponse(content_type='text/plain; charset=utf-8')
+	            response['Content-Disposition'] = 'attachment; filename="libro_ventas.txt"'
+	            t = loader.get_template('reportes/lib_ventas.txt')
+	            c = Context({'ventas': ventas, })
 
-            response.write(t.render(c))
-            return response
+	            response.write(t.render(c))
+	            return response
 
-    	context = {
-	        'town': town,
-	        'compras': ventas,
-	    }
+	    	context = {
+		        'town': town,
+		        'compras': ventas,
+		    }
 
-        return render(request, template_name, context)
-        # except Exception, e:
-        #     messages.error(request, 'No existen ventas')
+	        return render(request, template_name, context)
+        except Exception, e:
+            messages.error(request, 'No existen ventas')
 
     return render(request, template_name)
 
 
 def ReportAlmacen(request):
-	if request.method == 'POST':
-		date1 = request.POST['date1']
-		date2 = request.POST['date2']
-		# tipo = request.POST['valuacion']
+    if request.method == 'POST':
+        date1 = request.POST['mes']
+        anio = request.POST['anio']
 
-		if date1 != '':
-			items = Item.objects.filter(fecha_transaccion__range=(date1, date2))
-			total = 0
+        items = Item.objects.filter(empresa=request.user.empresa, fecha_transaccion__year=anio, fecha_transaccion__month=date1)
+        total = 0
 
-			for it in items:
-				total += it.cantidad * it.precio_unitario
-			
-			return render(request, 'reportes/reporte_almacenes.html', {'items': items, 'total': total, 'ex': True, 'date1': date1, 'date2': date2})
-
-	return render(request, 'reportes/reporte_almacenes.html')
+        for it in items:
+            total += it.cantidad * it.precio_unitario
+        return render(request, 'reportes/reporte_almacenes.html', {'items': items, 'total': total, 'ex': True, 'date1': date1, 'anio': anio})
+    return render(request, 'reportes/reporte_almacenes.html')
 
 
 def KardexAlmacen(request, pk):
-    venta = Venta.objects.filter(id=pk)
+    venta = Venta.objects.filter(empresa=request.user.empresa, id=pk)
     detalle = DetalleVenta.objects.filter(venta=venta)
     
     vd = []
@@ -514,49 +642,373 @@ def KardexAlmacen(request, pk):
     return render_to_pdf('reportes/rep_detalleventa.html', data)
 
 
-def promedios(request, pk, date1, date2):
-	movimiento = Movimiento.objects.filter(item=pk, fecha_transaccion__range=(date1, date2)).order_by('fecha_transaccion')
+def promedios(request, pk, date1, anio):
+    movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('id')
+    producto = Item.objects.get(id=pk)
+    movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, motivo_movimiento='inicial')
+    datosfinal = []
+    datosfinal.extend(movimientoinit)
+    datosfinal.extend(movimiento)
+    
+    for d in datosfinal:
+    	print d
+    data = []
+    saldo = 0
+    saldov = 0
 
-	print movimiento
+    for m in datosfinal:
+        item = Item.objects.filter(id=pk)
+        if m.motivo_movimiento == 'salida':
+            saldo = saldo - m.cantidad
+            saldo_iva = m.precio_unitario / 100 * 87
+            salidav = saldo_iva * m.cantidad
+            saldov = saldov - salidav
 
-	data = []
-	saldo = 0
-	saldov = 0
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': saldo_iva,
+                'ingreso': 0,
+                'salida': m.cantidad,
+                'saldo': abs(saldo),
+                'ingresov': 0,
+                'salidav': salidav,
+                'saldov': abs(saldov),
+            })
 
-	for m in movimiento:
+        elif m.motivo_movimiento == 'inicial':
+            saldo = saldo + m.cantidad
+            ingresov = m.precio_unitario * m.cantidad
+            saldov = saldov + ingresov
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': m.precio_unitario,
+                'ingreso': m.cantidad,
+                'salida': 0,
+                'saldo': saldo,
+                'ingresov': ingresov,
+                'salidav': 0,
+                'saldov': saldov,
+            })
 
-		item = Item.objects.filter(id=pk)
-    	if m.motivo_movimiento == 'salida':
+        else:
+            saldo = saldo + m.cantidad
+            saldo_iva = m.precio_unitario / 100 * 87
+            ingresov = saldo_iva * m.cantidad
+            saldov = saldov + ingresov
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': saldo_iva,
+                'ingreso': m.cantidad,
+                'salida': 0,
+                'saldo': saldo,
+                'ingresov': ingresov,
+                'salidav': 0,
+                'saldov': saldov,
+            })
 
-    		saldo = saldo - m.cantidad
-    		salidav = item[0].precio_unitario * m.cantidad
-    		saldov = saldov - salidav
+    return render(request, 'reportes/reporte_kardex.html', {'kardex': data, 'item': producto})
 
-	    	data.append({
-	    		'fecha': m.fecha_transaccion,
-	    		'detalle': m.detalle,
-	    		'pu': item[0].precio_unitario,
-	    		'ingreso': 0,
-	    		'salida': m.cantidad,
-	    		'saldo': saldo,
-	    		'ingresov': 0,
-	    		'salidav': salidav,
-	    		'saldov': saldov,
-	    	})
+
+def Createpago(request):
+
+    if request.method == 'POST':
+        monto = request.POST['monto']
+        venta = request.POST['venta']
+
+        cobro_data = Cobro.objects.filter(empresa=request.user.empresa).exclude(nro__isnull=True).last()
+        if cobro_data:
+            nro1 = cobro_data.nro
+            if nro1 is None:
+                nro1 = 0
+        else:
+            nro1 = 0
+
+        venta_get = Venta.objects.filter(empresa=request.user.empresa, id=venta)
+        crearcobro = Cobro(
+            venta=Venta.objects.get(id=venta),
+            monto_pago=monto,
+            fecha_transaccion=date.today(),
+            empresa=request.user.empresa,
+            nro=nro1 + 1,
+        )
+        crearcobro.save()
+
+        if venta_get[0].monto_pago is None:
+            montofinal = venta_get[0].total - decimal.Decimal(monto)
+            if montofinal == 0:
+                venta_get.update(tipo_compra='contado', monto_pago=monto)
+            else:
+                venta_get.update(monto_pago=monto)
+        else:
+            monto2 = venta_get[0].monto_pago + decimal.Decimal(monto)
+            montofinal = venta_get[0].total - monto2
+            if montofinal == 0:
+                venta_get.update(tipo_compra='contado', monto_pago=monto2)
+            else:
+                venta_get.update(monto_pago=monto2)
+
+        nro = 0
+        if venta_get[0].tipo_movimiento == 'proforma':
+        	nro = '%s %s' % ('PROFORMA N°', venta_get[0].nro_nota)
+        else:
+        	nro = '%s %s' % ('FACTURA N°', venta_get[0].nro_factura)
+
+        # montofinal = venta_get[0].total - decimal.Decimal(monto)
+        # venta_get.update(monto_pago=montofinal)
+     
+        montobase = Cobro.objects.get(id=crearcobro.id)
+        data = {
+            'monto': montobase.monto_pago,
+            'cliente': venta_get[0].razon_social,
+            'fecha': date.today(),
+            'empresa': request.user.get_empresa(),
+            'nro': nro,
+            'nro_recibo': montobase.nro,
+            'user': request.user,
+        }
+
+    return render_to_pdf('reportes/reporte_pago.html', data)
+
+
+class ReporteCaja(TemplateView):
+	template_name = 'reportes/caja.html'
+	success_url = reverse_lazy('rep_caja')
+
+	def post(self, request, *args, **kwargs):
+		hoy = request.POST['hoy']
+		cajai = request.POST['si']
+		gastos = request.POST['gd']
+		
+
+		if hoy != '':
+#			ventas = Venta.objects.filter(fecha=hoy)
+			ventas = Venta.objects.filter(Q(empresa=self.request.user.empresa) & Q(fecha=hoy) & Q(tipo_compra='contado'))
+			cobros = Cobro.objects.filter(empresa=self.request.user.empresa, fecha_transaccion=date.today())
+			totcobros = 0
+			for x in cobros:
+				totcobros = totcobros+x.monto_pago
+			sub = 0
+			for i in ventas:
+				sub = sub+i.total
+			total = decimal.Decimal(cajai)+sub-decimal.Decimal(gastos)+totcobros
+			print total
+
+
+			return render_to_pdf('reportes/ccaja.html', {'sub': sub, 'cajai': cajai, 'gastos': gastos, 'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros, 'user': request.user, 'empresa': request.user.get_empresa(), 'fecha':date.today()})
+		else:
+			ventas = Venta.objects.filter(empresa=self.request.user.empresa, fecha=hoy)
+			return render(request, 'reportes/ccaja.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})
+
+
+def Reportcompra(request):
+	if request.method == 'POST':
+		date1 = request.POST['date1']
+		date2 = request.POST['date2']
+		tipo = request.POST['tipo_compra']
+		nit = request.POST['nit2']
+		# monto = request.POST['monto2']
+		empresa = request.POST['empresa2']
+
+		if date1 != '' and date2 != '':
+			if tipo == 'todo':
+				if nit != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), nit=nit, empresa=request.user.empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				elif empresa != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), razon_social=empresa, empresa=request.user.empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				# elif monto != '':
+				# 	compra1 = Venta.objects.filter(fecha__range=(date1, date2), total__gte=monto)
+				# 	compras = DetalleCompra.objects.filter(venta=compra1)
+				else:
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), empresa=request.user.empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+
+			else:
+				if nit != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, nit=nit, empresa=request.user.empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				elif empresa != '':
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, razon_social=empresa, empresa=request.user.empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+				# elif monto != '':
+				# 	compra1 = Venta.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, total__gte=monto)
+				# 	compras = DetalleCompra.objects.filter(venta=compra1)
+				else:
+					compra1 = Compra.objects.filter(fecha__range=(date1, date2), tipo_compra=tipo, empresa=request.user.empresa)
+					compras = DetalleCompra.objects.filter(compra=compra1)
+			
+			total = 0
+			for compra in compra1:
+				total += compra.total
+			
+			return render(request, 'reportes/reporte_compra.html', {'compras': compras, 'total': total, 'ex':True, 'date1': date1, 'date2': date2})
+		else:
+			return render(request, 'reportes/reporte_compra.html', {'valid': True, 'ex':True, 'date1': date1, 'date2': date2})
+		
 	else:
-		saldo = saldo + m.cantidad
-		ingresov = item[0].precio_unitario * m.cantidad
-		saldov = saldov + ingresov
-	    	data.append({
-	    		'fecha': m.fecha_transaccion,
-	    		'detalle': m.detalle,
-	    		'pu': item[0].precio_unitario,
-	    		'ingreso': m.cantidad,
-	    		'salida': 0,
-	    		'saldo': saldo,
-	    		'ingresov': ingresov,
-	    		'salidav': 0,
-	    		'saldov': saldov,
-	    	})
+		datecompu = date.today()
+		total = 0
+		compra1 = Compra.objects.filter(fecha=datecompu, empresa=request.user.empresa)
+		compras = DetalleCompra.objects.filter(compra=compra1)
+		for compra in compras:
+			total += compra.cantidad * compra.precio_unitario
 
-	return render(request, 'reportes/reporte_kardex.html', {'kardex': data})
+		return render(request, 'reportes/reporte_compra.html', {'compras': compras, 'total': total, 'ex': True})
+
+
+def detalleCompra(request, pk):
+    compra = Compra.objects.filter(id=pk)
+    detalle = DetalleCompra.objects.filter(compra=compra)
+    vd = []
+    for d in detalle:
+        vd.append(d)
+
+    data = {
+        'nit': compra[0].nit,
+        'nro_factura': compra[0].nro_factura,
+        'razon_social': compra[0].razon_social,
+        'fecha': compra[0].fecha,
+        'tipo_compra': compra[0].tipo_compra,
+        'total': compra[0].total,
+        'detalle': vd,
+        'empresa': request.user.get_empresa(),
+        'dias': compra[0].cantidad_dias,
+        'nro_nota': compra[0].nro_nota,
+        'user': request.user,
+    }
+
+    return render_to_pdf('reportes/rep_detallecompra.html', data)
+
+
+def Createpagocobro(request):
+
+    if request.method == 'POST':
+        monto = request.POST['monto']
+        compra = request.POST['compra']
+        compra_get = Compra.objects.filter(id=compra)
+
+        crearcobro = CobroCompra(
+            compra=Compra.objects.get(id=compra),
+            monto_pago=monto,
+            fecha_transaccion=date.today(),
+            empresa=request.user.empresa,
+        )
+        crearcobro.save()
+
+        if compra_get[0].monto_pago is None:
+            montofinal = compra_get[0].total - decimal.Decimal(monto)
+            if montofinal == 0:
+                compra_get.update(tipo_compra='contado', monto_pago=monto)
+            else:
+                compra_get.update(monto_pago=monto)
+        else:
+            monto2 = compra_get[0].monto_pago + decimal.Decimal(monto)
+            montofinal = compra_get[0].total - monto2
+            if montofinal == 0:
+                compra_get.update(tipo_compra='contado', monto_pago=monto2)
+            else:
+                compra_get.update(monto_pago=monto2)
+
+        # montofinal = venta_get[0].total - decimal.Decimal(monto)
+        # venta_get.update(monto_pago=montofinal)
+        print monto
+        montobase = CobroCompra.objects.get(id=crearcobro.id)
+        data = {
+            'monto': montobase.monto_pago,
+            'cliente': compra_get[0].razon_social,
+            'fecha': date.today(),
+        }
+
+    return render_to_pdf('reportes/reporte_pagocompra.html', data)
+
+
+class NotasNoComtables(TemplateView):
+	template_name = 'reportes/notsnocontabls.html'
+	success_url = reverse_lazy('rep_caja')
+
+	def post(self, request, *args, **kwargs):
+		mes = request.POST['mes']
+		anio = request.POST['anio']
+		gastos = request.POST['gastos']
+
+		# el 87 % de las ventas
+		if mes != '':
+			ventas = Venta.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
+			total = 0
+			for i in ventas:
+				total = total + i.total
+			
+			totalventas = total*87/100
+			
+			
+			ventas_contado= Venta.objects.filter(fecha__year=anio, fecha__month=mes, tipo_compra='contado', empresa=request.user.empresa)
+			total_contado = 0
+			for i in ventas_contado:
+				total_contado = total_contado + i.total
+
+			totalventas_contad = total_contado*87/100
+
+			ventas_credito = Venta.objects.filter(fecha__year=anio, fecha__month=mes, tipo_compra='credito', empresa=request.user.empresa)
+			total_credito = 0
+			for i in ventas_credito:
+				total_credito = total_credito + i.total
+
+			totalventas_credito = total_credito*87/100
+
+
+			detalle_ventas = DetalleVenta.objects.filter(venta__fecha__year=anio, venta__fecha__month=mes, venta__empresa=request.user.empresa)
+			costo_venta = 0
+			for i in detalle_ventas:
+				costo_venta = costo_venta + i.item.costo_unitario
+			
+			utilidad = totalventas - costo_venta
+
+			compras = Compra.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
+			total_compra = 0
+
+			from itertools import groupby
+			from operator import itemgetter
+
+			centros = DetalleCompra.objects.filter(compra__empresa=request.user.empresa, compra__fecha__year=anio, compra__fecha__month=mes)
+			# totales_det = [c.scf for c in centros]
+			totales_det = []
+			totales_cen = []
+			for c in centros:
+				if c.centro_costos != 'A':
+					totales_det.append(c.scf)
+					totales_cen.append(c.centro_costos)
+			# print totales_det
+
+			# totales_cen = [c.centro_costos for c in centros]
+			# print totales_cen   
+
+			detalles_gasto = []
+			for k, g in groupby(zip(totales_cen, totales_det), itemgetter(0)):
+			    if k == 'V':
+                	       k = 'Varios'
+			    gastos_det = '{}: {}'.format(k, sum(list(list(zip(*g))[1]))*87/100)
+			    detalles_gasto.append(gastos_det)
+			    # print sum(list(list(zip(*g))[1]))
+			    # print('{}: {}'.format(k, list(list(zip(*g))[1])))
+			print detalles_gasto
+
+			for c in compras:
+				det = DetalleCompra.objects.filter(compra=c.pk)
+				if det[0].centro_costos != 'A':
+					total_compra = total_compra + c.total
+					# print det[0].centro_costos
+					
+
+			total_gastos = total_compra * 87 / 100
+
+
+			
+
+			return render_to_pdf('reportes/notasnocpdf.html', {'totalventas': totalventas, 'totalventas_contad': totalventas_contad, 'total_credito': totalventas_credito, 'costo_venta': costo_venta, 'utilidad': utilidad, 'total_gastos': total_gastos, 'gastos_det': detalles_gasto})
+		else:
+			ventas = Venta.objects.filter(fecha=hoy)
+			return render(request, 'reportes/notasnocpdf.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

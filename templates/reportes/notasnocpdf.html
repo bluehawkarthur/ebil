@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+  <style>
+   .center-text{
+    text-align:center;
+   }
+
+   .center-text-td{
+    text-align:left;
+    font-size: 13px;
+   }
+
+   .text-size{
+    font-size: 13px;
+   }
+    
+  .i {
+      text-align: right;
+      font-size: 13px;
+    }
+
+ 
+    #tablein #tablein2td, .caja {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  </style>
+</head>
+<body>
+<section id="content">
+  <!--start container-->
+  <div class="container">
+    <div id="invoice">
+      <table style="border:1px solid black; padding: 5px;">
+        <tr style="border:none;padding: 20px;">
+          <td class="text-size center-text" colspan="2">
+          <b style="font-size: 20px;">ESTADO DE RESULTADOS NO CONTABLE</b>
+          </td>
+        </tr>
+
+        <tr style="border:none;">
+          <td><b style="font-size: 15px;">VENTAS</b></td><td class='center-text-td'><b>{{totalventas}}</b></td>
+        </tr>
+
+        <tr style="border:none;">
+          <td><b style="font-size: 15px;">Ventas al contado:</b>
+            
+          </td>
+          <td class='center-text-td'>{{totalventas_contad}}</td>
+        </tr>
+        <tr style="border:none;">
+          <td><b style="font-size: 15px;">Ventas al Credito:</b>
+            
+          </td>
+          <td class='center-text-td'>{{total_credito}}</td>
+        </tr>
+        <tr style="border:none;">
+          <td><b style="font-size: 15px;"><u>COSTO DE VENTAS</u></b></td>
+          <td class='center-text-td'><u><b>{{costo_venta}}</b></u></td>
+        </tr>
+        <tr style="border:none;">
+          <td><b style="font-size: 15px;"><u>UTILIDAD BRUTA EN VENTAS</u></b></td>
+          <td class='center-text-td'><u><b>{{utilidad}}</b></u></td>
+        </tr>
+        <tr style="border:none;">
+          <td><b style="font-size: 15px;">Gastos</b></td>
+          <td class='center-text-td'><b>{{total_gastos}}</b></td>
+        </tr>
+
+        <tr style="border:none;">
+          <td>
+             <table id='tablein'>
+              {% for i in gastos_det %}
+                <tr class='caja'><td class='text-size'><b>{{i}}</b></td></tr>
+              {% endfor %}
+            </table>
+          </td>
+          
+         
+        </tr>
+
+        <tr style="border:none;">
+          <td><u><b style="font-size: 15px;">UTILIDAD  DEL PERIODO</b></u></td><td class='center-text-td'><u><b>{{utilidad_periodo}}</b></u></td>
+        </tr>
+      </table>
+
+      
+    </div>
+  </div>
+</section>
+</body>
+</html>

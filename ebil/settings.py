@@ -187,6 +187,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 NORECAPTCHA_SITE_KEY  = '6LfeIg0TAAAAAKNqc6kXnxJoNkmtZByMJC-X2wfV'
 NORECAPTCHA_SECRET_KEY  = '6LfeIg0TAAAAAD1rb1X8vu8BbPJ2DZ4JIJP9tlGF'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 if DEBUG:
 
     from fnmatch import fnmatch

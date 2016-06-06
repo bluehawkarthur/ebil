@@ -59,6 +59,11 @@ class CrearCliente(FormView):
 	success_url = reverse_lazy('listar_cliente')
 	success_message = "%(razon_social)s fue creado con exito"
 
+	def get_form_kwargs(self):
+		kwargs = super(CrearCliente, self).get_form_kwargs()
+		kwargs['request'] = self.request
+		return kwargs
+
 	def form_valid(self, form):
 		cliente = Cliente()
 		cliente.codigo = form.cleaned_data['codigo']

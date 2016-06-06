@@ -17,6 +17,14 @@ class PersonajuridicaForm(forms.Form):
     municipios = forms.CharField(max_length=100)
     logo = forms.ImageField(required=False, label="Logo")
 
+    def clean_nit(self):
+        try:
+            Personajuridica.objects.get(nit=self.cleaned_data['nit'])
+        except Personajuridica.DoesNotExist:
+            return self.cleaned_data['nit']
+
+        raise forms.ValidationError("La empresa con este nit ya existe")
+
 
 class EmpresaFormedit(forms.ModelForm):
     razon_social = forms.CharField(max_length=100)

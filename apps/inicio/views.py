@@ -62,7 +62,6 @@ class Index(View):
 
     def get(self, request, *args, **kwargs):
 
-
         if not request.user.is_authenticated():
             return HttpResponseRedirect(reverse_lazy('login'))
         else:
@@ -88,13 +87,16 @@ class LogoutView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         logout(request)
+        request.session.flush()
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
 class Reportes(TemplateView):
     template_name = 'inicio/reportes.html'
 
+
 # @has_role_decorator('administrador')
+@login_required
 def register(request):
     context = RequestContext(request)
 
@@ -184,7 +186,12 @@ class ListarUsuario(PaginationMixin, ListView):
                 print 'llego'
         return object_list
 
-@has_role_decorator('adminstrador')
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ListarUsuario, self).dispatch(*args, **kwargs)
+
+
+@has_role_decorator('administrador')
 def eliminar(request, id):
     p = User.objects.get(id=id)
     p.delete()
@@ -205,6 +212,7 @@ class EditUser(UpdateView):
         return self.render_to_response(context)
 
 
+@login_required
 def user_edit(request, pk):
         user = get_object_or_404(User, pk=pk)
         form = UserFormedit()
@@ -248,6 +256,7 @@ def user_edit(request, pk):
         return render(request, 'inicio/update.html', {'user_form': form, 'usere': user})
 
 
+@login_required
 def user_permisos(request, pk):
         # user = get_object_or_404(User, pk=pk)
         # form = UserFormedit()
@@ -267,7 +276,7 @@ def user_permisos(request, pk):
         return render(request, 'inicio/edit_inline.html', {'formset': formset})
 
 
-
+@login_required
 def change_password(request, pk):
     user = get_object_or_404(User, pk=pk)
     if request.method == 'POST':
@@ -284,6 +293,7 @@ def change_password(request, pk):
     return render(request, 'inicio/reset_password.html', content,)
 
 
+@login_required
 def perfil(request):
     user = get_object_or_404(User, pk=request.user.pk)
 

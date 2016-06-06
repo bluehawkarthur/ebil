@@ -934,6 +934,8 @@ class NotasNoComtables(TemplateView):
 		mes = request.POST['mes']
 		anio = request.POST['anio']
 		gastos = request.POST['gastos']
+		d = date(int(anio),int(mes),1).strftime('%B')
+		mestext = _(d)
 
 		
 		if mes != '':
@@ -964,7 +966,8 @@ class NotasNoComtables(TemplateView):
 			detalle_ventas = DetalleVenta.objects.filter(venta__fecha__year=anio, venta__fecha__month=mes, venta__empresa=request.user.empresa)
 			costo_venta = 0
 			for i in detalle_ventas:
-				costo_venta = costo_venta + i.item.costo_unitario
+				costo_cantidad = i.item.costo_unitario * i.cantidad
+				costo_venta = costo_venta + costo_cantidad
 			
 			utilidad = totalventas - costo_venta
 
@@ -983,10 +986,12 @@ class NotasNoComtables(TemplateView):
 			for c in centros:
 				if c.centro_costos != 'A':
 					totales_det.append(c.scf)
+					print c.centro_costos
 					totales_cen.append(c.centro_costos)
 					total_compra = total_compra + c.scf
 
 			# totales_cen = [c.centro_costos for c in centros]
+
 
 			detalles_gasto = []
 			# ======= agrupando centro de costos con sus totales ================
@@ -995,10 +1000,10 @@ class NotasNoComtables(TemplateView):
 			    if k == 'V':
                 	       k = 'Varios'
 
-			    gastos_det = '{}: {}'.format(k, sum(list(list(zip(*g))[1]))*87/100)
+			    gastos_det = '{}: {}'.format(k.encode("UTF-8"), sum(list(list(zip(*g))[1]))*87/100)
 			    detalles_gasto.append(gastos_det)
 			    # print('{}: {}'.format(k, list(list(zip(*g))[1])))
-			otros_gastos = '{}: {}'.format('Otros Gastos', decimal.Decimal(gastos)*87/100)
+			otros_gastos = '{}: {}'.format('Otros Gastos', decimal.Decimal(gastos))
 			detalles_gasto.append(otros_gastos)
 
 			# for c in compras:
@@ -1007,15 +1012,16 @@ class NotasNoComtables(TemplateView):
 			# 		total_compra = total_compra + c.total
 			# 		# print det[0].centro_costos
 					
-			total_compra = total_compra + decimal.Decimal(gastos)
-			total_gastos = total_compra * 87 / 100
+			total_compra = total_compra * 87 / 100 
+			total_gastos = total_compra + decimal.Decimal(gastos)
 
 			utilidad_periodo = totalventas - costo_venta - total_gastos
 
 
+
 			
 
-			return render_to_pdf('reportes/notasnocpdf.html', {'totalventas': totalventas, 'totalventas_contad': totalventas_contad, 'total_credito': totalventas_credito, 'costo_venta': costo_venta, 'utilidad': utilidad, 'total_gastos': total_gastos, 'gastos_det': detalles_gasto, 'utilidad_periodo': utilidad_periodo})
+			return render_to_pdf('reportes/notasnocpdf.html', {'totalventas': totalventas, 'totalventas_contad': totalventas_contad, 'total_credito': totalventas_credito, 'costo_venta': costo_venta, 'utilidad': utilidad, 'total_gastos': total_gastos, 'gastos_det': detalles_gasto, 'utilidad_periodo': utilidad_periodo, 'mes': mestext, 'anio': anio})
 		else:
 			ventas = Venta.objects.filter(fecha=hoy)
 			return render(request, 'reportes/notasnocpdf.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

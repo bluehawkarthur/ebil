@@ -416,7 +416,7 @@ function agregarDetalle(){
              }
            });
           }, 
-          minLength: 2,       
+          minLength: 1,       
           select: function( event, ui ) {
             var fila = new Object();
             fila.pk = ui.item.pk_id_item;

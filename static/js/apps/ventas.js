@@ -446,6 +446,7 @@ function agregarDetalle(){
             proceso.tipo_recargo = $('input[name="tipo_recargoc"]:checked').val();
             proceso.movimiento  = $('#movimiento').val();
             proceso.sucursal = $('#add_sucursal').val();
+            proceso.actividad = $('#add_actividad').val();
 
 
             var tipo_c= 'contado';

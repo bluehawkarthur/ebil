@@ -26,6 +26,8 @@ from apps.bancarizacion.models import BancarizacionCompras, BancarizacionVentas
 from apps.producto.models import Item
 from apps.compras.models import Compra, DetalleCompra, CentroCostos, CobroCompra
 from apps.ventas.models import Venta, DetalleVenta, Movimiento, Cobro
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 IMPORT_FILE_TYPES = ['.json', '.xls', '.xlsx', ]
 
@@ -34,6 +36,7 @@ class Configuraciones(TemplateView):
     template_name = 'config/config.html'
 
 
+@login_required
 def Createpersojuridica(request):
     if request.method == 'POST':
         form = PersonajuridicaForm(request.POST, request.FILES)
@@ -287,6 +290,10 @@ class ListarPersonajuridica(PaginationMixin, ListView):
             object_list = self.model.objects.all().order_by('pk')
         return object_list
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ListarPersonajuridica, self).dispatch(*args, **kwargs)
+
 
 class EditPersonajuridica(UpdateView):
     template_name = 'config/edit_Personajuridica.html'
@@ -301,13 +308,14 @@ class DetallePersonajuridica(DetailView):
     model = Personajuridica
     context_object_name = 'personajuridica'
 
-
+@login_required
 def DeletePersonajuridica(request, personajuridica):
     e = Personajuridica.objects.get(id=personajuridica)
     e.delete()
     return HttpResponseRedirect(reverse_lazy('listarPersonajuridica'))
 
 
+@login_required
 def CrearDatosDosificacion(request):
     if request.method == 'POST':
         form = DatosDosificacionForm(request.POST)
@@ -356,6 +364,10 @@ class ListarDatosDosificacion(PaginationMixin, ListView):
                 empresa=self.request.user.empresa).order_by('-pk')
         return object_list
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ListarDatosDosificacion, self).dispatch(*args, **kwargs)
+
 
 class DetalleDatosDosificacion(DetailView):
     template_name = 'config/detalle_datosdosificacion.html'
@@ -379,6 +391,7 @@ class EditDatosDosificacion(UpdateView):
         return form
 
 
+@login_required
 def DeleteDatosDosificacion(request, datosdosificacion):
     e = DatosDosificacion.objects.get(id=datosdosificacion)
     e.delete()
@@ -386,6 +399,7 @@ def DeleteDatosDosificacion(request, datosdosificacion):
     return HttpResponseRedirect(reverse_lazy('lista_datosdosificacion'))
 
 
+@login_required
 def CrearFormatofactura(request):
     if request.method == 'POST':
         form = FormatofacturaForm(request.POST)
@@ -407,6 +421,7 @@ def CrearFormatofactura(request):
     return render_to_response('config/crearFormatofactura.html', variables)
     
 
+@login_required
 def copiaBase(request):
     template_name = "config/copia_base.html"
     empresas = Personajuridica.objects.all()
@@ -490,6 +505,7 @@ class UploadFileForm(forms.Form):
                 u'%s no es un archivo válido. Por favor, asegúrese de que su archivo tenga la extension .json' % docfile.name)
 
 
+@login_required
 def import_base(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST,
@@ -578,6 +594,7 @@ class EditFacturaCampos(UpdateView):
         return FacturaCampos.objects.get(empresa=self.request.user.empresa)
 
 
+@login_required
 def CreateSucursal(request):
     if request.method == 'POST':
         form = SucursalForm(request.POST)
@@ -618,9 +635,12 @@ class ListarSucursal(PaginationMixin, ListView):
     context_object_name = 'sucursal'
 
     def get_queryset(self):
-
         object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('-pk')
         return object_list
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ListarSucursal, self).dispatch(*args, **kwargs)
 
 
 class EditSucursal(UpdateView):
@@ -629,7 +649,14 @@ class EditSucursal(UpdateView):
     fields = ['nombre_sucursal', 'nro_sucursal', 'direccion', 'telefono1', 'telefono2', 'telefono3', 'departamento', 'municipios']
     success_url = reverse_lazy('listarSucursal')
 
+    def get_form(self):
+        form = super(EditSucursal, self).get_form()
+        form.fields['telefono2'].required = False
+        form.fields['telefono3'].required = False
+        return form
 
+
+@login_required
 def DeleteSucursal(request, sucursal):
     e = Sucursal.objects.get(id= sucursal)
     e.delete()
@@ -642,6 +669,8 @@ class DetalleSucursal(DetailView):
     model = Sucursal
     context_object_name = 'sucursal'
 
+
+@login_required
 def CrearActividad(request):
     if request.method == 'POST':
         form = ActividadForm(request.POST)
@@ -664,15 +693,21 @@ def CrearActividad(request):
 
 
 class ListarActividad(PaginationMixin, ListView):
-	template_name = 'config/listar_actividad.html'
-	paginate_by = 5
-	model = Actividad
-	context_object_name = 'Actividad'
+    template_name = 'config/listar_actividad.html'
+    paginate_by = 5
+    model = Actividad
+    context_object_name = 'Actividad'
 
-	def get_queryset(self):
-		object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('-pk')
-		return object_list
+    def get_queryset(self):
+        object_list = self.model.objects.filter(empresa=self.request.user.empresa).order_by('-pk')
+        return object_list
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ListarActividad, self).dispatch(*args, **kwargs)
+
+
+@login_required
 def DeleteActividad(request, actividad):
 	e = Actividad.objects.get(id= actividad)
 	e.delete()
@@ -692,6 +727,7 @@ class DetalleActividad(DetailView):
 	context_object_name = 'Actividad'
 
 
+@login_required
 def import_validador(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST,

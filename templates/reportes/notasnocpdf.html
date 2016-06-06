@@ -39,7 +39,8 @@
       <table style="border:1px solid black; padding: 5px;">
         <tr style="border:none;padding: 20px;">
           <td class="text-size center-text" colspan="2">
-          <b style="font-size: 20px;">ESTADO DE RESULTADOS NO CONTABLE</b>
+          <b style="font-size: 20px;">ESTADO DE RESULTADOS NO CONTABLE</b><br>
+          <b>PERIODO {{mes|upper}} {{anio}}</b>
           </td>
         </tr>
 
@@ -85,7 +86,18 @@
         </tr>
 
         <tr style="border:none;">
-          <td><u><b style="font-size: 15px;">UTILIDAD  DEL PERIODO</b></u></td><td class='center-text-td'><u><b>{{utilidad_periodo}}</b></u></td>
+          <td>
+            <u>
+              <b style="font-size: 15px;">
+              {% if utilidad_periodo < 0%}
+              PERDIDA DEL PERIODO
+              {% else %}
+              UTILIDAD  DEL PERIODO
+              {% endif %}
+              </b>
+            </u>
+          </td>
+          <td class='center-text-td'><u><b>{{utilidad_periodo}}</b></u></td>
         </tr>
       </table>
 

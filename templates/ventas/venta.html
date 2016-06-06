@@ -22,7 +22,16 @@
                     {% for s in sucursal %}
                     <option value="{{ s.pk }}">{{ s.nombre_sucursal }}</option>
                     {% endfor %}
-                </select>
+                  </select>
+                  <label>Sucursal</label>
+                </div>
+                <div class="input-field col s7">
+                  <select name="add_actividad" id="add_actividad">
+                    {% for a in actividad %}
+                    <option value="{{ a.actividad }}">{{ a.actividad }}</option>
+                    {% endfor %}
+                  </select>
+                  <label>Actividad</label>
                 </div>
                 <div class="input-field col s7 has-error">
                   <input id="add_nit" name="add_nit" type="number" class="EntTab" required>

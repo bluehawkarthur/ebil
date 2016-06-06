@@ -59,9 +59,13 @@ class ClienteForm(forms.Form):
 	class Meta:
 		model = Cliente
 
+	def __init__(self, *args, **kwargs):
+		self.request = kwargs.pop('request')
+		super(ClienteForm, self).__init__(*args, **kwargs)
+
 	def clean_nit(self):
 		try:
-			Cliente.objects.get(nit=self.cleaned_data['nit'])
+			Cliente.objects.get(nit=self.cleaned_data['nit'], empresa=self.request.user.empresa)
 		except Cliente.DoesNotExist:
 			return self.cleaned_data['nit']
 
@@ -69,7 +73,7 @@ class ClienteForm(forms.Form):
 
 	def clean_codigo(self):
 		try:
-			Cliente.objects.get(codigo=self.cleaned_data['codigo'])
+			Cliente.objects.get(codigo=self.cleaned_data['codigo'], empresa=self.request.user.empresa)
 		except Cliente.DoesNotExist:
 			return self.cleaned_data['codigo']
 

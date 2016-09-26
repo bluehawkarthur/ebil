@@ -5,7 +5,8 @@ from .views import LoginView, LogoutView, Index, Inicio, Reportes, ListarUsuario
 urlpatterns = [
 	url(r'^$', Index.as_view(), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
-  	url(r'^logout/$', LogoutView.as_view(), name='logout'),
+  	# url(r'^logout/$', LogoutView.as_view(), name='logout'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
   	url(r'^inicio/$', Inicio.as_view(), name='inicio'),
     url(r'^inicio_root/$', InicioRoot.as_view(), name='inicio_root'),
   	url(r'^reportes/$', Reportes.as_view(), name='reportes'),

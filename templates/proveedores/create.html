@@ -153,7 +153,7 @@
                   document.getElementById("id_direccion").maxLength = long;
                   break;
               case 'literal':
-                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  this.value = this.value.replace(/[^a-zA-Z. ]/g,'');
                   var long = datos[0].fields.direccion_caractr;
                   document.getElementById("id_direccion").maxLength = long;
                   break;
@@ -280,7 +280,7 @@
         $('#id_contactos').keyup(function () {
             switch(datos[0].fields.contacto_tipo) {
               case 'numerico':
-                  this.value = this.value.replace(/[^0-9]/g,'');
+                  this.value = this.value.replace(/[^0-9. ]/g,'');
                   var long = datos[0].fields.contacto_caractr;
                   document.getElementById("id_contactos").maxLength = long;
                   break;

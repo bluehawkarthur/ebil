@@ -69,7 +69,6 @@
                     <ul class="left">
                       <li class="no-hover"><a href="#" data-activates="slide-out" class="menu-sidebar-collapse btn-floating btn-flat btn-medium waves-effect waves-light cyan hide-on-large-only"><i class="mdi-navigation-menu"></i></a></li>
                       <li><h1 class="logo-wrapper"><a href="/inicio" class="brand-logo darken-1"><!-- <img src="{% static "images/logo_ebil.png"%}" alt="materialize logo" style="width: 100px;"> -->   AGIL</a> <span class="logo-text">Materialize</span></h1></li>
-                      <li><a href="/logout" class="cyan-text"><i class="mdi-hardware-keyboard-tab left"></i> Salir</a></li>
 
                     </ul>
                     {% if user.is_authenticated %}
@@ -107,6 +106,9 @@
                               <li class="divider"></li>
                              
                               <li><a href="/logout" class="cyan-text"><i class="mdi-hardware-keyboard-tab left"></i> Salir</a>
+                              </li>
+                              <li>
+                                  <a href="{% url 'admin:logout' %}?next={% url 'index' %}">Log out</a>
                               </li>
                 
                   

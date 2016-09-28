@@ -655,15 +655,16 @@ def promedios(request, pk, date1, anio):
     data = []
     saldo = 0
     saldov = 0
+    promedio = 0
 
     for m in datosfinal:
         item = Item.objects.filter(id=pk)
         if m.motivo_movimiento == 'salida':
             saldo = saldo - m.cantidad
-            saldo_iva = m.precio_unitario / 100 * 87
+            saldo_iva = promedio
             salidav = saldo_iva * m.cantidad
             saldov = saldov - salidav
-
+            promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
@@ -674,12 +675,15 @@ def promedios(request, pk, date1, anio):
                 'ingresov': 0,
                 'salidav': salidav,
                 'saldov': abs(saldov),
+                'motivo': 'salida',
+                'promedio': promedio,
             })
 
         elif m.motivo_movimiento == 'inicial':
             saldo = saldo + m.cantidad
             ingresov = m.precio_unitario * m.cantidad
             saldov = saldov + ingresov
+            promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
@@ -690,6 +694,8 @@ def promedios(request, pk, date1, anio):
                 'ingresov': ingresov,
                 'salidav': 0,
                 'saldov': saldov,
+                'motivo': 'inicial',
+                'promedio': promedio,
             })
 
         else:
@@ -697,6 +703,7 @@ def promedios(request, pk, date1, anio):
             saldo_iva = m.precio_unitario / 100 * 87
             ingresov = saldo_iva * m.cantidad
             saldov = saldov + ingresov
+            promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
@@ -707,6 +714,8 @@ def promedios(request, pk, date1, anio):
                 'ingresov': ingresov,
                 'salidav': 0,
                 'saldov': saldov,
+                'motivo': 'entrada',
+                'promedio': promedio,
             })
 
     return render(request, 'reportes/reporte_kardex.html', {'kardex': data, 'item': producto})

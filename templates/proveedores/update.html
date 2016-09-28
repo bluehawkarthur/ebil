@@ -14,99 +14,90 @@
               <div class="card-panel">
                 <h4 class="header2">Proveedor</h4>
                 <div class="row">
-                  <form class="col s12" method="post">
+                  <form class="col s12" id="encabezado" method="post">
                     {% csrf_token %}
                   
                     <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        <div class="input-field col s6 has-error input-codigo">
                         <span class="help-block">{{ form.errors.codigo|removetags:'ul li' }}</span>
                         {{ form.codigo|add_error_class:"invalid" }}
                         <label for="emails">{{ form.codigo.label }}</label>
-                    	</div>
+                        </div>
 
-                    	<div class="input-field col s6 has-error">
+                        <div class="input-field col s6 has-error input-razon_social">
                         <span class="help-block">{{ form.errors.razon_social|removetags:'ul li' }}</span>
-                    	{{ form.razon_social|add_error_class:"invalid" }}
+                        {{ form.razon_social|add_error_class:"invalid" }}
                         <label for="email">{{ form.razon_social.label }}</label>
-                    	</div>
+                        </div>
 
-                    </div>
-                    <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        <div class="input-field col s6 has-error input-nit">
                         <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
-                    	{{ form.nit|add_error_class:"invalid" }}
+                        {{ form.nit|add_error_class:"invalid" }}
                         <label for="email">{{ form.nit.label }}</label>
-                    	</div>
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                        <div class="input-field col s6 has-erro input-direccion">
                         <span class="help-block">{{ form.errors.direccion|removetags:'ul li' }}</span>
-                    	{{ form.direccion|add_error_class:"invalid" }}
+                        {{ form.direccion|add_error_class:"invalid" }}
                         <label for="">{{ form.direccion.label }}</label>
                         
-                    	</div>
-                    </div>
-                    <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        </div>
+        
+                        <div class="input-field col s6 has-error input-telefono1">
                         <span class="help-block">{{ form.errors.telefono1|removetags:'ul li' }}</span>
-                    	{{ form.telefono1|add_error_class:"invalid" }}
+                        {{ form.telefono1|add_error_class:"invalid" }}
                         <label for="">{{ form.telefono1.label }}</label>
                         
-                    	</div>
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                        <div class="input-field col s6 has-error input-telefono2">
                         <span class="help-block">{{ form.errors.telefono2|removetags:'ul li' }}</span>
-                    	{{ form.telefono2|add_error_class:"invalid" }}
+                        {{ form.telefono2|add_error_class:"invalid" }}
                         <label for="">{{ form.telefono2.label }}</label>
                         
-                    	</div>
-                    </div>
-                    <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                    
+                        <div class="input-field col s6 has-error input-telefono3">
                         <span class="help-block">{{ form.errors.telefono3|removetags:'ul li' }}</span>
                         {{ form.telefono3|add_error_class:"invalid" }}
                         <label for="">{{ form.telefono3.label }}</label>
-                    	</div>
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                        <div class="input-field col s6 has-error input-contactos">
                         <span class="help-block">{{ form.errors.contactos|removetags:'ul li' }}</span>
                         {{ form.contactos|add_error_class:"invalid" }}
-                        <label for="">{{ form.contactos.label }}</label>	
-                    	</div>
-                    </div>
-
-
-                    <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        <label for="">{{ form.contactos.label }}</label>    
+                        </div>
+                   
+                        <div class="input-field col s6 has-error input-rubro">
                         <span class="help-block">{{ form.errors.rubro|removetags:'ul li' }}</span>
                         {{ form.rubro|add_error_class:"invalid" }}
                         <label for="">{{ form.rubro.label }}</label>
-                    	</div>
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                        <div class="input-field col s6 has-error input-ubicacion_geo">
                         <span class="help-block">{{ form.errors.ubicacion_geo|removetags:'ul li' }}</span>
                         {{ form.ubicacion_geo|add_error_class:"invalid" }}
                         <label for="">{{ form.ubicacion_geo.label }}</label>
-                    	</div>
-                    </div>
-                    <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                  
+                        <div class="input-field col s6 has-error input-fecha1">
                         <span class="help-block">{{ form.errors.fecha1|removetags:'ul li' }}</span>
-                        {{ form.fecha1|add_error_class:"invalid"}}
+                        {{ form.fecha1|add_class:"datepicker"|add_error_class:"invalid"}}
                         <label for="">{{ form.fecha1.label }}</label>
-                    	</div>
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                        <div class="input-field col s6 has-error input-fecha2">
                         <span class="help-block">{{ form.errors.fecha2|removetags:'ul li' }}</span>
-                        {{ form.fecha2|add_error_class:"invalid" }}
+                        {{ form.fecha2|add_class:"datepicker"|add_error_class:"invalid" }}
                         <label for="">{{ form.fecha2.label }}</label>
-                    	</div>
-                    </div>
-                    <div class="row">
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                    
+                        <div class="input-field col s6 has-error input-texto1">
                         <span class="help-block">{{ form.errors.texto1|removetags:'ul li' }}</span>
                         {{ form.texto1|add_error_class:"invalid" }}
                         <label for="">{{ form.texto1.label }}</label>
-                    	</div>
-                    	<div class="input-field col s6 has-error">
+                        </div>
+                        <div class="input-field col s6 has-error input-texto2">
                         <span class="help-block">{{ form.errors.texto2|removetags:'ul li' }}</span>
                         {{ form.texto2|add_error_class:"invalid" }}
                         <label for="">{{ form.texto2.label }}</label>
-                    	</div>
+                        </div>
                     </div>
 
               
@@ -127,3 +118,399 @@
           </div>
 </section>
  {% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+
+    $.ajax({
+      url: '/configproveedorcampos/',
+      dataType: 'json',
+      type: 'GET',
+      success: function(datos) {
+         
+    // validator de codigo proveedor con el edit proveedor campo
+      //   $("#encabezado").validate({
+      //     rules: {
+      //         codigo: {
+      //             required: true,
+      //         },
+      //         razon_social: {
+      //             required: true,
+                 
+      //         },
+      //         nit: {
+      //             required: true,
+               
+      //         }
+      //     }
+      // });
+        // validator id_direccion
+        $('#id_direccion').keyup(function () {
+            switch(datos[0].fields.direccion_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.direccion_caractr;
+                  document.getElementById("id_direccion").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z. ]/g,'');
+                  var long = datos[0].fields.direccion_caractr;
+                  document.getElementById("id_direccion").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.direccion_caractr;
+                  document.getElementById("id_direccion").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        // if (datos[0].fields.direccion_usar == false) {
+        //     $( ".input-direccion" ).css( "display", 'none' );
+        //     $("#help_cod .help-block").prop("hidden", true);
+        //     $( "#id_direccion" ).removeClass( "invalid" )
+        // }
+
+        // if (datos[0].fields.direccion_requerido == false) {
+        //     $("#id_direccion").val("");
+        //     $("#help_cod .help-block").prop("hidden", true);
+        //     $( "#id_direccion" ).removeClass( "invalid" )
+        // }else{
+        //     $("#id_direccion").prop("required", true);
+        // }
+        // validator id_telefono1
+        $('#id_telefono1').keyup(function () {
+            switch(datos[0].fields.telefonos1_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.telefonos1_caractr;
+                  document.getElementById("id_telefono1").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.telefonos1_caractr;
+                  document.getElementById("id_telefono1").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.telefonos1_caractr;
+                  document.getElementById("id_telefono1").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        // if (datos[0].fields.telefonos1_usar == false) {
+        //     $( ".input-telefono1" ).css( "display", 'none' );
+        //     $("#help_cod .help-block").prop("hidden", true);
+        //     $( "#id_telefono1" ).removeClass( "invalid" )
+        // }
+
+        // if (datos[0].fields.telefonos1_requerido == false) {
+        //     $("#id_telefono1").val("");
+        //     $("#help_cod .help-block").prop("hidden", true);
+        //     $( "#id_telefono1" ).removeClass( "invalid" )
+        // }else{
+        //     $("#id_telefono1").prop("required", true);
+        // }
+        // validator id_telefonos2
+        $('#id_telefono2').keyup(function () {
+            switch(datos[0].fields.telefonos2_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.telefonos2_caractr;
+                  document.getElementById("id_telefono2").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.telefonos2_caractr;
+                  document.getElementById("id_telefono2").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.telefonos2_caractr;
+                  document.getElementById("id_telefono2").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.telefonos2_usar == false) {
+            $( ".input-telefono2" ).css( "display", 'none'  );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_telefono2" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.telefonos2_requerido == false) {
+            $("#id_telefono2").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_telefono2" ).removeClass( "invalid" )
+        }else{
+            $("#id_telefono2").prop("required", true);
+        }
+         // validator id_telefono3
+        $('#id_telefono3').keyup(function () {
+            switch(datos[0].fields.telefonos3_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.telefonos3_caractr;
+                  document.getElementById("id_telefono3").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.telefonos3_caractr;
+                  document.getElementById("id_telefono3").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.telefonos3_caractr;
+                  document.getElementById("id_telefono3").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.telefonos3_usar == false) {
+            $( ".input-telefono3" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_telefono3" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.telefonos3_requerido == false) {
+            $("#id_telefono3").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_telefono3" ).removeClass( "invalid" )
+        }else{
+            $("#id_telefono3").prop("required", true);
+        }
+        // validator id_contactos
+        $('#id_contactos').keyup(function () {
+            switch(datos[0].fields.contacto_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9. ]/g,'');
+                  var long = datos[0].fields.contacto_caractr;
+                  document.getElementById("id_contactos").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.contacto_caractr;
+                  document.getElementById("id_contactos").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.contacto_caractr;
+                  document.getElementById("id_contactos").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.contacto_usar == false) {
+            $( ".input-contactos" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_contactos" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.contacto_requerido == false) {
+            $("#id_contactos").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_contactos" ).removeClass( "invalid" )
+        }else{
+            $("#id_contactos").prop("required", true);
+        }
+        // validator id_rubro
+        $('#id_rubro').keyup(function () {
+            switch(datos[0].fields.rubro_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.rubro_caractr;
+                  document.getElementById("id_rubro").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.rubro_caractr;
+                  document.getElementById("id_rubro").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.rubro_caractr;
+                  document.getElementById("id_rubro").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.rubro_usar == false) {
+            $( ".input-rubro" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_rubro" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.rubro_requerido == false) {
+            $("#id_rubro").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_rubro" ).removeClass( "invalid" )
+        }else{
+            $("#id_rubro").prop("required", true);
+        }
+        // validator id_ubicacion_geo
+        $('#id_ubicacion_geo').keyup(function () {
+            switch(datos[0].fields.ubicacion_geo_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_ubicacion_geo").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_ubicacion_geo").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_ubicacion_geo").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.ubicacion_geo_usar == false) {
+            $( ".input-ubicacion_geo" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_ubicacion_geo" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.ubicacion_geo_requerido == false) {
+            $("#id_ubicacion_geo").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_ubicacion_geo" ).removeClass( "invalid" )
+        }else{
+            $("#id_ubicacion_geo").prop("required", true);
+        }
+         // validator id_fecha1
+        $('#id_fecha1').keyup(function () {
+            switch(datos[0].fields.ubicacion_geo_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_fecha1").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_fecha1").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_fecha1").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.fechas_usar == false) {
+            $( ".input-fecha1" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_fecha1" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.fechas_requerido == false) {
+            $("#id_fecha1").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_fecha1" ).removeClass( "invalid" )
+        }else{
+            $("#id_fecha1").prop("required", true);
+        }
+         // validator id_fecha2
+        $('#id_fecha2').keyup(function () {
+            switch(datos[0].fields.ubicacion_geo_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_fecha2").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_fecha2").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.ubicacion_geo_caractr;
+                  document.getElementById("id_fecha2").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.fechas2_usar == false) {
+            $( ".input-fecha2" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_fecha2" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.fechas2_requerido == false) {
+            $("#id_fecha2").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_fecha2" ).removeClass( "invalid" )
+        }else{
+            $("#id_fecha2").prop("required", true);
+        }
+         // validator id_texto1
+        $('#id_texto1').keyup(function () {
+            switch(datos[0].fields.textos_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.textos_caractr;
+                  document.getElementById("id_texto1").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.textos_caractr;
+                  document.getElementById("id_texto1").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.textos_caractr;
+                  document.getElementById("id_texto1").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.textos_usar == false) {
+            $( ".input-texto1" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_texto1" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.textos_requerido == false) {
+            $("#id_texto1").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_texto1" ).removeClass( "invalid" )
+        }else{
+            $("#id_texto1").prop("required", true);
+        }
+         // validator id_texto2
+        $('#id_texto2').keyup(function () {
+            switch(datos[0].fields.textos2_tipo) {
+              case 'numerico':
+                  this.value = this.value.replace(/[^0-9]/g,'');
+                  var long = datos[0].fields.textos2_caractr;
+                  document.getElementById("id_texto2").maxLength = long;
+                  break;
+              case 'literal':
+                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  var long = datos[0].fields.textos2_caractr;
+                  document.getElementById("id_texto2").maxLength = long;
+                  break;
+              default:
+                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  var long = datos[0].fields.textos2_caractr;
+                  document.getElementById("id_texto2").maxLength = long;
+            } //swicth
+        }); //keyup
+
+        if (datos[0].fields.textos2_usar == false) {
+            $( ".input-texto2" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_texto2" ).removeClass( "invalid" )
+        }
+
+        if (datos[0].fields.textos2_requerido == false) {
+            $("#id_texto2").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_texto2" ).removeClass( "invalid" )
+        }else{
+            $("#id_texto2").prop("required", true);
+        }
+
+
+      } //success
+    });
+
+</script>
+{% endblock js %}

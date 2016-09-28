@@ -95,9 +95,14 @@ class ListProveedor(PaginationMixin, ListView):
 class EditView(UpdateView):
     template_name = 'proveedores/update.html'
     model = Proveedor
-    fields = ['codigo','razon_social','nit','direccion','telefono1','telefono2','telefono3','contactos'
-    ,'rubro','ubicacion_geo','fecha1','fecha2','texto1','texto2']
+    fields = ['codigo', 'razon_social', 'nit', 'direccion','telefono1', 'telefono2', 'telefono3', 'contactos'
+    , 'rubro', 'ubicacion_geo', 'fecha1', 'fecha2', 'texto1', 'texto2']
     success_url = reverse_lazy('lista')
+
+    def get_form(self, form_class):
+        form = super(EditView, self).get_form(form_class)
+        form.fields['telefono2'].required=False
+        return form
 
 class ProveedorDelete(DeleteView):
     model = Proveedor

@@ -646,6 +646,7 @@ def promedios(request, pk, date1, anio):
     movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('id')
     producto = Item.objects.get(id=pk)
     movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, motivo_movimiento='inicial')
+
     datosfinal = []
     datosfinal.extend(movimientoinit)
     datosfinal.extend(movimiento)
@@ -658,7 +659,7 @@ def promedios(request, pk, date1, anio):
     promedio = 0
 
     for m in datosfinal:
-        item = Item.objects.filter(id=pk)
+        item = Item.objects.get(id=pk)
         if m.motivo_movimiento == 'salida':
             saldo = saldo - m.cantidad
             saldo_iva = promedio
@@ -681,13 +682,13 @@ def promedios(request, pk, date1, anio):
 
         elif m.motivo_movimiento == 'inicial':
             saldo = saldo + m.cantidad
-            ingresov = m.precio_unitario * m.cantidad
+            ingresov = item.costo_unitario * m.cantidad
             saldov = saldov + ingresov
             promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
-                'pu': m.precio_unitario,
+                'pu': item.costo_unitario,
                 'ingreso': m.cantidad,
                 'salida': 0,
                 'saldo': saldo,

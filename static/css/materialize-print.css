@@ -56,3 +56,7 @@ body,
     background-color: transparent !important;
     color: black !important;
 }
+
+.tipo_kardex{
+	display: none;
+}

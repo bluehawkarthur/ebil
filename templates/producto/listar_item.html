@@ -79,10 +79,13 @@
               <td>{{ it.precio_unitario }}</td>
               <td>
                 
+                <a href="/kardex/{{ it.id }}" target="_blank" class="btn-floating waves-effect tooltipped  light-green waves-light " data-position="top" data-delay="50" data-tooltip="Kardex"><i class="mdi-action-assignment"></i></a>
+
                 <a href="/detalle_item/{{ it.id }}" class="btn-floating waves-effect tooltipped teal waves-light " data-position="top" data-delay="50" data-tooltip="Detalle"><i class="mdi-action-search left"></i></a>
            
+           
                 {% if almacenes_role.editar %}
-                <a href="/editar_item/{{ it.id }}" class="btn-floating waves-effect tooltipped light-green waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
+                <a href="/editar_item/{{ it.id }}" class="btn-floating waves-effect tooltipped yellow darken-2 waves-light "  data-position="top" data-delay="50" data-tooltip="Editar"><i class="mdi-editor-mode-edit left"></i></a>
                 {% endif %}
                 {% if almacenes_role.eliminar %}
                 <a href="#modal{{it.id}}" class="btn-floating waves-effect tooltipped modal-trigger red waves-light" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="mdi-action-delete left"></i></a>

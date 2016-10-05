@@ -24,9 +24,11 @@ from .pdf_almacen import PdfAlmacen
 from .pdf_compras import PdfCompras
 from .pdf_ventas import PdfVentas
 import json
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponseBadRequest,HttpResponse
 from datetime import date
+import datetime
 from django.template import loader, Context
 from django.contrib import messages
 import decimal
@@ -722,6 +724,7 @@ def promedios(request, pk, date1, anio):
     return render(request, 'reportes/reporte_kardex.html', {'kardex': data, 'item': producto})
 
 
+
 def Createpago(request):
 
     if request.method == 'POST':
@@ -892,6 +895,41 @@ def detalleCompra(request, pk):
     }
 
     return render_to_pdf('reportes/rep_detallecompra.html', data)
+
+
+def Kardexjson(request, pk):
+	item = Item.objects.get(id=pk)
+	movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=item.pk).exclude(motivo_movimiento='inicial').order_by('id')
+	movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=item.pk, motivo_movimiento='inicial')
+	datosfinal = []
+	datosfinal.extend(movimientoinit)
+	datosfinal.extend(movimiento)
+	datas = []
+	for d in datosfinal:
+		print d
+		if d.motivo_movimiento == 'inicial':
+			
+			pu = item.costo_unitario
+		else:
+			pu = d.precio_unitario
+
+		fecha = datetime.datetime.strptime(str(d.fecha_transaccion), "%Y-%m-%d").strftime("%d/%m/%Y")
+		datas.append({
+            "cantidad": d.cantidad,
+            "precio_unitario": pu,
+            "detalle": d.detalle,
+            "fecha_transaccion": fecha,
+            "motivo_movimiento": d.motivo_movimiento,
+            "item": d.item.pk,
+            "empresa": d.empresa.pk,
+        })
+	json_data = json.dumps(datas, cls=DjangoJSONEncoder)
+	return HttpResponse(json_data, content_type='application/json')
+
+
+def KardexPeps(request, pk):
+    producto = Item.objects.get(id=pk)
+    return render(request, 'reportes/peps.html', {'item': producto})
 
 
 def Createpagocobro(request):

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock menu %}
+{% block content %}
+<style>
+  /*Estilos recuperado de skeleton.css*/
+
+
+#tablaKardex{
+  width: 100%;
+  min-width: 1000px;
+  box-sizing: border-box;
+}
+
+/*Estilos del proyecto*/
+
+/*.pantalla{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  background-size: cover;
+  overflow: none;
+}
+*/
+h1{
+  text-align: center;
+}
+h4{
+  text-decoration: underline;
+}
+th,td{
+  text-align: center!important;
+  padding: 12px 15px;
+  text-align: left;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+th{
+  background-color: #34495e;
+  color: #fff;
+}
+td:hover{
+  background-color: #ecf0f1;
+}
+colgroup{
+  border-left: 1px #bdc3c7 dashed;
+  border-right: 1px #bdc3c7 dashed;
+}
+
+
+.subrayado{
+  text-decoration: underline;
+}
+.txtCentro{
+  text-align: center;
+}
+.contenido{
+  width: 100%;
+  display: block;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.textoSWAL{
+  font-size: 2rem!important;
+}
+.oculto{
+  display: none;
+}
+
+.campoVacio{
+  color: #555;
+  font-style: italic;
+  font-size: 0.8em;
+}
+.tituloSalida{
+  background-color: #ecf0f1;
+}
+.filaSalida td{
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-style: italic;
+}
+</style>
+<section id="content">	
+
+ <div class="container">
+    <div class="col s12 m6 l4">
+      <div class="input-field col s6 has-error reporte">
+          <input class="with-gap" name="kardex" type="radio" id="test1" value="pp" checked="">
+          <label for="test1">Promedio</label>
+      </div>
+      <div class="input-field col s6 has-error reporte">
+          <input class="with-gap" name="kardex" type="radio" value="peps" id="test2">
+          <label for="test2">PEPS</label>
+      </div>
+    </div>
+    <h4 class="titulo">Kardex</h4>
+  
+    <div class="row">
+      <div class="col s2 m4 l1">
+        <span class="strong">Codigo:.</span>
+        <br>
+        <span class="strong">Descripcion:.</span>
+        <br>
+        <span class="strong">Unidad:.</span>
+      </div>
+      <div class="col s4 m4 l4">
+        <span >{{item.codigo_item}}</span>
+        <input type="hidden" id="pk_item" value="{{item.pk}}">
+        <br>
+        <span >{{item.descripcion}}</span>
+        <br>
+        <span >{{item.unidad_medida}}</span>
+      </div>
+    </div>            
+	
+  <div id="contenedor">   
+    
+    <div class="pantalla">
+      
+      <div class="contenido">
+        <table id="tablaKardex">
+          <colgroup></colgroup>
+          <colgroup></colgroup>
+          
+          <colgroup span="3"></colgroup>
+          <colgroup span="3"></colgroup>
+          <colgroup span="2"></colgroup>
+          
+          <thead>
+          <tr>
+            <th rowspan="2">Fecha</th>
+            <th rowspan="2">Detalle</th>
+          
+            <th colspan="3">Entrada</th>
+            <th colspan="3">Salida</th>
+            <th colspan="2">Saldo</th>
+            
+          </tr>
+          <tr>
+            <th>Cant.</th>
+            <th>Costo U</th>
+            <th>Costo Total</th>
+            <th>Cant.</th>
+            <th>Costo U</th>
+            <th>Costo</th>
+            
+            <th>Cant. en existencia</th>
+            <th>Costo Total</th>
+            
+          </tr>
+          </thead>
+          <!-- Aqui comienza contenido -->
+          <tbody id="contenidoKardex">
+          </tbody>
+        </table>
+      </div>    
+    </div>
+  </div>
+     
+    
+  </div>
+   <div class="invoice-footer">
+              <div class="row">
+                
+                <div class="col s12 m6 l6 center-align">
+                
+                </div>
+                <div class="input-field col s12 m6 l6">
+
+                   <a class="btn btn-floating-action btn-primary cyan print" href="javascript:void(0);" onclick="javascript:window.print();" id="print"><i class="mdi-action-print left"></i>  imprimir</a>
+                <p>
+                 
+                  </p>
+                </div>
+              </div>
+            </div>
+</section>
+{% endblock content %}
+{% block js %}
+  {% load staticfiles %}
+  <script src="{% static "js/apps/formateador.js"%}"></script>
+  <script src="{% static "js/apps/kardex.js"%}"></script>
+  
+{% endblock js %}
+
+

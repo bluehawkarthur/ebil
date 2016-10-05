@@ -18,11 +18,14 @@ urlpatterns = [
     url(r'^libro_ventas/', 'apps.reportes.views.libro_ventas', name='libro_ventas'),
     url(r'^reporte_almacen/', 'apps.reportes.views.ReportAlmacen', name='reporte_almacen'),
     url(r'^kardex_almacen/(?P<pk>\d+)/(?P<date1>[\w-]+)/(?P<anio>[\w-]+)/$', 'apps.reportes.views.promedios', name='kardex_almacen'),
+    
     url(r'^create_pago/', 'apps.reportes.views.Createpago', name='create_pago'),
     url(r'^create_pagocompra/', 'apps.reportes.views.Createpagocobro', name='create_pagocompra'),
     # url(r'^pdf/$', 'apps.reportes.views.pdf'),
     # url(r'^pdf2/$', 'apps.reportes.views.generar_pdf'),
     url(r'^caja/$', ReporteCaja.as_view(), name='rep_caja'),
     url(r'^notsnocontabls/', NotasNoComtables.as_view(), name='notsnocontabls'),
+    url(r'^kardex_json/(?P<pk>\d+)$', 'apps.reportes.views.Kardexjson', name='kardex_json'),
+    url(r'^kardex/(?P<pk>\d+)$', 'apps.reportes.views.KardexPeps', name='kardex'),
 
 ]

@@ -646,6 +646,7 @@ def promedios(request, pk, date1, anio):
     movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('id')
     producto = Item.objects.get(id=pk)
     movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, motivo_movimiento='inicial')
+
     datosfinal = []
     datosfinal.extend(movimientoinit)
     datosfinal.extend(movimiento)
@@ -655,15 +656,16 @@ def promedios(request, pk, date1, anio):
     data = []
     saldo = 0
     saldov = 0
+    promedio = 0
 
     for m in datosfinal:
-        item = Item.objects.filter(id=pk)
+        item = Item.objects.get(id=pk)
         if m.motivo_movimiento == 'salida':
             saldo = saldo - m.cantidad
-            saldo_iva = m.precio_unitario / 100 * 87
+            saldo_iva = promedio
             salidav = saldo_iva * m.cantidad
             saldov = saldov - salidav
-
+            promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
@@ -674,22 +676,27 @@ def promedios(request, pk, date1, anio):
                 'ingresov': 0,
                 'salidav': salidav,
                 'saldov': abs(saldov),
+                'motivo': 'salida',
+                'promedio': promedio,
             })
 
         elif m.motivo_movimiento == 'inicial':
             saldo = saldo + m.cantidad
-            ingresov = m.precio_unitario * m.cantidad
+            ingresov = item.costo_unitario * m.cantidad
             saldov = saldov + ingresov
+            promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
-                'pu': m.precio_unitario,
+                'pu': item.costo_unitario,
                 'ingreso': m.cantidad,
                 'salida': 0,
                 'saldo': saldo,
                 'ingresov': ingresov,
                 'salidav': 0,
                 'saldov': saldov,
+                'motivo': 'inicial',
+                'promedio': promedio,
             })
 
         else:
@@ -697,6 +704,7 @@ def promedios(request, pk, date1, anio):
             saldo_iva = m.precio_unitario / 100 * 87
             ingresov = saldo_iva * m.cantidad
             saldov = saldov + ingresov
+            promedio = saldov / saldo
             data.append({
                 'fecha': m.fecha_transaccion,
                 'detalle': m.detalle,
@@ -707,9 +715,126 @@ def promedios(request, pk, date1, anio):
                 'ingresov': ingresov,
                 'salidav': 0,
                 'saldov': saldov,
+                'motivo': 'entrada',
+                'promedio': promedio,
             })
 
     return render(request, 'reportes/reporte_kardex.html', {'kardex': data, 'item': producto})
+
+
+def peps(request, pk, date1, anio):
+    movimiento = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, fecha_transaccion__year=anio, fecha_transaccion__month=date1).exclude(motivo_movimiento='inicial').order_by('id')
+    producto = Item.objects.get(id=pk)
+    movimientoinit = Movimiento.objects.filter(empresa=request.user.empresa, item=pk, motivo_movimiento='inicial')
+
+    datosfinal = []
+    datosfinal.extend(movimientoinit)
+    datosfinal.extend(movimiento)
+
+
+    data = []
+    saldo = 0
+    saldov = 0
+    promedio = 0
+    peps = []
+    for m in datosfinal:
+        item = Item.objects.get(id=pk)
+        if m.motivo_movimiento == 'salida':
+            saldo = saldo - m.cantidad
+            saldo_iva = promedio
+            salidav = saldo_iva * m.cantidad
+            saldov = saldov - salidav
+            promedio = saldov / saldo
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': saldo_iva,
+                'ingreso': 0,
+                'salida': m.cantidad,
+                'saldo': abs(saldo),
+                'ingresov': 0,
+                'salidav': salidav,
+                'saldov': abs(saldov),
+                'motivo': 'salida',
+                'promedio': promedio,
+            })
+
+            for p in range(len(peps)):
+                if peps[p]['ingreso']-m.cantidad > 0:
+                	print 'da para vender'
+                	peps[p]['ingreso'] = peps[p]['ingreso']-m.cantidad 
+                	print peps[p]
+                	
+                	break
+               	else:
+               		print 'no da para vender'
+               		data.append({
+		                'pu': peps[p]['pu'],
+		                'ingreso': 0,
+		                'salida': peps[p]['ingreso'],
+		                'saldo': abs(saldo),
+		                'ingresov': 0,
+		                'salidav': salidav,
+		                'saldov': abs(saldov),
+		                'motivo': 'salida',
+		                'promedio': 0,
+		            })
+		            peps.remove(p)
+               		continue
+
+        elif m.motivo_movimiento == 'inicial':
+            saldo = saldo + m.cantidad
+            ingresov = item.costo_unitario * m.cantidad
+            saldov = saldov + ingresov
+            promedio = saldov / saldo
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': item.costo_unitario,
+                'ingreso': m.cantidad,
+                'salida': 0,
+                'saldo': saldo,
+                'ingresov': ingresov,
+                'salidav': 0,
+                'saldov': saldov,
+                'motivo': 'inicial',
+                'promedio': promedio,
+            })
+            peps.append({
+                'detalle': m.detalle,
+                'pu': item.costo_unitario,
+                'ingreso': m.cantidad,
+                'motivo': 'inicial',
+           
+            })
+
+        else:
+            saldo = saldo + m.cantidad
+            saldo_iva = m.precio_unitario / 100 * 87
+            ingresov = saldo_iva * m.cantidad
+            saldov = saldov + ingresov
+            promedio = saldov / saldo
+            data.append({
+                'fecha': m.fecha_transaccion,
+                'detalle': m.detalle,
+                'pu': saldo_iva,
+                'ingreso': m.cantidad,
+                'salida': 0,
+                'saldo': saldo,
+                'ingresov': ingresov,
+                'salidav': 0,
+                'saldov': saldov,
+                'motivo': 'entrada',
+                'promedio': promedio,
+            })
+            peps.append({
+                'detalle': m.detalle,
+                'pu': saldo_iva,
+                'ingreso': m.cantidad,
+                'motivo': 'entrada',
+            })
+
+    return render(request, 'reportes/reporte_peps.html', {'kardex': data, 'item': producto})
 
 
 def Createpago(request):
@@ -934,17 +1059,19 @@ class NotasNoComtables(TemplateView):
 		mes = request.POST['mes']
 		anio = request.POST['anio']
 		gastos = request.POST['gastos']
+		d = date(int(anio),int(mes),1).strftime('%B')
+		mestext = _(d)
 
-		# el 87 % de las ventas
+		
 		if mes != '':
 			ventas = Venta.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
 			total = 0
 			for i in ventas:
 				total = total + i.total
-			
+			# ===== el 87 % de todas las ventas ========
 			totalventas = total*87/100
 			
-			
+			# ====== ventas al contado ===========
 			ventas_contado= Venta.objects.filter(fecha__year=anio, fecha__month=mes, tipo_compra='contado', empresa=request.user.empresa)
 			total_contado = 0
 			for i in ventas_contado:
@@ -952,6 +1079,7 @@ class NotasNoComtables(TemplateView):
 
 			totalventas_contad = total_contado*87/100
 
+			# ======= ventas al credito ==============
 			ventas_credito = Venta.objects.filter(fecha__year=anio, fecha__month=mes, tipo_compra='credito', empresa=request.user.empresa)
 			total_credito = 0
 			for i in ventas_credito:
@@ -959,56 +1087,66 @@ class NotasNoComtables(TemplateView):
 
 			totalventas_credito = total_credito*87/100
 
-
+			# ======= costo de las ventas de los items ==============
 			detalle_ventas = DetalleVenta.objects.filter(venta__fecha__year=anio, venta__fecha__month=mes, venta__empresa=request.user.empresa)
 			costo_venta = 0
 			for i in detalle_ventas:
-				costo_venta = costo_venta + i.item.costo_unitario
+				costo_cantidad = i.item.costo_unitario * i.cantidad
+				costo_venta = costo_venta + costo_cantidad
 			
 			utilidad = totalventas - costo_venta
 
-			compras = Compra.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
+			# compras = Compra.objects.filter(fecha__year=anio, fecha__month=mes, empresa=request.user.empresa)
+			# ======= centro costos y sus totales ============
 			total_compra = 0
 
 			from itertools import groupby
 			from operator import itemgetter
 
-			centros = DetalleCompra.objects.filter(compra__empresa=request.user.empresa, compra__fecha__year=anio, compra__fecha__month=mes)
+			centros = DetalleCompra.objects.filter(compra__empresa=request.user.empresa, compra__fecha__year=anio, compra__fecha__month=mes).order_by('centro_costos')
 			# totales_det = [c.scf for c in centros]
+			# ==== crear arrays para el total y el centro de costos para luego agruparlo ====
 			totales_det = []
 			totales_cen = []
 			for c in centros:
 				if c.centro_costos != 'A':
 					totales_det.append(c.scf)
+					print c.centro_costos
 					totales_cen.append(c.centro_costos)
-			# print totales_det
+					total_compra = total_compra + c.scf
 
 			# totales_cen = [c.centro_costos for c in centros]
-			# print totales_cen   
+
 
 			detalles_gasto = []
+			# ======= agrupando centro de costos con sus totales ================
 			for k, g in groupby(zip(totales_cen, totales_det), itemgetter(0)):
+				# === condicion para cambiar de texto de V a varios ======
 			    if k == 'V':
                 	       k = 'Varios'
-			    gastos_det = '{}: {}'.format(k, sum(list(list(zip(*g))[1]))*87/100)
+
+			    gastos_det = '{}: {}'.format(k.encode("UTF-8"), sum(list(list(zip(*g))[1]))*87/100)
 			    detalles_gasto.append(gastos_det)
-			    # print sum(list(list(zip(*g))[1]))
 			    # print('{}: {}'.format(k, list(list(zip(*g))[1])))
-			print detalles_gasto
+			otros_gastos = '{}: {}'.format('Otros Gastos', decimal.Decimal(gastos))
+			detalles_gasto.append(otros_gastos)
 
-			for c in compras:
-				det = DetalleCompra.objects.filter(compra=c.pk)
-				if det[0].centro_costos != 'A':
-					total_compra = total_compra + c.total
-					# print det[0].centro_costos
+			# for c in compras:
+			# 	det = DetalleCompra.objects.filter(compra=c.pk)
+			# 	if det[0].centro_costos != 'A':
+			# 		total_compra = total_compra + c.total
+			# 		# print det[0].centro_costos
 					
+			total_compra = total_compra * 87 / 100 
+			total_gastos = total_compra + decimal.Decimal(gastos)
 
-			total_gastos = total_compra * 87 / 100
+			utilidad_periodo = totalventas - costo_venta - total_gastos
+
 
 
 			
 
-			return render_to_pdf('reportes/notasnocpdf.html', {'totalventas': totalventas, 'totalventas_contad': totalventas_contad, 'total_credito': totalventas_credito, 'costo_venta': costo_venta, 'utilidad': utilidad, 'total_gastos': total_gastos, 'gastos_det': detalles_gasto})
+			return render_to_pdf('reportes/notasnocpdf.html', {'totalventas': totalventas, 'totalventas_contad': totalventas_contad, 'total_credito': totalventas_credito, 'costo_venta': costo_venta, 'utilidad': utilidad, 'total_gastos': total_gastos, 'gastos_det': detalles_gasto, 'utilidad_periodo': utilidad_periodo, 'mes': mestext, 'anio': anio})
 		else:
 			ventas = Venta.objects.filter(fecha=hoy)
 			return render(request, 'reportes/notasnocpdf.html', {'ventas': ventas, 'cajai': cajai, 'gastos': gastos,'total': total, 'ventas': ventas, 'cobros': cobros, 'totcobros': totcobros})

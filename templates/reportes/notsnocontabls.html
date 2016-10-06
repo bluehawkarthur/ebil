@@ -9,7 +9,7 @@
       <div class="col s12 m12 l8 offset-l2">
         <div class="card-panel">
         <h3 class="header2">Estado de resultados no contable:</h3>
-          <form action="/notsnocontabls/" method='POST' name="myform">{% csrf_token %}
+          <form action="/notsnocontabls/" method='POST' name="myform" onsubmit="target_popup(this)">{% csrf_token %}
             <div class="row">
               <div class="col s3">
                 <div class="input-field">
@@ -50,7 +50,7 @@
               </div>
             </div>
               <br>
-              <button class="waves-effect waves-light btn" type="submit" name="action"  href="">Aceptar</button>
+              <button class="waves-effect waves-light btn" type="submit" name="action">Aceptar</button>
           </form>
         </div>
       </div>
@@ -73,5 +73,10 @@
 
       console.log(currentDate);
       $("#add_fecha").val(currentDate);
+
+      function target_popup(form) {
+          window.open('', 'formpopup', 'width=800,height=600,resizeable,scrollbars');
+          form.target = 'formpopup';
+      }
   </script>
 {% endblock js %}

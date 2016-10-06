@@ -30,7 +30,7 @@
                         <label for="email">{{ form.razon_social.label }}</label>
                         </div>
 
-                        <div class="input-field col s6 has-error input-nit">
+                        <div class="input-field col s6 has-error input-nit ">
                         <span class="help-block">{{ form.errors.nit|removetags:'ul li' }}</span>
                         {{ form.nit|add_error_class:"invalid" }}
                         <label for="email">{{ form.nit.label }}</label>
@@ -42,9 +42,9 @@
                         
                         </div>
         
-                        <div class="input-field col s6 has-error input-telefono1">
+                        <div class="input-field col s6 has-error input-telefono1" >
                         <span class="help-block">{{ form.errors.telefono1|removetags:'ul li' }}</span>
-                        {{ form.telefono1|add_error_class:"invalid" }}
+                        {{ form.telefono1|add_error_class:"invalid"|attr:"maxlength:8" }}
                         <label for="">{{ form.telefono1.label }}</label>
                         
                         </div>
@@ -78,7 +78,7 @@
                         </div>
                   
                         <div class="input-field col s6 has-error input-fecha1">
-                        <span class="help-block">{{ form.errors.fecha1|removetags:'ul li' }}</span>
+                        <span class="help-block">{{ form.errors.fecha1|date:"Y-m-d"|removetags:'ul li' }}</span>
                         {{ form.fecha1|add_class:"datepicker"|add_error_class:"invalid"}}
                         <label for="">{{ form.fecha1.label }}</label>
                         </div>
@@ -119,8 +119,8 @@
 </section>
  {% endblock %}
 
-{% block js %}
-<script type="text/javascript">
+ {% block js %}
+   <script type="text/javascript">
 
     $.ajax({
       url: '/configproveedorcampos/',
@@ -153,30 +153,30 @@
                   document.getElementById("id_direccion").maxLength = long;
                   break;
               case 'literal':
-                  this.value = this.value.replace(/[^a-zA-Z. ]/g,'');
+                  this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
                   var long = datos[0].fields.direccion_caractr;
                   document.getElementById("id_direccion").maxLength = long;
                   break;
               default:
-                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
                   var long = datos[0].fields.direccion_caractr;
                   document.getElementById("id_direccion").maxLength = long;
             } //swicth
         }); //keyup
 
-        // if (datos[0].fields.direccion_usar == false) {
-        //     $( ".input-direccion" ).css( "display", 'none' );
-        //     $("#help_cod .help-block").prop("hidden", true);
-        //     $( "#id_direccion" ).removeClass( "invalid" )
-        // }
+        if (datos[0].fields.direccion_usar == false) {
+            $( ".input-direccion" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_direccion" ).removeClass( "invalid" )
+        }
 
-        // if (datos[0].fields.direccion_requerido == false) {
-        //     $("#id_direccion").val("");
-        //     $("#help_cod .help-block").prop("hidden", true);
-        //     $( "#id_direccion" ).removeClass( "invalid" )
-        // }else{
-        //     $("#id_direccion").prop("required", true);
-        // }
+        if (datos[0].fields.direccion_requerido == false) {
+            // $("#id_direccion").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_direccion" ).removeClass( "invalid" )
+        }else{
+            $("#id_direccion").prop("required", true);
+        }
         // validator id_telefono1
         $('#id_telefono1').keyup(function () {
             switch(datos[0].fields.telefonos1_tipo) {
@@ -197,19 +197,19 @@
             } //swicth
         }); //keyup
 
-        // if (datos[0].fields.telefonos1_usar == false) {
-        //     $( ".input-telefono1" ).css( "display", 'none' );
-        //     $("#help_cod .help-block").prop("hidden", true);
-        //     $( "#id_telefono1" ).removeClass( "invalid" )
-        // }
+        if (datos[0].fields.telefonos1_usar == false) {
+            $( ".input-telefono1" ).css( "display", 'none' );
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_telefono1" ).removeClass( "invalid" )
+        }
 
-        // if (datos[0].fields.telefonos1_requerido == false) {
-        //     $("#id_telefono1").val("");
-        //     $("#help_cod .help-block").prop("hidden", true);
-        //     $( "#id_telefono1" ).removeClass( "invalid" )
-        // }else{
-        //     $("#id_telefono1").prop("required", true);
-        // }
+        if (datos[0].fields.telefonos1_requerido == false) {
+            // $("#id_telefono1").val("");
+            $("#help_cod .help-block").prop("hidden", true);
+            $( "#id_telefono1" ).removeClass( "invalid" )
+        }else{
+            $("#id_telefono1").prop("required", true);
+        }
         // validator id_telefonos2
         $('#id_telefono2').keyup(function () {
             switch(datos[0].fields.telefonos2_tipo) {
@@ -231,7 +231,7 @@
         }); //keyup
 
         if (datos[0].fields.telefonos2_usar == false) {
-            $( ".input-telefono2" ).css( "display", 'none'  );
+            $( ".input-telefono2" ).css( "display", 'none' );
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_telefono2" ).removeClass( "invalid" )
         }
@@ -280,7 +280,7 @@
         $('#id_contactos').keyup(function () {
             switch(datos[0].fields.contacto_tipo) {
               case 'numerico':
-                  this.value = this.value.replace(/[^0-9. ]/g,'');
+                  this.value = this.value.replace(/[^0-9]/g,'');
                   var long = datos[0].fields.contacto_caractr;
                   document.getElementById("id_contactos").maxLength = long;
                   break;
@@ -303,7 +303,7 @@
         }
 
         if (datos[0].fields.contacto_requerido == false) {
-            $("#id_contactos").val("");
+            
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_contactos" ).removeClass( "invalid" )
         }else{
@@ -318,12 +318,12 @@
                   document.getElementById("id_rubro").maxLength = long;
                   break;
               case 'literal':
-                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
                   var long = datos[0].fields.rubro_caractr;
                   document.getElementById("id_rubro").maxLength = long;
                   break;
               default:
-                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
                   var long = datos[0].fields.rubro_caractr;
                   document.getElementById("id_rubro").maxLength = long;
             } //swicth
@@ -336,7 +336,7 @@
         }
 
         if (datos[0].fields.rubro_requerido == false) {
-            $("#id_rubro").val("");
+            // $("#id_rubro").val("");
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_rubro" ).removeClass( "invalid" )
         }else{
@@ -351,12 +351,12 @@
                   document.getElementById("id_ubicacion_geo").maxLength = long;
                   break;
               case 'literal':
-                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
                   var long = datos[0].fields.ubicacion_geo_caractr;
                   document.getElementById("id_ubicacion_geo").maxLength = long;
                   break;
               default:
-                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
                   var long = datos[0].fields.ubicacion_geo_caractr;
                   document.getElementById("id_ubicacion_geo").maxLength = long;
             } //swicth
@@ -369,7 +369,7 @@
         }
 
         if (datos[0].fields.ubicacion_geo_requerido == false) {
-            $("#id_ubicacion_geo").val("");
+            // $("#id_ubicacion_geo").val("");
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_ubicacion_geo" ).removeClass( "invalid" )
         }else{
@@ -402,7 +402,7 @@
         }
 
         if (datos[0].fields.fechas_requerido == false) {
-            $("#id_fecha1").val("");
+            // $("#id_fecha1").val("");
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_fecha1" ).removeClass( "invalid" )
         }else{
@@ -435,7 +435,7 @@
         }
 
         if (datos[0].fields.fechas2_requerido == false) {
-            $("#id_fecha2").val("");
+            // $("#id_fecha2").val("");
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_fecha2" ).removeClass( "invalid" )
         }else{
@@ -450,12 +450,12 @@
                   document.getElementById("id_texto1").maxLength = long;
                   break;
               case 'literal':
-                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
                   var long = datos[0].fields.textos_caractr;
                   document.getElementById("id_texto1").maxLength = long;
                   break;
               default:
-                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
                   var long = datos[0].fields.textos_caractr;
                   document.getElementById("id_texto1").maxLength = long;
             } //swicth
@@ -468,7 +468,7 @@
         }
 
         if (datos[0].fields.textos_requerido == false) {
-            $("#id_texto1").val("");
+            // $("#id_texto1").val("");
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_texto1" ).removeClass( "invalid" )
         }else{
@@ -483,12 +483,12 @@
                   document.getElementById("id_texto2").maxLength = long;
                   break;
               case 'literal':
-                  this.value = this.value.replace(/[^a-zA-Z]/g,'');
+                  this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
                   var long = datos[0].fields.textos2_caractr;
                   document.getElementById("id_texto2").maxLength = long;
                   break;
               default:
-                  this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+                  this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
                   var long = datos[0].fields.textos2_caractr;
                   document.getElementById("id_texto2").maxLength = long;
             } //swicth
@@ -501,7 +501,7 @@
         }
 
         if (datos[0].fields.textos2_requerido == false) {
-            $("#id_texto2").val("");
+            // $("#id_texto2").val("");
             $("#help_cod .help-block").prop("hidden", true);
             $( "#id_texto2" ).removeClass( "invalid" )
         }else{
@@ -512,5 +512,5 @@
       } //success
     });
 
-</script>
-{% endblock js %}
+  </script>
+ {% endblock js %}

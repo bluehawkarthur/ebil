@@ -13,7 +13,7 @@
   <div class="row">
     <form class="col s12 m12 l8 offset-l2"  id="encabezado" method="POST" enctype='multipart/form-data'>
       <div class="card-panel">
-        <h3 class="header2">Editar Cliente</h3>
+        <h3 class="header2">Cliente</h3>
         <div class="row">
         {% csrf_token %}  
             <div class="row">
@@ -131,26 +131,26 @@
       success: function(datos) {
          
     // validator de codigo cliente con el edit cliente campo
-        $("#encabezado").validate({
-          rules: {
-              codigo: {
-                  required: true,
-              },
-              razonsocial: {
-                  required: true,
+      //   $("#encabezado").validate({
+      //     rules: {
+      //         codigo: {
+      //             required: true,
+      //         },
+      //         razonsocial: {
+      //             required: true,
                  
-              },
-              nit: {
-                  required: true,
+      //         },
+      //         nit: {
+      //             required: true,
                
-              },
-              fecha2:{
-                required : true,
-                date : true,
-              }
-          }
-      });
-      
+      //         },
+      //         fecha2:{
+      //           required : true,
+      //           date : true,
+      //         }
+      //     }
+      // });
+     
       // validator razonsocial
       $('#id_direccion').keyup(function () {
         switch(datos[0].fields.direccion_tipo) {
@@ -160,12 +160,12 @@
               document.getElementById("id_direccion").maxLength = long;
               break;
           case 'literal':
-              this.value = this.value.replace(/[^a-zA-Z. ]/g,'');
+              this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
               var long = datos[0].fields.direccion_caractr;
               document.getElementById("id_direccion").maxLength = long;
               break;
           default:
-              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
               var long = datos[0].fields.direccion_caractr;
               document.getElementById("id_direccion").maxLength = long;
         } //swicth
@@ -178,7 +178,7 @@
       }
 
       if (datos[0].fields.direccion_requerido == false) {
-        $("#id_direccion").val("");
+        // $("#id_direccion").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_direccion" ).removeClass( "invalid" )
       }else{
@@ -211,7 +211,7 @@
       }
 
       if (datos[0].fields.telefono1_requerido == false) {
-        $("#id_telefonos1").val("");
+        // $("#id_telefonos1").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_telefonos1" ).removeClass( "invalid" )
       }else{
@@ -244,7 +244,7 @@
       }
 
       if (datos[0].fields.telefono2_requerido == false) {
-        $("#id_telefonos2").val("");
+        // $("#id_telefonos2").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_telefonos2" ).removeClass( "invalid" )
       }else{
@@ -277,7 +277,7 @@
       }
 
       if (datos[0].fields.telefono3_requerido == false) {
-        $("#id_telefonos3").val("");
+        // $("#id_telefonos3").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_telefonos3" ).removeClass( "invalid" )
       }else{
@@ -287,8 +287,7 @@
       $('#id_contacto').keyup(function () {
         switch(datos[0].fields.contacto_tipo) {
           case 'numerico':
-    
-              this.value = this.value.replace(/[^0-9. ]/g,'');
+              this.value = this.value.replace(/[^0-9]/g,'');
               var long = datos[0].fields.contacto_caractr;
               document.getElementById("id_contacto").maxLength = long;
               break;
@@ -311,7 +310,7 @@
       }
 
       if (datos[0].fields.contacto_requerido == false) {
-        $("#id_contacto").val("");
+        // $("#id_contacto").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_contacto" ).removeClass( "invalid" )
       }else{
@@ -326,12 +325,12 @@
               document.getElementById("id_rubro").maxLength = long;
               break;
           case 'literal':
-              this.value = this.value.replace(/[^a-zA-Z]/g,'');
+              this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
               var long = datos[0].fields.rubro_caractr;
               document.getElementById("id_rubro").maxLength = long;
               break;
           default:
-              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
               var long = datos[0].fields.rubro_caractr;
               document.getElementById("id_rubro").maxLength = long;
         } //swicth
@@ -344,7 +343,7 @@
       }
 
       if (datos[0].fields.rubro_requerido == false) {
-        $("#id_rubro").val("");
+        // $("#id_rubro").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_rubro" ).removeClass( "invalid" )
       }else{
@@ -359,12 +358,12 @@
               document.getElementById("id_categoria").maxLength = long;
               break;
           case 'literal':
-              this.value = this.value.replace(/[^a-zA-Z]/g,'');
+              this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
               var long = datos[0].fields.categoria_caractr;
               document.getElementById("id_categoria").maxLength = long;
               break;
           default:
-              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
               var long = datos[0].fields.categoria_caractr;
               document.getElementById("id_categoria").maxLength = long;
         } //swicth
@@ -377,7 +376,7 @@
       }
 
       if (datos[0].fields.categoria_requerido == false) {
-        $("#id_categoria").val("");
+        // $("#id_categoria").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_categoria" ).removeClass( "invalid" )
       }else{
@@ -392,12 +391,12 @@
               document.getElementById("id_ubucaciongeo").maxLength = long;
               break;
           case 'literal':
-              this.value = this.value.replace(/[^a-zA-Z]/g,'');
+              this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
               var long = datos[0].fields.ubicaciongeo_caractr;
               document.getElementById("id_ubucaciongeo").maxLength = long;
               break;
           default:
-              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
               var long = datos[0].fields.ubicaciongeo_caractr;
               document.getElementById("id_ubucaciongeo").maxLength = long;
         } //swicth
@@ -410,7 +409,7 @@
       }
 
       if (datos[0].fields.ubicaciongeo_requerido == false) {
-        $("#id_ubucaciongeo").val("");
+        // $("#id_ubucaciongeo").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_ubucaciongeo" ).removeClass( "invalid" )
       }else{
@@ -444,7 +443,7 @@
       }
 
       if (datos[0].fields.fecha_requerido == false) {
-        $("#id_fecha").val("");
+        // $("#id_fecha").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_fecha" ).removeClass( "invalid" )
       }else{
@@ -477,7 +476,7 @@
       }
 
       if (datos[0].fields.fecha2_requerido == false) {
-        $("#id_fecha2").val("");
+        // $("#id_fecha2").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_fecha2" ).removeClass( "invalid" )
       }else{
@@ -492,12 +491,12 @@
               document.getElementById("id_textos").maxLength = long;
               break;
           case 'literal':
-              this.value = this.value.replace(/[^a-zA-Z]/g,'');
+              this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
               var long = datos[0].fields.texto_caractr;
               document.getElementById("id_textos").maxLength = long;
               break;
           default:
-              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
               var long = datos[0].fields.texto_caractr;
               document.getElementById("id_textos").maxLength = long;
         } //swicth
@@ -510,7 +509,7 @@
       }
 
       if (datos[0].fields.texto_requerido == false) {
-        $("#id_textos").val("");
+        // $("#id_textos").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_textos" ).removeClass( "invalid" )
       }else{
@@ -525,12 +524,12 @@
               document.getElementById("id_textos2").maxLength = long;
               break;
           case 'literal':
-              this.value = this.value.replace(/[^a-zA-Z]/g,'');
+              this.value = this.value.replace(/[^a-zA-Z.\s,]/g,'');
               var long = datos[0].fields.texto2_caractr;
               document.getElementById("id_textos2").maxLength = long;
               break;
           default:
-              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              this.value = this.value.replace(/[^0-9a-zA-Z.\s,]/g,''); 
               var long = datos[0].fields.texto2_caractr;
               document.getElementById("id_textos2").maxLength = long;
         } //swicth
@@ -543,7 +542,7 @@
       }
 
       if (datos[0].fields.texto2_requerido == false) {
-        $("#id_textos2").val("");
+        // $("#id_textos2").val("");
         $("#help_cod .help-block").prop("hidden", true);
         $( "#id_textos2" ).removeClass( "invalid" );
       }else{

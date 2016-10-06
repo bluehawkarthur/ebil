@@ -11,13 +11,13 @@
 
 <section id="content">
   <div class="row">
-    <form class="col s12 m12 l8 offset-l2"  method="POST" enctype='multipart/form-data'>
+    <form class="col s12 m12 l8 offset-l2" id="encabezado" method="POST" enctype='multipart/form-data'>
       <div class="card-panel">
         <h3 class="header2">Producto</h3>
           {% csrf_token %} 
 
             <div class="row">
-              <div class="input-field col s6 has-error">
+              <div class="input-field col s6 has-error input-codigo">
                 <span class="help-block">{{ form.errors.codigo_item|removetags:'ul li' }}</span>
                 {{ form.codigo_item|add_error_class:"invalid" }}
                 <label for="emails">{{ form.codigo_item.label }}</label>
@@ -28,23 +28,6 @@
               {{ form.almacen|add_error_class:"invalid" }}
                 <label for="email">{{ form.almacen.label }}</label>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s6 has-error">
-                <span class="help-block">{{ form.errors.subgrupo|removetags:'ul li' }}</span>
-                {{ form.subgrupo|add_error_class:"invalid" }}
-                <label for="emails">{{ form.subgrupo.label }}</label>
-              </div>
-
-              <div class="input-field col s6 has-error">
-                <span class="help-block">{{ form.errors.carac_especial_1|removetags:'ul li' }}</span>
-              {{ form.carac_especial_1|add_error_class:"invalid" }}
-                <label for="email">{{ form.carac_especial_1.label }}</label>
-              </div>
-            </div> 
-
-            <div class="row">
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.cantidad|removetags:'ul li' }}</span>
                 {{ form.cantidad|add_error_class:"invalid" }}
@@ -56,9 +39,8 @@
               {{ form.proveedor|add_error_class:"invalid" }}
                 <label for="email">{{ form.proveedor.label }}</label>
               </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6 has-error">
+           
+              <div class="input-field col s6 has-error input-unidad_medid">
                 <span class="help-block">{{ form.errors.unidad_medida|removetags:'ul li' }}</span>
                 {{ form.unidad_medida|add_error_class:"invalid" }}
                 <label for="emails">{{ form.unidad_medida.label }}</label>
@@ -69,60 +51,77 @@
               {{ form.precio_unitario|add_error_class:"invalid" }}
                 <label for="email">{{ form.precio_unitario.label }}</label>
               </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6 has-error">
+            
+              <div class="input-field col s6 has-error input-fabrica">
                 <span class="help-block">{{ form.errors.codigo_fabrica|removetags:'ul li' }}</span>
                 {{ form.codigo_fabrica|add_error_class:"invalid" }}
                 <label for="emails">{{ form.codigo_fabrica.label }}</label>
               </div>
 
-              <div class="input-field col s6 has-error">
-                <span class="help-block">{{ form.errors.grupo|removetags:'ul li' }}</span>
-              {{ form.grupo|add_error_class:"invalid" }}
-                <label for="email">{{ form.grupo.label }}</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6 has-error">
+              <div class="input-field col s6 has-error input-descripcion">
                 <span class="help-block">{{ form.errors.descripcion|removetags:'ul li' }}</span>
                 {{ form.descripcion|add_error_class:"invalid" }}
                 <label for="emails">{{ form.descripcion.label }}</label>
               </div>
 
-              <div class="input-field col s6 has-error">
+              <div class="input-field col s6 has-error input-grupo">
+                <span class="help-block">{{ form.errors.grupo|removetags:'ul li' }}</span>
+              {{ form.grupo|add_error_class:"invalid" }}
+                <label for="email">{{ form.grupo.label }}</label>
+              </div>
+              <div class="input-field col s6 has-error input-subgrupo">
+                <span class="help-block">{{ form.errors.subgrupo|removetags:'ul li' }}</span>
+                {{ form.subgrupo|add_error_class:"invalid" }}
+                <label for="emails">{{ form.subgrupo.label }}</label>
+              </div>
+            
+              <div class="input-field col s6 has-error input-caract_espec1">
+                <span class="help-block">{{ form.errors.carac_especial_1|removetags:'ul li' }}</span>
+              {{ form.carac_especial_1|add_error_class:"invalid" }}
+                <label for="email">{{ form.carac_especial_1.label }}</label>
+              </div>
+
+              <div class="input-field col s6 has-error input-carac_especial_2">
                 <span class="help-block">{{ form.errors.carac_especial_2|removetags:'ul li' }}</span>
               {{ form.carac_especial_2|add_error_class:"invalid" }}
                 <label for="email">{{ form.carac_especial_2.label }}</label>
               </div>
-            </div>
-            <div class="row">
+            
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.saldo_min|removetags:'ul li' }}</span>
                 {{ form.saldo_min|add_error_class:"invalid" }}
                 <label for="emails">{{ form.saldo_min.label }}</label>
               </div>
 
-              <div class="file-field input-field col s6 has-error"> 
+              <div class="file-field input-field col s6 has-error input-imgen"> 
                 <div class="btn btn-file">
                   <span>{{ form.imagen.label }}</span>
                   {{ form.imagen|add_error_class:"invalid" }}  
+
                 </div>
+
+                <!-- <div id="im"></div> -->
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text">
                   <span class="help-block">{{ form.errors.imagen|removetags:'ul li' }}</span>
+
+                  <img id="image_upload_preview" style="width:150px" src="http://placehold.it/100x100" alt="your image" />
                 </div>
               </div>
-            </div>
-            <div class="row">
+            
               <div class="input-field col s6 has-error">
                 <span class="help-block">{{ form.errors.costo_unitario|removetags:'ul li' }}</span>
                 {{ form.costo_unitario|add_error_class:"invalid" }}
                 <label for="emails">{{ form.costo_unitario.label }}</label>
               </div>
             </div>                  
-        <div class="row">                   
-          <div class="input-field col s12">
+        <div class="row">  
+        <div class="input-field col s6">
+          <a href="/listar_item" class="btn light-green waves-effect waves-light right"><i class="mdi-content-undo left"></i> Volver  Atras</a>
+        </div>                 
+          <div class="input-field col s6">
+            
+
             <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Guardar
               <i class="mdi-content-send right"></i>
             </button>
@@ -134,8 +133,281 @@
   </div>
 </section>
  {% endblock %}
+{% block js %}
+   <script type="text/javascript">
+
+    $.ajax({
+      url: '/configalmacen/',
+      dataType: 'json',
+      type: 'GET',
+      success: function(datos) {
+      
+      
+      // $("#encabezado").validate({
+      //     rules: {
+      //         codigo_item: {
+      //             required: true,
+      //         },
+      //         almacen: {
+      //             required: true,
+                 
+      //         },
+      //         cantidad: {
+      //             required: true,
+               
+      //         },
+      //         precio_unitario: {
+      //             required: true,
+               
+      //         },
+      //         descripcion: {
+      //             required: true,
+               
+      //         },
+      //         saldo_min: {
+      //             required: true,
+               
+      //         },
+      //         costo_unitario: {
+      //             required: true,
+               
+      //         }
+      //     }
+      // });
+      
+      // validator de codigo fabrica de item y editar de almacen
+      $('#id_codigo_fabrica').keyup(function () {
+        switch(datos[0].fields.codigo_fabricatipo) {
+          case 'numerico':
+              this.value = this.value.replace(/[^0-9]/g,'');
+              var long = datos[0].fields.codigo_fabricacaractr;
+              document.getElementById("id_codigo_fabrica").maxLength = long;
+              break;
+          case 'literal':
+              this.value = this.value.replace(/[^a-zA-Z]/g,'');
+              var long = datos[0].fields.codigo_fabricacaractr;
+              document.getElementById("id_codigo_fabrica").maxLength = long;
+              break;
+          default:
+              this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+              var long = datos[0].fields.codigo_fabricacaractr;
+              document.getElementById("id_codigo_fabrica").maxLength = long;
+        } //swicth
+      }); //keyup
+
+      if (datos[0].fields.codigo_fabr_usar == false) {
+        // $( "#id_codigo_fabrica" ).prop( "disabled", true );
+        $( ".input-fabrica" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_codigo_fabrica" ).removeClass( "invalid" )
+
+      }
+
+      if (datos[0].fields.codigo_fabr_reque == false) {
+        // $("#id_codigo_fabrica").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_codigo_fabrica" ).removeClass( "invalid" )
+      }else{
+        $("#id_codigo_fabrica").prop("required", true);
+      }
+
+      // validator de codigo fabrica de item y editar de almacen
+      $('#id_carac_especial_1').keyup(function () {
+        switch(datos[0].fields.caract_espectipo) {
+          case 'numerico':
+            this.value = this.value.replace(/[^0-9]/g,'');
+            var long = datos[0].fields.caract_especaractr;
+            document.getElementById("id_carac_especial_1").maxLength = long;
+            break
+          case 'literal':
+            this.value = this.value.replace(/[^a-zA-Z]/g,'');
+            var long = datos[0].fields.caract_especaractr;
+            document.getElementById("id_carac_especial_1").maxLength = long;
+            break;
+          default:
+            this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+            var long = datos[0].fields.caract_especaractr;
+            document.getElementById("id_carac_especial_1").maxLength = long;
+        } //swicth
+      }); //keyup
+
+      if (datos[0].fields.caract_espec_usar == false) {
+        // $( "#id_carac_especial_1" ).prop( "disabled", true );
+        $( ".input-caract_espec1" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_carac_especial_1" ).removeClass( "invalid" )
+      }
+
+      if (datos[0].fields.caract_espec_requerid== false) {
+        // $("#id_carac_especial_1").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_carac_especial_1" ).removeClass( "invalid" )
+      }else{
+        $("#id_carac_especial_1").prop("required", true);
+      }
+
+          
+    // validator de codigo fabrica de item y editar de almacen
+      $('#id_unidad_medida').keyup(function () {
+        switch(datos[0].fields.unidad_medidatipo) {
+          case 'numerico':
+            this.value = this.value.replace(/[^0-9]/g,'');
+            var long = datos[0].fields.unidad_medidacaractr;
+            document.getElementById("id_unidad_medida").maxLength = long;
+            break;
+          case 'literal':
+            this.value = this.value.replace(/[^a-zA-Z]/g,'');
+            var long = datos[0].fields.unidad_medidacaractr;
+            document.getElementById("id_unidad_medida").maxLength = long;
+            break;
+          default:
+            this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+            var long = datos[0].fields.unidad_medidacaractr;
+            document.getElementById("id_unidad_medida").maxLength = long;
+        } //swicth
+      }); //keyup
+
+
+      if (datos[0].fields.unidad_medid_usar == false) {
+        // $( "#id_unidad_medida" ).prop( "disabled", true );
+        $( ".input-unidad_medid" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_unidad_medida" ).removeClass( "invalid" )
+
+        }
+
+      if (datos[0].fields.unidad_medid_requerido == false) {
+        // $("#id_unidad_medida").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_unidad_medida" ).removeClass( "invalid" )
+        }else{
+          $("#id_unidad_medida").prop("required", true);
+      }
+
+      if (datos[0].fields.imagen_usar == false) {
+        // $( "#id_imagen" ).prop( "disabled", true );
+        $( ".input-imgen" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_imagen" ).removeClass( "invalid" )
+
+        }
+
+       // validator de grupo de item y editar de almacen
+      $('#id_grupo').keyup(function () {
+        switch(datos[0].fields.grupo_tipo) {
+          case 'numerico':
+            this.value = this.value.replace(/[^0-9]/g,'');
+            var long = datos[0].fields.grupo_caractr;
+            document.getElementById("id_grupo").maxLength = long;
+            break;
+          case 'literal':
+            this.value = this.value.replace(/[^a-zA-Z]/g,'');
+            var long = datos[0].fields.grupo_caractr;
+            document.getElementById("id_grupo").maxLength = long;
+            break;
+          default:
+            this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+            var long = datos[0].fields.grupo_caractr;
+            document.getElementById("id_grupo").maxLength = long;
+        } //swicth
+      }); //keyup
+
+
+      if (datos[0].fields.grupo_usar == false) {
+        // $( "#id_unidad_medida" ).prop( "disabled", true );
+        $( ".input-grupo" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_grupo" ).removeClass( "invalid" )
+
+        }
+
+      if (datos[0].fields.grupo_requerido == false) {
+        // $("#id_grupo").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_grupo" ).removeClass( "invalid" )
+        }else{
+          $("#id_grupo").prop("required", true);
+      }
+
+       // validator de subgrupo de item y editar de almacen
+      $('#id_subgrupo').keyup(function () {
+        switch(datos[0].fields.grupo_tipo) {
+          case 'numerico':
+            this.value = this.value.replace(/[^0-9]/g,'');
+            var long = datos[0].fields.unidad_medidacaractr;
+            document.getElementById("id_subgrupo").maxLength = long;
+            break;
+          case 'literal':
+            this.value = this.value.replace(/[^a-zA-Z]/g,'');
+            var long = datos[0].fields.unidad_medidacaractr;
+            document.getElementById("id_subgrupo").maxLength = long;
+            break;
+          default:
+            this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+            var long = datos[0].fields.unidad_medidacaractr;
+            document.getElementById("id_subgrupo").maxLength = long;
+        } //swicth
+      }); //keyup
+
+
+      if (datos[0].fields.subgrupo_usar == false) {
+        // $( "#id_unidad_medida" ).prop( "disabled", true );
+        $( ".input-subgrupo" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_subgrupo" ).removeClass( "invalid" )
+
+        }
+
+      if (datos[0].fields.subgrupo_requerido == false) {
+        // $("#id_subgrupo").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_subgrupo" ).removeClass( "invalid" )
+        }else{
+          $("#id_subgrupo").prop("required", true);
+      }
+
+       // validator de carac_especial_2 de item y editar de almacen
+      $('#id_carac_especial_2').keyup(function () {
+        switch(datos[0].fields.grupo_tipo) {
+          case 'numerico':
+            this.value = this.value.replace(/[^0-9]/g,'');
+            var long = datos[0].fields.carac_especial_2_caractr;
+            document.getElementById("id_carac_especial_2").maxLength = long;
+            break;
+          case 'literal':
+            this.value = this.value.replace(/[^a-zA-Z]/g,'');
+            var long = datos[0].fields.carac_especial_2_caractr;
+            document.getElementById("id_carac_especial_2").maxLength = long;
+            break;
+          default:
+            this.value = this.value.replace(/[^0-9a-zA-Z]/g,''); 
+            var long = datos[0].fields.carac_especial_2_caractr;
+            document.getElementById("id_carac_especial_2").maxLength = long;
+        } //swicth
+      }); //keyup
+
+
+      if (datos[0].fields.carac_especial_2_usar == false) {
+        // $( "#id_unidad_medida" ).prop( "disabled", true );
+        $( ".input-carac_especial_2" ).css( "display", 'none' );
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_carac_especial_2" ).removeClass( "invalid" )
+
+        }
+
+      if (datos[0].fields.carac_especial_2_requerido == false) {
+        // $("#id_carac_especial_2").val("");
+        $("#help_cod .help-block").prop("hidden", true);
+        $( "#id_carac_especial_2" ).removeClass( "invalid" )
+        }else{
+          $("#id_carac_especial_2").prop("required", true);
+      }
+      } //success
+    });
+
+    $('#proveedor> option[value="{{form.proveedor.value}}"]').attr('selected', 'selected');
+  </script>
+ {% endblock js %}
 
 
  
-
-
